@@ -1,0 +1,12 @@
+[submodule "extern/glfw"]
+	path = extern/glfw
+	url = https://github.com/glfw/glfw
+[submodule "extern/googlemock"]
+	path = extern/googlemock
+	url = https://chromium.googlesource.com/external/googlemock
+[submodule "extern/gtest"]
+	path = extern/gtest
+	url = https://chromium.googlesource.com/external/googletest
+[submodule "extern/kazmath"]
+	path = extern/kazmath
+	url = https://github.com/Kazade/kazmath.git
