@@ -8,6 +8,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "slscontext.h"
+#include "slsloop.h"
 #include "slsutils.h"
+
+#include "math/mathmacs.h"
 
 #endif //DANGERENGINE_DANGERENGINE_H

@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 3.1)
+
 project(dangerengine)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fblocks")
+endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
 find_package(OpenGL)
 
@@ -13,9 +18,11 @@ add_subdirectory(extern/kazmath)
 set(DANGER_SRC
     src/slscontext.h
     src/slscontext.c
-    src/slsutils.c)
+    src/slsutils.c
+    src/slsloop.c)
 
 set (DANGER_TEST_SRC
+    tests/c_cases.c
     tests/main.cc)
 
 add_library(dangerengine ${DANGER_SRC})
@@ -25,6 +32,15 @@ set(DANGER_DEPS
     kazmath
     ${GLFW_LIBRARIES}
     ${OPENGL_gl_LIBRARY})
+
+if (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
+    find_library(BLOCKS blocks)
+    find_library(DISPATCH dispatch)
+    set(DANGER_DEPS
+        ${DANGER_DEPS}
+        ${BLOCKS}
+        ${DISPATCH})
+endif (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
 
 include_directories(
     ${GLFW_SOURCE_DIR}/include

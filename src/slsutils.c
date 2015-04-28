@@ -10,10 +10,10 @@
 void *sls_objalloc(void const *prototype, size_t size) {
     void *obj = NULL;
     obj = calloc(size, 1);
-    if (!obj) {
-        fprintf(stderr, "memory error!\n");
-        return NULL;
-    }
+    sls_checkmem(obj);
     memcpy(obj, prototype, size);
     return obj;
+
+error:
+    return NULL;
 }
