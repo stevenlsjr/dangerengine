@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{827E5F96-6060-4DAD-8C29-E9E3391BF290}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\bin\cmake.exe -HC:/Users/Steven/dangerengine -BC:/Users/Steven/dangerengine/vs --check-stamp-file C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindOpenGL.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindThreads.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckIncludeFiles.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckLibraryExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckSymbolExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindDoxygen.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakePackageConfigHelpers.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\WriteBasicConfigVersionFile.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3Config.cmake.in;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\docs\Doxyfile.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw_config.h.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3.pc.in;C:\Users\Steven\dangerengine\extern\glfw\cmake_uninstall.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\bin\cmake.exe -HC:/Users/Steven/dangerengine -BC:/Users/Steven/dangerengine/vs --check-stamp-file C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindOpenGL.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindThreads.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckIncludeFiles.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckLibraryExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckSymbolExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindDoxygen.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakePackageConfigHelpers.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\WriteBasicConfigVersionFile.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3Config.cmake.in;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\docs\Doxyfile.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw_config.h.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3.pc.in;C:\Users\Steven\dangerengine\extern\glfw\cmake_uninstall.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\bin\cmake.exe -HC:/Users/Steven/dangerengine -BC:/Users/Steven/dangerengine/vs --check-stamp-file C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindOpenGL.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindThreads.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckIncludeFiles.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckLibraryExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckSymbolExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindDoxygen.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakePackageConfigHelpers.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\WriteBasicConfigVersionFile.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3Config.cmake.in;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\docs\Doxyfile.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw_config.h.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3.pc.in;C:\Users\Steven\dangerengine\extern\glfw\cmake_uninstall.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\bin\cmake.exe -HC:/Users/Steven/dangerengine -BC:/Users/Steven/dangerengine/vs --check-stamp-file C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/Steven/dangerengine/extern/glfw/CMakeLists.txt;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindOpenGL.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindThreads.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckIncludeFiles.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckLibraryExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CheckSymbolExists.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindDoxygen.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageHandleStandardArgs.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\FindPackageMessage.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakePackageConfigHelpers.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\WriteBasicConfigVersionFile.cmake;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\CMakeParseArguments.cmake;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3Config.cmake.in;C:\ProgramData\chocolatey\lib\cmake.3.1.3\content\cmake-3.1.3-win32-x86\share\cmake-3.1\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\docs\Doxyfile.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw_config.h.in;C:\Users\Steven\dangerengine\extern\glfw\src\glfw3.pc.in;C:\Users\Steven\dangerengine\extern\glfw\cmake_uninstall.cmake.in;C:\Users\Steven\dangerengine\extern\glfw\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Steven\dangerengine\vs\extern\glfw\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/accuracy.vcxproj">
+      <Project>C34AE26D-30C6-47BA-BC7D-82F2DE4F2DEA</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/boing.vcxproj">
+      <Project>43414E09-BDBC-403C-BB8D-94E4961D9181</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/clipboard.vcxproj">
+      <Project>41D35ED7-16CC-42B3-86ED-642784F5D4B0</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/cursor.vcxproj">
+      <Project>F6E5CC01-637F-4C50-B0A4-528D0911A8AE</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/cursoranim.vcxproj">
+      <Project>4A92CF6C-5BBF-4302-968A-6F50F0E05304</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/defaults.vcxproj">
+      <Project>947CAB31-E032-4595-86EE-1905C01CB075</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/empty.vcxproj">
+      <Project>E1D73B4A-BD45-4069-B521-B973279C8A24</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/events.vcxproj">
+      <Project>B79DBDCF-3162-4A85-8EC5-DF9F8FCC48A5</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/fsaa.vcxproj">
+      <Project>BB404F1C-27B9-45C7-AA58-9FBD1A29DE46</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/gamma.vcxproj">
+      <Project>45013232-3BAA-4AF9-B3A2-A1469D3B5E34</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/gears.vcxproj">
+      <Project>BADCCF9F-26A1-499F-9310-98BBAB44233C</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/src/glfw.vcxproj">
+      <Project>275324B3-AAD2-4C3A-BB59-A1DE5BE8FECC</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/glfwinfo.vcxproj">
+      <Project>730DF687-9766-4C49-B8F2-BF2403F4FC48</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/heightmap.vcxproj">
+      <Project>F3D186A1-7EA6-4463-8736-1D487589BAE4</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/iconify.vcxproj">
+      <Project>4A0945ED-A583-4E3C-A38A-6EE422C1B937</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/joysticks.vcxproj">
+      <Project>802C0427-E1B5-40F0-AE9F-48640C9F2AF8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/monitors.vcxproj">
+      <Project>FC4A91B3-BAE0-4133-BBD0-8F152977FAA2</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/particles.vcxproj">
+      <Project>B1FCA0CB-A8C9-4121-9469-3E979D7809D7</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/peter.vcxproj">
+      <Project>48C732A6-E2FB-453F-B250-8A2D156B9883</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/reopen.vcxproj">
+      <Project>CCBC44EC-40CF-4CBD-A886-D90C163D6CBB</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/sharing.vcxproj">
+      <Project>9DE6EA16-E63B-42E5-BCE7-FC49E8671B0F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/simple.vcxproj">
+      <Project>3A9CCC0B-7468-4DC4-AAC7-049D9496B4E1</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/splitview.vcxproj">
+      <Project>CEA74B77-3719-46FE-A123-6ED4B1B1C96F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/tearing.vcxproj">
+      <Project>950A7E16-8D33-4191-92BA-76F1791E54D7</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/threads.vcxproj">
+      <Project>D1675EB6-8AFC-4C01-A514-ECD8033C3BD5</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/title.vcxproj">
+      <Project>6337DF0C-30FA-423A-9C7C-2DD8E0E47DCA</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/examples/wave.vcxproj">
+      <Project>BDE4529F-24C8-4D98-A93F-2EA476C906C6</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/tests/windows.vcxproj">
+      <Project>C481B3FD-3F08-41A8-ADE3-D997706BC731</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

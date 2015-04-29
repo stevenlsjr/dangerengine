@@ -33,14 +33,7 @@ set(DANGER_DEPS
     ${GLFW_LIBRARIES}
     ${OPENGL_gl_LIBRARY})
 
-if (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
-    find_library(BLOCKS blocks)
-    find_library(DISPATCH dispatch)
-    set(DANGER_DEPS
-        ${DANGER_DEPS}
-        ${BLOCKS}
-        ${DISPATCH})
-endif (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
+
 
 include_directories(
     ${GLFW_SOURCE_DIR}/include
