@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{CEA74B77-3719-46FE-A123-6ED4B1B1C96F}</ProjectGUID>
+    <ProjectGUID>{C0D33184-B3CF-481E-915B-3C03A8F0D6D6}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>splitview</ProjectName>
@@ -325,10 +325,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/ZERO_CHECK.vcxproj">
-      <Project>251F0CB3-DD91-48BD-9406-781D0D1C20D7</Project>
+      <Project>D5DDF515-61C8-40CB-B874-FFEF4BD23FC3</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/src/glfw.vcxproj">
-      <Project>275324B3-AAD2-4C3A-BB59-A1DE5BE8FECC</Project>
+      <Project>63DBE87E-EA8B-4874-9C5B-028EE69AA544</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

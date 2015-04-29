@@ -37,19 +37,13 @@
     <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\ray3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\GL\mat4stack.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\GL\matrix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{AF411670-4019-4AFA-B5F6-7795436DAC3B}</UniqueIdentifier>
+      <UniqueIdentifier>{96BA2DCD-AD6A-49AC-8777-E7EF3B825E79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

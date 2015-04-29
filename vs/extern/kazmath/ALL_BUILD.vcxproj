@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{827E5F96-6060-4DAD-8C29-E9E3391BF290}</ProjectGUID>
+    <ProjectGUID>{A01C856A-2EBE-45AB-BE82-B69C19B6B07F}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -163,7 +163,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/kazmath/kazmath/kazmath.vcxproj">
-      <Project>3BD9BDA2-6487-4CE2-B1C2-89A13BA9FC16</Project>
+      <Project>1B75F7D1-A6A6-4E7D-AA4E-23AB02D6E334</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

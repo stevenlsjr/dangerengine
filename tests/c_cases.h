@@ -9,9 +9,10 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
 
+    typedef char *(*MinunitTestFn)();
 
+    char *c_run_all_tests();
 
 
 #ifdef __cplusplus

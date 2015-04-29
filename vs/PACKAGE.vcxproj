@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{5EADD46D-7258-498D-9AA4-D8F2AC0BCAC7}</ProjectGUID>
+    <ProjectGUID>{63FEBF52-9F0A-4083-BD8D-90B57373D64A}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>PACKAGE</ProjectName>
@@ -65,7 +65,7 @@
     </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;C:\Users\Steven\dangerengine\vs\packages\glew.1.9.0.1\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -91,7 +91,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;C:\Users\Steven\dangerengine\vs\packages\glew.1.9.0.1\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -117,7 +117,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;C:\Users\Steven\dangerengine\vs\packages\glew.1.9.0.1\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -143,7 +143,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Steven\dangerengine\extern\glfw\include;C:\Users\Steven\dangerengine\extern\kazmath;C:\Users\Steven\dangerengine\extern\googlemock\include;C:\Users\Steven\dangerengine\extern\gtest\include;C:\Users\Steven\dangerengine\vs\packages\glew.1.9.0.1\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -225,7 +225,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/ALL_BUILD.vcxproj">
-      <Project>827E5F96-6060-4DAD-8C29-E9E3391BF290</Project>
+      <Project>A01C856A-2EBE-45AB-BE82-B69C19B6B07F</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

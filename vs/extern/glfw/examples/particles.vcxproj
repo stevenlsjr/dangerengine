@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{B1FCA0CB-A8C9-4121-9469-3E979D7809D7}</ProjectGUID>
+    <ProjectGUID>{994951B9-9B95-41ED-BA4D-2364EE8A126E}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>particles</ProjectName>
@@ -329,10 +329,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/ZERO_CHECK.vcxproj">
-      <Project>251F0CB3-DD91-48BD-9406-781D0D1C20D7</Project>
+      <Project>D5DDF515-61C8-40CB-B874-FFEF4BD23FC3</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/src/glfw.vcxproj">
-      <Project>275324B3-AAD2-4C3A-BB59-A1DE5BE8FECC</Project>
+      <Project>63DBE87E-EA8B-4874-9C5B-028EE69AA544</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

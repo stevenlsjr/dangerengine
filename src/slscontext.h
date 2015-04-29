@@ -5,7 +5,6 @@
 #ifndef DANGERENGINE_SLSCONTEXT_H
 #define DANGERENGINE_SLSCONTEXT_H
 
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 typedef struct slsContext slsContext;

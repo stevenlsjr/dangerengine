@@ -10,9 +10,27 @@
     <ClCompile Include="C:\Users\Steven\dangerengine\src\slsloop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Steven\dangerengine\src\sls-handlers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\Steven\dangerengine\src\slscontext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\slsutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\slsloop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\sls-handlers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\dangerengine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\math\mathmacs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -21,10 +39,10 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{AF411670-4019-4AFA-B5F6-7795436DAC3B}</UniqueIdentifier>
+      <UniqueIdentifier>{96BA2DCD-AD6A-49AC-8777-E7EF3B825E79}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{9CC2DA07-06D3-46B7-88D7-ACB5DF0D1882}</UniqueIdentifier>
+      <UniqueIdentifier>{D2ACEB8B-D309-45A0-84CF-A7E2653FCEAD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

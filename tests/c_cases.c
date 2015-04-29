@@ -6,48 +6,32 @@
 #include "c_cases.h"
 #include "../src/dangerengine.h"
 
+/* file: minunit.h */
+#define mu_assert(message, test) do { \
+        if (!(test)) { \
+            sls_log_err("assertion %s failed: case %s", #test, __func__);   \
+            return message;\
+        }\
+    } while (0)
 
-#include <kazmath/kazmath.h>
+#define mu_run_test(test) do { char *message = test(); tests_run++; \
+                                if (message) return message; } while (0)
+
+static int tests_run;
 
 
-
-bool sls_add_vec2() {
-    bool res = false;
-    kmVec2 a = {1, 2};
-    kmVec2 b = {1, 2};
-
-
-    kmVec2 c = sls_vec2_add(&a, &b);
-    kmVec2 exp = {2, 4};
-    res = (bool)kmVec2AreEqual(&c, &exp);
-    if (!res) {
-        fprintf(stderr, "c: {%f %f} should equal {%f %f}\n", c.x, c.y, exp.x, exp.y);
-    }
-
-    return res;
-}
-
-bool sls_add_vec3()
+char *c_test_ctx()
 {
-    bool res = false;
-
-    kmVec3 a = {2, 3, 4};
-    kmVec3 b = {2, 3, 4};
-
-    kmVec3 exp = {2, 3, 4};
-    kmVec3 c;
-    c = sls_vec3_add(&a, &b);
-
-
-    res = (bool)kmVec3AreEqual(&c, &exp);
-    if (!res) {
-        fprintf(stderr, "%s failed\n", __func__);
-    }
-
-    return res;
+    mu_assert("1 == 1", 1 == 2);
+    return NULL;
 }
 
-bool sls_test_addmacro() {
-
-    return sls_add_vec2() && sls_add_vec3();
+char *c_run_all_tests()
+{
+    MinunitTestFn fns[] = {c_test_ctx};
+    const size_t n = sizeof(fns) / sizeof(MinunitTestFn);
+    for (size_t i = 0; i < n; ++i) {
+        mu_run_test(fns[i]);
+    }
+    return NULL;
 }

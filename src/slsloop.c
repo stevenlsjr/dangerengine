@@ -6,7 +6,6 @@
 #include "slsutils.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx);
 

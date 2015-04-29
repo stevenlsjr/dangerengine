@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{827E5F96-6060-4DAD-8C29-E9E3391BF290}</ProjectGUID>
+    <ProjectGUID>{A01C856A-2EBE-45AB-BE82-B69C19B6B07F}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -163,16 +163,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/googlemock/gmock.vcxproj">
-      <Project>0C7F938F-D58F-4E14-A64D-A6831302A1D5</Project>
+      <Project>711D0A03-1ABD-4A0D-8746-0266D8AFA23C</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/googlemock/gmock_main.vcxproj">
-      <Project>038DE058-16F8-47D2-8BA9-04FE5F6C2EA2</Project>
+      <Project>DB7780FA-EE15-4F99-8B50-E515EEA31BB9</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/googlemock/gtest/gtest.vcxproj">
-      <Project>C6244B19-441C-479F-BA99-1CF845BA2C9D</Project>
+      <Project>BE9F6973-2CBB-448F-BEEE-1CCDE7D3D2D6</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/googlemock/gtest/gtest_main.vcxproj">
-      <Project>19987722-3BE8-4B65-B578-F439BC6F4AE6</Project>
+      <Project>494F328E-B689-4658-B2B4-8129A90942D3</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

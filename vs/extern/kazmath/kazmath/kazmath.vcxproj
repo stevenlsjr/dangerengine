@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{3BD9BDA2-6487-4CE2-B1C2-89A13BA9FC16}</ProjectGUID>
+    <ProjectGUID>{1B75F7D1-A6A6-4E7D-AA4E-23AB02D6E334}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>kazmath</ProjectName>
@@ -265,12 +265,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\aabb3.c"  />
     <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\ray2.c"  />
     <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\ray3.c"  />
-    <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\GL\mat4stack.c"  />
-    <ClCompile Include="C:\Users\Steven\dangerengine\extern\kazmath\kazmath\GL\matrix.c"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/ZERO_CHECK.vcxproj">
-      <Project>251F0CB3-DD91-48BD-9406-781D0D1C20D7</Project>
+      <Project>D5DDF515-61C8-40CB-B874-FFEF4BD23FC3</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

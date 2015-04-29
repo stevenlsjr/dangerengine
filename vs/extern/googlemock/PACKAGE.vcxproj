@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{5EADD46D-7258-498D-9AA4-D8F2AC0BCAC7}</ProjectGUID>
+    <ProjectGUID>{63FEBF52-9F0A-4083-BD8D-90B57373D64A}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>PACKAGE</ProjectName>
@@ -225,7 +225,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/googlemock/ALL_BUILD.vcxproj">
-      <Project>827E5F96-6060-4DAD-8C29-E9E3391BF290</Project>
+      <Project>A01C856A-2EBE-45AB-BE82-B69C19B6B07F</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

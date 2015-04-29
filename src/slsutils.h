@@ -19,6 +19,14 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
+
+
+#ifdef WIN32
+#undef __func__
+#define __func__ __FUNCTION__  
+#endif
 
 
 /**
@@ -86,5 +94,12 @@
  * @return [description]
  */
 void *sls_objalloc(void const *prototype, size_t size);
+
+static void sls_sleep(clock_t ticks)
+{
+    clock_t init_time = clock();
+    bool waiting = true;
+    while (clock() - init_time < ticks) {}
+}
 
 #endif //DANGERENGINE_SLSUTILS_H

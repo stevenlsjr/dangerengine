@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{34DF35B4-0A7F-40E6-943B-2CA061C0ABD7}</ProjectGUID>
+    <ProjectGUID>{26B0BDA1-B895-4A09-912F-07C265966B44}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>INSTALL</ProjectName>
@@ -209,7 +209,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/Steven/dangerengine/vs/extern/glfw/ALL_BUILD.vcxproj">
-      <Project>827E5F96-6060-4DAD-8C29-E9E3391BF290</Project>
+      <Project>A01C856A-2EBE-45AB-BE82-B69C19B6B07F</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
