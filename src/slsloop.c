@@ -4,6 +4,7 @@
 
 #include "slsloop.h"
 #include "slsutils.h"
+#include "sls-handlers.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -59,6 +60,12 @@ slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx)
 {
   sls_checkmem(self);
   sls_checkmem(ctx);
+
+  self->priv = calloc(1, sizeof(slsMainLoop_p));
+  sls_checkmem(self->priv);
+
+  self->priv->ctx = ctx;
+
   return self;
 
   error:
@@ -71,15 +78,25 @@ slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx)
 
 void sls_mainloop_run(slsMainLoop *self)
 {
+  sls_checkmem(self);
+  sls_checkmem(self->priv);
+  sls_checkmem(self->priv->ctx);
+
   clock_t last = clock();
   clock_t now = last;
   clock_t dt = 0;
   self->is_running = true;
+
+  slsContext *ctx = self->priv->ctx;
+
+  sls_bind_context(ctx);
+
+
   while (self->is_running) {
     now = clock();
     dt += now - last;
     last = now;
-
+    
     if (dt >= self->interval) {
       double ddt = dt / (double) CLOCKS_PER_SEC;
       dt = 0;
@@ -87,7 +104,17 @@ void sls_mainloop_run(slsMainLoop *self)
       sls_msg(self, display, ddt);
     }
 
+    glfwPollEvents();
+
+    if (glfwWindowShouldClose(ctx->window)) {
+      self->is_running = false;
+      
+    }
   }
+  return;
+error:
+  return;
+  sls_log_err("error label reached %s", __func__);
 }
 
 void sls_mainloop_update(slsMainLoop *self, double dt)
@@ -97,5 +124,7 @@ void sls_mainloop_update(slsMainLoop *self, double dt)
 
 void sls_mainloop_display(slsMainLoop *self, double dt)
 {
+  glClear(GL_COLOR_BUFFER_BIT);
 
+  glfwSwapBuffers(self->priv->ctx);
 }

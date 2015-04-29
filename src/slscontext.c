@@ -33,10 +33,11 @@ slsContext const *sls_context_class() {
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height)
 {
-    slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
+  
+  slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
 
 
-    return self->init(self, caption, width, height);
+  return self->init(self, caption, width, height);
 }
 
 
@@ -52,7 +53,9 @@ slsContext *sls_context_init(slsContext *self,
         bool res = sls_init();
     }
 
-    self->window = glfwCreateWindow((int)width, (int)height, caption, NULL, NULL);
+    char const *capA = caption ? caption: "";
+
+    self->window = glfwCreateWindow((int)width, (int)height, capA, NULL, NULL);
     sls_check(self->window, "window creation failed");
 
     sls_bind_context(self);

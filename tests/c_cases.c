@@ -6,32 +6,62 @@
 #include "c_cases.h"
 #include "../src/dangerengine.h"
 
+int tests_run;
+
+void c_test_setup(void* data);
+void c_test_teardown(void* data);
+
 /* file: minunit.h */
 #define mu_assert(message, test) do { \
-        if (!(test)) { \
-            sls_log_err("assertion %s failed: case %s", #test, __func__);   \
-            return message;\
-        }\
-    } while (0)
+    if (!(test)) {    \
+      sls_log_err("assertion %s failed: case %s", #test, __func__);   \
+      return message;   \
+    }   \
+  } while (0)
 
-#define mu_run_test(test) do { char *message = test(); tests_run++; \
-                                if (message) return message; } while (0)
+#define mu_run_test(test, setup, teardown) do { \
+  if (setup) (setup)(NULL); \
+  char *message = test(); tests_run++; \
+  if (message){ \
+    if (teardown) (teardown)(NULL);\
+    return message; \
+  } \
+} while (0)
 
-static int tests_run;
+
+void c_test_setup(void* data) 
+{ }
+
+void c_test_teardown(void* data) 
+{ }
 
 
-char *c_test_ctx()
+char const *c_test_ctx()
 {
-    mu_assert("1 == 1", 1 == 2);
-    return NULL;
+  slsContext *ctxA = sls_context_new("waegaew", 10, 10);
+  slsContext *ctxB = sls_context_new(NULL, 10, 10);
+
+  mu_assert("cxtA is non-null", ctxA);
+  mu_assert("cxtB is non-null", ctxB);
+
+  if (ctxA) { sls_msg(ctxA, dtor); }
+  if (ctxB) { sls_msg(ctxB, dtor); }
+
+  return NULL;
 }
 
-char *c_run_all_tests()
+
+
+char const *c_run_all_tests()
 {
-    MinunitTestFn fns[] = {c_test_ctx};
-    const size_t n = sizeof(fns) / sizeof(MinunitTestFn);
-    for (size_t i = 0; i < n; ++i) {
-        mu_run_test(fns[i]);
-    }
-    return NULL;
+  MinunitTestFn fns[] = { c_test_ctx };
+  const size_t n = sizeof(fns) / sizeof(MinunitTestFn);
+
+  for (size_t i = 0; i < n; ++i) {
+
+    mu_run_test(fns[i], c_test_setup, c_test_teardown);
+  }
+
+  return NULL;
+
 }

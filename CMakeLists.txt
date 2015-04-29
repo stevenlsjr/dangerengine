@@ -72,6 +72,9 @@ target_link_libraries(dangerbird_bin
     dangerengine
     ${DANGER_DEPS})
 
+
+# add a separate library for tests compiled in C. Used for supporting build
+# systems which don't compile C and C++ code separately
 add_library(dangerbird_c_tests ${DANGER_CTEST_SRC})
 target_link_libraries(dangerbird_c_tests dangerengine)
 
