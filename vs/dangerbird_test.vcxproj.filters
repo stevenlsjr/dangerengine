@@ -1,7 +1,10 @@
-﻿<?xml version="1.0" encoding="Windows-1252"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\Steven\dangerengine\tests\c_testrunner.cc">
+    <ClCompile Include="C:\Users\Steven\dangerengine\tests\minunit-runner.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Steven\dangerengine\tests\btree_test.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Steven\dangerengine\tests\main.cc">
@@ -13,7 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{96BA2DCD-AD6A-49AC-8777-E7EF3B825E79}</UniqueIdentifier>
+      <UniqueIdentifier>{FD5F14CC-3121-4221-9A36-4330425B295A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
