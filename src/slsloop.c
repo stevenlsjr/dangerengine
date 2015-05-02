@@ -35,6 +35,8 @@ static const slsMainLoop sls_mainloop_proto = {
   .priv = NULL
 };
 
+static slsMainLoop *sls_active_loop = NULL;
+
 const slsMainLoop *sls_mainloop_class()
 {
   return &sls_mainloop_proto;
@@ -72,6 +74,12 @@ slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx)
 
 void sls_mainloop_run(slsMainLoop *self)
 {
+  if (sls_active_loop) {
+    return;
+  } else {
+    sls_active_loop = self;
+  }
+
   clock_t last = clock();
   clock_t now = last;
   clock_t dt = 0;
@@ -89,6 +97,8 @@ void sls_mainloop_run(slsMainLoop *self)
     }
 
   }
+
+  sls_active_loop = NULL;
 }
 
 void sls_mainloop_update(slsMainLoop *self, double dt)
@@ -97,6 +107,14 @@ void sls_mainloop_update(slsMainLoop *self, double dt)
 }
 
 void sls_mainloop_display(slsMainLoop *self, double dt)
+{
+
+}
+
+void sls_mouse_button_callback(GLFWwindow *win,
+                               int button,
+                               int action,
+                               int mods)
 {
 
 }

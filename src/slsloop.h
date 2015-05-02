@@ -34,8 +34,9 @@ struct slsMainLoop {
 };
 
 const slsMainLoop *sls_mainloop_class();
-
 slsMainLoop *sls_mainloop_new(slsContext *ctx);
+
+
 
 
 #endif //DANGERENGINE_SLSLOOP_H
