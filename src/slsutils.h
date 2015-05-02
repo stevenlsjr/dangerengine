@@ -19,8 +19,17 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
 
 
+#ifdef WIN32
+#undef __func__
+#define __func__ __FUNCTION__  
+#endif
+
+
+#ifdef SLS_USE_COLORS
 /**
  * @brief ascii color code literals
  */
@@ -32,6 +41,19 @@
 #define SLS_COLOR_MAG       "\x1B[35m"
 #define SLS_COLOR_CYN       "\x1B[36m"
 #define SLS_COLOR_WHT       "\x1B[37m"
+
+#else
+
+#define SLS_COLOR_DEFAULT   ""
+#define SLS_COLOR_RED       ""
+#define SLS_COLOR_GRN       ""
+#define SLS_COLOR_YEL       ""
+#define SLS_COLOR_BLU       ""
+#define SLS_COLOR_MAG       ""
+#define SLS_COLOR_CYN       ""
+#define SLS_COLOR_WHT       ""
+
+#endif
 
 
 /**
@@ -68,7 +90,7 @@
     }   \
 } while (0)
 
-#define sls_checkmem(pointer) sls_check(pointer, "memory error!")
+#define sls_checkmem(pointer) sls_check((pointer), "memory error! %s", #pointer)
 
 #define sls_fail() sls_check(0, "reached fail location %s %d", __FILE__, __LINE__);
 
@@ -86,5 +108,12 @@
  * @return [description]
  */
 void *sls_objalloc(void const *prototype, size_t size);
+
+static void sls_sleep(clock_t ticks)
+{
+    clock_t init_time = clock();
+    bool waiting = true;
+    while (clock() - init_time < ticks) {}
+}
 
 #endif //DANGERENGINE_SLSUTILS_H

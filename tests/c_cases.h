@@ -9,10 +9,16 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
+    
+  struct MinunitCaseArray {
+    char **cases;
+    size_t n;
+  };
 
+  typedef char const *(*MinunitTestFn)();
+  char const *c_run_all_tests();
 
-
+  extern int tests_run;
 
 #ifdef __cplusplus
 };

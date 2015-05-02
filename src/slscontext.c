@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "sls-handlers.h"
+
 slsContext * sls_context_init(slsContext *self,
                               char const *caption,
                               size_t width,
@@ -31,10 +33,11 @@ slsContext const *sls_context_class() {
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height)
 {
-    slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
+  
+  slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
 
 
-    return self->init(self, caption, width, height);
+  return self->init(self, caption, width, height);
 }
 
 
@@ -46,26 +49,31 @@ slsContext *sls_context_init(slsContext *self,
     if (!self) { return NULL; }
     *self = sls_context_proto;
 
-    if (!glfwInit()) {
-        return NULL;
+    if (!sls_is_active()) {
+        bool res = sls_init();
     }
 
-    self->window = glfwCreateWindow((int)width, (int)height, caption, NULL, NULL);
-    if (self->window) {
-        glfwMakeContextCurrent(self->window);
-    } else {
-        fprintf(stderr, "window construction failed\n");
-        free(self);
-        self = NULL;
-    }
+    char const *capA = caption ? caption: "";
+
+    self->window = glfwCreateWindow((int)width, (int)height, capA, NULL, NULL);
+    sls_check(self->window, "window creation failed");
+
+    sls_bind_context(self);
 
     return self;
+error:
+    if (self && self->dtor) {
+        sls_msg(self, dtor);
+    }
+    else if (self) {
+        free(self);
+    }
+    return NULL;
 }
 
 void sls_context_dtor(slsContext *self)
 {
 
-    glfwTerminate();
     if (self) {
         free(self);
     }

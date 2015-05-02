@@ -6,48 +6,62 @@
 #include "c_cases.h"
 #include "../src/dangerengine.h"
 
+int tests_run;
 
-#include <kazmath/kazmath.h>
+void c_test_setup(void* data);
+void c_test_teardown(void* data);
+
+/* file: minunit.h */
+#define mu_assert(message, test) do { \
+    if (!(test)) {    \
+      sls_log_err("assertion %s failed: case %s", #test, __func__);   \
+      return message;   \
+    }   \
+  } while (0)
+
+#define mu_run_test(test, setup, teardown) do { \
+  if (setup) (setup)(NULL); \
+  char *message = test(); tests_run++; \
+  if (message){ \
+    if (teardown) (teardown)(NULL);\
+    return message; \
+  } \
+} while (0)
 
 
+void c_test_setup(void* data) 
+{ }
 
-bool sls_add_vec2() {
-    bool res = false;
-    kmVec2 a = {1, 2};
-    kmVec2 b = {1, 2};
+void c_test_teardown(void* data) 
+{ }
 
 
-    kmVec2 c = sls_vec2_add(&a, &b);
-    kmVec2 exp = {2, 4};
-    res = (bool)kmVec2AreEqual(&c, &exp);
-    if (!res) {
-        fprintf(stderr, "c: {%f %f} should equal {%f %f}\n", c.x, c.y, exp.x, exp.y);
-    }
-
-    return res;
-}
-
-bool sls_add_vec3()
+char const *c_test_ctx()
 {
-    bool res = false;
+  slsContext *ctxA = sls_context_new("waegaew", 10, 10);
+  slsContext *ctxB = sls_context_new(NULL, 10, 10);
 
-    kmVec3 a = {2, 3, 4};
-    kmVec3 b = {2, 3, 4};
+  mu_assert("cxtA is non-null", ctxA);
+  mu_assert("cxtB is non-null", ctxB);
 
-    kmVec3 exp = {2, 3, 4};
-    kmVec3 c;
-    c = sls_vec3_add(&a, &b);
+  if (ctxA) { sls_msg(ctxA, dtor); }
+  if (ctxB) { sls_msg(ctxB, dtor); }
 
-
-    res = (bool)kmVec3AreEqual(&c, &exp);
-    if (!res) {
-        fprintf(stderr, "%s failed\n", __func__);
-    }
-
-    return res;
+  return NULL;
 }
 
-bool sls_test_addmacro() {
 
-    return sls_add_vec2() && sls_add_vec3();
+
+char const *c_run_all_tests()
+{
+  MinunitTestFn fns[] = { c_test_ctx };
+  const size_t n = sizeof(fns) / sizeof(MinunitTestFn);
+
+  for (size_t i = 0; i < n; ++i) {
+
+    mu_run_test(fns[i], c_test_setup, c_test_teardown);
+  }
+
+  return NULL;
+
 }
