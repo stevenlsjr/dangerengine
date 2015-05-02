@@ -21,7 +21,7 @@ void c_test_teardown(void* data);
 
 #define mu_run_test(test, setup, teardown) do { \
   if (setup) (setup)(NULL); \
-  char *message = test(); tests_run++; \
+  char const *message = test(); tests_run++; \
   if (message){ \
     if (teardown) (teardown)(NULL);\
     return message; \
@@ -38,14 +38,12 @@ void c_test_teardown(void* data)
 
 char const *c_test_ctx()
 {
-  slsContext *ctxA = sls_context_new("waegaew", 10, 10);
-  slsContext *ctxB = sls_context_new(NULL, 10, 10);
+  slsContext * ctxA = NULL;
 
+  ctxA = sls_context_new("waegaew", 10, 10);
   mu_assert("cxtA is non-null", ctxA);
-  mu_assert("cxtB is non-null", ctxB);
 
-  if (ctxA) { sls_msg(ctxA, dtor); }
-  if (ctxB) { sls_msg(ctxB, dtor); }
+  sls_msg(ctxA, dtor);
 
   return NULL;
 }

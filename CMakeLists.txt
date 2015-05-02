@@ -27,7 +27,9 @@ set(DANGER_SRC
     src/sls-handlers.h
     src/dangerengine.h
     src/math/mathmacs.h
-    )
+    src/math/mathmacs.c
+    src/data-types/btree.h
+    src/data-types/btree.c)
 
 set (DANGER_CTEST_SRC
     tests/c_cases.c
@@ -35,6 +37,7 @@ set (DANGER_CTEST_SRC
 
 set (DANGER_TEST_SRC
     tests/minunit-runner.cc
+    tests/btree_test.cc
     tests/main.cc)
 
 add_library(dangerengine ${DANGER_SRC})

@@ -17,3 +17,10 @@ void *sls_objalloc(void const *prototype, size_t size) {
 error:
     return NULL;
 }
+
+void sls_sleep(clock_t ticks)
+{
+    clock_t init_time = clock();
+    bool waiting = true;
+    while (clock() - init_time < ticks) {}
+}

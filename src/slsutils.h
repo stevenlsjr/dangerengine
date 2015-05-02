@@ -96,6 +96,11 @@
 
 #define sls_msg(obj, method, ...) obj->method(obj, ##__VA_ARGS__)
 
+typedef enum slsBool {
+    SLS_TRUE=true,
+    SLS_FALSE=false
+} slsBool;
+
 /**
  * @brief allocates 'size' bytes on the heap, and copies contents to
  * pointer
@@ -109,11 +114,6 @@
  */
 void *sls_objalloc(void const *prototype, size_t size);
 
-static void sls_sleep(clock_t ticks)
-{
-    clock_t init_time = clock();
-    bool waiting = true;
-    while (clock() - init_time < ticks) {}
-}
+void sls_sleep(clock_t ticks);
 
 #endif //DANGERENGINE_SLSUTILS_H

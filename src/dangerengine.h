@@ -11,6 +11,10 @@
 #include "slsloop.h"
 #include "slsutils.h"
 
+#include "sls-handlers.h"
+
+#include "data-types/btree.h"
+
 #include "math/mathmacs.h"
 
 #endif //DANGERENGINE_DANGERENGINE_H
