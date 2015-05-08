@@ -30,3 +30,9 @@ kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b)
 
   return res;
 }
+
+size_t sls_nearest_squarelu(size_t x)
+{
+  double exponent = log(x) / log(2.0);
+  return (size_t) pow(2, ceil(exponent));
+}

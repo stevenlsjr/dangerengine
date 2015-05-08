@@ -10,15 +10,12 @@ slsContext *sls_active_context = NULL;
 
 void sls_bind_context(slsContext *ctx)
 {
-  sls_check(!sls_active_context, "context is already bound");
+  sls_unbind_context();
 
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);
 
   return;
-error:
-  return;
-
 }
 
 void sls_unbind_context(void)

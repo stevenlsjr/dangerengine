@@ -22,6 +22,8 @@ struct slsMainLoop {
 
   void (*run)(slsMainLoop *self);
 
+  void (*iter) (slsMainLoop *self);
+
   void (*handle_events)(slsMainLoop *self, double dt);
 
   void (*update)(slsMainLoop *self, double dt);
@@ -30,6 +32,9 @@ struct slsMainLoop {
 
   bool is_running;
   clock_t interval;
+
+  clock_t last_time;
+  clock_t dt;
   slsMainLoop_p *priv;
 };
 

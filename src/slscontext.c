@@ -53,7 +53,7 @@ slsContext *sls_context_init(slsContext *self,
         bool res = sls_init();
     }
 
-    char const *capA = caption ? caption: "";
+    char const *capA = caption ? caption : "";
 
     self->window = glfwCreateWindow((int)width, (int)height, capA, NULL, NULL);
     sls_check(self->window, "window creation failed");

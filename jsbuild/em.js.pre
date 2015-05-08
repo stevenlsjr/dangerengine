@@ -1,0 +1,11 @@
+/**
+ * Created by Shea on 5/7/15.
+ */
+
+/**
+ * postfix file for wrapping emscripten build
+ * in amd module
+ */
+
+    }
+})

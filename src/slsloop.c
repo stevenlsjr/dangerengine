@@ -8,11 +8,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif //__EMSCRIPTEN__
+
 slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx);
 
 void sls_mainloop_dtor(slsMainLoop *self);
 
 void sls_mainloop_run(slsMainLoop *self);
+
+void sls_mainloop_iter(slsMainLoop *self);
 
 void sls_mainloop_handle_events(slsMainLoop *self, double dt);
 
@@ -20,6 +26,12 @@ void sls_mainloop_update(slsMainLoop *self, double dt);
 
 void sls_mainloop_display(slsMainLoop *self, double dt);
 
+void em_iter_fn();
+
+
+/**
+ * @brief private struct definition for slsMainLoop
+ */
 struct slsMainLoop_p {
   slsContext *ctx;
 };
@@ -28,10 +40,13 @@ static const slsMainLoop sls_mainloop_proto = {
   .init = sls_mainloop_init,
   .dtor = sls_mainloop_dtor,
   .run = sls_mainloop_run,
+  .iter = sls_mainloop_iter,
   .update = sls_mainloop_update,
   .display = sls_mainloop_display,
   .is_running = false,
   .interval = 20,
+  .last_time = 0,
+  .dt = 0,
   .priv = NULL
 };
 
@@ -77,6 +92,40 @@ slsMainLoop *sls_mainloop_init(slsMainLoop *self, slsContext *ctx)
   return NULL;
 }
 
+void em_iter_fn()
+{
+  if (sls_active_loop && sls_active_loop->is_running) {
+    sls_msg(sls_active_loop, iter);
+  }
+}
+
+void sls_mainloop_iter(slsMainLoop *self)
+{
+  if (!self) {return;}
+
+  slsContext *ctx = self->priv->ctx;
+
+
+  clock_t now = clock();
+  self->dt += now - self->last_time;
+
+  self->last_time = now;
+  
+  if (self->dt >= self->interval) {
+    double ddt = self->dt / (double) CLOCKS_PER_SEC;
+
+    printf("%f\n", ddt);
+    self->dt = 0;
+    sls_msg(self, update, ddt);
+    sls_msg(self, display, ddt);
+  }
+
+  glfwPollEvents();
+
+  if (glfwWindowShouldClose(ctx->window)) {
+    self->is_running = false;
+  }
+}
 
 void sls_mainloop_run(slsMainLoop *self)
 {
@@ -84,35 +133,27 @@ void sls_mainloop_run(slsMainLoop *self)
   sls_checkmem(self->priv);
   sls_checkmem(self->priv->ctx);
 
-  clock_t last = clock();
-  clock_t now = last;
-  clock_t dt = 0;
+  self->last_time = clock();
+  self->dt = 0;
   self->is_running = true;
 
   slsContext *ctx = self->priv->ctx;
 
   sls_bind_context(ctx);
+  sls_active_loop = self;
 
-
+  /*
+   * set mainloop for native or emscripten execution
+   */
+#ifdef __EMSCRIPTEN__
+  emscripten_set_main_loop(em_iter_fn, 
+                           self->interval/(double)CLOCKS_PER_SEC,
+                           1);
+#else //!__EMSCRIPTEN__
   while (self->is_running) {
-    now = clock();
-    dt += now - last;
-    last = now;
-    
-    if (dt >= self->interval) {
-      double ddt = dt / (double) CLOCKS_PER_SEC;
-      dt = 0;
-      sls_msg(self, update, ddt);
-      sls_msg(self, display, ddt);
-    }
-
-    glfwPollEvents();
-
-    if (glfwWindowShouldClose(ctx->window)) {
-      self->is_running = false;
-      
-    }
+    sls_msg(self, iter);
   }
+#endif //__EMSCRIPTEN__
 
   sls_active_loop = NULL;
   return;
@@ -138,10 +179,3 @@ void sls_mainloop_display(slsMainLoop *self, double dt)
 
 }
 
-void sls_mouse_button_callback(GLFWwindow *win,
-                               int button,
-                               int action,
-                               int mods)
-{
-
-}

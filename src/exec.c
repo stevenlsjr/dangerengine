@@ -5,7 +5,11 @@
 #include "dangerengine.h"
 #include <assert.h>
 
-int main(int argc, char **argv)
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif //__EMSCRIPTEN__
+
+int sls_main()
 {
     sls_sleep((size_t)(1.2 * CLOCKS_PER_SEC));
     slsContext *c = sls_context_new("window", 640, 640);
@@ -17,4 +21,20 @@ int main(int argc, char **argv)
     sls_msg(mainloop, run);
     sls_msg(mainloop, dtor);
 
+    return 0;
 }
+
+
+int main(int argc, char *argv[])
+{
+
+#ifdef __EMSCRIPTEN__
+  EM_ASM({
+    var canvas = document.getElementById('canvas');
+    Module.canvas = canvas;
+  });
+#endif //__EMSCRIPTEN__
+
+  return sls_main();
+}
+
