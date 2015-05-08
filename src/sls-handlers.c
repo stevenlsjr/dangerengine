@@ -5,12 +5,18 @@
 #include "sls-handlers.h"
 #include "slsutils.h"
 
-static bool sls_active_flag = false;
+static slsBool sls_active_flag = false;
 slsContext *sls_active_context = NULL;
+
+void sls_error(int, const char *);
+void sls_mouse(GLFWwindow*, int, int, int);
+
+
 
 void sls_bind_context(slsContext *ctx)
 {
   sls_unbind_context();
+
 
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="Windows-1252"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="C:\Users\Steven\dangerengine\src\slscontext.c">
       <Filter>Source Files</Filter>
@@ -11,6 +11,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\Steven\dangerengine\src\sls-handlers.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Steven\dangerengine\src\math\mathmacs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Steven\dangerengine\src\data-types\btree.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -33,16 +39,19 @@
     <ClInclude Include="C:\Users\Steven\dangerengine\src\math\mathmacs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Steven\dangerengine\src\data-types\btree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\Steven\dangerengine\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{96BA2DCD-AD6A-49AC-8777-E7EF3B825E79}</UniqueIdentifier>
+      <UniqueIdentifier>{FD5F14CC-3121-4221-9A36-4330425B295A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{D2ACEB8B-D309-45A0-84CF-A7E2653FCEAD}</UniqueIdentifier>
+      <UniqueIdentifier>{D3568BA4-08E5-4C3B-B4EA-C1C48843C569}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
