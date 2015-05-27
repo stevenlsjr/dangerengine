@@ -29,6 +29,7 @@ if (NOT EMSCRIPTEN)
   find_package(OpenGL)
   find_package(GLEW)
   set(DANGER_DEPS
+    ${DANGER_DEPS}
     glfw
     ${GLFW_LIBRARIES}
     ${OPENGL_gl_LIBRARY})
@@ -62,8 +63,6 @@ set(DANGER_SRC
     src/slscontext.c
     src/slsutils.c
     src/slsutils.h
-    src/slsloop.c
-    src/slsloop.h
     src/sls-handlers.c
     src/sls-handlers.h
     src/math/mathmacs.h
@@ -110,6 +109,7 @@ add_executable(dangerbird_test ${DANGER_TEST_SRC})
 target_link_libraries(dangerbird_test
     dangerengine
     dangerbird_c_tests
+    ${DANGER_DEPS}
     gtest
     gtest_main)
 

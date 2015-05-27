@@ -4,18 +4,24 @@
 
 #include "sls-handlers.h"
 #include "slsutils.h"
+#include <stdlib.h>
+#include <stdbool.h>
 
-static slsBool sls_active_flag = false;
+static slsBool sls_active_flag = SLS_FALSE;
 slsContext *sls_active_context = NULL;
 
-void sls_error(int, const char *);
+void sls_error_cback(int, const char *);
 void sls_mouse(GLFWwindow*, int, int, int);
+void sls_window_resize(GLFWwindow *win, int x, int y);
 
 
 
 void sls_bind_context(slsContext *ctx)
 {
   sls_unbind_context();
+
+  glfwSetErrorCallback(sls_error_cback);
+  glfwSetWindowSizeCallback(ctx->window, sls_window_resize);
 
 
   sls_active_context = ctx;
@@ -32,12 +38,21 @@ void sls_unbind_context(void)
   }
 }
 
+
+void sls_window_resize(GLFWwindow *win, int x, int y)
+{
+  if (sls_active_context) {
+    sls_msg(sls_active_context, resize, (size_t)x, (size_t)y);
+  }
+}
+
+
 bool sls_init(void)
 {
   sls_check(!sls_active_flag, "runtime is already active!");
   sls_check(glfwInit(), "glfw Init failed");
 
-  sls_active_flag = true;
+  sls_active_flag = SLS_TRUE;
 
   atexit(sls_terminate);
 
@@ -54,6 +69,11 @@ void sls_terminate(void)
 
   glfwTerminate();
   sls_active_flag = false;
+}
+
+void sls_error_cback(int i, char const *string)
+{
+
 }
 
 bool sls_is_active(void)

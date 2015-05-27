@@ -15,6 +15,8 @@ size_t sls_array_length(slsArray *self);
 
 size_t sls_array_element_size(slsArray *self);
 
+
+
 void *sls_array_get(slsArray *self, size_t i);
 
 struct slsArray_p {
@@ -92,4 +94,17 @@ void sls_array_dtor(slsArray *self)
 size_t sls_array_element_size(slsArray *self)
 {
   return 0;
+}
+
+void *sls_array_get(slsArray *self, size_t i)
+{
+  if (!self) {return NULL;}
+  sls_check(i < self->priv->length, "out of index error!");
+
+  char *ptr = self->priv->array + (i * self->priv->element_size);
+
+  return ptr;
+
+error:
+  return NULL;
 }

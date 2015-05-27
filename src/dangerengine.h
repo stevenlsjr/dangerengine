@@ -8,7 +8,6 @@
 #include "sls-gl.h"
 
 #include "slscontext.h"
-#include "slsloop.h"
 #include "slsutils.h"
 
 #include "sls-handlers.h"

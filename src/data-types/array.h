@@ -11,13 +11,15 @@ typedef struct slsArray slsArray;
 typedef struct slsArray_p slsArray_p;
 
 struct slsArray {
-  slsArray *(*init)(slsArray *self, void *data, size_t element_size, size_t n_elements);
+  slsArray *(*init)(slsArray *self, void *data, size_t esize, size_t n_elements);
   void (*dtor)(slsArray *self);
 
   size_t (*length)(slsArray *self);
   size_t (*element_size)(slsArray *self);
 
   void *(*get)(slsArray *self, size_t i);
+
+  slsArray *(*concat)(slsArray *self, slsArray **others, size_t n_arrays);
 
   slsArray_p *priv;
 };
