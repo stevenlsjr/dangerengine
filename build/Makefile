@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.1.1_1/bin/cmake
+CMAKE_COMMAND = /Applications/CMake.app/Contents/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.1.1_1/bin/cmake -E remove -f
+RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /Users/Shea/Projects/dangerengine/build
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/Applications/CMake.app/Contents/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -64,7 +64,7 @@ install/strip/fast: install/strip
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -74,7 +74,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -84,13 +84,13 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cmake -P cmake_install.cmake
+	/Applications/CMake.app/Contents/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cmake -P cmake_install.cmake
+	/Applications/CMake.app/Contents/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target list_install_components
@@ -105,7 +105,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackConfig.cmake
+	/Applications/CMake.app/Contents/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -115,7 +115,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/Projects/dangerengine/build/CPackSourceConfig.cmake
+	/Applications/CMake.app/Contents/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/Projects/dangerengine/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -125,7 +125,7 @@ package_source/fast: package_source
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/Applications/CMake.app/Contents/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -279,19 +279,6 @@ gtest_main: cmake_check_build_system
 gtest_main/fast:
 	$(MAKE) -f extern/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make extern/googlemock/gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
-
-#=============================================================================
-# Target rules for targets named uninstall
-
-# Build rule for target.
-uninstall: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 uninstall
-.PHONY : uninstall
-
-# fast build rule for target.
-uninstall/fast:
-	$(MAKE) -f extern/glfw/CMakeFiles/uninstall.dir/build.make extern/glfw/CMakeFiles/uninstall.dir/build
-.PHONY : uninstall/fast
 
 #=============================================================================
 # Target rules for targets named glfw
@@ -449,30 +436,6 @@ src/slscontext.s: src/slscontext.c.s
 src/slscontext.c.s:
 	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slscontext.c.s
 .PHONY : src/slscontext.c.s
-
-src/slsloop.o: src/slsloop.c.o
-.PHONY : src/slsloop.o
-
-# target to build an object file
-src/slsloop.c.o:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.o
-.PHONY : src/slsloop.c.o
-
-src/slsloop.i: src/slsloop.c.i
-.PHONY : src/slsloop.i
-
-# target to preprocess a source file
-src/slsloop.c.i:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.i
-.PHONY : src/slsloop.c.i
-
-src/slsloop.s: src/slsloop.c.s
-.PHONY : src/slsloop.s
-
-# target to generate assembly for a file
-src/slsloop.c.s:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.s
-.PHONY : src/slsloop.c.s
 
 src/slsutils.o: src/slsutils.c.o
 .PHONY : src/slsutils.o
@@ -641,7 +604,6 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... uninstall"
 	@echo "... glfw"
 	@echo "... src/data-types/array.o"
 	@echo "... src/data-types/array.i"
@@ -661,9 +623,6 @@ help:
 	@echo "... src/slscontext.o"
 	@echo "... src/slscontext.i"
 	@echo "... src/slscontext.s"
-	@echo "... src/slsloop.o"
-	@echo "... src/slsloop.i"
-	@echo "... src/slsloop.s"
 	@echo "... src/slsutils.o"
 	@echo "... src/slsutils.i"
 	@echo "... src/slsutils.s"

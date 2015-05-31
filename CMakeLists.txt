@@ -8,8 +8,6 @@ file(COPY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_BINARY_DIR}/)
 
 
-
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 

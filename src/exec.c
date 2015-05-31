@@ -16,6 +16,7 @@ int sls_main()
 
     assert(c);
 
+
     sls_msg(c, run);
     sls_msg(c, dtor);
 
