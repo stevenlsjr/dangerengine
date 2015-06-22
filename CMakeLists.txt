@@ -68,7 +68,9 @@ set(DANGER_SRC
     src/data-types/array.h
     src/data-types/array.c
     src/data-types/btree.h
-    src/data-types/btree.c)
+    src/data-types/btree.c
+    src/renderer/shaderutils.c
+    src/renderer/shaderutils.h)
 
 set (DANGER_CTEST_SRC
     tests/c_cases.c
