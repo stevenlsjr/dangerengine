@@ -7,20 +7,21 @@
 #include <stdio.h>
 #include <string.h>
 
-void *sls_objalloc(void const *prototype, size_t size) {
-    void *obj = NULL;
-    obj = calloc(size, 1);
-    sls_checkmem(obj);
-    memcpy(obj, prototype, size);
-    return obj;
+void *sls_objalloc(void const *prototype, size_t size)
+{
+  void *obj = NULL;
+  obj = calloc(size, 1);
+  sls_checkmem(obj);
+  memcpy(obj, prototype, size);
+  return obj;
 
-error:
-    return NULL;
+  error:
+  return NULL;
 }
 
 void sls_sleep(clock_t ticks)
 {
-    clock_t init_time = clock();
-    bool waiting = true;
-    while (clock() - init_time < ticks) {}
+  clock_t init_time = clock();
+  bool waiting = true;
+  while (clock() - init_time < ticks) { }
 }

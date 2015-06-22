@@ -298,6 +298,30 @@ src/math/mathmacs.c.s:
 	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/math/mathmacs.c.s
 .PHONY : src/math/mathmacs.c.s
 
+src/renderer/shaderutils.o: src/renderer/shaderutils.c.o
+.PHONY : src/renderer/shaderutils.o
+
+# target to build an object file
+src/renderer/shaderutils.c.o:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/shaderutils.c.o
+.PHONY : src/renderer/shaderutils.c.o
+
+src/renderer/shaderutils.i: src/renderer/shaderutils.c.i
+.PHONY : src/renderer/shaderutils.i
+
+# target to preprocess a source file
+src/renderer/shaderutils.c.i:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/shaderutils.c.i
+.PHONY : src/renderer/shaderutils.c.i
+
+src/renderer/shaderutils.s: src/renderer/shaderutils.c.s
+.PHONY : src/renderer/shaderutils.s
+
+# target to generate assembly for a file
+src/renderer/shaderutils.c.s:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/shaderutils.c.s
+.PHONY : src/renderer/shaderutils.c.s
+
 src/sls-handlers.o: src/sls-handlers.c.o
 .PHONY : src/sls-handlers.o
 
@@ -345,30 +369,6 @@ src/slscontext.s: src/slscontext.c.s
 src/slscontext.c.s:
 	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slscontext.c.s
 .PHONY : src/slscontext.c.s
-
-src/slsloop.o: src/slsloop.c.o
-.PHONY : src/slsloop.o
-
-# target to build an object file
-src/slsloop.c.o:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.o
-.PHONY : src/slsloop.c.o
-
-src/slsloop.i: src/slsloop.c.i
-.PHONY : src/slsloop.i
-
-# target to preprocess a source file
-src/slsloop.c.i:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.i
-.PHONY : src/slsloop.c.i
-
-src/slsloop.s: src/slsloop.c.s
-.PHONY : src/slsloop.s
-
-# target to generate assembly for a file
-src/slsloop.c.s:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.s
-.PHONY : src/slsloop.c.s
 
 src/slsutils.o: src/slsutils.c.o
 .PHONY : src/slsutils.o
@@ -423,15 +423,15 @@ help:
 	@echo "... src/math/mathmacs.o"
 	@echo "... src/math/mathmacs.i"
 	@echo "... src/math/mathmacs.s"
+	@echo "... src/renderer/shaderutils.o"
+	@echo "... src/renderer/shaderutils.i"
+	@echo "... src/renderer/shaderutils.s"
 	@echo "... src/sls-handlers.o"
 	@echo "... src/sls-handlers.i"
 	@echo "... src/sls-handlers.s"
 	@echo "... src/slscontext.o"
 	@echo "... src/slscontext.i"
 	@echo "... src/slscontext.s"
-	@echo "... src/slsloop.o"
-	@echo "... src/slsloop.i"
-	@echo "... src/slsloop.s"
 	@echo "... src/slsutils.o"
 	@echo "... src/slsutils.i"
 	@echo "... src/slsutils.s"

@@ -42,15 +42,15 @@ if (NOT EMSCRIPTEN)
       ${OPENGL_INCLUDE_DIR})
   endif(GLEW_FOUND)
 
-else (NOT EMSCRIPTEN)
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s FULL_ES2=1 -s USE_GLFW=3")
+else (NOT EMSCRIPTEN) # if emscripten
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -g4")
   set(CMAKE_EXE_LINKER_FLAGS
     "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/em.js.pre")
     set(CMAKE_EXE_LINKER_FLAGS
         "${CMAKE_EXE_LINKER_FLAGS} --post-js ${CMAKE_SOURCE_DIR}/em.js.post")
 
-  set(CMAKE_C_DEBUG_FLAGS "${CMAKE_C_FLAGS} -g4 -Wno-warn-absolute-paths")
+  set(CMAKE_C_DEBUG_FLAGS "${CMAKE_C_FLAGS} -g4 -Wno-warn-absolute-paths --emit-symbol-map")
 endif (NOT EMSCRIPTEN)
 
 
@@ -80,7 +80,8 @@ set (DANGER_TEST_SRC
     tests/minunit-runner.cc
     tests/btree_test.cc
     tests/math_tests.cc
-    tests/main.cc)
+    tests/main.cc
+    tests/render_tests.cc)
 
 include_directories(
     
@@ -89,9 +90,9 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/extern/gtest/include)
 
 add_library(dangerengine ${DANGER_SRC})
-
 target_link_libraries(dangerengine
     ${DANGER_DEPS})
+
 
 add_executable(dangerbird_bin src/exec.c)
 target_link_libraries(dangerbird_bin
@@ -100,17 +101,19 @@ target_link_libraries(dangerbird_bin
 
 
 if (NOT EMSCRIPTEN)
-# add a separate library for tests compiled in C. Used for supporting build
-# systems which don't compile C and C++ code separately
-add_library(dangerbird_c_tests ${DANGER_CTEST_SRC})
-target_link_libraries(dangerbird_c_tests dangerengine)
 
-add_executable(dangerbird_test ${DANGER_TEST_SRC})
-target_link_libraries(dangerbird_test
-    dangerengine
-    dangerbird_c_tests
-    ${DANGER_DEPS}
-    gtest
-    gtest_main)
+    # add a separate library for tests compiled in C. Used for supporting build
+    # systems which don't compile C and C++ code separately
+    add_library(dangerbird_c_tests ${DANGER_CTEST_SRC})
+    target_link_libraries(dangerbird_c_tests dangerengine)
+
+    add_executable(dangerbird_test ${DANGER_TEST_SRC})
+    target_link_libraries(dangerbird_test
+        dangerengine
+        dangerbird_c_tests
+        ${DANGER_DEPS}
+        gtest
+        gtest_main)
 
 endif (NOT EMSCRIPTEN)
+

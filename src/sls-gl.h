@@ -9,9 +9,12 @@
  * use gles directly if
  */
 #ifdef __EMSCRIPTEN__
-  #define SLS_NOGLEW
+#   define SLS_NOGLEW
+#   define GLFW_INCLUDE_NONE
+#   include <GLES2/gl2.h>
 #else
-  #include <GL/glew.h>
+#   define GLFW_INCLUDE_NONE
+#   include <GL/glew.h>
 #endif
 
 #include <GLFW/glfw3.h>
