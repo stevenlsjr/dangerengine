@@ -68,7 +68,9 @@ set(DANGER_SRC
     src/data-types/array.h
     src/data-types/array.c
     src/data-types/btree.h
-    src/data-types/btree.c)
+    src/data-types/btree.c
+    src/shader/shader-utils.c
+    src/shader/shader-utils.h)
 
 set (DANGER_CTEST_SRC
     tests/c_cases.c
@@ -78,7 +80,8 @@ set (DANGER_TEST_SRC
     tests/minunit-runner.cc
     tests/btree_test.cc
     tests/math_tests.cc
-    tests/main.cc)
+    tests/main.cc
+    tests/shader_tests.cc)
 
 include_directories(
     

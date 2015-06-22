@@ -4,7 +4,12 @@
 
 #include "slscontext.h"
 #include "slsutils.h"
+
 #include <GLFW/glfw3.h>
+
+#ifdef EMSCRIPTEN
+#   include<emscripten.h>
+#endif
 
 
 
@@ -18,6 +23,15 @@ struct slsContext_p {
   clock_t dt_acc;
 };
 
+
+/**
+ * @brief callback for emscripten main loop
+ * @details [long description]
+ * 
+ * @param vself void pointer to context object
+ */
+void sls_em_callback(void *vself);
+
 void sls_context_run(slsContext *self);
 
 void sls_context_iter(slsContext *self);
@@ -29,6 +43,10 @@ void sls_context_resize(slsContext *self, size_t x, size_t y);
 void sls_context_update(slsContext *self, double dt);
 
 void sls_context_display(slsContext *self, double dt);
+
+
+
+void sls_context_glsetup(slsContext *self);
 
 slsContext * sls_context_init(slsContext *self,
                               char const *caption,
@@ -51,6 +69,7 @@ static const slsContext sls_context_proto = {
   .display = sls_context_display,
 
   .is_running = SLS_FALSE,
+  .fixed_dt = 0.01,
   .interval = 50,
   .priv = NULL,
   .window = NULL
@@ -94,6 +113,8 @@ slsContext *sls_context_init(slsContext *self,
 
   *(self->priv) = (slsContext_p) {.dt_acc=0, .last=0};
 
+  sls_context_glsetup(self);
+
   return self;
 error:
   if (self && self->dtor) {
@@ -115,6 +136,13 @@ void sls_context_dtor(slsContext *self)
   }
 }
 
+void sls_em_callback(void *vself) 
+{
+  slsContext *self = vself;
+  if (self) {
+    sls_msg(self, iter);
+  }
+}
 
 void sls_context_run(slsContext *self)
 {
@@ -122,11 +150,22 @@ void sls_context_run(slsContext *self)
   self->priv->last = clock();
   self->priv->dt_acc = 0;
 
+  self->fixed_dt = 0.01;
+
   sls_bind_context(self);
   self->is_running = SLS_TRUE;
+
+# ifndef EMSCRIPTEN
   while(self->is_running) {
     sls_msg(self, iter);
   }
+# else 
+  {
+    const int em_fps = 0; // use request animation frame
+    const slsBool em_infinite_loop = false;
+    emscripten_set_main_loop_arg(sls_em_callback, self, em_fps, em_infinite_loop);
+  }
+# endif
 
 }
 
@@ -144,8 +183,11 @@ void sls_context_iter(slsContext *self)
   if (priv->dt_acc > self->interval) {
     double dt = priv->dt_acc / (double)CLOCKS_PER_SEC;
     priv->dt_acc = 0;
+    self->fixed_dt = dt;
+
     sls_msg(self, update, dt);
     sls_msg(self, display, dt);
+    //printf("%f\n", dt);
   }
 
   glfwPollEvents();
@@ -169,4 +211,9 @@ void sls_context_display(slsContext *self, double dt)
   glClear(GL_COLOR_BUFFER_BIT);
 
   glfwSwapBuffers(self->window);
+}
+
+void sls_context_glsetup(slsContext *self)
+{
+  
 }

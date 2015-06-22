@@ -1550,11 +1550,11 @@ var memoryInitializer = null;
 
 STATIC_BASE = 8;
 
-STATICTOP = STATIC_BASE + 1088;
+STATICTOP = STATIC_BASE + 960;
   /* global initializers */ __ATINIT__.push();
   
 
-/* memory initializer */ allocate([119,105,110,100,111,119,0,0,99,0,0,0,0,0,0,0,47,85,115,101,114,115,47,83,104,101,97,47,80,114,111,106,101,99,116,115,47,100,97,110,103,101,114,101,110,103,105,110,101,47,115,114,99,47,101,120,101,99,46,99,0,0,0,0,115,108,115,95,109,97,105,110,0,0,0,0,0,0,0,0,109,97,105,110,108,111,111,112,45,62,112,114,105,118,0,0,123,32,118,97,114,32,99,97,110,118,97,115,32,61,32,100,111,99,117,109,101,110,116,46,103,101,116,69,108,101,109,101,110,116,66,121,73,100,40,39,99,97,110,118,97,115,39,41,59,32,77,111,100,117,108,101,46,99,97,110,118,97,115,32,61,32,99,97,110,118,97,115,59,32,125,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,115,108,115,95,99,111,110,116,101,120,116,95,105,110,105,116,0,0,0,0,0,0,0,0,119,105,110,100,111,119,32,99,114,101,97,116,105,111,110,32,102,97,105,108,101,100,0,0,115,108,115,95,111,98,106,97,108,108,111,99,0,0,0,0,111,98,106,0,0,0,0,0,3,0,0,0,4,0,0,0,5,0,0,0,6,0,0,0,0,0,0,0,7,0,0,0,8,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,115,108,115,95,109,97,105,110,108,111,111,112,95,105,110,105,116,0,0,0,0,0,0,0,109,101,109,111,114,121,32,101,114,114,111,114,33,32,37,115,0,0,0,0,0,0,0,0,115,101,108,102,0,0,0,0,99,116,120,0,0,0,0,0,115,101,108,102,45,62,112,114,105,118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,102,10,0,0,0,0,0,115,108,115,95,109,97,105,110,108,111,111,112,95,114,117,110,0,0,0,0,0,0,0,0,115,101,108,102,45,62,112,114,105,118,45,62,99,116,120,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,115,32,40,37,115,32,37,100,41,58,10,9,0,0,0,69,82,82,79,82,0,0,0,115,108,115,95,105,110,105,116,0,0,0,0,0,0,0,0,114,117,110,116,105,109,101,32,105,115,32,97,108,114,101,97,100,121,32,97,99,116,105,118,101,33,0,0,0,0,0,0,10,0,0,0,0,0,0,0,103,108,102,119,32,73,110,105,116,32,102,97,105,108,101,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], "i8", ALLOC_NONE, Runtime.GLOBAL_BASE);
+/* memory initializer */ allocate([119,105,110,100,111,119,0,0,99,0,0,0,0,0,0,0,47,85,115,101,114,115,47,83,104,101,97,47,112,114,111,106,101,99,116,115,47,100,97,110,103,101,114,101,110,103,105,110,101,47,115,114,99,47,101,120,101,99,46,99,0,0,0,0,115,108,115,95,109,97,105,110,0,0,0,0,0,0,0,0,123,32,118,97,114,32,99,97,110,118,97,115,32,61,32,100,111,99,117,109,101,110,116,46,103,101,116,69,108,101,109,101,110,116,66,121,73,100,40,39,99,97,110,118,97,115,39,41,59,32,77,111,100,117,108,101,46,99,97,110,118,97,115,32,61,32,99,97,110,118,97,115,59,32,125,0,0,0,0,0,1,0,0,0,2,0,0,0,3,0,0,0,4,0,0,0,5,0,0,0,6,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,115,108,115,95,99,111,110,116,101,120,116,95,105,110,105,116,0,0,0,0,0,0,0,0,119,105,110,100,111,119,32,99,114,101,97,116,105,111,110,32,102,97,105,108,101,100,0,0,115,101,108,102,45,62,112,114,105,118,0,0,0,0,0,0,115,108,115,95,111,98,106,97,108,108,111,99,0,0,0,0,109,101,109,111,114,121,32,101,114,114,111,114,33,32,37,115,0,0,0,0,0,0,0,0,111,98,106,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,115,32,40,37,115,32,37,100,41,58,10,9,0,0,0,69,82,82,79,82,0,0,0,115,108,115,95,105,110,105,116,0,0,0,0,0,0,0,0,114,117,110,116,105,109,101,32,105,115,32,97,108,114,101,97,100,121,32,97,99,116,105,118,101,33,0,0,0,0,0,0,10,0,0,0,0,0,0,0,103,108,102,119,32,73,110,105,116,32,102,97,105,108,101,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], "i8", ALLOC_NONE, Runtime.GLOBAL_BASE);
 
 
 
@@ -1595,11 +1595,6 @@ function copyTempDouble(ptr) {
 
 }
 
-
-  function ___assert_fail(condition, filename, line, func) {
-      ABORT = true;
-      throw 'Assertion failed: ' + Pointer_stringify(condition) + ', at: ' + [filename ? Pointer_stringify(filename) : 'unknown filename', line, func ? Pointer_stringify(func) : 'unknown function'] + ' at ' + stackTrace();
-    }
 
   
   
@@ -2122,8 +2117,13 @@ function copyTempDouble(ptr) {
           0x00020018:0x00022008, // GLFW_OPENGL_PROFILE
         };
         return table[param];
-      }};function _glfwCreateWindow(width, height, title, monitor, share) {
-      return GLFW.createWindow(width, height, title, monitor, share);
+      }};function _glfwSetWindowSizeCallback(winid, cbfun) {
+      GLFW.setWindowSizeCallback(winid, cbfun);
+    }
+
+  function ___assert_fail(condition, filename, line, func) {
+      ABORT = true;
+      throw 'Assertion failed: ' + Pointer_stringify(condition) + ', at: ' + [filename ? Pointer_stringify(filename) : 'unknown filename', line, func ? Pointer_stringify(func) : 'unknown function'] + ' at ' + stackTrace();
     }
 
   function _glfwTerminate() {
@@ -2140,10 +2140,666 @@ function copyTempDouble(ptr) {
       GLFW.active = null;
     }
 
+  function _glfwCreateWindow(width, height, title, monitor, share) {
+      return GLFW.createWindow(width, height, title, monitor, share);
+    }
+
+  
+  var GL={counter:1,lastError:0,buffers:[],mappedBuffers:{},programs:[],framebuffers:[],renderbuffers:[],textures:[],uniforms:[],shaders:[],vaos:[],contexts:[],currentContext:null,currArrayBuffer:0,currElementArrayBuffer:0,byteSizeByTypeRoot:5120,byteSizeByType:[1,1,2,2,4,4,4,2,3,4,8],programInfos:{},stringCache:{},packAlignment:4,unpackAlignment:4,init:function () {
+        GL.createLog2ceilLookup(GL.MAX_TEMP_BUFFER_SIZE);
+        GL.miniTempBuffer = new Float32Array(GL.MINI_TEMP_BUFFER_SIZE);
+        for (var i = 0; i < GL.MINI_TEMP_BUFFER_SIZE; i++) {
+          GL.miniTempBufferViews[i] = GL.miniTempBuffer.subarray(0, i+1);
+        }
+      },recordError:function recordError(errorCode) {
+        if (!GL.lastError) {
+          GL.lastError = errorCode;
+        }
+      },getNewId:function (table) {
+        var ret = GL.counter++;
+        for (var i = table.length; i < ret; i++) {
+          table[i] = null;
+        }
+        return ret;
+      },MINI_TEMP_BUFFER_SIZE:16,miniTempBuffer:null,miniTempBufferViews:[0],MAX_TEMP_BUFFER_SIZE:2097152,numTempVertexBuffersPerSize:64,log2ceilLookup:null,createLog2ceilLookup:function (maxValue) {
+        GL.log2ceilLookup = new Uint8Array(maxValue+1);
+        var log2 = 0;
+        var pow2 = 1;
+        GL.log2ceilLookup[0] = 0;
+        for(var i = 1; i <= maxValue; ++i) {
+          if (i > pow2) {
+            pow2 <<= 1;
+            ++log2;
+          }
+          GL.log2ceilLookup[i] = log2;
+        }
+      },generateTempBuffers:function (quads, context) {
+        var largestIndex = GL.log2ceilLookup[GL.MAX_TEMP_BUFFER_SIZE];
+        context.tempVertexBufferCounters1 = [];
+        context.tempVertexBufferCounters2 = [];
+        context.tempVertexBufferCounters1.length = context.tempVertexBufferCounters2.length = largestIndex+1;
+        context.tempVertexBuffers1 = [];
+        context.tempVertexBuffers2 = [];
+        context.tempVertexBuffers1.length = context.tempVertexBuffers2.length = largestIndex+1;
+        context.tempIndexBuffers = [];
+        context.tempIndexBuffers.length = largestIndex+1;
+        for(var i = 0; i <= largestIndex; ++i) {
+          context.tempIndexBuffers[i] = null; // Created on-demand
+          context.tempVertexBufferCounters1[i] = context.tempVertexBufferCounters2[i] = 0;
+          var ringbufferLength = GL.numTempVertexBuffersPerSize;
+          context.tempVertexBuffers1[i] = [];
+          context.tempVertexBuffers2[i] = [];
+          var ringbuffer1 = context.tempVertexBuffers1[i];
+          var ringbuffer2 = context.tempVertexBuffers2[i];
+          ringbuffer1.length = ringbuffer2.length = ringbufferLength;
+          for(var j = 0; j < ringbufferLength; ++j) {
+            ringbuffer1[j] = ringbuffer2[j] = null; // Created on-demand
+          }
+        }
+  
+        if (quads) {
+          // GL_QUAD indexes can be precalculated
+          context.tempQuadIndexBuffer = GLctx.createBuffer();
+          context.GLctx.bindBuffer(context.GLctx.ELEMENT_ARRAY_BUFFER, context.tempQuadIndexBuffer);
+          var numIndexes = GL.MAX_TEMP_BUFFER_SIZE >> 1;
+          var quadIndexes = new Uint16Array(numIndexes);
+          var i = 0, v = 0;
+          while (1) {
+            quadIndexes[i++] = v;
+            if (i >= numIndexes) break;
+            quadIndexes[i++] = v+1;
+            if (i >= numIndexes) break;
+            quadIndexes[i++] = v+2;
+            if (i >= numIndexes) break;
+            quadIndexes[i++] = v;
+            if (i >= numIndexes) break;
+            quadIndexes[i++] = v+2;
+            if (i >= numIndexes) break;
+            quadIndexes[i++] = v+3;
+            if (i >= numIndexes) break;
+            v += 4;
+          }
+          context.GLctx.bufferData(context.GLctx.ELEMENT_ARRAY_BUFFER, quadIndexes, context.GLctx.STATIC_DRAW);
+          context.GLctx.bindBuffer(context.GLctx.ELEMENT_ARRAY_BUFFER, null);
+        }
+      },getTempVertexBuffer:function getTempVertexBuffer(sizeBytes) {
+        var idx = GL.log2ceilLookup[sizeBytes];
+        var ringbuffer = GL.currentContext.tempVertexBuffers1[idx];
+        var nextFreeBufferIndex = GL.currentContext.tempVertexBufferCounters1[idx];
+        GL.currentContext.tempVertexBufferCounters1[idx] = (GL.currentContext.tempVertexBufferCounters1[idx]+1) & (GL.numTempVertexBuffersPerSize-1);
+        var vbo = ringbuffer[nextFreeBufferIndex];
+        if (vbo) {
+          return vbo;
+        }
+        var prevVBO = GLctx.getParameter(GLctx.ARRAY_BUFFER_BINDING);
+        ringbuffer[nextFreeBufferIndex] = GLctx.createBuffer();
+        GLctx.bindBuffer(GLctx.ARRAY_BUFFER, ringbuffer[nextFreeBufferIndex]);
+        GLctx.bufferData(GLctx.ARRAY_BUFFER, 1 << idx, GLctx.DYNAMIC_DRAW);
+        GLctx.bindBuffer(GLctx.ARRAY_BUFFER, prevVBO);
+        return ringbuffer[nextFreeBufferIndex];
+      },getTempIndexBuffer:function getTempIndexBuffer(sizeBytes) {
+        var idx = GL.log2ceilLookup[sizeBytes];
+        var ibo = GL.currentContext.tempIndexBuffers[idx];
+        if (ibo) {
+          return ibo;
+        }
+        var prevIBO = GLctx.getParameter(GLctx.ELEMENT_ARRAY_BUFFER_BINDING);
+        GL.currentContext.tempIndexBuffers[idx] = GLctx.createBuffer();
+        GLctx.bindBuffer(GLctx.ELEMENT_ARRAY_BUFFER, GL.currentContext.tempIndexBuffers[idx]);
+        GLctx.bufferData(GLctx.ELEMENT_ARRAY_BUFFER, 1 << idx, GLctx.DYNAMIC_DRAW);
+        GLctx.bindBuffer(GLctx.ELEMENT_ARRAY_BUFFER, prevIBO);
+        return GL.currentContext.tempIndexBuffers[idx];
+      },newRenderingFrameStarted:function newRenderingFrameStarted() {
+        if (!GL.currentContext) {
+          return;
+        }
+        var vb = GL.currentContext.tempVertexBuffers1;
+        GL.currentContext.tempVertexBuffers1 = GL.currentContext.tempVertexBuffers2;
+        GL.currentContext.tempVertexBuffers2 = vb;
+        vb = GL.currentContext.tempVertexBufferCounters1;
+        GL.currentContext.tempVertexBufferCounters1 = GL.currentContext.tempVertexBufferCounters2;
+        GL.currentContext.tempVertexBufferCounters2 = vb;
+        var largestIndex = GL.log2ceilLookup[GL.MAX_TEMP_BUFFER_SIZE];
+        for(var i = 0; i <= largestIndex; ++i) {
+          GL.currentContext.tempVertexBufferCounters1[i] = 0;
+        }
+      },getSource:function (shader, count, string, length) {
+        var source = '';
+        for (var i = 0; i < count; ++i) {
+          var frag;
+          if (length) {
+            var len = HEAP32[(((length)+(i*4))>>2)];
+            if (len < 0) {
+              frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)]);
+            } else {
+              frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)], len);
+            }
+          } else {
+            frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)]);
+          }
+          source += frag;
+        }
+        return source;
+      },computeImageSize:function (width, height, sizePerPixel, alignment) {
+        function roundedToNextMultipleOf(x, y) {
+          return Math.floor((x + y - 1) / y) * y
+        }
+        var plainRowSize = width * sizePerPixel;
+        var alignedRowSize = roundedToNextMultipleOf(plainRowSize, alignment);
+        return (height <= 0) ? 0 :
+                 ((height - 1) * alignedRowSize + plainRowSize);
+      },get:function (name_, p, type) {
+        // Guard against user passing a null pointer.
+        // Note that GLES2 spec does not say anything about how passing a null pointer should be treated.
+        // Testing on desktop core GL 3, the application crashes on glGetIntegerv to a null pointer, but
+        // better to report an error instead of doing anything random.
+        if (!p) {
+          GL.recordError(0x0501 /* GL_INVALID_VALUE */);
+          return;
+        }
+        var ret = undefined;
+        switch(name_) { // Handle a few trivial GLES values
+          case 0x8DFA: // GL_SHADER_COMPILER
+            ret = 1;
+            break;
+          case 0x8DF8: // GL_SHADER_BINARY_FORMATS
+            if (type !== 'Integer') {
+              GL.recordError(0x0500); // GL_INVALID_ENUM
+            }
+            return; // Do not write anything to the out pointer, since no binary formats are supported.
+          case 0x8DF9: // GL_NUM_SHADER_BINARY_FORMATS
+            ret = 0;
+            break;
+          case 0x86A2: // GL_NUM_COMPRESSED_TEXTURE_FORMATS
+            // WebGL doesn't have GL_NUM_COMPRESSED_TEXTURE_FORMATS (it's obsolete since GL_COMPRESSED_TEXTURE_FORMATS returns a JS array that can be queried for length),
+            // so implement it ourselves to allow C++ GLES2 code get the length.
+            var formats = GLctx.getParameter(0x86A3 /*GL_COMPRESSED_TEXTURE_FORMATS*/);
+            ret = formats.length;
+            break;
+          case 0x8B9A: // GL_IMPLEMENTATION_COLOR_READ_TYPE
+            ret = 0x1401; // GL_UNSIGNED_BYTE
+            break;
+          case 0x8B9B: // GL_IMPLEMENTATION_COLOR_READ_FORMAT
+            ret = 0x1908; // GL_RGBA
+            break;
+        }
+  
+        if (ret === undefined) {
+          var result = GLctx.getParameter(name_);
+          switch (typeof(result)) {
+            case "number":
+              ret = result;
+              break;
+            case "boolean":
+              ret = result ? 1 : 0;
+              break;
+            case "string":
+              GL.recordError(0x0500); // GL_INVALID_ENUM
+              return;
+            case "object":
+              if (result === null) {
+                // null is a valid result for some (e.g., which buffer is bound - perhaps nothing is bound), but otherwise
+                // can mean an invalid name_, which we need to report as an error
+                switch(name_) {
+                  case 0x8894: // ARRAY_BUFFER_BINDING
+                  case 0x8B8D: // CURRENT_PROGRAM
+                  case 0x8895: // ELEMENT_ARRAY_BUFFER_BINDING
+                  case 0x8CA6: // FRAMEBUFFER_BINDING
+                  case 0x8CA7: // RENDERBUFFER_BINDING
+                  case 0x8069: // TEXTURE_BINDING_2D
+                  case 0x8514: { // TEXTURE_BINDING_CUBE_MAP
+                    ret = 0;
+                    break;
+                  }
+                  default: {
+                    GL.recordError(0x0500); // GL_INVALID_ENUM
+                    return;
+                  }
+                }
+              } else if (result instanceof Float32Array ||
+                         result instanceof Uint32Array ||
+                         result instanceof Int32Array ||
+                         result instanceof Array) {
+                for (var i = 0; i < result.length; ++i) {
+                  switch (type) {
+                    case 'Integer': HEAP32[(((p)+(i*4))>>2)]=result[i];   break;
+                    case 'Float':   HEAPF32[(((p)+(i*4))>>2)]=result[i]; break;
+                    case 'Boolean': HEAP8[(((p)+(i))>>0)]=result[i] ? 1 : 0;    break;
+                    default: throw 'internal glGet error, bad type: ' + type;
+                  }
+                }
+                return;
+              } else if (result instanceof WebGLBuffer ||
+                         result instanceof WebGLProgram ||
+                         result instanceof WebGLFramebuffer ||
+                         result instanceof WebGLRenderbuffer ||
+                         result instanceof WebGLTexture) {
+                ret = result.name | 0;
+              } else {
+                GL.recordError(0x0500); // GL_INVALID_ENUM
+                return;
+              }
+              break;
+            default:
+              GL.recordError(0x0500); // GL_INVALID_ENUM
+              return;
+          }
+        }
+  
+        switch (type) {
+          case 'Integer': HEAP32[((p)>>2)]=ret;    break;
+          case 'Float':   HEAPF32[((p)>>2)]=ret;  break;
+          case 'Boolean': HEAP8[((p)>>0)]=ret ? 1 : 0; break;
+          default: throw 'internal glGet error, bad type: ' + type;
+        }
+      },getTexPixelData:function (type, format, width, height, pixels, internalFormat) {
+        var sizePerPixel;
+        var numChannels;
+        switch(format) {
+          case 0x1906 /* GL_ALPHA */:
+          case 0x1909 /* GL_LUMINANCE */:
+          case 0x1902 /* GL_DEPTH_COMPONENT */:
+          case 0x1903 /* GL_RED */:
+            numChannels = 1;
+            break;
+          case 0x190A /* GL_LUMINANCE_ALPHA */:
+          case 0x8227 /* GL_RG */:
+            numChannels = 2;
+            break;
+          case 0x1907 /* GL_RGB */:
+            numChannels = 3;
+            break;
+          case 0x1908 /* GL_RGBA */:
+            numChannels = 4;
+            break;
+          default:
+            GL.recordError(0x0500); // GL_INVALID_ENUM
+            return {
+              pixels: null,
+              internalFormat: 0x0
+            };
+        }
+        switch (type) {
+          case 0x1401 /* GL_UNSIGNED_BYTE */:
+            sizePerPixel = numChannels*1;
+            break;
+          case 0x1403 /* GL_UNSIGNED_SHORT */:
+          case 0x8D61 /* GL_HALF_FLOAT_OES */:
+            sizePerPixel = numChannels*2;
+            break;
+          case 0x1405 /* GL_UNSIGNED_INT */:
+          case 0x1406 /* GL_FLOAT */:
+            sizePerPixel = numChannels*4;
+            break;
+          case 0x84FA /* UNSIGNED_INT_24_8_WEBGL */:
+            sizePerPixel = 4;
+            break;
+          case 0x8363 /* GL_UNSIGNED_SHORT_5_6_5 */:
+          case 0x8033 /* GL_UNSIGNED_SHORT_4_4_4_4 */:
+          case 0x8034 /* GL_UNSIGNED_SHORT_5_5_5_1 */:
+            sizePerPixel = 2;
+            break;
+          default:
+            GL.recordError(0x0500); // GL_INVALID_ENUM
+            return {
+              pixels: null,
+              internalFormat: 0x0
+            };
+        }
+        var bytes = GL.computeImageSize(width, height, sizePerPixel, GL.unpackAlignment);
+        if (type == 0x1401 /* GL_UNSIGNED_BYTE */) {
+          pixels = HEAPU8.subarray((pixels),(pixels+bytes));
+        } else if (type == 0x1406 /* GL_FLOAT */) {
+          pixels = HEAPF32.subarray((pixels)>>2,(pixels+bytes)>>2);
+        } else if (type == 0x1405 /* GL_UNSIGNED_INT */ || type == 0x84FA /* UNSIGNED_INT_24_8_WEBGL */) {
+          pixels = HEAPU32.subarray((pixels)>>2,(pixels+bytes)>>2);
+        } else {
+          pixels = HEAPU16.subarray((pixels)>>1,(pixels+bytes)>>1);
+        }
+        return {
+          pixels: pixels,
+          internalFormat: internalFormat
+        };
+      },calcBufLength:function calcBufLength(size, type, stride, count) {
+        if (stride > 0) {
+          return count * stride;  // XXXvlad this is not exactly correct I don't think
+        }
+        var typeSize = GL.byteSizeByType[type - GL.byteSizeByTypeRoot];
+        return size * typeSize * count;
+      },usedTempBuffers:[],preDrawHandleClientVertexAttribBindings:function preDrawHandleClientVertexAttribBindings(count) {
+        GL.resetBufferBinding = false;
+  
+        // TODO: initial pass to detect ranges we need to upload, might not need an upload per attrib
+        for (var i = 0; i < GL.currentContext.maxVertexAttribs; ++i) {
+          var cb = GL.currentContext.clientBuffers[i];
+          if (!cb.clientside || !cb.enabled) continue;
+  
+          GL.resetBufferBinding = true;
+  
+          var size = GL.calcBufLength(cb.size, cb.type, cb.stride, count);
+          var buf = GL.getTempVertexBuffer(size);
+          GLctx.bindBuffer(GLctx.ARRAY_BUFFER, buf);
+          GLctx.bufferSubData(GLctx.ARRAY_BUFFER,
+                                   0,
+                                   HEAPU8.subarray(cb.ptr, cb.ptr + size));
+          GLctx.vertexAttribPointer(i, cb.size, cb.type, cb.normalized, cb.stride, 0);
+        }
+      },postDrawHandleClientVertexAttribBindings:function postDrawHandleClientVertexAttribBindings() {
+        if (GL.resetBufferBinding) {
+          GLctx.bindBuffer(GLctx.ARRAY_BUFFER, GL.buffers[GL.currArrayBuffer]);
+        }
+      },validateBufferTarget:function (target) {
+        switch (target) {
+          case 0x8892: // GL_ARRAY_BUFFER
+          case 0x8893: // GL_ELEMENT_ARRAY_BUFFER
+          case 0x8F36: // GL_COPY_READ_BUFFER
+          case 0x8F37: // GL_COPY_WRITE_BUFFER
+          case 0x88EB: // GL_PIXEL_PACK_BUFFER
+          case 0x88EC: // GL_PIXEL_UNPACK_BUFFER
+          case 0x8C2A: // GL_TEXTURE_BUFFER
+          case 0x8C8E: // GL_TRANSFORM_FEEDBACK_BUFFER
+          case 0x8A11: // GL_UNIFORM_BUFFER
+            return true;
+          default:
+            return false;
+        }
+      },createContext:function (canvas, webGLContextAttributes) {
+        if (typeof webGLContextAttributes.majorVersion === 'undefined' && typeof webGLContextAttributes.minorVersion === 'undefined') {
+          webGLContextAttributes.majorVersion = 1;
+          webGLContextAttributes.minorVersion = 0;
+        }
+        var ctx;
+        var errorInfo = '?';
+        function onContextCreationError(event) {
+          errorInfo = event.statusMessage || errorInfo;
+        }
+        try {
+          canvas.addEventListener('webglcontextcreationerror', onContextCreationError, false);
+          try {
+            if (webGLContextAttributes.majorVersion == 1 && webGLContextAttributes.minorVersion == 0) {
+              ctx = canvas.getContext("webgl", webGLContextAttributes) || canvas.getContext("experimental-webgl", webGLContextAttributes);
+            } else if (webGLContextAttributes.majorVersion == 2 && webGLContextAttributes.minorVersion == 0) {
+              ctx = canvas.getContext("webgl2", webGLContextAttributes) || canvas.getContext("experimental-webgl2", webGLContextAttributes);
+            } else {
+              throw 'Unsupported WebGL context version ' + majorVersion + '.' + minorVersion + '!'
+            }
+          } finally {
+            canvas.removeEventListener('webglcontextcreationerror', onContextCreationError, false);
+          }
+          if (!ctx) throw ':(';
+        } catch (e) {
+          Module.print('Could not create canvas: ' + [errorInfo, e, JSON.stringify(webGLContextAttributes)]);
+          return 0;
+        }
+        // possible GL_DEBUG entry point: ctx = wrapDebugGL(ctx);
+  
+        if (!ctx) return 0;
+        return GL.registerContext(ctx, webGLContextAttributes);
+      },registerContext:function (ctx, webGLContextAttributes) {
+        var handle = GL.getNewId(GL.contexts);
+        var context = {
+          handle: handle,
+          version: webGLContextAttributes.majorVersion,
+          GLctx: ctx
+        };
+        // Store the created context object so that we can access the context given a canvas without having to pass the parameters again.
+        if (ctx.canvas) ctx.canvas.GLctxObject = context;
+        GL.contexts[handle] = context;
+        if (typeof webGLContextAttributes['enableExtensionsByDefault'] === 'undefined' || webGLContextAttributes.enableExtensionsByDefault) {
+          GL.initExtensions(context);
+        }
+        return handle;
+      },makeContextCurrent:function (contextHandle) {
+        var context = GL.contexts[contextHandle];
+        if (!context) return false;
+        GLctx = Module.ctx = context.GLctx; // Active WebGL context object.
+        GL.currentContext = context; // Active Emscripten GL layer context object.
+        return true;
+      },getContext:function (contextHandle) {
+        return GL.contexts[contextHandle];
+      },deleteContext:function (contextHandle) {
+        if (GL.currentContext === GL.contexts[contextHandle]) GL.currentContext = null;
+        if (typeof JSEvents === 'object') JSEvents.removeAllHandlersOnTarget(GL.contexts[contextHandle].GLctx.canvas); // Release all JS event handlers on the DOM element that the GL context is associated with since the context is now deleted.
+        if (GL.contexts[contextHandle] && GL.contexts[contextHandle].GLctx.canvas) GL.contexts[contextHandle].GLctx.canvas.GLctxObject = undefined; // Make sure the canvas object no longer refers to the context object so there are no GC surprises.
+        GL.contexts[contextHandle] = null;
+      },initExtensions:function (context) {
+  
+        // If this function is called without a specific context object, init the extensions of the currently active context.
+        if (!context) context = GL.currentContext;
+  
+        if (context.initExtensionsDone) return;
+        context.initExtensionsDone = true;
+  
+        var GLctx = context.GLctx;
+  
+        context.maxVertexAttribs = GLctx.getParameter(GLctx.MAX_VERTEX_ATTRIBS);
+        context.clientBuffers = [];
+        for (var i = 0; i < context.maxVertexAttribs; i++) {
+          context.clientBuffers[i] = { enabled: false, clientside: false, size: 0, type: 0, normalized: 0, stride: 0, ptr: 0 };
+        }
+  
+        GL.generateTempBuffers(false, context);
+  
+        // Detect the presence of a few extensions manually, this GL interop layer itself will need to know if they exist. 
+        context.compressionExt = GLctx.getExtension('WEBGL_compressed_texture_s3tc') ||
+                            GLctx.getExtension('MOZ_WEBGL_compressed_texture_s3tc') ||
+                            GLctx.getExtension('WEBKIT_WEBGL_compressed_texture_s3tc');
+  
+        context.anisotropicExt = GLctx.getExtension('EXT_texture_filter_anisotropic') ||
+                            GLctx.getExtension('MOZ_EXT_texture_filter_anisotropic') ||
+                            GLctx.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
+  
+        context.floatExt = GLctx.getExtension('OES_texture_float');
+  
+        // Extension available from Firefox 26 and Google Chrome 30
+        context.instancedArraysExt = GLctx.getExtension('ANGLE_instanced_arrays');
+        
+        // Extension available from Firefox 25 and WebKit
+        context.vaoExt = GLctx.getExtension('OES_vertex_array_object');
+  
+        if (context.version === 2) {
+          // drawBuffers is available in WebGL2 by default.
+          context.drawBuffersExt = function(n, bufs) {
+            GLctx.drawBuffers(n, bufs);
+          };
+        } else {
+          var ext = GLctx.getExtension('WEBGL_draw_buffers');
+          if (ext) {
+            context.drawBuffersExt = function(n, bufs) {
+              ext.drawBuffersWEBGL(n, bufs);
+            };
+          }
+        }
+  
+        // These are the 'safe' feature-enabling extensions that don't add any performance impact related to e.g. debugging, and
+        // should be enabled by default so that client GLES2/GL code will not need to go through extra hoops to get its stuff working.
+        // As new extensions are ratified at http://www.khronos.org/registry/webgl/extensions/ , feel free to add your new extensions
+        // here, as long as they don't produce a performance impact for users that might not be using those extensions.
+        // E.g. debugging-related extensions should probably be off by default.
+        var automaticallyEnabledExtensions = [ "OES_texture_float", "OES_texture_half_float", "OES_standard_derivatives",
+                                               "OES_vertex_array_object", "WEBGL_compressed_texture_s3tc", "WEBGL_depth_texture",
+                                               "OES_element_index_uint", "EXT_texture_filter_anisotropic", "ANGLE_instanced_arrays",
+                                               "OES_texture_float_linear", "OES_texture_half_float_linear", "WEBGL_compressed_texture_atc",
+                                               "WEBGL_compressed_texture_pvrtc", "EXT_color_buffer_half_float", "WEBGL_color_buffer_float",
+                                               "EXT_frag_depth", "EXT_sRGB", "WEBGL_draw_buffers", "WEBGL_shared_resources",
+                                               "EXT_shader_texture_lod" ];
+  
+        function shouldEnableAutomatically(extension) {
+          var ret = false;
+          automaticallyEnabledExtensions.forEach(function(include) {
+            if (ext.indexOf(include) != -1) {
+              ret = true;
+            }
+          });
+          return ret;
+        }
+  
+        var exts = GLctx.getSupportedExtensions();
+        if (exts && exts.length > 0) {
+          GLctx.getSupportedExtensions().forEach(function(ext) {
+            ext = ext.replace('MOZ_', '').replace('WEBKIT_', '');
+            if (automaticallyEnabledExtensions.indexOf(ext) != -1) {
+              GLctx.getExtension(ext); // Calling .getExtension enables that extension permanently, no need to store the return value to be enabled.
+            }
+          });
+        }
+      },populateUniformTable:function (program) {
+        var p = GL.programs[program];
+        GL.programInfos[program] = {
+          uniforms: {},
+          maxUniformLength: 0, // This is eagerly computed below, since we already enumerate all uniforms anyway.
+          maxAttributeLength: -1 // This is lazily computed and cached, computed when/if first asked, "-1" meaning not computed yet.
+        };
+  
+        var ptable = GL.programInfos[program];
+        var utable = ptable.uniforms;
+        // A program's uniform table maps the string name of an uniform to an integer location of that uniform.
+        // The global GL.uniforms map maps integer locations to WebGLUniformLocations.
+        var numUniforms = GLctx.getProgramParameter(p, GLctx.ACTIVE_UNIFORMS);
+        for (var i = 0; i < numUniforms; ++i) {
+          var u = GLctx.getActiveUniform(p, i);
+  
+          var name = u.name;
+          ptable.maxUniformLength = Math.max(ptable.maxUniformLength, name.length+1);
+  
+          // Strip off any trailing array specifier we might have got, e.g. "[0]".
+          if (name.indexOf(']', name.length-1) !== -1) {
+            var ls = name.lastIndexOf('[');
+            name = name.slice(0, ls);
+          }
+  
+          // Optimize memory usage slightly: If we have an array of uniforms, e.g. 'vec3 colors[3];', then 
+          // only store the string 'colors' in utable, and 'colors[0]', 'colors[1]' and 'colors[2]' will be parsed as 'colors'+i.
+          // Note that for the GL.uniforms table, we still need to fetch the all WebGLUniformLocations for all the indices.
+          var loc = GLctx.getUniformLocation(p, name);
+          var id = GL.getNewId(GL.uniforms);
+          utable[name] = [u.size, id];
+          GL.uniforms[id] = loc;
+  
+          for (var j = 1; j < u.size; ++j) {
+            var n = name + '['+j+']';
+            loc = GLctx.getUniformLocation(p, n);
+            id = GL.getNewId(GL.uniforms);
+  
+            GL.uniforms[id] = loc;
+          }
+        }
+      }};function _glViewport(x0, x1, x2, x3) { GLctx.viewport(x0, x1, x2, x3) }
+
   function _glfwPollEvents() {}
 
    
   Module["_memset"] = _memset;
+
+  
+  
+  function _emscripten_set_main_loop_timing(mode, value) {
+      Browser.mainLoop.timingMode = mode;
+      Browser.mainLoop.timingValue = value;
+  
+      if (!Browser.mainLoop.func) {
+        console.error('emscripten_set_main_loop_timing: Cannot set timing mode for main loop since a main loop does not exist! Call emscripten_set_main_loop first to set one up.');
+        return 1; // Return non-zero on failure, can't set timing mode when there is no main loop.
+      }
+  
+      if (mode == 0 /*EM_TIMING_SETTIMEOUT*/) {
+        Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler() {
+          setTimeout(Browser.mainLoop.runner, value); // doing this each time means that on exception, we stop
+        };
+        Browser.mainLoop.method = 'timeout';
+      } else if (mode == 1 /*EM_TIMING_RAF*/) {
+        Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler() {
+          Browser.requestAnimationFrame(Browser.mainLoop.runner);
+        };
+        Browser.mainLoop.method = 'rAF';
+      }
+      return 0;
+    }function _emscripten_set_main_loop(func, fps, simulateInfiniteLoop, arg, noSetTiming) {
+      Module['noExitRuntime'] = true;
+  
+      assert(!Browser.mainLoop.func, 'emscripten_set_main_loop: there can only be one main loop function at once: call emscripten_cancel_main_loop to cancel the previous one before setting a new one with different parameters.');
+  
+      Browser.mainLoop.func = func;
+      Browser.mainLoop.arg = arg;
+  
+      var thisMainLoopId = Browser.mainLoop.currentlyRunningMainloop;
+  
+      Browser.mainLoop.runner = function Browser_mainLoop_runner() {
+        if (ABORT) return;
+        if (Browser.mainLoop.queue.length > 0) {
+          var start = Date.now();
+          var blocker = Browser.mainLoop.queue.shift();
+          blocker.func(blocker.arg);
+          if (Browser.mainLoop.remainingBlockers) {
+            var remaining = Browser.mainLoop.remainingBlockers;
+            var next = remaining%1 == 0 ? remaining-1 : Math.floor(remaining);
+            if (blocker.counted) {
+              Browser.mainLoop.remainingBlockers = next;
+            } else {
+              // not counted, but move the progress along a tiny bit
+              next = next + 0.5; // do not steal all the next one's progress
+              Browser.mainLoop.remainingBlockers = (8*remaining + next)/9;
+            }
+          }
+          console.log('main loop blocker "' + blocker.name + '" took ' + (Date.now() - start) + ' ms'); //, left: ' + Browser.mainLoop.remainingBlockers);
+          Browser.mainLoop.updateStatus();
+          setTimeout(Browser.mainLoop.runner, 0);
+          return;
+        }
+  
+        // catch pauses from non-main loop sources
+        if (thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop) return;
+  
+        // Implement very basic swap interval control
+        Browser.mainLoop.currentFrameNumber = Browser.mainLoop.currentFrameNumber + 1 | 0;
+        if (Browser.mainLoop.timingMode == 1/*EM_TIMING_RAF*/ && Browser.mainLoop.timingValue > 1 && Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0) {
+          // Not the scheduled time to render this frame - skip.
+          Browser.mainLoop.scheduler();
+          return;
+        }
+  
+        // Signal GL rendering layer that processing of a new frame is about to start. This helps it optimize
+        // VBO double-buffering and reduce GPU stalls.
+        GL.newRenderingFrameStarted();
+  
+        if (Browser.mainLoop.method === 'timeout' && Module.ctx) {
+          Module.printErr('Looks like you are rendering without using requestAnimationFrame for the main loop. You should use 0 for the frame rate in emscripten_set_main_loop in order to use requestAnimationFrame, as that can greatly improve your frame rates!');
+          Browser.mainLoop.method = ''; // just warn once per call to set main loop
+        }
+  
+        Browser.mainLoop.runIter(function() {
+          if (typeof arg !== 'undefined') {
+            Runtime.dynCall('vi', func, [arg]);
+          } else {
+            Runtime.dynCall('v', func);
+          }
+        });
+  
+        // catch pauses from the main loop itself
+        if (thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop) return;
+  
+        // Queue new audio data. This is important to be right after the main loop invocation, so that we will immediately be able
+        // to queue the newest produced audio samples.
+        // TODO: Consider adding pre- and post- rAF callbacks so that GL.newRenderingFrameStarted() and SDL.audio.queueNewAudioData()
+        //       do not need to be hardcoded into this function, but can be more generic.
+        if (typeof SDL === 'object' && SDL.audio && SDL.audio.queueNewAudioData) SDL.audio.queueNewAudioData();
+  
+        Browser.mainLoop.scheduler();
+      }
+  
+      if (!noSetTiming) {
+        if (fps && fps > 0) _emscripten_set_main_loop_timing(0/*EM_TIMING_SETTIMEOUT*/, 1000.0 / fps);
+        else _emscripten_set_main_loop_timing(1/*EM_TIMING_RAF*/, 1); // Do rAF by rendering each frame (no decimating)
+  
+        Browser.mainLoop.scheduler();
+      }
+  
+      if (simulateInfiniteLoop) {
+        throw 'SimulateInfiniteLoop';
+      }
+    }function _emscripten_set_main_loop_arg(func, arg, fps, simulateInfiniteLoop) {
+      _emscripten_set_main_loop(func, fps, simulateInfiniteLoop, arg);
+    }
 
   function _atexit(func, arg) {
       __ATEXIT__.unshift({ func: func, arg: arg });
@@ -5899,11 +6555,8 @@ function copyTempDouble(ptr) {
       return ret;
     }
 
-  function _printf(format, varargs) {
-      // int printf(const char *restrict format, ...);
-      // http://pubs.opengroup.org/onlinepubs/000095399/functions/printf.html
-      var stdout = HEAP32[((_stdout)>>2)];
-      return _fprintf(stdout, format, varargs);
+  function _glfwSetErrorCallback(cbfun) {
+      GLFW.errorFunc = cbfun;
     }
 
   function _glfwMakeContextCurrent(winid) {}
@@ -6095,547 +6748,7 @@ function copyTempDouble(ptr) {
       return win.shouldClose;
     }
 
-  
-  var GL={counter:1,lastError:0,buffers:[],mappedBuffers:{},programs:[],framebuffers:[],renderbuffers:[],textures:[],uniforms:[],shaders:[],vaos:[],contexts:[],currentContext:null,currArrayBuffer:0,currElementArrayBuffer:0,byteSizeByTypeRoot:5120,byteSizeByType:[1,1,2,2,4,4,4,2,3,4,8],programInfos:{},stringCache:{},packAlignment:4,unpackAlignment:4,init:function () {
-        GL.createLog2ceilLookup(GL.MAX_TEMP_BUFFER_SIZE);
-        GL.miniTempBuffer = new Float32Array(GL.MINI_TEMP_BUFFER_SIZE);
-        for (var i = 0; i < GL.MINI_TEMP_BUFFER_SIZE; i++) {
-          GL.miniTempBufferViews[i] = GL.miniTempBuffer.subarray(0, i+1);
-        }
-      },recordError:function recordError(errorCode) {
-        if (!GL.lastError) {
-          GL.lastError = errorCode;
-        }
-      },getNewId:function (table) {
-        var ret = GL.counter++;
-        for (var i = table.length; i < ret; i++) {
-          table[i] = null;
-        }
-        return ret;
-      },MINI_TEMP_BUFFER_SIZE:16,miniTempBuffer:null,miniTempBufferViews:[0],MAX_TEMP_BUFFER_SIZE:2097152,numTempVertexBuffersPerSize:64,log2ceilLookup:null,createLog2ceilLookup:function (maxValue) {
-        GL.log2ceilLookup = new Uint8Array(maxValue+1);
-        var log2 = 0;
-        var pow2 = 1;
-        GL.log2ceilLookup[0] = 0;
-        for(var i = 1; i <= maxValue; ++i) {
-          if (i > pow2) {
-            pow2 <<= 1;
-            ++log2;
-          }
-          GL.log2ceilLookup[i] = log2;
-        }
-      },generateTempBuffers:function (quads, context) {
-        var largestIndex = GL.log2ceilLookup[GL.MAX_TEMP_BUFFER_SIZE];
-        context.tempVertexBufferCounters1 = [];
-        context.tempVertexBufferCounters2 = [];
-        context.tempVertexBufferCounters1.length = context.tempVertexBufferCounters2.length = largestIndex+1;
-        context.tempVertexBuffers1 = [];
-        context.tempVertexBuffers2 = [];
-        context.tempVertexBuffers1.length = context.tempVertexBuffers2.length = largestIndex+1;
-        context.tempIndexBuffers = [];
-        context.tempIndexBuffers.length = largestIndex+1;
-        for(var i = 0; i <= largestIndex; ++i) {
-          context.tempIndexBuffers[i] = null; // Created on-demand
-          context.tempVertexBufferCounters1[i] = context.tempVertexBufferCounters2[i] = 0;
-          var ringbufferLength = GL.numTempVertexBuffersPerSize;
-          context.tempVertexBuffers1[i] = [];
-          context.tempVertexBuffers2[i] = [];
-          var ringbuffer1 = context.tempVertexBuffers1[i];
-          var ringbuffer2 = context.tempVertexBuffers2[i];
-          ringbuffer1.length = ringbuffer2.length = ringbufferLength;
-          for(var j = 0; j < ringbufferLength; ++j) {
-            ringbuffer1[j] = ringbuffer2[j] = null; // Created on-demand
-          }
-        }
-  
-        if (quads) {
-          // GL_QUAD indexes can be precalculated
-          context.tempQuadIndexBuffer = GLctx.createBuffer();
-          context.GLctx.bindBuffer(context.GLctx.ELEMENT_ARRAY_BUFFER, context.tempQuadIndexBuffer);
-          var numIndexes = GL.MAX_TEMP_BUFFER_SIZE >> 1;
-          var quadIndexes = new Uint16Array(numIndexes);
-          var i = 0, v = 0;
-          while (1) {
-            quadIndexes[i++] = v;
-            if (i >= numIndexes) break;
-            quadIndexes[i++] = v+1;
-            if (i >= numIndexes) break;
-            quadIndexes[i++] = v+2;
-            if (i >= numIndexes) break;
-            quadIndexes[i++] = v;
-            if (i >= numIndexes) break;
-            quadIndexes[i++] = v+2;
-            if (i >= numIndexes) break;
-            quadIndexes[i++] = v+3;
-            if (i >= numIndexes) break;
-            v += 4;
-          }
-          context.GLctx.bufferData(context.GLctx.ELEMENT_ARRAY_BUFFER, quadIndexes, context.GLctx.STATIC_DRAW);
-          context.GLctx.bindBuffer(context.GLctx.ELEMENT_ARRAY_BUFFER, null);
-        }
-      },getTempVertexBuffer:function getTempVertexBuffer(sizeBytes) {
-        var idx = GL.log2ceilLookup[sizeBytes];
-        var ringbuffer = GL.currentContext.tempVertexBuffers1[idx];
-        var nextFreeBufferIndex = GL.currentContext.tempVertexBufferCounters1[idx];
-        GL.currentContext.tempVertexBufferCounters1[idx] = (GL.currentContext.tempVertexBufferCounters1[idx]+1) & (GL.numTempVertexBuffersPerSize-1);
-        var vbo = ringbuffer[nextFreeBufferIndex];
-        if (vbo) {
-          return vbo;
-        }
-        var prevVBO = GLctx.getParameter(GLctx.ARRAY_BUFFER_BINDING);
-        ringbuffer[nextFreeBufferIndex] = GLctx.createBuffer();
-        GLctx.bindBuffer(GLctx.ARRAY_BUFFER, ringbuffer[nextFreeBufferIndex]);
-        GLctx.bufferData(GLctx.ARRAY_BUFFER, 1 << idx, GLctx.DYNAMIC_DRAW);
-        GLctx.bindBuffer(GLctx.ARRAY_BUFFER, prevVBO);
-        return ringbuffer[nextFreeBufferIndex];
-      },getTempIndexBuffer:function getTempIndexBuffer(sizeBytes) {
-        var idx = GL.log2ceilLookup[sizeBytes];
-        var ibo = GL.currentContext.tempIndexBuffers[idx];
-        if (ibo) {
-          return ibo;
-        }
-        var prevIBO = GLctx.getParameter(GLctx.ELEMENT_ARRAY_BUFFER_BINDING);
-        GL.currentContext.tempIndexBuffers[idx] = GLctx.createBuffer();
-        GLctx.bindBuffer(GLctx.ELEMENT_ARRAY_BUFFER, GL.currentContext.tempIndexBuffers[idx]);
-        GLctx.bufferData(GLctx.ELEMENT_ARRAY_BUFFER, 1 << idx, GLctx.DYNAMIC_DRAW);
-        GLctx.bindBuffer(GLctx.ELEMENT_ARRAY_BUFFER, prevIBO);
-        return GL.currentContext.tempIndexBuffers[idx];
-      },newRenderingFrameStarted:function newRenderingFrameStarted() {
-        if (!GL.currentContext) {
-          return;
-        }
-        var vb = GL.currentContext.tempVertexBuffers1;
-        GL.currentContext.tempVertexBuffers1 = GL.currentContext.tempVertexBuffers2;
-        GL.currentContext.tempVertexBuffers2 = vb;
-        vb = GL.currentContext.tempVertexBufferCounters1;
-        GL.currentContext.tempVertexBufferCounters1 = GL.currentContext.tempVertexBufferCounters2;
-        GL.currentContext.tempVertexBufferCounters2 = vb;
-        var largestIndex = GL.log2ceilLookup[GL.MAX_TEMP_BUFFER_SIZE];
-        for(var i = 0; i <= largestIndex; ++i) {
-          GL.currentContext.tempVertexBufferCounters1[i] = 0;
-        }
-      },getSource:function (shader, count, string, length) {
-        var source = '';
-        for (var i = 0; i < count; ++i) {
-          var frag;
-          if (length) {
-            var len = HEAP32[(((length)+(i*4))>>2)];
-            if (len < 0) {
-              frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)]);
-            } else {
-              frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)], len);
-            }
-          } else {
-            frag = Pointer_stringify(HEAP32[(((string)+(i*4))>>2)]);
-          }
-          source += frag;
-        }
-        return source;
-      },computeImageSize:function (width, height, sizePerPixel, alignment) {
-        function roundedToNextMultipleOf(x, y) {
-          return Math.floor((x + y - 1) / y) * y
-        }
-        var plainRowSize = width * sizePerPixel;
-        var alignedRowSize = roundedToNextMultipleOf(plainRowSize, alignment);
-        return (height <= 0) ? 0 :
-                 ((height - 1) * alignedRowSize + plainRowSize);
-      },get:function (name_, p, type) {
-        // Guard against user passing a null pointer.
-        // Note that GLES2 spec does not say anything about how passing a null pointer should be treated.
-        // Testing on desktop core GL 3, the application crashes on glGetIntegerv to a null pointer, but
-        // better to report an error instead of doing anything random.
-        if (!p) {
-          GL.recordError(0x0501 /* GL_INVALID_VALUE */);
-          return;
-        }
-        var ret = undefined;
-        switch(name_) { // Handle a few trivial GLES values
-          case 0x8DFA: // GL_SHADER_COMPILER
-            ret = 1;
-            break;
-          case 0x8DF8: // GL_SHADER_BINARY_FORMATS
-            if (type !== 'Integer') {
-              GL.recordError(0x0500); // GL_INVALID_ENUM
-            }
-            return; // Do not write anything to the out pointer, since no binary formats are supported.
-          case 0x8DF9: // GL_NUM_SHADER_BINARY_FORMATS
-            ret = 0;
-            break;
-          case 0x86A2: // GL_NUM_COMPRESSED_TEXTURE_FORMATS
-            // WebGL doesn't have GL_NUM_COMPRESSED_TEXTURE_FORMATS (it's obsolete since GL_COMPRESSED_TEXTURE_FORMATS returns a JS array that can be queried for length),
-            // so implement it ourselves to allow C++ GLES2 code get the length.
-            var formats = GLctx.getParameter(0x86A3 /*GL_COMPRESSED_TEXTURE_FORMATS*/);
-            ret = formats.length;
-            break;
-          case 0x8B9A: // GL_IMPLEMENTATION_COLOR_READ_TYPE
-            ret = 0x1401; // GL_UNSIGNED_BYTE
-            break;
-          case 0x8B9B: // GL_IMPLEMENTATION_COLOR_READ_FORMAT
-            ret = 0x1908; // GL_RGBA
-            break;
-        }
-  
-        if (ret === undefined) {
-          var result = GLctx.getParameter(name_);
-          switch (typeof(result)) {
-            case "number":
-              ret = result;
-              break;
-            case "boolean":
-              ret = result ? 1 : 0;
-              break;
-            case "string":
-              GL.recordError(0x0500); // GL_INVALID_ENUM
-              return;
-            case "object":
-              if (result === null) {
-                // null is a valid result for some (e.g., which buffer is bound - perhaps nothing is bound), but otherwise
-                // can mean an invalid name_, which we need to report as an error
-                switch(name_) {
-                  case 0x8894: // ARRAY_BUFFER_BINDING
-                  case 0x8B8D: // CURRENT_PROGRAM
-                  case 0x8895: // ELEMENT_ARRAY_BUFFER_BINDING
-                  case 0x8CA6: // FRAMEBUFFER_BINDING
-                  case 0x8CA7: // RENDERBUFFER_BINDING
-                  case 0x8069: // TEXTURE_BINDING_2D
-                  case 0x8514: { // TEXTURE_BINDING_CUBE_MAP
-                    ret = 0;
-                    break;
-                  }
-                  default: {
-                    GL.recordError(0x0500); // GL_INVALID_ENUM
-                    return;
-                  }
-                }
-              } else if (result instanceof Float32Array ||
-                         result instanceof Uint32Array ||
-                         result instanceof Int32Array ||
-                         result instanceof Array) {
-                for (var i = 0; i < result.length; ++i) {
-                  switch (type) {
-                    case 'Integer': HEAP32[(((p)+(i*4))>>2)]=result[i];   break;
-                    case 'Float':   HEAPF32[(((p)+(i*4))>>2)]=result[i]; break;
-                    case 'Boolean': HEAP8[(((p)+(i))>>0)]=result[i] ? 1 : 0;    break;
-                    default: throw 'internal glGet error, bad type: ' + type;
-                  }
-                }
-                return;
-              } else if (result instanceof WebGLBuffer ||
-                         result instanceof WebGLProgram ||
-                         result instanceof WebGLFramebuffer ||
-                         result instanceof WebGLRenderbuffer ||
-                         result instanceof WebGLTexture) {
-                ret = result.name | 0;
-              } else {
-                GL.recordError(0x0500); // GL_INVALID_ENUM
-                return;
-              }
-              break;
-            default:
-              GL.recordError(0x0500); // GL_INVALID_ENUM
-              return;
-          }
-        }
-  
-        switch (type) {
-          case 'Integer': HEAP32[((p)>>2)]=ret;    break;
-          case 'Float':   HEAPF32[((p)>>2)]=ret;  break;
-          case 'Boolean': HEAP8[((p)>>0)]=ret ? 1 : 0; break;
-          default: throw 'internal glGet error, bad type: ' + type;
-        }
-      },getTexPixelData:function (type, format, width, height, pixels, internalFormat) {
-        var sizePerPixel;
-        var numChannels;
-        switch(format) {
-          case 0x1906 /* GL_ALPHA */:
-          case 0x1909 /* GL_LUMINANCE */:
-          case 0x1902 /* GL_DEPTH_COMPONENT */:
-          case 0x1903 /* GL_RED */:
-            numChannels = 1;
-            break;
-          case 0x190A /* GL_LUMINANCE_ALPHA */:
-          case 0x8227 /* GL_RG */:
-            numChannels = 2;
-            break;
-          case 0x1907 /* GL_RGB */:
-            numChannels = 3;
-            break;
-          case 0x1908 /* GL_RGBA */:
-            numChannels = 4;
-            break;
-          default:
-            GL.recordError(0x0500); // GL_INVALID_ENUM
-            return {
-              pixels: null,
-              internalFormat: 0x0
-            };
-        }
-        switch (type) {
-          case 0x1401 /* GL_UNSIGNED_BYTE */:
-            sizePerPixel = numChannels*1;
-            break;
-          case 0x1403 /* GL_UNSIGNED_SHORT */:
-          case 0x8D61 /* GL_HALF_FLOAT_OES */:
-            sizePerPixel = numChannels*2;
-            break;
-          case 0x1405 /* GL_UNSIGNED_INT */:
-          case 0x1406 /* GL_FLOAT */:
-            sizePerPixel = numChannels*4;
-            break;
-          case 0x84FA /* UNSIGNED_INT_24_8_WEBGL */:
-            sizePerPixel = 4;
-            break;
-          case 0x8363 /* GL_UNSIGNED_SHORT_5_6_5 */:
-          case 0x8033 /* GL_UNSIGNED_SHORT_4_4_4_4 */:
-          case 0x8034 /* GL_UNSIGNED_SHORT_5_5_5_1 */:
-            sizePerPixel = 2;
-            break;
-          default:
-            GL.recordError(0x0500); // GL_INVALID_ENUM
-            return {
-              pixels: null,
-              internalFormat: 0x0
-            };
-        }
-        var bytes = GL.computeImageSize(width, height, sizePerPixel, GL.unpackAlignment);
-        if (type == 0x1401 /* GL_UNSIGNED_BYTE */) {
-          pixels = HEAPU8.subarray((pixels),(pixels+bytes));
-        } else if (type == 0x1406 /* GL_FLOAT */) {
-          pixels = HEAPF32.subarray((pixels)>>2,(pixels+bytes)>>2);
-        } else if (type == 0x1405 /* GL_UNSIGNED_INT */ || type == 0x84FA /* UNSIGNED_INT_24_8_WEBGL */) {
-          pixels = HEAPU32.subarray((pixels)>>2,(pixels+bytes)>>2);
-        } else {
-          pixels = HEAPU16.subarray((pixels)>>1,(pixels+bytes)>>1);
-        }
-        return {
-          pixels: pixels,
-          internalFormat: internalFormat
-        };
-      },calcBufLength:function calcBufLength(size, type, stride, count) {
-        if (stride > 0) {
-          return count * stride;  // XXXvlad this is not exactly correct I don't think
-        }
-        var typeSize = GL.byteSizeByType[type - GL.byteSizeByTypeRoot];
-        return size * typeSize * count;
-      },usedTempBuffers:[],preDrawHandleClientVertexAttribBindings:function preDrawHandleClientVertexAttribBindings(count) {
-        GL.resetBufferBinding = false;
-  
-        // TODO: initial pass to detect ranges we need to upload, might not need an upload per attrib
-        for (var i = 0; i < GL.currentContext.maxVertexAttribs; ++i) {
-          var cb = GL.currentContext.clientBuffers[i];
-          if (!cb.clientside || !cb.enabled) continue;
-  
-          GL.resetBufferBinding = true;
-  
-          var size = GL.calcBufLength(cb.size, cb.type, cb.stride, count);
-          var buf = GL.getTempVertexBuffer(size);
-          GLctx.bindBuffer(GLctx.ARRAY_BUFFER, buf);
-          GLctx.bufferSubData(GLctx.ARRAY_BUFFER,
-                                   0,
-                                   HEAPU8.subarray(cb.ptr, cb.ptr + size));
-          GLctx.vertexAttribPointer(i, cb.size, cb.type, cb.normalized, cb.stride, 0);
-        }
-      },postDrawHandleClientVertexAttribBindings:function postDrawHandleClientVertexAttribBindings() {
-        if (GL.resetBufferBinding) {
-          GLctx.bindBuffer(GLctx.ARRAY_BUFFER, GL.buffers[GL.currArrayBuffer]);
-        }
-      },validateBufferTarget:function (target) {
-        switch (target) {
-          case 0x8892: // GL_ARRAY_BUFFER
-          case 0x8893: // GL_ELEMENT_ARRAY_BUFFER
-          case 0x8F36: // GL_COPY_READ_BUFFER
-          case 0x8F37: // GL_COPY_WRITE_BUFFER
-          case 0x88EB: // GL_PIXEL_PACK_BUFFER
-          case 0x88EC: // GL_PIXEL_UNPACK_BUFFER
-          case 0x8C2A: // GL_TEXTURE_BUFFER
-          case 0x8C8E: // GL_TRANSFORM_FEEDBACK_BUFFER
-          case 0x8A11: // GL_UNIFORM_BUFFER
-            return true;
-          default:
-            return false;
-        }
-      },createContext:function (canvas, webGLContextAttributes) {
-        if (typeof webGLContextAttributes.majorVersion === 'undefined' && typeof webGLContextAttributes.minorVersion === 'undefined') {
-          webGLContextAttributes.majorVersion = 1;
-          webGLContextAttributes.minorVersion = 0;
-        }
-        var ctx;
-        var errorInfo = '?';
-        function onContextCreationError(event) {
-          errorInfo = event.statusMessage || errorInfo;
-        }
-        try {
-          canvas.addEventListener('webglcontextcreationerror', onContextCreationError, false);
-          try {
-            if (webGLContextAttributes.majorVersion == 1 && webGLContextAttributes.minorVersion == 0) {
-              ctx = canvas.getContext("webgl", webGLContextAttributes) || canvas.getContext("experimental-webgl", webGLContextAttributes);
-            } else if (webGLContextAttributes.majorVersion == 2 && webGLContextAttributes.minorVersion == 0) {
-              ctx = canvas.getContext("webgl2", webGLContextAttributes) || canvas.getContext("experimental-webgl2", webGLContextAttributes);
-            } else {
-              throw 'Unsupported WebGL context version ' + majorVersion + '.' + minorVersion + '!'
-            }
-          } finally {
-            canvas.removeEventListener('webglcontextcreationerror', onContextCreationError, false);
-          }
-          if (!ctx) throw ':(';
-        } catch (e) {
-          Module.print('Could not create canvas: ' + [errorInfo, e, JSON.stringify(webGLContextAttributes)]);
-          return 0;
-        }
-        // possible GL_DEBUG entry point: ctx = wrapDebugGL(ctx);
-  
-        if (!ctx) return 0;
-        return GL.registerContext(ctx, webGLContextAttributes);
-      },registerContext:function (ctx, webGLContextAttributes) {
-        var handle = GL.getNewId(GL.contexts);
-        var context = {
-          handle: handle,
-          version: webGLContextAttributes.majorVersion,
-          GLctx: ctx
-        };
-        // Store the created context object so that we can access the context given a canvas without having to pass the parameters again.
-        if (ctx.canvas) ctx.canvas.GLctxObject = context;
-        GL.contexts[handle] = context;
-        if (typeof webGLContextAttributes['enableExtensionsByDefault'] === 'undefined' || webGLContextAttributes.enableExtensionsByDefault) {
-          GL.initExtensions(context);
-        }
-        return handle;
-      },makeContextCurrent:function (contextHandle) {
-        var context = GL.contexts[contextHandle];
-        if (!context) return false;
-        GLctx = Module.ctx = context.GLctx; // Active WebGL context object.
-        GL.currentContext = context; // Active Emscripten GL layer context object.
-        return true;
-      },getContext:function (contextHandle) {
-        return GL.contexts[contextHandle];
-      },deleteContext:function (contextHandle) {
-        if (GL.currentContext === GL.contexts[contextHandle]) GL.currentContext = null;
-        if (typeof JSEvents === 'object') JSEvents.removeAllHandlersOnTarget(GL.contexts[contextHandle].GLctx.canvas); // Release all JS event handlers on the DOM element that the GL context is associated with since the context is now deleted.
-        if (GL.contexts[contextHandle] && GL.contexts[contextHandle].GLctx.canvas) GL.contexts[contextHandle].GLctx.canvas.GLctxObject = undefined; // Make sure the canvas object no longer refers to the context object so there are no GC surprises.
-        GL.contexts[contextHandle] = null;
-      },initExtensions:function (context) {
-  
-        // If this function is called without a specific context object, init the extensions of the currently active context.
-        if (!context) context = GL.currentContext;
-  
-        if (context.initExtensionsDone) return;
-        context.initExtensionsDone = true;
-  
-        var GLctx = context.GLctx;
-  
-        context.maxVertexAttribs = GLctx.getParameter(GLctx.MAX_VERTEX_ATTRIBS);
-        context.clientBuffers = [];
-        for (var i = 0; i < context.maxVertexAttribs; i++) {
-          context.clientBuffers[i] = { enabled: false, clientside: false, size: 0, type: 0, normalized: 0, stride: 0, ptr: 0 };
-        }
-  
-        GL.generateTempBuffers(false, context);
-  
-        // Detect the presence of a few extensions manually, this GL interop layer itself will need to know if they exist. 
-        context.compressionExt = GLctx.getExtension('WEBGL_compressed_texture_s3tc') ||
-                            GLctx.getExtension('MOZ_WEBGL_compressed_texture_s3tc') ||
-                            GLctx.getExtension('WEBKIT_WEBGL_compressed_texture_s3tc');
-  
-        context.anisotropicExt = GLctx.getExtension('EXT_texture_filter_anisotropic') ||
-                            GLctx.getExtension('MOZ_EXT_texture_filter_anisotropic') ||
-                            GLctx.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
-  
-        context.floatExt = GLctx.getExtension('OES_texture_float');
-  
-        // Extension available from Firefox 26 and Google Chrome 30
-        context.instancedArraysExt = GLctx.getExtension('ANGLE_instanced_arrays');
-        
-        // Extension available from Firefox 25 and WebKit
-        context.vaoExt = GLctx.getExtension('OES_vertex_array_object');
-  
-        if (context.version === 2) {
-          // drawBuffers is available in WebGL2 by default.
-          context.drawBuffersExt = function(n, bufs) {
-            GLctx.drawBuffers(n, bufs);
-          };
-        } else {
-          var ext = GLctx.getExtension('WEBGL_draw_buffers');
-          if (ext) {
-            context.drawBuffersExt = function(n, bufs) {
-              ext.drawBuffersWEBGL(n, bufs);
-            };
-          }
-        }
-  
-        // These are the 'safe' feature-enabling extensions that don't add any performance impact related to e.g. debugging, and
-        // should be enabled by default so that client GLES2/GL code will not need to go through extra hoops to get its stuff working.
-        // As new extensions are ratified at http://www.khronos.org/registry/webgl/extensions/ , feel free to add your new extensions
-        // here, as long as they don't produce a performance impact for users that might not be using those extensions.
-        // E.g. debugging-related extensions should probably be off by default.
-        var automaticallyEnabledExtensions = [ "OES_texture_float", "OES_texture_half_float", "OES_standard_derivatives",
-                                               "OES_vertex_array_object", "WEBGL_compressed_texture_s3tc", "WEBGL_depth_texture",
-                                               "OES_element_index_uint", "EXT_texture_filter_anisotropic", "ANGLE_instanced_arrays",
-                                               "OES_texture_float_linear", "OES_texture_half_float_linear", "WEBGL_compressed_texture_atc",
-                                               "WEBGL_compressed_texture_pvrtc", "EXT_color_buffer_half_float", "WEBGL_color_buffer_float",
-                                               "EXT_frag_depth", "EXT_sRGB", "WEBGL_draw_buffers", "WEBGL_shared_resources",
-                                               "EXT_shader_texture_lod" ];
-  
-        function shouldEnableAutomatically(extension) {
-          var ret = false;
-          automaticallyEnabledExtensions.forEach(function(include) {
-            if (ext.indexOf(include) != -1) {
-              ret = true;
-            }
-          });
-          return ret;
-        }
-  
-        var exts = GLctx.getSupportedExtensions();
-        if (exts && exts.length > 0) {
-          GLctx.getSupportedExtensions().forEach(function(ext) {
-            ext = ext.replace('MOZ_', '').replace('WEBKIT_', '');
-            if (automaticallyEnabledExtensions.indexOf(ext) != -1) {
-              GLctx.getExtension(ext); // Calling .getExtension enables that extension permanently, no need to store the return value to be enabled.
-            }
-          });
-        }
-      },populateUniformTable:function (program) {
-        var p = GL.programs[program];
-        GL.programInfos[program] = {
-          uniforms: {},
-          maxUniformLength: 0, // This is eagerly computed below, since we already enumerate all uniforms anyway.
-          maxAttributeLength: -1 // This is lazily computed and cached, computed when/if first asked, "-1" meaning not computed yet.
-        };
-  
-        var ptable = GL.programInfos[program];
-        var utable = ptable.uniforms;
-        // A program's uniform table maps the string name of an uniform to an integer location of that uniform.
-        // The global GL.uniforms map maps integer locations to WebGLUniformLocations.
-        var numUniforms = GLctx.getProgramParameter(p, GLctx.ACTIVE_UNIFORMS);
-        for (var i = 0; i < numUniforms; ++i) {
-          var u = GLctx.getActiveUniform(p, i);
-  
-          var name = u.name;
-          ptable.maxUniformLength = Math.max(ptable.maxUniformLength, name.length+1);
-  
-          // Strip off any trailing array specifier we might have got, e.g. "[0]".
-          if (name.indexOf(']', name.length-1) !== -1) {
-            var ls = name.lastIndexOf('[');
-            name = name.slice(0, ls);
-          }
-  
-          // Optimize memory usage slightly: If we have an array of uniforms, e.g. 'vec3 colors[3];', then 
-          // only store the string 'colors' in utable, and 'colors[0]', 'colors[1]' and 'colors[2]' will be parsed as 'colors'+i.
-          // Note that for the GL.uniforms table, we still need to fetch the all WebGLUniformLocations for all the indices.
-          var loc = GLctx.getUniformLocation(p, name);
-          var id = GL.getNewId(GL.uniforms);
-          utable[name] = [u.size, id];
-          GL.uniforms[id] = loc;
-  
-          for (var j = 1; j < u.size; ++j) {
-            var n = name + '['+j+']';
-            loc = GLctx.getUniformLocation(p, n);
-            id = GL.getNewId(GL.uniforms);
-  
-            GL.uniforms[id] = loc;
-          }
-        }
-      }};function _glClear(x0) { GLctx.clear(x0) }
+  function _glClear(x0) { GLctx.clear(x0) }
 
   function ___errno_location() {
       return ___errno_state;
@@ -6660,113 +6773,7 @@ function copyTempDouble(ptr) {
       return 1; // GL_TRUE
     }
 
-  
-  
-  function _emscripten_set_main_loop_timing(mode, value) {
-      Browser.mainLoop.timingMode = mode;
-      Browser.mainLoop.timingValue = value;
-  
-      if (!Browser.mainLoop.func) {
-        console.error('emscripten_set_main_loop_timing: Cannot set timing mode for main loop since a main loop does not exist! Call emscripten_set_main_loop first to set one up.');
-        return 1; // Return non-zero on failure, can't set timing mode when there is no main loop.
-      }
-  
-      if (mode == 0 /*EM_TIMING_SETTIMEOUT*/) {
-        Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler() {
-          setTimeout(Browser.mainLoop.runner, value); // doing this each time means that on exception, we stop
-        };
-        Browser.mainLoop.method = 'timeout';
-      } else if (mode == 1 /*EM_TIMING_RAF*/) {
-        Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler() {
-          Browser.requestAnimationFrame(Browser.mainLoop.runner);
-        };
-        Browser.mainLoop.method = 'rAF';
-      }
-      return 0;
-    }function _emscripten_set_main_loop(func, fps, simulateInfiniteLoop, arg, noSetTiming) {
-      Module['noExitRuntime'] = true;
-  
-      assert(!Browser.mainLoop.func, 'emscripten_set_main_loop: there can only be one main loop function at once: call emscripten_cancel_main_loop to cancel the previous one before setting a new one with different parameters.');
-  
-      Browser.mainLoop.func = func;
-      Browser.mainLoop.arg = arg;
-  
-      var thisMainLoopId = Browser.mainLoop.currentlyRunningMainloop;
-  
-      Browser.mainLoop.runner = function Browser_mainLoop_runner() {
-        if (ABORT) return;
-        if (Browser.mainLoop.queue.length > 0) {
-          var start = Date.now();
-          var blocker = Browser.mainLoop.queue.shift();
-          blocker.func(blocker.arg);
-          if (Browser.mainLoop.remainingBlockers) {
-            var remaining = Browser.mainLoop.remainingBlockers;
-            var next = remaining%1 == 0 ? remaining-1 : Math.floor(remaining);
-            if (blocker.counted) {
-              Browser.mainLoop.remainingBlockers = next;
-            } else {
-              // not counted, but move the progress along a tiny bit
-              next = next + 0.5; // do not steal all the next one's progress
-              Browser.mainLoop.remainingBlockers = (8*remaining + next)/9;
-            }
-          }
-          console.log('main loop blocker "' + blocker.name + '" took ' + (Date.now() - start) + ' ms'); //, left: ' + Browser.mainLoop.remainingBlockers);
-          Browser.mainLoop.updateStatus();
-          setTimeout(Browser.mainLoop.runner, 0);
-          return;
-        }
-  
-        // catch pauses from non-main loop sources
-        if (thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop) return;
-  
-        // Implement very basic swap interval control
-        Browser.mainLoop.currentFrameNumber = Browser.mainLoop.currentFrameNumber + 1 | 0;
-        if (Browser.mainLoop.timingMode == 1/*EM_TIMING_RAF*/ && Browser.mainLoop.timingValue > 1 && Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0) {
-          // Not the scheduled time to render this frame - skip.
-          Browser.mainLoop.scheduler();
-          return;
-        }
-  
-        // Signal GL rendering layer that processing of a new frame is about to start. This helps it optimize
-        // VBO double-buffering and reduce GPU stalls.
-        GL.newRenderingFrameStarted();
-  
-        if (Browser.mainLoop.method === 'timeout' && Module.ctx) {
-          Module.printErr('Looks like you are rendering without using requestAnimationFrame for the main loop. You should use 0 for the frame rate in emscripten_set_main_loop in order to use requestAnimationFrame, as that can greatly improve your frame rates!');
-          Browser.mainLoop.method = ''; // just warn once per call to set main loop
-        }
-  
-        Browser.mainLoop.runIter(function() {
-          if (typeof arg !== 'undefined') {
-            Runtime.dynCall('vi', func, [arg]);
-          } else {
-            Runtime.dynCall('v', func);
-          }
-        });
-  
-        // catch pauses from the main loop itself
-        if (thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop) return;
-  
-        // Queue new audio data. This is important to be right after the main loop invocation, so that we will immediately be able
-        // to queue the newest produced audio samples.
-        // TODO: Consider adding pre- and post- rAF callbacks so that GL.newRenderingFrameStarted() and SDL.audio.queueNewAudioData()
-        //       do not need to be hardcoded into this function, but can be more generic.
-        if (typeof SDL === 'object' && SDL.audio && SDL.audio.queueNewAudioData) SDL.audio.queueNewAudioData();
-  
-        Browser.mainLoop.scheduler();
-      }
-  
-      if (!noSetTiming) {
-        if (fps && fps > 0) _emscripten_set_main_loop_timing(0/*EM_TIMING_SETTIMEOUT*/, 1000.0 / fps);
-        else _emscripten_set_main_loop_timing(1/*EM_TIMING_RAF*/, 1); // Do rAF by rendering each frame (no decimating)
-  
-        Browser.mainLoop.scheduler();
-      }
-  
-      if (simulateInfiniteLoop) {
-        throw 'SimulateInfiniteLoop';
-      }
-    }var Browser={mainLoop:{scheduler:null,method:"",currentlyRunningMainloop:0,func:null,arg:0,timingMode:0,timingValue:0,currentFrameNumber:0,queue:[],pause:function () {
+  var Browser={mainLoop:{scheduler:null,method:"",currentlyRunningMainloop:0,func:null,arg:0,timingMode:0,timingValue:0,currentFrameNumber:0,queue:[],pause:function () {
           Browser.mainLoop.scheduler = null;
           Browser.mainLoop.currentlyRunningMainloop++; // Incrementing this signals the previous main loop that it's now become old, and it must return.
         },resume:function () {
@@ -7398,13 +7405,12 @@ function copyTempDouble(ptr) {
       return ret;
     }
 
-
+var GLctx; GL.init()
 FS.staticInit();__ATINIT__.unshift({ func: function() { if (!Module["noFSInit"] && !FS.init.initialized) FS.init() } });__ATMAIN__.push({ func: function() { FS.ignorePermissions = false } });__ATEXIT__.push({ func: function() { FS.quit() } });Module["FS_createFolder"] = FS.createFolder;Module["FS_createPath"] = FS.createPath;Module["FS_createDataFile"] = FS.createDataFile;Module["FS_createPreloadedFile"] = FS.createPreloadedFile;Module["FS_createLazyFile"] = FS.createLazyFile;Module["FS_createLink"] = FS.createLink;Module["FS_createDevice"] = FS.createDevice;
 ___errno_state = Runtime.staticAlloc(4); HEAP32[((___errno_state)>>2)]=0;
 __ATINIT__.unshift({ func: function() { TTY.init() } });__ATEXIT__.push({ func: function() { TTY.shutdown() } });
 if (ENVIRONMENT_IS_NODE) { var fs = require("fs"); var NODEJS_PATH = require("path"); NODEFS.staticInit(); }
 __ATINIT__.push({ func: function() { SOCKFS.root = FS.mount(SOCKFS, {}, null); } });
-var GLctx; GL.init()
 Module["requestFullScreen"] = function Module_requestFullScreen(lockPointer, resizeCanvas, vrDevice) { Browser.requestFullScreen(lockPointer, resizeCanvas, vrDevice) };
   Module["requestAnimationFrame"] = function Module_requestAnimationFrame(func) { Browser.requestAnimationFrame(func) };
   Module["setCanvasSize"] = function Module_setCanvasSize(width, height, noUpdates) { Browser.setCanvasSize(width, height, noUpdates) };
@@ -7423,19 +7429,21 @@ assert(DYNAMIC_BASE < TOTAL_MEMORY, "TOTAL_MEMORY not big enough for stack");
 
 
 
-function nullFunc_iiiii(x) { Module["printErr"]("Invalid function pointer called with signature 'iiiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
+function nullFunc_vid(x) { Module["printErr"]("Invalid function pointer called with signature 'vid'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
 
 function nullFunc_vi(x) { Module["printErr"]("Invalid function pointer called with signature 'vi'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
 
-function nullFunc_iii(x) { Module["printErr"]("Invalid function pointer called with signature 'iii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
+function nullFunc_vii(x) { Module["printErr"]("Invalid function pointer called with signature 'vii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
 
-function nullFunc_vid(x) { Module["printErr"]("Invalid function pointer called with signature 'vid'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
+function nullFunc_iiiii(x) { Module["printErr"]("Invalid function pointer called with signature 'iiiii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
+
+function nullFunc_viii(x) { Module["printErr"]("Invalid function pointer called with signature 'viii'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
 
 function nullFunc_v(x) { Module["printErr"]("Invalid function pointer called with signature 'v'. Perhaps this is an invalid value (e.g. caused by calling a virtual method on a NULL pointer)? Or calling a function with an incorrect type, which will fail? (it is worth building your source files with -Werror (warnings are errors), as warnings can indicate undefined behavior which can cause this)");  Module["printErr"]("Build with ASSERTIONS=2 for more info."); abort(x) }
 
-function invoke_iiiii(index,a1,a2,a3,a4) {
+function invoke_vid(index,a1,a2) {
   try {
-    return Module["dynCall_iiiii"](index,a1,a2,a3,a4);
+    Module["dynCall_vid"](index,a1,a2);
   } catch(e) {
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
     asm["setThrew"](1, 0);
@@ -7451,18 +7459,27 @@ function invoke_vi(index,a1) {
   }
 }
 
-function invoke_iii(index,a1,a2) {
+function invoke_vii(index,a1,a2) {
   try {
-    return Module["dynCall_iii"](index,a1,a2);
+    Module["dynCall_vii"](index,a1,a2);
   } catch(e) {
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
     asm["setThrew"](1, 0);
   }
 }
 
-function invoke_vid(index,a1,a2) {
+function invoke_iiiii(index,a1,a2,a3,a4) {
   try {
-    Module["dynCall_vid"](index,a1,a2);
+    return Module["dynCall_iiiii"](index,a1,a2,a3,a4);
+  } catch(e) {
+    if (typeof e !== 'number' && e !== 'longjmp') throw e;
+    asm["setThrew"](1, 0);
+  }
+}
+
+function invoke_viii(index,a1,a2,a3) {
+  try {
+    Module["dynCall_viii"](index,a1,a2,a3);
   } catch(e) {
     if (typeof e !== 'number' && e !== 'longjmp') throw e;
     asm["setThrew"](1, 0);
@@ -7479,7 +7496,7 @@ function invoke_v(index) {
 }
 
 Module.asmGlobalArg = { "Math": Math, "Int8Array": Int8Array, "Int16Array": Int16Array, "Int32Array": Int32Array, "Uint8Array": Uint8Array, "Uint16Array": Uint16Array, "Uint32Array": Uint32Array, "Float32Array": Float32Array, "Float64Array": Float64Array, "NaN": NaN, "Infinity": Infinity };
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "nullFunc_iiiii": nullFunc_iiiii, "nullFunc_vi": nullFunc_vi, "nullFunc_iii": nullFunc_iii, "nullFunc_vid": nullFunc_vid, "nullFunc_v": nullFunc_v, "invoke_iiiii": invoke_iiiii, "invoke_vi": invoke_vi, "invoke_iii": invoke_iii, "invoke_vid": invoke_vid, "invoke_v": invoke_v, "_glfwCreateWindow": _glfwCreateWindow, "_send": _send, "_glfwPollEvents": _glfwPollEvents, "__reallyNegative": __reallyNegative, "___assert_fail": ___assert_fail, "_glfwMakeContextCurrent": _glfwMakeContextCurrent, "_fflush": _fflush, "_pwrite": _pwrite, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "_sbrk": _sbrk, "_emscripten_asm_const": _emscripten_asm_const, "_glClear": _glClear, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_fileno": _fileno, "_sysconf": _sysconf, "___setErrNo": ___setErrNo, "_clock": _clock, "_glfwWindowShouldClose": _glfwWindowShouldClose, "_printf": _printf, "_glfwInit": _glfwInit, "_write": _write, "_glfwSwapBuffers": _glfwSwapBuffers, "_emscripten_set_main_loop": _emscripten_set_main_loop, "___errno_location": ___errno_location, "_glfwTerminate": _glfwTerminate, "_mkport": _mkport, "_abort": _abort, "_fwrite": _fwrite, "_emscripten_get_now": _emscripten_get_now, "_time": _time, "_fprintf": _fprintf, "__formatString": __formatString, "_atexit": _atexit, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "_stderr": _stderr };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "nullFunc_vid": nullFunc_vid, "nullFunc_vi": nullFunc_vi, "nullFunc_vii": nullFunc_vii, "nullFunc_iiiii": nullFunc_iiiii, "nullFunc_viii": nullFunc_viii, "nullFunc_v": nullFunc_v, "invoke_vid": invoke_vid, "invoke_vi": invoke_vi, "invoke_vii": invoke_vii, "invoke_iiiii": invoke_iiiii, "invoke_viii": invoke_viii, "invoke_v": invoke_v, "_glfwCreateWindow": _glfwCreateWindow, "_send": _send, "_glfwPollEvents": _glfwPollEvents, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "___assert_fail": ___assert_fail, "_glfwMakeContextCurrent": _glfwMakeContextCurrent, "_fflush": _fflush, "_pwrite": _pwrite, "_glViewport": _glViewport, "___setErrNo": ___setErrNo, "_sbrk": _sbrk, "_emscripten_asm_const": _emscripten_asm_const, "_glClear": _glClear, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_fileno": _fileno, "_emscripten_set_main_loop_arg": _emscripten_set_main_loop_arg, "_sysconf": _sysconf, "_clock": _clock, "_glfwWindowShouldClose": _glfwWindowShouldClose, "_mkport": _mkport, "_glfwSetWindowSizeCallback": _glfwSetWindowSizeCallback, "__reallyNegative": __reallyNegative, "_glfwInit": _glfwInit, "_write": _write, "_glfwSwapBuffers": _glfwSwapBuffers, "_emscripten_set_main_loop": _emscripten_set_main_loop, "___errno_location": ___errno_location, "_glfwTerminate": _glfwTerminate, "_abort": _abort, "_fwrite": _fwrite, "_emscripten_get_now": _emscripten_get_now, "_time": _time, "_fprintf": _fprintf, "__formatString": __formatString, "_atexit": _atexit, "_glfwSetErrorCallback": _glfwSetErrorCallback, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "_stderr": _stderr };
 // EMSCRIPTEN_START_ASM
 var asm = (function(global, env, buffer) {
   'almost asm';
@@ -7536,42 +7553,46 @@ var asm = (function(global, env, buffer) {
   var Math_clz32=global.Math.clz32;
   var abort=env.abort;
   var assert=env.assert;
-  var nullFunc_iiiii=env.nullFunc_iiiii;
-  var nullFunc_vi=env.nullFunc_vi;
-  var nullFunc_iii=env.nullFunc_iii;
   var nullFunc_vid=env.nullFunc_vid;
+  var nullFunc_vi=env.nullFunc_vi;
+  var nullFunc_vii=env.nullFunc_vii;
+  var nullFunc_iiiii=env.nullFunc_iiiii;
+  var nullFunc_viii=env.nullFunc_viii;
   var nullFunc_v=env.nullFunc_v;
-  var invoke_iiiii=env.invoke_iiiii;
-  var invoke_vi=env.invoke_vi;
-  var invoke_iii=env.invoke_iii;
   var invoke_vid=env.invoke_vid;
+  var invoke_vi=env.invoke_vi;
+  var invoke_vii=env.invoke_vii;
+  var invoke_iiiii=env.invoke_iiiii;
+  var invoke_viii=env.invoke_viii;
   var invoke_v=env.invoke_v;
   var _glfwCreateWindow=env._glfwCreateWindow;
   var _send=env._send;
   var _glfwPollEvents=env._glfwPollEvents;
-  var __reallyNegative=env.__reallyNegative;
+  var _emscripten_set_main_loop_timing=env._emscripten_set_main_loop_timing;
   var ___assert_fail=env.___assert_fail;
   var _glfwMakeContextCurrent=env._glfwMakeContextCurrent;
   var _fflush=env._fflush;
   var _pwrite=env._pwrite;
-  var _emscripten_set_main_loop_timing=env._emscripten_set_main_loop_timing;
+  var _glViewport=env._glViewport;
+  var ___setErrNo=env.___setErrNo;
   var _sbrk=env._sbrk;
   var _emscripten_asm_const=env._emscripten_asm_const;
   var _glClear=env._glClear;
   var _emscripten_memcpy_big=env._emscripten_memcpy_big;
   var _fileno=env._fileno;
+  var _emscripten_set_main_loop_arg=env._emscripten_set_main_loop_arg;
   var _sysconf=env._sysconf;
-  var ___setErrNo=env.___setErrNo;
   var _clock=env._clock;
   var _glfwWindowShouldClose=env._glfwWindowShouldClose;
-  var _printf=env._printf;
+  var _mkport=env._mkport;
+  var _glfwSetWindowSizeCallback=env._glfwSetWindowSizeCallback;
+  var __reallyNegative=env.__reallyNegative;
   var _glfwInit=env._glfwInit;
   var _write=env._write;
   var _glfwSwapBuffers=env._glfwSwapBuffers;
   var _emscripten_set_main_loop=env._emscripten_set_main_loop;
   var ___errno_location=env.___errno_location;
   var _glfwTerminate=env._glfwTerminate;
-  var _mkport=env._mkport;
   var _abort=env._abort;
   var _fwrite=env._fwrite;
   var _emscripten_get_now=env._emscripten_get_now;
@@ -7579,6 +7600,7 @@ var asm = (function(global, env, buffer) {
   var _fprintf=env._fprintf;
   var __formatString=env.__formatString;
   var _atexit=env._atexit;
+  var _glfwSetErrorCallback=env._glfwSetErrorCallback;
   var tempFloat = 0.0;
 
 // EMSCRIPTEN_START_FUNCS
@@ -7635,41 +7657,29 @@ function getTempRet0() {
 }
 
 function _sls_main() {
- var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $c = 0, $mainloop = 0, label = 0;
- var sp = 0;
+ var $0 = 0, $1 = 0, $10 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $c = 0, label = 0, sp = 0;
  sp = STACKTOP;
  STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- _sls_sleep(1200000); //@line 14 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $0 = (_sls_context_new(8,640,640)|0); //@line 15 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $c = $0; //@line 15 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $1 = $c; //@line 17 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $2 = (_sls_mainloop_new($1)|0); //@line 17 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $mainloop = $2; //@line 17 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $3 = $c; //@line 18 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $4 = ($3|0)!=(0|0); //@line 18 "/Users/Shea/Projects/dangerengine/src/exec.c"
- if (!($4)) {
-  ___assert_fail((16|0),(24|0),18,(72|0)); //@line 18 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  // unreachable; //@line 18 "/Users/Shea/Projects/dangerengine/src/exec.c"
- }
- $5 = $mainloop; //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $6 = (($5) + 44|0); //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $7 = HEAP32[$6>>2]|0; //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $8 = ($7|0)!=(0|0); //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
- if ($8) {
-  $9 = $mainloop; //@line 21 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $10 = (($9) + 8|0); //@line 21 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $11 = HEAP32[$10>>2]|0; //@line 21 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $12 = $mainloop; //@line 21 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  FUNCTION_TABLE_vi[$11 & 7]($12); //@line 21 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $13 = $mainloop; //@line 22 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $14 = (($13) + 4|0); //@line 22 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $15 = HEAP32[$14>>2]|0; //@line 22 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  $16 = $mainloop; //@line 22 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  FUNCTION_TABLE_vi[$15 & 7]($16); //@line 22 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  STACKTOP = sp;return 0; //@line 24 "/Users/Shea/Projects/dangerengine/src/exec.c"
+ _sls_sleep(1200000); //@line 14 "/Users/Shea/projects/dangerengine/src/exec.c"
+ $0 = (_sls_context_new(8,640,640)|0); //@line 15 "/Users/Shea/projects/dangerengine/src/exec.c"
+ $c = $0; //@line 15 "/Users/Shea/projects/dangerengine/src/exec.c"
+ $1 = $c; //@line 17 "/Users/Shea/projects/dangerengine/src/exec.c"
+ $2 = ($1|0)!=(0|0); //@line 17 "/Users/Shea/projects/dangerengine/src/exec.c"
+ if ($2) {
+  $3 = $c; //@line 20 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $4 = (($3) + 8|0); //@line 20 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $5 = HEAP32[$4>>2]|0; //@line 20 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $6 = $c; //@line 20 "/Users/Shea/projects/dangerengine/src/exec.c"
+  FUNCTION_TABLE_vi[$5 & 15]($6); //@line 20 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $7 = $c; //@line 21 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $8 = (($7) + 4|0); //@line 21 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $9 = HEAP32[$8>>2]|0; //@line 21 "/Users/Shea/projects/dangerengine/src/exec.c"
+  $10 = $c; //@line 21 "/Users/Shea/projects/dangerengine/src/exec.c"
+  FUNCTION_TABLE_vi[$9 & 15]($10); //@line 21 "/Users/Shea/projects/dangerengine/src/exec.c"
+  STACKTOP = sp;return 0; //@line 23 "/Users/Shea/projects/dangerengine/src/exec.c"
  } else {
-  ___assert_fail((88|0),(24|0),19,(72|0)); //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
-  // unreachable; //@line 19 "/Users/Shea/Projects/dangerengine/src/exec.c"
+  ___assert_fail((16|0),(24|0),17,(72|0)); //@line 17 "/Users/Shea/projects/dangerengine/src/exec.c"
+  // unreachable; //@line 17 "/Users/Shea/projects/dangerengine/src/exec.c"
  }
  return (0)|0;
 }
@@ -7682,14 +7692,14 @@ function _main($argc,$argv) {
  $0 = 0;
  $1 = $argc;
  $2 = $argv;
- _emscripten_asm_const((104|0)); //@line 32 "/Users/Shea/Projects/dangerengine/src/exec.c"
- $3 = (_sls_main()|0); //@line 38 "/Users/Shea/Projects/dangerengine/src/exec.c"
- STACKTOP = sp;return ($3|0); //@line 38 "/Users/Shea/Projects/dangerengine/src/exec.c"
+ _emscripten_asm_const((88|0)); //@line 31 "/Users/Shea/projects/dangerengine/src/exec.c"
+ $3 = (_sls_main()|0); //@line 37 "/Users/Shea/projects/dangerengine/src/exec.c"
+ STACKTOP = sp;return ($3|0); //@line 37 "/Users/Shea/projects/dangerengine/src/exec.c"
 }
 function _sls_context_class() {
  var label = 0, sp = 0;
  sp = STACKTOP;
- return (184|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ return (168|0); //@line 75 "/Users/Shea/projects/dangerengine/src/slscontext.c"
 }
 function _sls_context_new($caption,$width,$height) {
  $caption = $caption|0;
@@ -7701,17 +7711,17 @@ function _sls_context_new($caption,$width,$height) {
  $0 = $caption;
  $1 = $width;
  $2 = $height;
- $3 = (_sls_context_class()|0); //@line 37 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $4 = (_sls_objalloc($3,12)|0); //@line 37 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $self = $4; //@line 37 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $5 = $self; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $6 = HEAP32[$5>>2]|0; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $7 = $self; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $8 = $0; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $9 = $1; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $10 = $2; //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $11 = (FUNCTION_TABLE_iiiii[$6 & 1]($7,$8,$9,$10)|0); //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- STACKTOP = sp;return ($11|0); //@line 40 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $3 = (_sls_context_class()|0); //@line 81 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $4 = (_sls_objalloc($3,44)|0); //@line 81 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $self = $4; //@line 81 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $5 = $self; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $6 = HEAP32[$5>>2]|0; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $7 = $self; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $8 = $0; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $9 = $1; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $10 = $2; //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $11 = (FUNCTION_TABLE_iiiii[$6 & 1]($7,$8,$9,$10)|0); //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ STACKTOP = sp;return ($11|0); //@line 84 "/Users/Shea/projects/dangerengine/src/slscontext.c"
 }
 function _sls_context_init($self,$caption,$width,$height) {
  $self = $self|0;
@@ -7719,115 +7729,354 @@ function _sls_context_init($self,$caption,$width,$height) {
  $width = $width|0;
  $height = $height|0;
  var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $26 = 0;
- var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0, $31 = 0, $32 = 0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0, $38 = 0, $39 = 0, $4 = 0, $40 = 0, $41 = 0, $42 = 0, $43 = 0, $5 = 0;
- var $6 = 0, $7 = 0, $8 = 0, $9 = 0, $capA = 0, $res = 0, $vararg_buffer = 0, $vararg_buffer3 = 0, $vararg_buffer5 = 0, $vararg_ptr1 = 0, $vararg_ptr2 = 0, label = 0, sp = 0;
+ var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0, $31 = 0, $32 = 0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0, $38 = 0, $39 = 0, $4 = 0, $40 = 0, $41 = 0, $42 = 0, $43 = 0, $44 = 0;
+ var $45 = 0, $46 = 0, $47 = 0, $48 = 0, $49 = 0, $5 = 0, $50 = 0, $51 = 0, $52 = 0, $53 = 0, $54 = 0, $55 = 0, $56 = 0, $57 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $capA = 0, $res = 0;
+ var $vararg_buffer = 0, $vararg_buffer12 = 0, $vararg_buffer15 = 0, $vararg_buffer3 = 0, $vararg_buffer5 = 0, $vararg_buffer7 = 0, $vararg_ptr1 = 0, $vararg_ptr10 = 0, $vararg_ptr11 = 0, $vararg_ptr2 = 0, dest = 0, label = 0, sp = 0, src = 0, stop = 0;
  sp = STACKTOP;
- STACKTOP = STACKTOP + 64|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $vararg_buffer5 = sp + 24|0;
- $vararg_buffer3 = sp + 16|0;
- $vararg_buffer = sp;
+ STACKTOP = STACKTOP + 112|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $vararg_buffer15 = sp + 24|0;
+ $vararg_buffer12 = sp + 40|0;
+ $vararg_buffer7 = sp + 48|0;
+ $vararg_buffer5 = sp + 32|0;
+ $vararg_buffer3 = sp;
+ $vararg_buffer = sp + 8|0;
+ $5 = sp + 88|0;
  $1 = $self;
  $2 = $caption;
  $3 = $width;
  $4 = $height;
- $5 = $1; //@line 49 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $6 = ($5|0)!=(0|0); //@line 49 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if (!($6)) {
-  $0 = 0; //@line 49 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $43 = $0; //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  STACKTOP = sp;return ($43|0); //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $6 = $1; //@line 93 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $7 = ($6|0)!=(0|0); //@line 93 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if (!($7)) {
+  $0 = 0; //@line 93 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $57 = $0; //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  STACKTOP = sp;return ($57|0); //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
  }
- $7 = $1; //@line 50 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- ;HEAP32[$7+0>>2]=HEAP32[184+0>>2]|0;HEAP32[$7+4>>2]=HEAP32[184+4>>2]|0;HEAP32[$7+8>>2]=HEAP32[184+8>>2]|0; //@line 50 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $8 = (_sls_is_active()|0); //@line 52 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if (!($8)) {
-  $9 = (_sls_init()|0); //@line 53 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $10 = $9&1; //@line 53 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $res = $10; //@line 53 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $8 = $1; //@line 94 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ dest=$8+0|0; src=168+0|0; stop=dest+44|0; do { HEAP32[dest>>2]=HEAP32[src>>2]|0; dest=dest+4|0; src=src+4|0; } while ((dest|0) < (stop|0)); //@line 94 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $9 = (_sls_is_active()|0); //@line 96 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if (!($9)) {
+  $10 = (_sls_init()|0); //@line 97 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $11 = $10&1; //@line 97 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $res = $11; //@line 97 "/Users/Shea/projects/dangerengine/src/slscontext.c"
  }
- $11 = $2; //@line 56 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $12 = ($11|0)!=(0|0); //@line 56 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if ($12) {
-  $13 = $2; //@line 56 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $14 = $13;
+ $12 = $2; //@line 100 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $13 = ($12|0)!=(0|0); //@line 100 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($13) {
+  $14 = $2; //@line 100 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $15 = $14;
  } else {
-  $14 = 200;
+  $15 = 216;
  }
- $capA = $14; //@line 56 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $15 = $3; //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $16 = $4; //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $17 = $capA; //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $18 = (_glfwCreateWindow(($15|0),($16|0),($17|0),(0|0),(0|0))|0); //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $19 = $1; //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $20 = (($19) + 8|0); //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- HEAP32[$20>>2] = $18; //@line 58 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $21 = $1; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $22 = (($21) + 8|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $23 = HEAP32[$22>>2]|0; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $24 = ($23|0)!=(0|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if ($24) {
-  $28 = $1; //@line 61 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  _sls_bind_context($28); //@line 61 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $29 = $1; //@line 63 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $0 = $29; //@line 63 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $43 = $0; //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  STACKTOP = sp;return ($43|0); //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- }
- $25 = HEAP32[_stderr>>2]|0; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- HEAP32[$vararg_buffer>>2] = 496; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- HEAP32[$vararg_ptr1>>2] = 208; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- HEAP32[$vararg_ptr2>>2] = 59; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- (_fprintf(($25|0),(480|0),($vararg_buffer|0))|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $26 = HEAP32[_stderr>>2]|0; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- (_fprintf(($26|0),(232|0),($vararg_buffer3|0))|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $27 = HEAP32[_stderr>>2]|0; //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- (_fprintf(($27|0),(552|0),($vararg_buffer5|0))|0); //@line 59 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $30 = $1; //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $31 = ($30|0)!=(0|0); //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if ($31) {
-  $32 = $1; //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $33 = (($32) + 4|0); //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $34 = HEAP32[$33>>2]|0; //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $35 = ($34|0)!=(0|0); //@line 65 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  if ($35) {
-   $36 = $1; //@line 66 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-   $37 = (($36) + 4|0); //@line 66 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-   $38 = HEAP32[$37>>2]|0; //@line 66 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-   $39 = $1; //@line 66 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-   FUNCTION_TABLE_vi[$38 & 7]($39); //@line 66 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $capA = $15; //@line 100 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $16 = $3; //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $17 = $4; //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $18 = $capA; //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $19 = (_glfwCreateWindow(($16|0),($17|0),($18|0),(0|0),(0|0))|0); //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $20 = $1; //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $21 = (($20) + 28|0); //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ HEAP32[$21>>2] = $19; //@line 102 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $22 = $1; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $23 = (($22) + 28|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $24 = HEAP32[$23>>2]|0; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $25 = ($24|0)!=(0|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ do {
+  if ($25) {
+   $29 = (_calloc(1,8)|0); //@line 105 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $30 = $1; //@line 105 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $31 = (($30) + 40|0); //@line 105 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$31>>2] = $29; //@line 105 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $32 = $1; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $33 = (($32) + 40|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $34 = HEAP32[$33>>2]|0; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $35 = ($34|0)!=(0|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   if ($35) {
+    $39 = $1; //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $40 = (($39) + 40|0); //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $41 = HEAP32[$40>>2]|0; //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$5>>2] = 0; //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $42 = (($5) + 4|0); //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$42>>2] = 0; //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    ;HEAP32[$41+0>>2]=HEAP32[$5+0>>2]|0;HEAP32[$41+4>>2]=HEAP32[$5+4>>2]|0; //@line 108 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $43 = $1; //@line 110 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $0 = $43; //@line 110 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $57 = $0; //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    STACKTOP = sp;return ($57|0); //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   } else {
+    $36 = HEAP32[_stderr>>2]|0; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$vararg_buffer7>>2] = 368; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $vararg_ptr10 = (($vararg_buffer7) + 4|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$vararg_ptr10>>2] = 224; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $vararg_ptr11 = (($vararg_buffer7) + 8|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$vararg_ptr11>>2] = 106; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    (_fprintf(($36|0),(352|0),($vararg_buffer7|0))|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $37 = HEAP32[_stderr>>2]|0; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$vararg_buffer12>>2] = 272; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    (_fprintf(($37|0),(304|0),($vararg_buffer12|0))|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $38 = HEAP32[_stderr>>2]|0; //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    (_fprintf(($38|0),(424|0),($vararg_buffer15|0))|0); //@line 106 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    break;
+   }
   } else {
-   label = 18;
+   $26 = HEAP32[_stderr>>2]|0; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$vararg_buffer>>2] = 368; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$vararg_ptr1>>2] = 224; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$vararg_ptr2>>2] = 103; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   (_fprintf(($26|0),(352|0),($vararg_buffer|0))|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $27 = HEAP32[_stderr>>2]|0; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   (_fprintf(($27|0),(248|0),($vararg_buffer3|0))|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $28 = HEAP32[_stderr>>2]|0; //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   (_fprintf(($28|0),(424|0),($vararg_buffer5|0))|0); //@line 103 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  }
+ } while(0);
+ $44 = $1; //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $45 = ($44|0)!=(0|0); //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($45) {
+  $46 = $1; //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $47 = (($46) + 4|0); //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $48 = HEAP32[$47>>2]|0; //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $49 = ($48|0)!=(0|0); //@line 112 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  if ($49) {
+   $50 = $1; //@line 113 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $51 = (($50) + 4|0); //@line 113 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $52 = HEAP32[$51>>2]|0; //@line 113 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $53 = $1; //@line 113 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   FUNCTION_TABLE_vi[$52 & 15]($53); //@line 113 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  } else {
+   label = 24;
   }
  } else {
-  label = 18;
+  label = 24;
  }
- if ((label|0) == 18) {
-  $40 = $1; //@line 68 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  $41 = ($40|0)!=(0|0); //@line 68 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  if ($41) {
-   $42 = $1; //@line 69 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-   _free($42); //@line 69 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ if ((label|0) == 24) {
+  $54 = $1; //@line 115 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $55 = ($54|0)!=(0|0); //@line 115 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  if ($55) {
+   $56 = $1; //@line 116 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   _free($56); //@line 116 "/Users/Shea/projects/dangerengine/src/slscontext.c"
   }
  }
- $0 = 0; //@line 71 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $43 = $0; //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- STACKTOP = sp;return ($43|0); //@line 72 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $0 = 0; //@line 118 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $57 = $0; //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ STACKTOP = sp;return ($57|0); //@line 119 "/Users/Shea/projects/dangerengine/src/slscontext.c"
 }
 function _sls_context_dtor($self) {
  $self = $self|0;
- var $0 = 0, $1 = 0, $2 = 0, $3 = 0, label = 0, sp = 0;
+ var $0 = 0, $1 = 0, $10 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, label = 0, sp = 0;
  sp = STACKTOP;
  STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
  $0 = $self;
- $1 = $0; //@line 77 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- $2 = ($1|0)!=(0|0); //@line 77 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
- if ($2) {
-  $3 = $0; //@line 78 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
-  _free($3); //@line 78 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $1 = $0; //@line 123 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $2 = ($1|0)!=(0|0); //@line 123 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if (!($2)) {
+  STACKTOP = sp;return; //@line 129 "/Users/Shea/projects/dangerengine/src/slscontext.c"
  }
- STACKTOP = sp;return; //@line 81 "/Users/Shea/Projects/dangerengine/src/slscontext.c"
+ $3 = $0; //@line 124 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $4 = (($3) + 40|0); //@line 124 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $5 = HEAP32[$4>>2]|0; //@line 124 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $6 = ($5|0)!=(0|0); //@line 124 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($6) {
+  $7 = $0; //@line 125 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $8 = (($7) + 40|0); //@line 125 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $9 = HEAP32[$8>>2]|0; //@line 125 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  _free($9); //@line 125 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ }
+ $10 = $0; //@line 127 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ _free($10); //@line 127 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ STACKTOP = sp;return; //@line 129 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_em_callback($vself) {
+ $vself = $vself|0;
+ var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $self = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $vself;
+ $1 = $0; //@line 133 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $self = $1; //@line 133 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $2 = $self; //@line 134 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $3 = ($2|0)!=(0|0); //@line 134 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if (!($3)) {
+  STACKTOP = sp;return; //@line 137 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ }
+ $4 = $self; //@line 135 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $5 = (($4) + 12|0); //@line 135 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $6 = HEAP32[$5>>2]|0; //@line 135 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $7 = $self; //@line 135 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ FUNCTION_TABLE_vi[$6 & 15]($7); //@line 135 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ STACKTOP = sp;return; //@line 137 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_context_run($self) {
+ $self = $self|0;
+ var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $em_fps = 0;
+ var $em_infinite_loop = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $self;
+ $1 = $0; //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $2 = ($1|0)!=(0|0); //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($2) {
+  $3 = $0; //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $4 = (($3) + 40|0); //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $5 = HEAP32[$4>>2]|0; //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $6 = ($5|0)!=(0|0); //@line 141 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  if ($6) {
+   $7 = (_clock()|0); //@line 142 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $8 = $0; //@line 142 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $9 = (($8) + 40|0); //@line 142 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $10 = HEAP32[$9>>2]|0; //@line 142 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$10>>2] = $7; //@line 142 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $11 = $0; //@line 143 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $12 = (($11) + 40|0); //@line 143 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $13 = HEAP32[$12>>2]|0; //@line 143 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $14 = (($13) + 4|0); //@line 143 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$14>>2] = 0; //@line 143 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $15 = $0; //@line 145 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   _sls_bind_context($15); //@line 145 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $16 = $0; //@line 146 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $17 = (($16) + 32|0); //@line 146 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$17>>2] = 1; //@line 146 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $em_fps = 0; //@line 154 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $em_infinite_loop = 0; //@line 155 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $18 = $0; //@line 156 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   _emscripten_set_main_loop_arg((8|0),($18|0),0,0); //@line 156 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   STACKTOP = sp;return; //@line 160 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  }
+ }
+ STACKTOP = sp;return; //@line 160 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_context_iter($self) {
+ $self = $self|0;
+ var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $26 = 0;
+ var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0, $31 = 0.0, $32 = 0.0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0, $38 = 0, $39 = 0.0, $4 = 0, $40 = 0, $41 = 0, $42 = 0, $43 = 0, $44 = 0.0;
+ var $45 = 0, $46 = 0, $47 = 0, $48 = 0, $49 = 0, $5 = 0, $50 = 0, $51 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $dt = 0.0, $now = 0, $priv = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 32|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $self;
+ $1 = $0; //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $2 = ($1|0)!=(0|0); //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($2) {
+  $3 = $0; //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $4 = (($3) + 40|0); //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $5 = HEAP32[$4>>2]|0; //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $6 = ($5|0)!=(0|0); //@line 164 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  if ($6) {
+   $7 = (_clock()|0); //@line 167 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $now = $7; //@line 167 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $8 = $0; //@line 168 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $9 = (($8) + 40|0); //@line 168 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $10 = HEAP32[$9>>2]|0; //@line 168 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $priv = $10; //@line 168 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $11 = $now; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $12 = $priv; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $13 = HEAP32[$12>>2]|0; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $14 = (($11) - ($13))|0; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $15 = $priv; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $16 = (($15) + 4|0); //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $17 = HEAP32[$16>>2]|0; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $18 = (($17) + ($14))|0; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$16>>2] = $18; //@line 169 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $19 = $now; //@line 170 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $20 = $priv; //@line 170 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$20>>2] = $19; //@line 170 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $21 = $priv; //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $22 = (($21) + 4|0); //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $23 = HEAP32[$22>>2]|0; //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $24 = $0; //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $25 = (($24) + 36|0); //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $26 = HEAP32[$25>>2]|0; //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $27 = ($23|0)>($26|0); //@line 173 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   if ($27) {
+    $28 = $priv; //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $29 = (($28) + 4|0); //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $30 = HEAP32[$29>>2]|0; //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $31 = (+($30|0)); //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $32 = $31 / 1.0E+6; //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $dt = $32; //@line 174 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $33 = $priv; //@line 175 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $34 = (($33) + 4|0); //@line 175 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    HEAP32[$34>>2] = 0; //@line 175 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $35 = $0; //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $36 = (($35) + 20|0); //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $37 = HEAP32[$36>>2]|0; //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $38 = $0; //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $39 = $dt; //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    FUNCTION_TABLE_vid[$37 & 7]($38,$39); //@line 176 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $40 = $0; //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $41 = (($40) + 24|0); //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $42 = HEAP32[$41>>2]|0; //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $43 = $0; //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    $44 = $dt; //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+    FUNCTION_TABLE_vid[$42 & 7]($43,$44); //@line 177 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   }
+   _glfwPollEvents(); //@line 181 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $45 = $0; //@line 182 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $46 = (($45) + 28|0); //@line 182 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $47 = HEAP32[$46>>2]|0; //@line 182 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $48 = (_glfwWindowShouldClose(($47|0))|0); //@line 182 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $49 = ($48|0)!=(0); //@line 182 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   if (!($49)) {
+    STACKTOP = sp;return; //@line 185 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   }
+   $50 = $0; //@line 183 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $51 = (($50) + 32|0); //@line 183 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   HEAP32[$51>>2] = 0; //@line 183 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   STACKTOP = sp;return; //@line 185 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  }
+ }
+ STACKTOP = sp;return; //@line 185 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_context_resize($self,$x,$y) {
+ $self = $self|0;
+ $x = $x|0;
+ $y = $y|0;
+ var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $self;
+ $1 = $x;
+ $2 = $y;
+ $3 = $1; //@line 191 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $4 = $2; //@line 191 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ _glViewport(0,0,($3|0),($4|0)); //@line 191 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ STACKTOP = sp;return; //@line 192 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_context_update($self,$dt) {
+ $self = $self|0;
+ $dt = +$dt;
+ var $0 = 0, $1 = 0.0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $self;
+ $1 = $dt;
+ STACKTOP = sp;return; //@line 194 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+}
+function _sls_context_display($self,$dt) {
+ $self = $self|0;
+ $dt = +$dt;
+ var $0 = 0, $1 = 0.0, $10 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $self;
+ $1 = $dt;
+ $2 = $0; //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ $3 = ($2|0)!=(0|0); //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+ if ($3) {
+  $4 = $0; //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $5 = (($4) + 40|0); //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $6 = HEAP32[$5>>2]|0; //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  $7 = ($6|0)!=(0|0); //@line 198 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  if ($7) {
+   _glClear(16384); //@line 199 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $8 = $0; //@line 201 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $9 = (($8) + 28|0); //@line 201 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   $10 = HEAP32[$9>>2]|0; //@line 201 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   _glfwSwapBuffers(($10|0)); //@line 201 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+   STACKTOP = sp;return; //@line 202 "/Users/Shea/projects/dangerengine/src/slscontext.c"
+  }
+ }
+ STACKTOP = sp;return; //@line 202 "/Users/Shea/projects/dangerengine/src/slscontext.c"
 }
 function _sls_objalloc($prototype,$size) {
  $prototype = $prototype|0;
@@ -7841,37 +8090,37 @@ function _sls_objalloc($prototype,$size) {
  $vararg_buffer = sp + 16|0;
  $1 = $prototype;
  $2 = $size;
- $obj = 0; //@line 11 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $3 = $2; //@line 12 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $4 = (_calloc($3,1)|0); //@line 12 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $obj = $4; //@line 12 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $5 = $obj; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $6 = ($5|0)!=(0|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
+ $obj = 0; //@line 11 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $3 = $2; //@line 12 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $4 = (_calloc($3,1)|0); //@line 12 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $obj = $4; //@line 12 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $5 = $obj; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $6 = ($5|0)!=(0|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
  if ($6) {
-  $10 = $obj; //@line 14 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $11 = $1; //@line 14 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $12 = $2; //@line 14 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  _memcpy(($10|0),($11|0),($12|0))|0; //@line 14 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $13 = $obj; //@line 15 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $0 = $13; //@line 15 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $14 = $0; //@line 19 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  STACKTOP = sp;return ($14|0); //@line 19 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
+  $10 = $obj; //@line 14 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $11 = $1; //@line 14 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $12 = $2; //@line 14 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  _memcpy(($10|0),($11|0),($12|0))|0; //@line 14 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $13 = $obj; //@line 15 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $0 = $13; //@line 15 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $14 = $0; //@line 19 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  STACKTOP = sp;return ($14|0); //@line 19 "/Users/Shea/projects/dangerengine/src/slsutils.c"
  }
- $7 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- HEAP32[$vararg_buffer>>2] = 496; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- HEAP32[$vararg_ptr1>>2] = 256; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- HEAP32[$vararg_ptr2>>2] = 13; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- (_fprintf(($7|0),(480|0),($vararg_buffer|0))|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $8 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- HEAP32[$vararg_buffer3>>2] = 272; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- (_fprintf(($8|0),(352|0),($vararg_buffer3|0))|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $9 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- (_fprintf(($9|0),(552|0),($vararg_buffer6|0))|0); //@line 13 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $0 = 0; //@line 18 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $14 = $0; //@line 19 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- STACKTOP = sp;return ($14|0); //@line 19 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
+ $7 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ HEAP32[$vararg_buffer>>2] = 368; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ HEAP32[$vararg_ptr1>>2] = 288; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ HEAP32[$vararg_ptr2>>2] = 13; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ (_fprintf(($7|0),(352|0),($vararg_buffer|0))|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $8 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ HEAP32[$vararg_buffer3>>2] = 328; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ (_fprintf(($8|0),(304|0),($vararg_buffer3|0))|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $9 = HEAP32[_stderr>>2]|0; //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ (_fprintf(($9|0),(424|0),($vararg_buffer6|0))|0); //@line 13 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $0 = 0; //@line 18 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $14 = $0; //@line 19 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ STACKTOP = sp;return ($14|0); //@line 19 "/Users/Shea/projects/dangerengine/src/slsutils.c"
 }
 function _sls_sleep($ticks) {
  $ticks = $ticks|0;
@@ -7879,474 +8128,86 @@ function _sls_sleep($ticks) {
  sp = STACKTOP;
  STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
  $0 = $ticks;
- $1 = (_clock()|0); //@line 23 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $init_time = $1; //@line 23 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
- $waiting = 1; //@line 24 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
+ $1 = (_clock()|0); //@line 23 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $init_time = $1; //@line 23 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+ $waiting = 1; //@line 24 "/Users/Shea/projects/dangerengine/src/slsutils.c"
  while(1) {
-  $2 = (_clock()|0); //@line 25 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $3 = $init_time; //@line 25 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $4 = (($2) - ($3))|0; //@line 25 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $5 = $0; //@line 25 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-  $6 = ($4|0)<($5|0); //@line 25 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
+  $2 = (_clock()|0); //@line 25 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $3 = $init_time; //@line 25 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $4 = (($2) - ($3))|0; //@line 25 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $5 = $0; //@line 25 "/Users/Shea/projects/dangerengine/src/slsutils.c"
+  $6 = ($4|0)<($5|0); //@line 25 "/Users/Shea/projects/dangerengine/src/slsutils.c"
   if (!($6)) {
    break;
   }
  }
- STACKTOP = sp;return; //@line 26 "/Users/Shea/Projects/dangerengine/src/slsutils.c"
-}
-function _sls_mainloop_class() {
- var label = 0, sp = 0;
- sp = STACKTOP;
- return (280|0); //@line 57 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_new($ctx) {
- $ctx = $ctx|0;
- var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $self = 0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $0 = $ctx;
- $1 = (_sls_mainloop_class()|0); //@line 62 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $2 = (_sls_objalloc($1,48)|0); //@line 62 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $self = $2; //@line 62 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $3 = $self; //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = HEAP32[$3>>2]|0; //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $5 = $self; //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $6 = $0; //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $7 = (FUNCTION_TABLE_iii[$4 & 3]($5,$6)|0); //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- STACKTOP = sp;return ($7|0); //@line 63 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_dtor($self) {
- $self = $self|0;
- var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $3 = 0;
- var $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $0 = $self;
- $1 = $0; //@line 68 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $2 = ($1|0)!=(0|0); //@line 68 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if (!($2)) {
-  STACKTOP = sp;return; //@line 74 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- $3 = $0; //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = (($3) + 44|0); //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $5 = HEAP32[$4>>2]|0; //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $6 = ($5|0)!=(0|0); //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if ($6) {
-  $7 = $0; //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $8 = (($7) + 44|0); //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $9 = HEAP32[$8>>2]|0; //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $10 = HEAP32[$9>>2]|0; //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $11 = ($10|0)!=(0|0); //@line 69 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  if ($11) {
-   $12 = $0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $13 = (($12) + 44|0); //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $14 = HEAP32[$13>>2]|0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $15 = HEAP32[$14>>2]|0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $16 = (($15) + 4|0); //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $17 = HEAP32[$16>>2]|0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $18 = $0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $19 = (($18) + 44|0); //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $20 = HEAP32[$19>>2]|0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $21 = HEAP32[$20>>2]|0; //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   FUNCTION_TABLE_vi[$17 & 7]($21); //@line 70 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $22 = $0; //@line 71 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $23 = (($22) + 44|0); //@line 71 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $24 = HEAP32[$23>>2]|0; //@line 71 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   _free($24); //@line 71 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  }
- }
- $25 = $0; //@line 73 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- _free($25); //@line 73 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- STACKTOP = sp;return; //@line 74 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_init($self,$ctx) {
- $self = $self|0;
- $ctx = $ctx|0;
- var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $26 = 0;
- var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0, $31 = 0, $32 = 0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0, $38 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $vararg_buffer = 0;
- var $vararg_buffer13 = 0, $vararg_buffer16 = 0, $vararg_buffer18 = 0, $vararg_buffer23 = 0, $vararg_buffer26 = 0, $vararg_buffer3 = 0, $vararg_buffer6 = 0, $vararg_buffer8 = 0, $vararg_ptr1 = 0, $vararg_ptr11 = 0, $vararg_ptr12 = 0, $vararg_ptr2 = 0, $vararg_ptr21 = 0, $vararg_ptr22 = 0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 112|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $vararg_buffer26 = sp + 88|0;
- $vararg_buffer23 = sp + 32|0;
- $vararg_buffer18 = sp + 16|0;
- $vararg_buffer16 = sp + 48|0;
- $vararg_buffer13 = sp + 80|0;
- $vararg_buffer8 = sp;
- $vararg_buffer6 = sp + 40|0;
- $vararg_buffer3 = sp + 72|0;
- $vararg_buffer = sp + 56|0;
- $1 = $self;
- $2 = $ctx;
- $3 = $1; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = ($3|0)!=(0|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- do {
-  if ($4) {
-   $8 = $2; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $9 = ($8|0)!=(0|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   if (!($9)) {
-    $10 = HEAP32[_stderr>>2]|0; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer8>>2] = 496; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr11 = (($vararg_buffer8) + 4|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr11>>2] = 328; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr12 = (($vararg_buffer8) + 8|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr12>>2] = 79; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($10|0),(480|0),($vararg_buffer8|0))|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $11 = HEAP32[_stderr>>2]|0; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer13>>2] = 384; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($11|0),(352|0),($vararg_buffer13|0))|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $12 = HEAP32[_stderr>>2]|0; //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($12|0),(552|0),($vararg_buffer16|0))|0); //@line 79 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    break;
-   }
-   $13 = (_calloc(1,4)|0); //@line 81 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $14 = $1; //@line 81 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $15 = (($14) + 44|0); //@line 81 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$15>>2] = $13; //@line 81 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $16 = $1; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $17 = (($16) + 44|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $18 = HEAP32[$17>>2]|0; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $19 = ($18|0)!=(0|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   if ($19) {
-    $23 = $2; //@line 84 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $24 = $1; //@line 84 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $25 = (($24) + 44|0); //@line 84 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $26 = HEAP32[$25>>2]|0; //@line 84 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$26>>2] = $23; //@line 84 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $27 = $1; //@line 86 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $0 = $27; //@line 86 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $38 = $0; //@line 93 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    STACKTOP = sp;return ($38|0); //@line 93 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   } else {
-    $20 = HEAP32[_stderr>>2]|0; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer18>>2] = 496; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr21 = (($vararg_buffer18) + 4|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr21>>2] = 328; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr22 = (($vararg_buffer18) + 8|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr22>>2] = 82; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($20|0),(480|0),($vararg_buffer18|0))|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $21 = HEAP32[_stderr>>2]|0; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer23>>2] = 392; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($21|0),(352|0),($vararg_buffer23|0))|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $22 = HEAP32[_stderr>>2]|0; //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($22|0),(552|0),($vararg_buffer26|0))|0); //@line 82 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    break;
-   }
-  } else {
-   $5 = HEAP32[_stderr>>2]|0; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_buffer>>2] = 496; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_ptr1>>2] = 328; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_ptr2>>2] = 78; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($5|0),(480|0),($vararg_buffer|0))|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $6 = HEAP32[_stderr>>2]|0; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_buffer3>>2] = 376; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($6|0),(352|0),($vararg_buffer3|0))|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $7 = HEAP32[_stderr>>2]|0; //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($7|0),(552|0),($vararg_buffer6|0))|0); //@line 78 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  }
- } while(0);
- $28 = $1; //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $29 = ($28|0)!=(0|0); //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if ($29) {
-  $30 = $1; //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $31 = (($30) + 4|0); //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $32 = HEAP32[$31>>2]|0; //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $33 = ($32|0)!=(0|0); //@line 89 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  if ($33) {
-   $34 = $1; //@line 90 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $35 = (($34) + 4|0); //@line 90 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $36 = HEAP32[$35>>2]|0; //@line 90 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $37 = $1; //@line 90 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   FUNCTION_TABLE_vi[$36 & 7]($37); //@line 90 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  }
- }
- $0 = 0; //@line 92 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $38 = $0; //@line 93 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- STACKTOP = sp;return ($38|0); //@line 93 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _em_iter_fn() {
- var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, label = 0, sp = 0;
- sp = STACKTOP;
- $0 = HEAP32[408>>2]|0; //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $1 = ($0|0)!=(0|0); //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if (!($1)) {
-  return; //@line 100 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- $2 = HEAP32[408>>2]|0; //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $3 = (($2) + 28|0); //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = HEAP8[$3>>0]|0; //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $5 = $4&1; //@line 97 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if (!($5)) {
-  return; //@line 100 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- $6 = HEAP32[408>>2]|0; //@line 98 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $7 = (($6) + 12|0); //@line 98 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $8 = HEAP32[$7>>2]|0; //@line 98 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $9 = HEAP32[408>>2]|0; //@line 98 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- FUNCTION_TABLE_vi[$8 & 7]($9); //@line 98 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- return; //@line 100 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_iter($self) {
- $self = $self|0;
- var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $26 = 0;
- var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0.0, $31 = 0.0, $32 = 0.0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0, $38 = 0, $39 = 0.0, $4 = 0, $40 = 0, $41 = 0, $42 = 0, $43 = 0, $44 = 0.0;
- var $45 = 0, $46 = 0, $47 = 0, $48 = 0, $49 = 0, $5 = 0, $50 = 0, $51 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $ctx = 0, $ddt = 0.0, $now = 0, $vararg_buffer = 0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 32|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $vararg_buffer = sp + 8|0;
- $0 = $self;
- $1 = $0; //@line 104 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $2 = ($1|0)!=(0|0); //@line 104 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if (!($2)) {
-  STACKTOP = sp;return; //@line 128 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- $3 = $0; //@line 106 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = (($3) + 44|0); //@line 106 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $5 = HEAP32[$4>>2]|0; //@line 106 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $6 = HEAP32[$5>>2]|0; //@line 106 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $ctx = $6; //@line 106 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $7 = (_clock()|0); //@line 109 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $now = $7; //@line 109 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $8 = $now; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $9 = $0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $10 = (($9) + 36|0); //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $11 = HEAP32[$10>>2]|0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $12 = (($8) - ($11))|0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $13 = $0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $14 = (($13) + 40|0); //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $15 = HEAP32[$14>>2]|0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $16 = (($15) + ($12))|0; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- HEAP32[$14>>2] = $16; //@line 110 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $17 = $now; //@line 112 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $18 = $0; //@line 112 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $19 = (($18) + 36|0); //@line 112 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- HEAP32[$19>>2] = $17; //@line 112 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $20 = $0; //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $21 = (($20) + 40|0); //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $22 = HEAP32[$21>>2]|0; //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $23 = $0; //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $24 = (($23) + 32|0); //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $25 = HEAP32[$24>>2]|0; //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $26 = ($22|0)>=($25|0); //@line 114 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if ($26) {
-  $27 = $0; //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $28 = (($27) + 40|0); //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $29 = HEAP32[$28>>2]|0; //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $30 = (+($29|0)); //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $31 = $30 / 1.0E+6; //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $ddt = $31; //@line 115 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $32 = $ddt; //@line 117 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  HEAPF64[tempDoublePtr>>3]=$32;HEAP32[$vararg_buffer>>2]=HEAP32[tempDoublePtr>>2];HEAP32[$vararg_buffer+4>>2]=HEAP32[tempDoublePtr+4>>2]; //@line 117 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  (_printf((416|0),($vararg_buffer|0))|0); //@line 117 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $33 = $0; //@line 118 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $34 = (($33) + 40|0); //@line 118 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  HEAP32[$34>>2] = 0; //@line 118 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $35 = $0; //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $36 = (($35) + 20|0); //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $37 = HEAP32[$36>>2]|0; //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $38 = $0; //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $39 = $ddt; //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  FUNCTION_TABLE_vid[$37 & 15]($38,$39); //@line 119 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $40 = $0; //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $41 = (($40) + 24|0); //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $42 = HEAP32[$41>>2]|0; //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $43 = $0; //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $44 = $ddt; //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  FUNCTION_TABLE_vid[$42 & 15]($43,$44); //@line 120 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- _glfwPollEvents(); //@line 123 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $45 = $ctx; //@line 125 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $46 = (($45) + 8|0); //@line 125 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $47 = HEAP32[$46>>2]|0; //@line 125 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $48 = (_glfwWindowShouldClose(($47|0))|0); //@line 125 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $49 = ($48|0)!=(0); //@line 125 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if (!($49)) {
-  STACKTOP = sp;return; //@line 128 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- }
- $50 = $0; //@line 126 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $51 = (($50) + 28|0); //@line 126 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- HEAP8[$51>>0] = 0; //@line 126 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- STACKTOP = sp;return; //@line 128 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_run($self) {
- $self = $self|0;
- var $0 = 0, $1 = 0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $18 = 0, $19 = 0, $2 = 0, $20 = 0, $21 = 0, $22 = 0, $23 = 0, $24 = 0, $25 = 0, $26 = 0;
- var $27 = 0, $28 = 0, $29 = 0, $3 = 0, $30 = 0, $31 = 0, $32 = 0, $33 = 0, $34 = 0, $35 = 0, $36 = 0, $37 = 0.0, $38 = 0.0, $39 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0;
- var $ctx = 0, $vararg_buffer = 0, $vararg_buffer13 = 0, $vararg_buffer16 = 0, $vararg_buffer18 = 0, $vararg_buffer23 = 0, $vararg_buffer26 = 0, $vararg_buffer3 = 0, $vararg_buffer6 = 0, $vararg_buffer8 = 0, $vararg_ptr1 = 0, $vararg_ptr11 = 0, $vararg_ptr12 = 0, $vararg_ptr2 = 0, $vararg_ptr21 = 0, $vararg_ptr22 = 0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 112|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $vararg_buffer26 = sp + 88|0;
- $vararg_buffer23 = sp + 48|0;
- $vararg_buffer18 = sp + 16|0;
- $vararg_buffer16 = sp + 32|0;
- $vararg_buffer13 = sp + 80|0;
- $vararg_buffer8 = sp;
- $vararg_buffer6 = sp + 40|0;
- $vararg_buffer3 = sp + 72|0;
- $vararg_buffer = sp + 56|0;
- $0 = $self;
- $1 = $0; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $2 = ($1|0)!=(0|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- do {
-  if ($2) {
-   $6 = $0; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $7 = (($6) + 44|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $8 = HEAP32[$7>>2]|0; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $9 = ($8|0)!=(0|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   if (!($9)) {
-    $10 = HEAP32[_stderr>>2]|0; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer8>>2] = 496; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr11 = (($vararg_buffer8) + 4|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr11>>2] = 424; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr12 = (($vararg_buffer8) + 8|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr12>>2] = 133; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($10|0),(480|0),($vararg_buffer8|0))|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $11 = HEAP32[_stderr>>2]|0; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer13>>2] = 392; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($11|0),(352|0),($vararg_buffer13|0))|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $12 = HEAP32[_stderr>>2]|0; //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($12|0),(552|0),($vararg_buffer16|0))|0); //@line 133 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    break;
-   }
-   $13 = $0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $14 = (($13) + 44|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $15 = HEAP32[$14>>2]|0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $16 = HEAP32[$15>>2]|0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $17 = ($16|0)!=(0|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   if ($17) {
-    $21 = (_clock()|0); //@line 136 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $22 = $0; //@line 136 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $23 = (($22) + 36|0); //@line 136 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$23>>2] = $21; //@line 136 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $24 = $0; //@line 137 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $25 = (($24) + 40|0); //@line 137 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$25>>2] = 0; //@line 137 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $26 = $0; //@line 138 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $27 = (($26) + 28|0); //@line 138 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP8[$27>>0] = 1; //@line 138 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $28 = $0; //@line 140 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $29 = (($28) + 44|0); //@line 140 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $30 = HEAP32[$29>>2]|0; //@line 140 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $31 = HEAP32[$30>>2]|0; //@line 140 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $ctx = $31; //@line 140 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $32 = $ctx; //@line 142 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    _sls_bind_context($32); //@line 142 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $33 = $0; //@line 143 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[408>>2] = $33; //@line 143 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $34 = $0; //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $35 = (($34) + 32|0); //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $36 = HEAP32[$35>>2]|0; //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $37 = (+($36|0)); //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $38 = $37 / 1.0E+6; //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $39 = (~~(($38))); //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    _emscripten_set_main_loop((9|0),($39|0),1); //@line 149 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[408>>2] = 0; //@line 158 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    STACKTOP = sp;return; //@line 163 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   } else {
-    $18 = HEAP32[_stderr>>2]|0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer18>>2] = 496; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr21 = (($vararg_buffer18) + 4|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr21>>2] = 424; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $vararg_ptr22 = (($vararg_buffer18) + 8|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_ptr22>>2] = 134; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($18|0),(480|0),($vararg_buffer18|0))|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $19 = HEAP32[_stderr>>2]|0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    HEAP32[$vararg_buffer23>>2] = 448; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($19|0),(352|0),($vararg_buffer23|0))|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    $20 = HEAP32[_stderr>>2]|0; //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    (_fprintf(($20|0),(552|0),($vararg_buffer26|0))|0); //@line 134 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-    break;
-   }
-  } else {
-   $3 = HEAP32[_stderr>>2]|0; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_buffer>>2] = 496; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_ptr1>>2] = 424; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_ptr2>>2] = 132; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($3|0),(480|0),($vararg_buffer|0))|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $4 = HEAP32[_stderr>>2]|0; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   HEAP32[$vararg_buffer3>>2] = 376; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($4|0),(352|0),($vararg_buffer3|0))|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $5 = HEAP32[_stderr>>2]|0; //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   (_fprintf(($5|0),(552|0),($vararg_buffer6|0))|0); //@line 132 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  }
- } while(0);
- STACKTOP = sp;return; //@line 163 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_update($self,$dt) {
- $self = $self|0;
- $dt = +$dt;
- var $0 = 0, $1 = 0.0, label = 0, sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $0 = $self;
- $1 = $dt;
- STACKTOP = sp;return; //@line 168 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-}
-function _sls_mainloop_display($self,$dt) {
- $self = $self|0;
- $dt = +$dt;
- var $0 = 0, $1 = 0.0, $10 = 0, $11 = 0, $12 = 0, $13 = 0, $14 = 0, $15 = 0, $16 = 0, $17 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $ctx = 0, label = 0;
- var sp = 0;
- sp = STACKTOP;
- STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
- $0 = $self;
- $1 = $dt;
- $2 = $0; //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $3 = (($2) + 44|0); //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $4 = HEAP32[$3>>2]|0; //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- $5 = ($4|0)!=(0|0); //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
- if ($5) {
-  $6 = $0; //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $7 = (($6) + 44|0); //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $8 = HEAP32[$7>>2]|0; //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $9 = HEAP32[$8>>2]|0; //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  $10 = ($9|0)!=(0|0); //@line 172 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  if ($10) {
-   $11 = $0; //@line 175 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $12 = (($11) + 44|0); //@line 175 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $13 = HEAP32[$12>>2]|0; //@line 175 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $14 = HEAP32[$13>>2]|0; //@line 175 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $ctx = $14; //@line 175 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   _glClear(16384); //@line 176 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $15 = $ctx; //@line 178 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $16 = (($15) + 8|0); //@line 178 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   $17 = HEAP32[$16>>2]|0; //@line 178 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   _glfwSwapBuffers(($17|0)); //@line 178 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-   STACKTOP = sp;return; //@line 180 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
-  }
- }
- STACKTOP = sp;return; //@line 180 "/Users/Shea/Projects/dangerengine/src/slsloop.c"
+ STACKTOP = sp;return; //@line 26 "/Users/Shea/projects/dangerengine/src/slsutils.c"
 }
 function _sls_bind_context($ctx) {
  $ctx = $ctx|0;
- var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, label = 0, sp = 0;
+ var $0 = 0, $1 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, label = 0, sp = 0;
  sp = STACKTOP;
  STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
  $0 = $ctx;
- _sls_unbind_context(); //@line 13 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $1 = $0; //@line 15 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- HEAP32[464>>2] = $1; //@line 15 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $2 = $0; //@line 16 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $3 = (($2) + 8|0); //@line 16 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $4 = HEAP32[$3>>2]|0; //@line 16 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- _glfwMakeContextCurrent(($4|0)); //@line 16 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- STACKTOP = sp;return; //@line 18 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ _sls_unbind_context(); //@line 21 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ (_glfwSetErrorCallback((9|0))|0); //@line 23 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $1 = $0; //@line 24 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $2 = (($1) + 28|0); //@line 24 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $3 = HEAP32[$2>>2]|0; //@line 24 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ (_glfwSetWindowSizeCallback(($3|0),(10|0))|0); //@line 24 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $4 = $0; //@line 27 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ HEAP32[336>>2] = $4; //@line 27 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $5 = $0; //@line 28 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $6 = (($5) + 28|0); //@line 28 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $7 = HEAP32[$6>>2]|0; //@line 28 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ _glfwMakeContextCurrent(($7|0)); //@line 28 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ STACKTOP = sp;return; //@line 30 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
 }
 function _sls_unbind_context() {
  var $0 = 0, $1 = 0, label = 0, sp = 0;
  sp = STACKTOP;
- $0 = HEAP32[464>>2]|0; //@line 23 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $1 = ($0|0)!=(0|0); //@line 23 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ $0 = HEAP32[336>>2]|0; //@line 35 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $1 = ($0|0)!=(0|0); //@line 35 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  if (!($1)) {
-  return; //@line 27 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+  return; //@line 39 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  }
- _glfwMakeContextCurrent((0|0)); //@line 24 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- HEAP32[464>>2] = 0; //@line 25 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- return; //@line 27 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ _glfwMakeContextCurrent((0|0)); //@line 36 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ HEAP32[336>>2] = 0; //@line 37 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ return; //@line 39 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+}
+function _sls_error_cback($i,$string) {
+ $i = $i|0;
+ $string = $string|0;
+ var $0 = 0, $1 = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $i;
+ $1 = $string;
+ STACKTOP = sp;return; //@line 77 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+}
+function _sls_window_resize($win,$x,$y) {
+ $win = $win|0;
+ $x = $x|0;
+ $y = $y|0;
+ var $0 = 0, $1 = 0, $10 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, label = 0, sp = 0;
+ sp = STACKTOP;
+ STACKTOP = STACKTOP + 16|0; if ((STACKTOP|0) >= (STACK_MAX|0)) abort();
+ $0 = $win;
+ $1 = $x;
+ $2 = $y;
+ $3 = HEAP32[336>>2]|0; //@line 44 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $4 = ($3|0)!=(0|0); //@line 44 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ if (!($4)) {
+  STACKTOP = sp;return; //@line 47 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ }
+ $5 = HEAP32[336>>2]|0; //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $6 = (($5) + 16|0); //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $7 = HEAP32[$6>>2]|0; //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $8 = HEAP32[336>>2]|0; //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $9 = $1; //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $10 = $2; //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ FUNCTION_TABLE_viii[$7 & 15]($8,$9,$10); //@line 45 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ STACKTOP = sp;return; //@line 47 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
 }
 function _sls_init() {
  var $$expand_i1_val = 0, $$expand_i1_val17 = 0, $$pre_trunc = 0, $0 = 0, $1 = 0, $10 = 0, $11 = 0, $2 = 0, $3 = 0, $4 = 0, $5 = 0, $6 = 0, $7 = 0, $8 = 0, $9 = 0, $vararg_buffer = 0, $vararg_buffer12 = 0, $vararg_buffer14 = 0, $vararg_buffer3 = 0, $vararg_buffer5 = 0;
@@ -8359,73 +8220,73 @@ function _sls_init() {
  $vararg_buffer5 = sp + 56|0;
  $vararg_buffer3 = sp;
  $vararg_buffer = sp + 16|0;
- $1 = HEAP8[472>>0]|0; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $2 = $1&1; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ $1 = HEAP32[344>>2]|0; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $2 = ($1|0)!=(0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  do {
   if ($2) {
-   $3 = HEAP32[_stderr>>2]|0; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   HEAP32[$vararg_buffer>>2] = 496; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   HEAP32[$vararg_ptr1>>2] = 504; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   HEAP32[$vararg_ptr2>>2] = 31; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   (_fprintf(($3|0),(480|0),($vararg_buffer|0))|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   $4 = HEAP32[_stderr>>2]|0; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   (_fprintf(($4|0),(520|0),($vararg_buffer3|0))|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   $5 = HEAP32[_stderr>>2]|0; //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   (_fprintf(($5|0),(552|0),($vararg_buffer5|0))|0); //@line 31 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+   $3 = HEAP32[_stderr>>2]|0; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   HEAP32[$vararg_buffer>>2] = 368; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   $vararg_ptr1 = (($vararg_buffer) + 4|0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   HEAP32[$vararg_ptr1>>2] = 376; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   $vararg_ptr2 = (($vararg_buffer) + 8|0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   HEAP32[$vararg_ptr2>>2] = 52; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   (_fprintf(($3|0),(352|0),($vararg_buffer|0))|0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   $4 = HEAP32[_stderr>>2]|0; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   (_fprintf(($4|0),(392|0),($vararg_buffer3|0))|0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   $5 = HEAP32[_stderr>>2]|0; //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   (_fprintf(($5|0),(424|0),($vararg_buffer5|0))|0); //@line 52 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
   } else {
-   $6 = (_glfwInit()|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-   $7 = ($6|0)!=(0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+   $6 = (_glfwInit()|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+   $7 = ($6|0)!=(0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
    if ($7) {
-    HEAP8[472>>0] = 1; //@line 34 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    (_atexit((10|0))|0); //@line 36 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $$expand_i1_val = 1; //@line 38 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $0 = $$expand_i1_val; //@line 38 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $$pre_trunc = $0; //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $11 = $$pre_trunc&1; //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    STACKTOP = sp;return ($11|0); //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+    HEAP32[344>>2] = 1; //@line 55 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    (_atexit((11|0))|0); //@line 57 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $$expand_i1_val = 1; //@line 59 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $0 = $$expand_i1_val; //@line 59 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $$pre_trunc = $0; //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $11 = $$pre_trunc&1; //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    STACKTOP = sp;return ($11|0); //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
    } else {
-    $8 = HEAP32[_stderr>>2]|0; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    HEAP32[$vararg_buffer7>>2] = 496; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $vararg_ptr10 = (($vararg_buffer7) + 4|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    HEAP32[$vararg_ptr10>>2] = 504; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $vararg_ptr11 = (($vararg_buffer7) + 8|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    HEAP32[$vararg_ptr11>>2] = 32; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    (_fprintf(($8|0),(480|0),($vararg_buffer7|0))|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $9 = HEAP32[_stderr>>2]|0; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    (_fprintf(($9|0),(560|0),($vararg_buffer12|0))|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    $10 = HEAP32[_stderr>>2]|0; //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-    (_fprintf(($10|0),(552|0),($vararg_buffer14|0))|0); //@line 32 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+    $8 = HEAP32[_stderr>>2]|0; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    HEAP32[$vararg_buffer7>>2] = 368; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $vararg_ptr10 = (($vararg_buffer7) + 4|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    HEAP32[$vararg_ptr10>>2] = 376; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $vararg_ptr11 = (($vararg_buffer7) + 8|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    HEAP32[$vararg_ptr11>>2] = 53; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    (_fprintf(($8|0),(352|0),($vararg_buffer7|0))|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $9 = HEAP32[_stderr>>2]|0; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    (_fprintf(($9|0),(432|0),($vararg_buffer12|0))|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    $10 = HEAP32[_stderr>>2]|0; //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+    (_fprintf(($10|0),(424|0),($vararg_buffer14|0))|0); //@line 53 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
     break;
    }
   }
  } while(0);
- $$expand_i1_val17 = 0; //@line 40 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $0 = $$expand_i1_val17; //@line 40 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $$pre_trunc = $0; //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $11 = $$pre_trunc&1; //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- STACKTOP = sp;return ($11|0); //@line 41 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ $$expand_i1_val17 = 0; //@line 61 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $0 = $$expand_i1_val17; //@line 61 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $$pre_trunc = $0; //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $11 = $$pre_trunc&1; //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ STACKTOP = sp;return ($11|0); //@line 62 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
 }
 function _sls_terminate() {
  var $0 = 0, $1 = 0, label = 0, sp = 0;
  sp = STACKTOP;
- $0 = HEAP8[472>>0]|0; //@line 45 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $1 = $0&1; //@line 45 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ $0 = HEAP32[344>>2]|0; //@line 66 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $1 = ($0|0)!=(0); //@line 66 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  if ($1) {
-  _glfwTerminate(); //@line 49 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-  HEAP8[472>>0] = 0; //@line 50 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
-  return; //@line 51 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+  _glfwTerminate(); //@line 70 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+  HEAP32[344>>2] = 0; //@line 71 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+  return; //@line 72 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  } else {
-  return; //@line 51 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+  return; //@line 72 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
  }
 }
 function _sls_is_active() {
  var $0 = 0, $1 = 0, label = 0, sp = 0;
  sp = STACKTOP;
- $0 = HEAP8[472>>0]|0; //@line 55 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- $1 = $0&1; //@line 55 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
- return ($1|0); //@line 55 "/Users/Shea/Projects/dangerengine/src/sls-handlers.c"
+ $0 = HEAP32[344>>2]|0; //@line 81 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ $1 = ($0|0)!=(0); //@line 81 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
+ return ($1|0); //@line 81 "/Users/Shea/projects/dangerengine/src/sls-handlers.c"
 }
 function _malloc($bytes) {
  $bytes = $bytes|0;
@@ -8509,7 +8370,7 @@ function _malloc($bytes) {
     $5 = $3;
    }
    $4 = $5 >>> 3;
-   $6 = HEAP32[584>>2]|0;
+   $6 = HEAP32[456>>2]|0;
    $7 = $6 >>> $4;
    $8 = $7 & 3;
    $9 = ($8|0)==(0);
@@ -8518,9 +8379,9 @@ function _malloc($bytes) {
     $11 = $10 ^ 1;
     $12 = (($11) + ($4))|0;
     $13 = $12 << 1;
-    $14 = ((584 + ($13<<2)|0) + 40|0);
+    $14 = ((456 + ($13<<2)|0) + 40|0);
     $$sum10 = (($13) + 2)|0;
-    $15 = ((584 + ($$sum10<<2)|0) + 40|0);
+    $15 = ((456 + ($$sum10<<2)|0) + 40|0);
     $16 = HEAP32[$15>>2]|0;
     $17 = (($16) + 8|0);
     $18 = HEAP32[$17>>2]|0;
@@ -8530,9 +8391,9 @@ function _malloc($bytes) {
       $20 = 1 << $12;
       $21 = $20 ^ -1;
       $22 = $6 & $21;
-      HEAP32[584>>2] = $22;
+      HEAP32[456>>2] = $22;
      } else {
-      $23 = HEAP32[((584 + 16|0))>>2]|0;
+      $23 = HEAP32[((456 + 16|0))>>2]|0;
       $24 = ($18>>>0)<($23>>>0);
       if ($24) {
        _abort();
@@ -8563,7 +8424,7 @@ function _malloc($bytes) {
     $mem$0 = $17;
     return ($mem$0|0);
    }
-   $34 = HEAP32[((584 + 8|0))>>2]|0;
+   $34 = HEAP32[((456 + 8|0))>>2]|0;
    $35 = ($5>>>0)>($34>>>0);
    if ($35) {
     $36 = ($7|0)==(0);
@@ -8597,9 +8458,9 @@ function _malloc($bytes) {
      $63 = $59 >>> $61;
      $64 = (($62) + ($63))|0;
      $65 = $64 << 1;
-     $66 = ((584 + ($65<<2)|0) + 40|0);
+     $66 = ((456 + ($65<<2)|0) + 40|0);
      $$sum4 = (($65) + 2)|0;
-     $67 = ((584 + ($$sum4<<2)|0) + 40|0);
+     $67 = ((456 + ($$sum4<<2)|0) + 40|0);
      $68 = HEAP32[$67>>2]|0;
      $69 = (($68) + 8|0);
      $70 = HEAP32[$69>>2]|0;
@@ -8609,10 +8470,10 @@ function _malloc($bytes) {
        $72 = 1 << $64;
        $73 = $72 ^ -1;
        $74 = $6 & $73;
-       HEAP32[584>>2] = $74;
+       HEAP32[456>>2] = $74;
        $89 = $34;
       } else {
-       $75 = HEAP32[((584 + 16|0))>>2]|0;
+       $75 = HEAP32[((456 + 16|0))>>2]|0;
        $76 = ($70>>>0)<($75>>>0);
        if ($76) {
         _abort();
@@ -8624,7 +8485,7 @@ function _malloc($bytes) {
        if ($79) {
         HEAP32[$77>>2] = $66;
         HEAP32[$67>>2] = $70;
-        $$pre = HEAP32[((584 + 8|0))>>2]|0;
+        $$pre = HEAP32[((456 + 8|0))>>2]|0;
         $89 = $$pre;
         break;
        } else {
@@ -8647,25 +8508,25 @@ function _malloc($bytes) {
      HEAP32[$87>>2] = $81;
      $88 = ($89|0)==(0);
      if (!($88)) {
-      $90 = HEAP32[((584 + 20|0))>>2]|0;
+      $90 = HEAP32[((456 + 20|0))>>2]|0;
       $91 = $89 >>> 3;
       $92 = $91 << 1;
-      $93 = ((584 + ($92<<2)|0) + 40|0);
-      $94 = HEAP32[584>>2]|0;
+      $93 = ((456 + ($92<<2)|0) + 40|0);
+      $94 = HEAP32[456>>2]|0;
       $95 = 1 << $91;
       $96 = $94 & $95;
       $97 = ($96|0)==(0);
       if ($97) {
        $98 = $94 | $95;
-       HEAP32[584>>2] = $98;
+       HEAP32[456>>2] = $98;
        $$sum8$pre = (($92) + 2)|0;
-       $$pre105 = ((584 + ($$sum8$pre<<2)|0) + 40|0);
+       $$pre105 = ((456 + ($$sum8$pre<<2)|0) + 40|0);
        $$pre$phiZ2D = $$pre105;$F4$0 = $93;
       } else {
        $$sum9 = (($92) + 2)|0;
-       $99 = ((584 + ($$sum9<<2)|0) + 40|0);
+       $99 = ((456 + ($$sum9<<2)|0) + 40|0);
        $100 = HEAP32[$99>>2]|0;
-       $101 = HEAP32[((584 + 16|0))>>2]|0;
+       $101 = HEAP32[((456 + 16|0))>>2]|0;
        $102 = ($100>>>0)<($101>>>0);
        if ($102) {
         _abort();
@@ -8682,12 +8543,12 @@ function _malloc($bytes) {
       $105 = (($90) + 12|0);
       HEAP32[$105>>2] = $93;
      }
-     HEAP32[((584 + 8|0))>>2] = $81;
-     HEAP32[((584 + 20|0))>>2] = $84;
+     HEAP32[((456 + 8|0))>>2] = $81;
+     HEAP32[((456 + 20|0))>>2] = $84;
      $mem$0 = $69;
      return ($mem$0|0);
     }
-    $106 = HEAP32[((584 + 4|0))>>2]|0;
+    $106 = HEAP32[((456 + 4|0))>>2]|0;
     $107 = ($106|0)==(0);
     if ($107) {
      $nb$0 = $5;
@@ -8715,7 +8576,7 @@ function _malloc($bytes) {
      $128 = $124 | $127;
      $129 = $125 >>> $127;
      $130 = (($128) + ($129))|0;
-     $131 = ((584 + ($130<<2)|0) + 304|0);
+     $131 = ((456 + ($130<<2)|0) + 304|0);
      $132 = HEAP32[$131>>2]|0;
      $133 = (($132) + 4|0);
      $134 = HEAP32[$133>>2]|0;
@@ -8748,7 +8609,7 @@ function _malloc($bytes) {
       $$v$0$i = $148 ? $144 : $v$0$i;
       $rsize$0$i = $$rsize$0$i;$t$0$i = $144;$v$0$i = $$v$0$i;
      }
-     $149 = HEAP32[((584 + 16|0))>>2]|0;
+     $149 = HEAP32[((456 + 16|0))>>2]|0;
      $150 = ($v$0$i$lcssa>>>0)<($149>>>0);
      if ($150) {
       _abort();
@@ -8846,7 +8707,7 @@ function _malloc($bytes) {
       if (!($180)) {
        $181 = (($v$0$i$lcssa) + 28|0);
        $182 = HEAP32[$181>>2]|0;
-       $183 = ((584 + ($182<<2)|0) + 304|0);
+       $183 = ((456 + ($182<<2)|0) + 304|0);
        $184 = HEAP32[$183>>2]|0;
        $185 = ($v$0$i$lcssa|0)==($184|0);
        if ($185) {
@@ -8855,13 +8716,13 @@ function _malloc($bytes) {
         if ($cond$i) {
          $186 = 1 << $182;
          $187 = $186 ^ -1;
-         $188 = HEAP32[((584 + 4|0))>>2]|0;
+         $188 = HEAP32[((456 + 4|0))>>2]|0;
          $189 = $188 & $187;
-         HEAP32[((584 + 4|0))>>2] = $189;
+         HEAP32[((456 + 4|0))>>2] = $189;
          break;
         }
        } else {
-        $190 = HEAP32[((584 + 16|0))>>2]|0;
+        $190 = HEAP32[((456 + 16|0))>>2]|0;
         $191 = ($154>>>0)<($190>>>0);
         if ($191) {
          _abort();
@@ -8881,7 +8742,7 @@ function _malloc($bytes) {
          break;
         }
        }
-       $197 = HEAP32[((584 + 16|0))>>2]|0;
+       $197 = HEAP32[((456 + 16|0))>>2]|0;
        $198 = ($R$1$i>>>0)<($197>>>0);
        if ($198) {
         _abort();
@@ -8911,7 +8772,7 @@ function _malloc($bytes) {
        $207 = HEAP32[$206>>2]|0;
        $208 = ($207|0)==(0|0);
        if (!($208)) {
-        $209 = HEAP32[((584 + 16|0))>>2]|0;
+        $209 = HEAP32[((456 + 16|0))>>2]|0;
         $210 = ($207>>>0)<($209>>>0);
         if ($210) {
          _abort();
@@ -8948,28 +8809,28 @@ function _malloc($bytes) {
       $$sum1$i = (($rsize$0$i$lcssa) + ($5))|0;
       $224 = (($v$0$i$lcssa) + ($$sum1$i)|0);
       HEAP32[$224>>2] = $rsize$0$i$lcssa;
-      $225 = HEAP32[((584 + 8|0))>>2]|0;
+      $225 = HEAP32[((456 + 8|0))>>2]|0;
       $226 = ($225|0)==(0);
       if (!($226)) {
-       $227 = HEAP32[((584 + 20|0))>>2]|0;
+       $227 = HEAP32[((456 + 20|0))>>2]|0;
        $228 = $225 >>> 3;
        $229 = $228 << 1;
-       $230 = ((584 + ($229<<2)|0) + 40|0);
-       $231 = HEAP32[584>>2]|0;
+       $230 = ((456 + ($229<<2)|0) + 40|0);
+       $231 = HEAP32[456>>2]|0;
        $232 = 1 << $228;
        $233 = $231 & $232;
        $234 = ($233|0)==(0);
        if ($234) {
         $235 = $231 | $232;
-        HEAP32[584>>2] = $235;
+        HEAP32[456>>2] = $235;
         $$sum2$pre$i = (($229) + 2)|0;
-        $$pre$i = ((584 + ($$sum2$pre$i<<2)|0) + 40|0);
+        $$pre$i = ((456 + ($$sum2$pre$i<<2)|0) + 40|0);
         $$pre$phi$iZ2D = $$pre$i;$F1$0$i = $230;
        } else {
         $$sum3$i = (($229) + 2)|0;
-        $236 = ((584 + ($$sum3$i<<2)|0) + 40|0);
+        $236 = ((456 + ($$sum3$i<<2)|0) + 40|0);
         $237 = HEAP32[$236>>2]|0;
-        $238 = HEAP32[((584 + 16|0))>>2]|0;
+        $238 = HEAP32[((456 + 16|0))>>2]|0;
         $239 = ($237>>>0)<($238>>>0);
         if ($239) {
          _abort();
@@ -8986,8 +8847,8 @@ function _malloc($bytes) {
        $242 = (($227) + 12|0);
        HEAP32[$242>>2] = $230;
       }
-      HEAP32[((584 + 8|0))>>2] = $rsize$0$i$lcssa;
-      HEAP32[((584 + 20|0))>>2] = $151;
+      HEAP32[((456 + 8|0))>>2] = $rsize$0$i$lcssa;
+      HEAP32[((456 + 20|0))>>2] = $151;
      }
      $243 = (($v$0$i$lcssa) + 8|0);
      $mem$0 = $243;
@@ -9003,7 +8864,7 @@ function _malloc($bytes) {
    } else {
     $245 = (($bytes) + 11)|0;
     $246 = $245 & -8;
-    $247 = HEAP32[((584 + 4|0))>>2]|0;
+    $247 = HEAP32[((456 + 4|0))>>2]|0;
     $248 = ($247|0)==(0);
     if ($248) {
      $nb$0 = $246;
@@ -9043,7 +8904,7 @@ function _malloc($bytes) {
        $idx$0$i = $274;
       }
      }
-     $275 = ((584 + ($idx$0$i<<2)|0) + 304|0);
+     $275 = ((456 + ($idx$0$i<<2)|0) + 304|0);
      $276 = HEAP32[$275>>2]|0;
      $277 = ($276|0)==(0|0);
      if ($277) {
@@ -9132,7 +8993,7 @@ function _malloc($bytes) {
       $325 = $321 | $324;
       $326 = $322 >>> $324;
       $327 = (($325) + ($326))|0;
-      $328 = ((584 + ($327<<2)|0) + 304|0);
+      $328 = ((456 + ($327<<2)|0) + 304|0);
       $329 = HEAP32[$328>>2]|0;
       $t$2$ph$i = $329;
      } else {
@@ -9175,11 +9036,11 @@ function _malloc($bytes) {
      if ($342) {
       $nb$0 = $246;
      } else {
-      $343 = HEAP32[((584 + 8|0))>>2]|0;
+      $343 = HEAP32[((456 + 8|0))>>2]|0;
       $344 = (($343) - ($246))|0;
       $345 = ($rsize$3$lcssa$i>>>0)<($344>>>0);
       if ($345) {
-       $346 = HEAP32[((584 + 16|0))>>2]|0;
+       $346 = HEAP32[((456 + 16|0))>>2]|0;
        $347 = ($v$3$lcssa$i>>>0)<($346>>>0);
        if ($347) {
         _abort();
@@ -9277,7 +9138,7 @@ function _malloc($bytes) {
         if (!($377)) {
          $378 = (($v$3$lcssa$i) + 28|0);
          $379 = HEAP32[$378>>2]|0;
-         $380 = ((584 + ($379<<2)|0) + 304|0);
+         $380 = ((456 + ($379<<2)|0) + 304|0);
          $381 = HEAP32[$380>>2]|0;
          $382 = ($v$3$lcssa$i|0)==($381|0);
          if ($382) {
@@ -9286,13 +9147,13 @@ function _malloc($bytes) {
           if ($cond$i21) {
            $383 = 1 << $379;
            $384 = $383 ^ -1;
-           $385 = HEAP32[((584 + 4|0))>>2]|0;
+           $385 = HEAP32[((456 + 4|0))>>2]|0;
            $386 = $385 & $384;
-           HEAP32[((584 + 4|0))>>2] = $386;
+           HEAP32[((456 + 4|0))>>2] = $386;
            break;
           }
          } else {
-          $387 = HEAP32[((584 + 16|0))>>2]|0;
+          $387 = HEAP32[((456 + 16|0))>>2]|0;
           $388 = ($351>>>0)<($387>>>0);
           if ($388) {
            _abort();
@@ -9312,7 +9173,7 @@ function _malloc($bytes) {
            break;
           }
          }
-         $394 = HEAP32[((584 + 16|0))>>2]|0;
+         $394 = HEAP32[((456 + 16|0))>>2]|0;
          $395 = ($R$1$i20>>>0)<($394>>>0);
          if ($395) {
           _abort();
@@ -9342,7 +9203,7 @@ function _malloc($bytes) {
          $404 = HEAP32[$403>>2]|0;
          $405 = ($404|0)==(0|0);
          if (!($405)) {
-          $406 = HEAP32[((584 + 16|0))>>2]|0;
+          $406 = HEAP32[((456 + 16|0))>>2]|0;
           $407 = ($404>>>0)<($406>>>0);
           if ($407) {
            _abort();
@@ -9384,23 +9245,23 @@ function _malloc($bytes) {
          $423 = ($rsize$3$lcssa$i>>>0)<(256);
          if ($423) {
           $424 = $422 << 1;
-          $425 = ((584 + ($424<<2)|0) + 40|0);
-          $426 = HEAP32[584>>2]|0;
+          $425 = ((456 + ($424<<2)|0) + 40|0);
+          $426 = HEAP32[456>>2]|0;
           $427 = 1 << $422;
           $428 = $426 & $427;
           $429 = ($428|0)==(0);
           do {
            if ($429) {
             $430 = $426 | $427;
-            HEAP32[584>>2] = $430;
+            HEAP32[456>>2] = $430;
             $$sum14$pre$i = (($424) + 2)|0;
-            $$pre$i25 = ((584 + ($$sum14$pre$i<<2)|0) + 40|0);
+            $$pre$i25 = ((456 + ($$sum14$pre$i<<2)|0) + 40|0);
             $$pre$phi$i26Z2D = $$pre$i25;$F5$0$i = $425;
            } else {
             $$sum17$i = (($424) + 2)|0;
-            $431 = ((584 + ($$sum17$i<<2)|0) + 40|0);
+            $431 = ((456 + ($$sum17$i<<2)|0) + 40|0);
             $432 = HEAP32[$431>>2]|0;
-            $433 = HEAP32[((584 + 16|0))>>2]|0;
+            $433 = HEAP32[((456 + 16|0))>>2]|0;
             $434 = ($432>>>0)<($433>>>0);
             if (!($434)) {
              $$pre$phi$i26Z2D = $431;$F5$0$i = $432;
@@ -9455,7 +9316,7 @@ function _malloc($bytes) {
            $I7$0$i = $462;
           }
          }
-         $463 = ((584 + ($I7$0$i<<2)|0) + 304|0);
+         $463 = ((456 + ($I7$0$i<<2)|0) + 304|0);
          $$sum2$i = (($246) + 28)|0;
          $464 = (($v$3$lcssa$i) + ($$sum2$i)|0);
          HEAP32[$464>>2] = $I7$0$i;
@@ -9465,13 +9326,13 @@ function _malloc($bytes) {
          $466 = (($v$3$lcssa$i) + ($$sum4$i28)|0);
          HEAP32[$466>>2] = 0;
          HEAP32[$465>>2] = 0;
-         $467 = HEAP32[((584 + 4|0))>>2]|0;
+         $467 = HEAP32[((456 + 4|0))>>2]|0;
          $468 = 1 << $I7$0$i;
          $469 = $467 & $468;
          $470 = ($469|0)==(0);
          if ($470) {
           $471 = $467 | $468;
-          HEAP32[((584 + 4|0))>>2] = $471;
+          HEAP32[((456 + 4|0))>>2] = $471;
           HEAP32[$463>>2] = $348;
           $$sum5$i = (($246) + 24)|0;
           $472 = (($v$3$lcssa$i) + ($$sum5$i)|0);
@@ -9529,7 +9390,7 @@ function _malloc($bytes) {
             $T$0$lcssa$i = $$lcssa137;
             break;
            }
-           $494 = HEAP32[((584 + 16|0))>>2]|0;
+           $494 = HEAP32[((456 + 16|0))>>2]|0;
            $495 = ($$lcssa134>>>0)<($494>>>0);
            if ($495) {
             _abort();
@@ -9551,7 +9412,7 @@ function _malloc($bytes) {
          } while(0);
          $499 = (($T$0$lcssa$i) + 8|0);
          $500 = HEAP32[$499>>2]|0;
-         $501 = HEAP32[((584 + 16|0))>>2]|0;
+         $501 = HEAP32[((456 + 16|0))>>2]|0;
          $502 = ($T$0$lcssa$i>>>0)>=($501>>>0);
          $503 = ($500>>>0)>=($501>>>0);
          $or$cond24$i = $502 & $503;
@@ -9586,16 +9447,16 @@ function _malloc($bytes) {
    }
   }
  } while(0);
- $509 = HEAP32[((584 + 8|0))>>2]|0;
+ $509 = HEAP32[((456 + 8|0))>>2]|0;
  $510 = ($509>>>0)<($nb$0>>>0);
  if (!($510)) {
   $511 = (($509) - ($nb$0))|0;
-  $512 = HEAP32[((584 + 20|0))>>2]|0;
+  $512 = HEAP32[((456 + 20|0))>>2]|0;
   $513 = ($511>>>0)>(15);
   if ($513) {
    $514 = (($512) + ($nb$0)|0);
-   HEAP32[((584 + 20|0))>>2] = $514;
-   HEAP32[((584 + 8|0))>>2] = $511;
+   HEAP32[((456 + 20|0))>>2] = $514;
+   HEAP32[((456 + 8|0))>>2] = $511;
    $515 = $511 | 1;
    $$sum2 = (($nb$0) + 4)|0;
    $516 = (($512) + ($$sum2)|0);
@@ -9606,8 +9467,8 @@ function _malloc($bytes) {
    $519 = (($512) + 4|0);
    HEAP32[$519>>2] = $518;
   } else {
-   HEAP32[((584 + 8|0))>>2] = 0;
-   HEAP32[((584 + 20|0))>>2] = 0;
+   HEAP32[((456 + 8|0))>>2] = 0;
+   HEAP32[((456 + 20|0))>>2] = 0;
    $520 = $509 | 3;
    $521 = (($512) + 4|0);
    HEAP32[$521>>2] = $520;
@@ -9621,14 +9482,14 @@ function _malloc($bytes) {
   $mem$0 = $525;
   return ($mem$0|0);
  }
- $526 = HEAP32[((584 + 12|0))>>2]|0;
+ $526 = HEAP32[((456 + 12|0))>>2]|0;
  $527 = ($526>>>0)>($nb$0>>>0);
  if ($527) {
   $528 = (($526) - ($nb$0))|0;
-  HEAP32[((584 + 12|0))>>2] = $528;
-  $529 = HEAP32[((584 + 24|0))>>2]|0;
+  HEAP32[((456 + 12|0))>>2] = $528;
+  $529 = HEAP32[((456 + 24|0))>>2]|0;
   $530 = (($529) + ($nb$0)|0);
-  HEAP32[((584 + 24|0))>>2] = $530;
+  HEAP32[((456 + 24|0))>>2] = $530;
   $531 = $528 | 1;
   $$sum = (($nb$0) + 4)|0;
   $532 = (($529) + ($$sum)|0);
@@ -9640,7 +9501,7 @@ function _malloc($bytes) {
   $mem$0 = $535;
   return ($mem$0|0);
  }
- $536 = HEAP32[1056>>2]|0;
+ $536 = HEAP32[928>>2]|0;
  $537 = ($536|0)==(0);
  do {
   if ($537) {
@@ -9649,16 +9510,16 @@ function _malloc($bytes) {
    $540 = $539 & $538;
    $541 = ($540|0)==(0);
    if ($541) {
-    HEAP32[((1056 + 8|0))>>2] = $538;
-    HEAP32[((1056 + 4|0))>>2] = $538;
-    HEAP32[((1056 + 12|0))>>2] = -1;
-    HEAP32[((1056 + 16|0))>>2] = -1;
-    HEAP32[((1056 + 20|0))>>2] = 0;
-    HEAP32[((584 + 444|0))>>2] = 0;
+    HEAP32[((928 + 8|0))>>2] = $538;
+    HEAP32[((928 + 4|0))>>2] = $538;
+    HEAP32[((928 + 12|0))>>2] = -1;
+    HEAP32[((928 + 16|0))>>2] = -1;
+    HEAP32[((928 + 20|0))>>2] = 0;
+    HEAP32[((456 + 444|0))>>2] = 0;
     $542 = (_time((0|0))|0);
     $543 = $542 & -16;
     $544 = $543 ^ 1431655768;
-    HEAP32[1056>>2] = $544;
+    HEAP32[928>>2] = $544;
     break;
    } else {
     _abort();
@@ -9667,7 +9528,7 @@ function _malloc($bytes) {
   }
  } while(0);
  $545 = (($nb$0) + 48)|0;
- $546 = HEAP32[((1056 + 8|0))>>2]|0;
+ $546 = HEAP32[((928 + 8|0))>>2]|0;
  $547 = (($nb$0) + 47)|0;
  $548 = (($546) + ($547))|0;
  $549 = (0 - ($546))|0;
@@ -9677,10 +9538,10 @@ function _malloc($bytes) {
   $mem$0 = 0;
   return ($mem$0|0);
  }
- $552 = HEAP32[((584 + 440|0))>>2]|0;
+ $552 = HEAP32[((456 + 440|0))>>2]|0;
  $553 = ($552|0)==(0);
  if (!($553)) {
-  $554 = HEAP32[((584 + 432|0))>>2]|0;
+  $554 = HEAP32[((456 + 432|0))>>2]|0;
   $555 = (($554) + ($550))|0;
   $556 = ($555>>>0)<=($554>>>0);
   $557 = ($555>>>0)>($552>>>0);
@@ -9690,18 +9551,18 @@ function _malloc($bytes) {
    return ($mem$0|0);
   }
  }
- $558 = HEAP32[((584 + 444|0))>>2]|0;
+ $558 = HEAP32[((456 + 444|0))>>2]|0;
  $559 = $558 & 4;
  $560 = ($559|0)==(0);
  L279: do {
   if ($560) {
-   $561 = HEAP32[((584 + 24|0))>>2]|0;
+   $561 = HEAP32[((456 + 24|0))>>2]|0;
    $562 = ($561|0)==(0|0);
    do {
     if ($562) {
      label = 191;
     } else {
-     $sp$0$i$i = ((584 + 448|0));
+     $sp$0$i$i = ((456 + 448|0));
      while(1) {
       $563 = HEAP32[$sp$0$i$i>>2]|0;
       $564 = ($563>>>0)>($561>>>0);
@@ -9733,7 +9594,7 @@ function _malloc($bytes) {
      if ($572) {
       label = 191;
      } else {
-      $595 = HEAP32[((584 + 12|0))>>2]|0;
+      $595 = HEAP32[((456 + 12|0))>>2]|0;
       $596 = (($548) - ($595))|0;
       $597 = $596 & $549;
       $598 = ($597>>>0)<(2147483647);
@@ -9764,7 +9625,7 @@ function _malloc($bytes) {
       $tsize$03141$i = 0;
      } else {
       $575 = $573;
-      $576 = HEAP32[((1056 + 4|0))>>2]|0;
+      $576 = HEAP32[((928 + 4|0))>>2]|0;
       $577 = (($576) + -1)|0;
       $578 = $577 & $575;
       $579 = ($578|0)==(0);
@@ -9778,13 +9639,13 @@ function _malloc($bytes) {
        $584 = (($583) + ($582))|0;
        $ssize$0$i = $584;
       }
-      $585 = HEAP32[((584 + 432|0))>>2]|0;
+      $585 = HEAP32[((456 + 432|0))>>2]|0;
       $586 = (($585) + ($ssize$0$i))|0;
       $587 = ($ssize$0$i>>>0)>($nb$0>>>0);
       $588 = ($ssize$0$i>>>0)<(2147483647);
       $or$cond$i29 = $587 & $588;
       if ($or$cond$i29) {
-       $589 = HEAP32[((584 + 440|0))>>2]|0;
+       $589 = HEAP32[((456 + 440|0))>>2]|0;
        $590 = ($589|0)==(0);
        if (!($590)) {
         $591 = ($586>>>0)<=($585>>>0);
@@ -9830,7 +9691,7 @@ function _malloc($bytes) {
      $or$cond4$i = $or$cond5$i & $608;
      do {
       if ($or$cond4$i) {
-       $609 = HEAP32[((1056 + 8|0))>>2]|0;
+       $609 = HEAP32[((928 + 8|0))>>2]|0;
        $610 = (($547) - ($ssize$129$i))|0;
        $611 = (($610) + ($609))|0;
        $612 = (0 - ($609))|0;
@@ -9865,9 +9726,9 @@ function _malloc($bytes) {
      }
     }
    } while(0);
-   $619 = HEAP32[((584 + 444|0))>>2]|0;
+   $619 = HEAP32[((456 + 444|0))>>2]|0;
    $620 = $619 | 4;
-   HEAP32[((584 + 444|0))>>2] = $620;
+   HEAP32[((456 + 444|0))>>2] = $620;
    $tsize$1$i = $tsize$03141$i;
    label = 208;
   } else {
@@ -9900,40 +9761,40 @@ function _malloc($bytes) {
   }
  }
  if ((label|0) == 211) {
-  $632 = HEAP32[((584 + 432|0))>>2]|0;
+  $632 = HEAP32[((456 + 432|0))>>2]|0;
   $633 = (($632) + ($tsize$244$i))|0;
-  HEAP32[((584 + 432|0))>>2] = $633;
-  $634 = HEAP32[((584 + 436|0))>>2]|0;
+  HEAP32[((456 + 432|0))>>2] = $633;
+  $634 = HEAP32[((456 + 436|0))>>2]|0;
   $635 = ($633>>>0)>($634>>>0);
   if ($635) {
-   HEAP32[((584 + 436|0))>>2] = $633;
+   HEAP32[((456 + 436|0))>>2] = $633;
   }
-  $636 = HEAP32[((584 + 24|0))>>2]|0;
+  $636 = HEAP32[((456 + 24|0))>>2]|0;
   $637 = ($636|0)==(0|0);
   L323: do {
    if ($637) {
-    $638 = HEAP32[((584 + 16|0))>>2]|0;
+    $638 = HEAP32[((456 + 16|0))>>2]|0;
     $639 = ($638|0)==(0|0);
     $640 = ($tbase$245$i>>>0)<($638>>>0);
     $or$cond8$i = $639 | $640;
     if ($or$cond8$i) {
-     HEAP32[((584 + 16|0))>>2] = $tbase$245$i;
+     HEAP32[((456 + 16|0))>>2] = $tbase$245$i;
     }
-    HEAP32[((584 + 448|0))>>2] = $tbase$245$i;
-    HEAP32[((584 + 452|0))>>2] = $tsize$244$i;
-    HEAP32[((584 + 460|0))>>2] = 0;
-    $641 = HEAP32[1056>>2]|0;
-    HEAP32[((584 + 36|0))>>2] = $641;
-    HEAP32[((584 + 32|0))>>2] = -1;
+    HEAP32[((456 + 448|0))>>2] = $tbase$245$i;
+    HEAP32[((456 + 452|0))>>2] = $tsize$244$i;
+    HEAP32[((456 + 460|0))>>2] = 0;
+    $641 = HEAP32[928>>2]|0;
+    HEAP32[((456 + 36|0))>>2] = $641;
+    HEAP32[((456 + 32|0))>>2] = -1;
     $i$02$i$i = 0;
     while(1) {
      $642 = $i$02$i$i << 1;
-     $643 = ((584 + ($642<<2)|0) + 40|0);
+     $643 = ((456 + ($642<<2)|0) + 40|0);
      $$sum$i$i = (($642) + 3)|0;
-     $644 = ((584 + ($$sum$i$i<<2)|0) + 40|0);
+     $644 = ((456 + ($$sum$i$i<<2)|0) + 40|0);
      HEAP32[$644>>2] = $643;
      $$sum1$i$i = (($642) + 2)|0;
-     $645 = ((584 + ($$sum1$i$i<<2)|0) + 40|0);
+     $645 = ((456 + ($$sum1$i$i<<2)|0) + 40|0);
      HEAP32[$645>>2] = $643;
      $646 = (($i$02$i$i) + 1)|0;
      $exitcond$i$i = ($646|0)==(32);
@@ -9957,8 +9818,8 @@ function _malloc($bytes) {
     }
     $654 = (($tbase$245$i) + ($655)|0);
     $656 = (($647) - ($655))|0;
-    HEAP32[((584 + 24|0))>>2] = $654;
-    HEAP32[((584 + 12|0))>>2] = $656;
+    HEAP32[((456 + 24|0))>>2] = $654;
+    HEAP32[((456 + 12|0))>>2] = $656;
     $657 = $656 | 1;
     $$sum$i12$i = (($655) + 4)|0;
     $658 = (($tbase$245$i) + ($$sum$i12$i)|0);
@@ -9966,10 +9827,10 @@ function _malloc($bytes) {
     $$sum2$i$i = (($tsize$244$i) + -36)|0;
     $659 = (($tbase$245$i) + ($$sum2$i$i)|0);
     HEAP32[$659>>2] = 40;
-    $660 = HEAP32[((1056 + 16|0))>>2]|0;
-    HEAP32[((584 + 28|0))>>2] = $660;
+    $660 = HEAP32[((928 + 16|0))>>2]|0;
+    HEAP32[((456 + 28|0))>>2] = $660;
    } else {
-    $sp$074$i = ((584 + 448|0));
+    $sp$074$i = ((456 + 448|0));
     while(1) {
      $661 = HEAP32[$sp$074$i>>2]|0;
      $662 = (($sp$074$i) + 4|0);
@@ -10003,7 +9864,7 @@ function _malloc($bytes) {
       if ($or$cond47$i) {
        $675 = (($$lcssa127) + ($tsize$244$i))|0;
        HEAP32[$$lcssa125>>2] = $675;
-       $676 = HEAP32[((584 + 12|0))>>2]|0;
+       $676 = HEAP32[((456 + 12|0))>>2]|0;
        $677 = (($676) + ($tsize$244$i))|0;
        $678 = (($636) + 8|0);
        $679 = $678;
@@ -10018,8 +9879,8 @@ function _malloc($bytes) {
        }
        $684 = (($636) + ($685)|0);
        $686 = (($677) - ($685))|0;
-       HEAP32[((584 + 24|0))>>2] = $684;
-       HEAP32[((584 + 12|0))>>2] = $686;
+       HEAP32[((456 + 24|0))>>2] = $684;
+       HEAP32[((456 + 12|0))>>2] = $686;
        $687 = $686 | 1;
        $$sum$i16$i = (($685) + 4)|0;
        $688 = (($636) + ($$sum$i16$i)|0);
@@ -10027,24 +9888,24 @@ function _malloc($bytes) {
        $$sum2$i17$i = (($677) + 4)|0;
        $689 = (($636) + ($$sum2$i17$i)|0);
        HEAP32[$689>>2] = 40;
-       $690 = HEAP32[((1056 + 16|0))>>2]|0;
-       HEAP32[((584 + 28|0))>>2] = $690;
+       $690 = HEAP32[((928 + 16|0))>>2]|0;
+       HEAP32[((456 + 28|0))>>2] = $690;
        break;
       }
      }
     }
     else if ((label|0) == 229) {
     }
-    $691 = HEAP32[((584 + 16|0))>>2]|0;
+    $691 = HEAP32[((456 + 16|0))>>2]|0;
     $692 = ($tbase$245$i>>>0)<($691>>>0);
     if ($692) {
-     HEAP32[((584 + 16|0))>>2] = $tbase$245$i;
+     HEAP32[((456 + 16|0))>>2] = $tbase$245$i;
      $756 = $tbase$245$i;
     } else {
      $756 = $691;
     }
     $693 = (($tbase$245$i) + ($tsize$244$i)|0);
-    $sp$173$i = ((584 + 448|0));
+    $sp$173$i = ((456 + 448|0));
     while(1) {
      $694 = HEAP32[$sp$173$i>>2]|0;
      $695 = ($694|0)==($693|0);
@@ -10113,22 +9974,22 @@ function _malloc($bytes) {
       $729 = ($721|0)==($636|0);
       L352: do {
        if ($729) {
-        $730 = HEAP32[((584 + 12|0))>>2]|0;
+        $730 = HEAP32[((456 + 12|0))>>2]|0;
         $731 = (($730) + ($726))|0;
-        HEAP32[((584 + 12|0))>>2] = $731;
-        HEAP32[((584 + 24|0))>>2] = $725;
+        HEAP32[((456 + 12|0))>>2] = $731;
+        HEAP32[((456 + 24|0))>>2] = $725;
         $732 = $731 | 1;
         $$sum42$i$i = (($$sum$i19$i) + 4)|0;
         $733 = (($tbase$245$i) + ($$sum42$i$i)|0);
         HEAP32[$733>>2] = $732;
        } else {
-        $734 = HEAP32[((584 + 20|0))>>2]|0;
+        $734 = HEAP32[((456 + 20|0))>>2]|0;
         $735 = ($721|0)==($734|0);
         if ($735) {
-         $736 = HEAP32[((584 + 8|0))>>2]|0;
+         $736 = HEAP32[((456 + 8|0))>>2]|0;
          $737 = (($736) + ($726))|0;
-         HEAP32[((584 + 8|0))>>2] = $737;
-         HEAP32[((584 + 20|0))>>2] = $725;
+         HEAP32[((456 + 8|0))>>2] = $737;
+         HEAP32[((456 + 20|0))>>2] = $725;
          $738 = $737 | 1;
          $$sum40$i$i = (($$sum$i19$i) + 4)|0;
          $739 = (($tbase$245$i) + ($$sum40$i$i)|0);
@@ -10159,7 +10020,7 @@ function _malloc($bytes) {
            $750 = (($tbase$245$i) + ($$sum115$i)|0);
            $751 = HEAP32[$750>>2]|0;
            $752 = $746 << 1;
-           $753 = ((584 + ($752<<2)|0) + 40|0);
+           $753 = ((456 + ($752<<2)|0) + 40|0);
            $754 = ($749|0)==($753|0);
            do {
             if (!($754)) {
@@ -10182,9 +10043,9 @@ function _malloc($bytes) {
            if ($760) {
             $761 = 1 << $746;
             $762 = $761 ^ -1;
-            $763 = HEAP32[584>>2]|0;
+            $763 = HEAP32[456>>2]|0;
             $764 = $763 & $762;
-            HEAP32[584>>2] = $764;
+            HEAP32[456>>2] = $764;
             break;
            }
            $765 = ($751|0)==($753|0);
@@ -10311,7 +10172,7 @@ function _malloc($bytes) {
            $$sum108$i = (($$sum30$i$i) + ($720))|0;
            $799 = (($tbase$245$i) + ($$sum108$i)|0);
            $800 = HEAP32[$799>>2]|0;
-           $801 = ((584 + ($800<<2)|0) + 304|0);
+           $801 = ((456 + ($800<<2)|0) + 304|0);
            $802 = HEAP32[$801>>2]|0;
            $803 = ($721|0)==($802|0);
            do {
@@ -10323,12 +10184,12 @@ function _malloc($bytes) {
              }
              $804 = 1 << $800;
              $805 = $804 ^ -1;
-             $806 = HEAP32[((584 + 4|0))>>2]|0;
+             $806 = HEAP32[((456 + 4|0))>>2]|0;
              $807 = $806 & $805;
-             HEAP32[((584 + 4|0))>>2] = $807;
+             HEAP32[((456 + 4|0))>>2] = $807;
              break L360;
             } else {
-             $808 = HEAP32[((584 + 16|0))>>2]|0;
+             $808 = HEAP32[((456 + 16|0))>>2]|0;
              $809 = ($772>>>0)<($808>>>0);
              if ($809) {
               _abort();
@@ -10349,7 +10210,7 @@ function _malloc($bytes) {
              }
             }
            } while(0);
-           $815 = HEAP32[((584 + 16|0))>>2]|0;
+           $815 = HEAP32[((456 + 16|0))>>2]|0;
            $816 = ($R$1$i$i>>>0)<($815>>>0);
            if ($816) {
             _abort();
@@ -10384,7 +10245,7 @@ function _malloc($bytes) {
            if ($826) {
             break;
            }
-           $827 = HEAP32[((584 + 16|0))>>2]|0;
+           $827 = HEAP32[((456 + 16|0))>>2]|0;
            $828 = ($825>>>0)<($827>>>0);
            if ($828) {
             _abort();
@@ -10421,23 +10282,23 @@ function _malloc($bytes) {
         $840 = ($qsize$0$i$i>>>0)<(256);
         if ($840) {
          $841 = $839 << 1;
-         $842 = ((584 + ($841<<2)|0) + 40|0);
-         $843 = HEAP32[584>>2]|0;
+         $842 = ((456 + ($841<<2)|0) + 40|0);
+         $843 = HEAP32[456>>2]|0;
          $844 = 1 << $839;
          $845 = $843 & $844;
          $846 = ($845|0)==(0);
          do {
           if ($846) {
            $847 = $843 | $844;
-           HEAP32[584>>2] = $847;
+           HEAP32[456>>2] = $847;
            $$sum26$pre$i$i = (($841) + 2)|0;
-           $$pre$i23$i = ((584 + ($$sum26$pre$i$i<<2)|0) + 40|0);
+           $$pre$i23$i = ((456 + ($$sum26$pre$i$i<<2)|0) + 40|0);
            $$pre$phi$i24$iZ2D = $$pre$i23$i;$F4$0$i$i = $842;
           } else {
            $$sum29$i$i = (($841) + 2)|0;
-           $848 = ((584 + ($$sum29$i$i<<2)|0) + 40|0);
+           $848 = ((456 + ($$sum29$i$i<<2)|0) + 40|0);
            $849 = HEAP32[$848>>2]|0;
-           $850 = HEAP32[((584 + 16|0))>>2]|0;
+           $850 = HEAP32[((456 + 16|0))>>2]|0;
            $851 = ($849>>>0)<($850>>>0);
            if (!($851)) {
             $$pre$phi$i24$iZ2D = $848;$F4$0$i$i = $849;
@@ -10494,7 +10355,7 @@ function _malloc($bytes) {
           $I7$0$i$i = $879;
          }
         } while(0);
-        $880 = ((584 + ($I7$0$i$i<<2)|0) + 304|0);
+        $880 = ((456 + ($I7$0$i$i<<2)|0) + 304|0);
         $$sum12$i$i = (($$sum$i19$i) + 28)|0;
         $881 = (($tbase$245$i) + ($$sum12$i$i)|0);
         HEAP32[$881>>2] = $I7$0$i$i;
@@ -10504,13 +10365,13 @@ function _malloc($bytes) {
         $883 = (($tbase$245$i) + ($$sum14$i$i)|0);
         HEAP32[$883>>2] = 0;
         HEAP32[$882>>2] = 0;
-        $884 = HEAP32[((584 + 4|0))>>2]|0;
+        $884 = HEAP32[((456 + 4|0))>>2]|0;
         $885 = 1 << $I7$0$i$i;
         $886 = $884 & $885;
         $887 = ($886|0)==(0);
         if ($887) {
          $888 = $884 | $885;
-         HEAP32[((584 + 4|0))>>2] = $888;
+         HEAP32[((456 + 4|0))>>2] = $888;
          HEAP32[$880>>2] = $725;
          $$sum15$i$i = (($$sum$i19$i) + 24)|0;
          $889 = (($tbase$245$i) + ($$sum15$i$i)|0);
@@ -10568,7 +10429,7 @@ function _malloc($bytes) {
            $T$0$lcssa$i26$i = $$lcssa110;
            break;
           }
-          $911 = HEAP32[((584 + 16|0))>>2]|0;
+          $911 = HEAP32[((456 + 16|0))>>2]|0;
           $912 = ($$lcssa>>>0)<($911>>>0);
           if ($912) {
            _abort();
@@ -10590,7 +10451,7 @@ function _malloc($bytes) {
         } while(0);
         $916 = (($T$0$lcssa$i26$i) + 8|0);
         $917 = HEAP32[$916>>2]|0;
-        $918 = HEAP32[((584 + 16|0))>>2]|0;
+        $918 = HEAP32[((456 + 16|0))>>2]|0;
         $919 = ($T$0$lcssa$i26$i>>>0)>=($918>>>0);
         $920 = ($917>>>0)>=($918>>>0);
         $or$cond$i27$i = $919 & $920;
@@ -10622,7 +10483,7 @@ function _malloc($bytes) {
     }
     else if ((label|0) == 319) {
     }
-    $sp$0$i$i$i = ((584 + 448|0));
+    $sp$0$i$i$i = ((456 + 448|0));
     while(1) {
      $926 = HEAP32[$sp$0$i$i$i>>2]|0;
      $927 = ($926>>>0)>($636>>>0);
@@ -10673,8 +10534,8 @@ function _malloc($bytes) {
     }
     $953 = (($tbase$245$i) + ($954)|0);
     $955 = (($946) - ($954))|0;
-    HEAP32[((584 + 24|0))>>2] = $953;
-    HEAP32[((584 + 12|0))>>2] = $955;
+    HEAP32[((456 + 24|0))>>2] = $953;
+    HEAP32[((456 + 12|0))>>2] = $955;
     $956 = $955 | 1;
     $$sum$i$i$i = (($954) + 4)|0;
     $957 = (($tbase$245$i) + ($$sum$i$i$i)|0);
@@ -10682,15 +10543,15 @@ function _malloc($bytes) {
     $$sum2$i$i$i = (($tsize$244$i) + -36)|0;
     $958 = (($tbase$245$i) + ($$sum2$i$i$i)|0);
     HEAP32[$958>>2] = 40;
-    $959 = HEAP32[((1056 + 16|0))>>2]|0;
-    HEAP32[((584 + 28|0))>>2] = $959;
+    $959 = HEAP32[((928 + 16|0))>>2]|0;
+    HEAP32[((456 + 28|0))>>2] = $959;
     $960 = (($944) + 4|0);
     HEAP32[$960>>2] = 27;
-    ;HEAP32[$945+0>>2]=HEAP32[((584 + 448|0))+0>>2]|0;HEAP32[$945+4>>2]=HEAP32[((584 + 448|0))+4>>2]|0;HEAP32[$945+8>>2]=HEAP32[((584 + 448|0))+8>>2]|0;HEAP32[$945+12>>2]=HEAP32[((584 + 448|0))+12>>2]|0;
-    HEAP32[((584 + 448|0))>>2] = $tbase$245$i;
-    HEAP32[((584 + 452|0))>>2] = $tsize$244$i;
-    HEAP32[((584 + 460|0))>>2] = 0;
-    HEAP32[((584 + 456|0))>>2] = $945;
+    ;HEAP32[$945+0>>2]=HEAP32[((456 + 448|0))+0>>2]|0;HEAP32[$945+4>>2]=HEAP32[((456 + 448|0))+4>>2]|0;HEAP32[$945+8>>2]=HEAP32[((456 + 448|0))+8>>2]|0;HEAP32[$945+12>>2]=HEAP32[((456 + 448|0))+12>>2]|0;
+    HEAP32[((456 + 448|0))>>2] = $tbase$245$i;
+    HEAP32[((456 + 452|0))>>2] = $tsize$244$i;
+    HEAP32[((456 + 460|0))>>2] = 0;
+    HEAP32[((456 + 456|0))>>2] = $945;
     $961 = (($944) + 28|0);
     HEAP32[$961>>2] = 7;
     $962 = (($944) + 32|0);
@@ -10728,23 +10589,23 @@ function _malloc($bytes) {
      $979 = ($971>>>0)<(256);
      if ($979) {
       $980 = $978 << 1;
-      $981 = ((584 + ($980<<2)|0) + 40|0);
-      $982 = HEAP32[584>>2]|0;
+      $981 = ((456 + ($980<<2)|0) + 40|0);
+      $982 = HEAP32[456>>2]|0;
       $983 = 1 << $978;
       $984 = $982 & $983;
       $985 = ($984|0)==(0);
       do {
        if ($985) {
         $986 = $982 | $983;
-        HEAP32[584>>2] = $986;
+        HEAP32[456>>2] = $986;
         $$sum10$pre$i$i = (($980) + 2)|0;
-        $$pre$i$i = ((584 + ($$sum10$pre$i$i<<2)|0) + 40|0);
+        $$pre$i$i = ((456 + ($$sum10$pre$i$i<<2)|0) + 40|0);
         $$pre$phi$i$iZ2D = $$pre$i$i;$F$0$i$i = $981;
        } else {
         $$sum11$i$i = (($980) + 2)|0;
-        $987 = ((584 + ($$sum11$i$i<<2)|0) + 40|0);
+        $987 = ((456 + ($$sum11$i$i<<2)|0) + 40|0);
         $988 = HEAP32[$987>>2]|0;
-        $989 = HEAP32[((584 + 16|0))>>2]|0;
+        $989 = HEAP32[((456 + 16|0))>>2]|0;
         $990 = ($988>>>0)<($989>>>0);
         if (!($990)) {
          $$pre$phi$i$iZ2D = $987;$F$0$i$i = $988;
@@ -10797,7 +10658,7 @@ function _malloc($bytes) {
        $I1$0$i$i = $1018;
       }
      }
-     $1019 = ((584 + ($I1$0$i$i<<2)|0) + 304|0);
+     $1019 = ((456 + ($I1$0$i$i<<2)|0) + 304|0);
      $1020 = (($636) + 28|0);
      $I1$0$c$i$i = $I1$0$i$i;
      HEAP32[$1020>>2] = $I1$0$c$i$i;
@@ -10805,13 +10666,13 @@ function _malloc($bytes) {
      HEAP32[$1021>>2] = 0;
      $1022 = (($636) + 16|0);
      HEAP32[$1022>>2] = 0;
-     $1023 = HEAP32[((584 + 4|0))>>2]|0;
+     $1023 = HEAP32[((456 + 4|0))>>2]|0;
      $1024 = 1 << $I1$0$i$i;
      $1025 = $1023 & $1024;
      $1026 = ($1025|0)==(0);
      if ($1026) {
       $1027 = $1023 | $1024;
-      HEAP32[((584 + 4|0))>>2] = $1027;
+      HEAP32[((456 + 4|0))>>2] = $1027;
       HEAP32[$1019>>2] = $636;
       $1028 = (($636) + 24|0);
       HEAP32[$1028>>2] = $1019;
@@ -10866,7 +10727,7 @@ function _malloc($bytes) {
         $T$0$lcssa$i$i = $$lcssa115;
         break;
        }
-       $1050 = HEAP32[((584 + 16|0))>>2]|0;
+       $1050 = HEAP32[((456 + 16|0))>>2]|0;
        $1051 = ($$lcssa112>>>0)<($1050>>>0);
        if ($1051) {
         _abort();
@@ -10885,7 +10746,7 @@ function _malloc($bytes) {
      } while(0);
      $1055 = (($T$0$lcssa$i$i) + 8|0);
      $1056 = HEAP32[$1055>>2]|0;
-     $1057 = HEAP32[((584 + 16|0))>>2]|0;
+     $1057 = HEAP32[((456 + 16|0))>>2]|0;
      $1058 = ($T$0$lcssa$i$i>>>0)>=($1057>>>0);
      $1059 = ($1056>>>0)>=($1057>>>0);
      $or$cond$i$i = $1058 & $1059;
@@ -10907,14 +10768,14 @@ function _malloc($bytes) {
     }
    }
   } while(0);
-  $1064 = HEAP32[((584 + 12|0))>>2]|0;
+  $1064 = HEAP32[((456 + 12|0))>>2]|0;
   $1065 = ($1064>>>0)>($nb$0>>>0);
   if ($1065) {
    $1066 = (($1064) - ($nb$0))|0;
-   HEAP32[((584 + 12|0))>>2] = $1066;
-   $1067 = HEAP32[((584 + 24|0))>>2]|0;
+   HEAP32[((456 + 12|0))>>2] = $1066;
+   $1067 = HEAP32[((456 + 24|0))>>2]|0;
    $1068 = (($1067) + ($nb$0)|0);
-   HEAP32[((584 + 24|0))>>2] = $1068;
+   HEAP32[((456 + 24|0))>>2] = $1068;
    $1069 = $1066 | 1;
    $$sum$i32 = (($nb$0) + 4)|0;
    $1070 = (($1067) + ($$sum$i32)|0);
@@ -10960,7 +10821,7 @@ function _free($mem) {
   return;
  }
  $1 = (($mem) + -8|0);
- $2 = HEAP32[((584 + 16|0))>>2]|0;
+ $2 = HEAP32[((456 + 16|0))>>2]|0;
  $3 = ($1>>>0)<($2>>>0);
  if ($3) {
   _abort();
@@ -10994,7 +10855,7 @@ function _free($mem) {
     _abort();
     // unreachable;
    }
-   $17 = HEAP32[((584 + 20|0))>>2]|0;
+   $17 = HEAP32[((456 + 20|0))>>2]|0;
    $18 = ($14|0)==($17|0);
    if ($18) {
     $$sum3 = (($8) + -4)|0;
@@ -11006,7 +10867,7 @@ function _free($mem) {
      $p$0 = $14;$psize$0 = $15;
      break;
     }
-    HEAP32[((584 + 8|0))>>2] = $15;
+    HEAP32[((456 + 8|0))>>2] = $15;
     $107 = $104 & -2;
     HEAP32[$103>>2] = $107;
     $108 = $15 | 1;
@@ -11026,7 +10887,7 @@ function _free($mem) {
     $23 = (($mem) + ($$sum37)|0);
     $24 = HEAP32[$23>>2]|0;
     $25 = $19 << 1;
-    $26 = ((584 + ($25<<2)|0) + 40|0);
+    $26 = ((456 + ($25<<2)|0) + 40|0);
     $27 = ($22|0)==($26|0);
     if (!($27)) {
      $28 = ($22>>>0)<($2>>>0);
@@ -11046,9 +10907,9 @@ function _free($mem) {
     if ($32) {
      $33 = 1 << $19;
      $34 = $33 ^ -1;
-     $35 = HEAP32[584>>2]|0;
+     $35 = HEAP32[456>>2]|0;
      $36 = $35 & $34;
-     HEAP32[584>>2] = $36;
+     HEAP32[456>>2] = $36;
      $p$0 = $14;$psize$0 = $15;
      break;
     }
@@ -11171,7 +11032,7 @@ function _free($mem) {
     $$sum32 = (($$sum2) + 28)|0;
     $71 = (($mem) + ($$sum32)|0);
     $72 = HEAP32[$71>>2]|0;
-    $73 = ((584 + ($72<<2)|0) + 304|0);
+    $73 = ((456 + ($72<<2)|0) + 304|0);
     $74 = HEAP32[$73>>2]|0;
     $75 = ($14|0)==($74|0);
     if ($75) {
@@ -11180,14 +11041,14 @@ function _free($mem) {
      if ($cond) {
       $76 = 1 << $72;
       $77 = $76 ^ -1;
-      $78 = HEAP32[((584 + 4|0))>>2]|0;
+      $78 = HEAP32[((456 + 4|0))>>2]|0;
       $79 = $78 & $77;
-      HEAP32[((584 + 4|0))>>2] = $79;
+      HEAP32[((456 + 4|0))>>2] = $79;
       $p$0 = $14;$psize$0 = $15;
       break;
      }
     } else {
-     $80 = HEAP32[((584 + 16|0))>>2]|0;
+     $80 = HEAP32[((456 + 16|0))>>2]|0;
      $81 = ($44>>>0)<($80>>>0);
      if ($81) {
       _abort();
@@ -11208,7 +11069,7 @@ function _free($mem) {
       break;
      }
     }
-    $87 = HEAP32[((584 + 16|0))>>2]|0;
+    $87 = HEAP32[((456 + 16|0))>>2]|0;
     $88 = ($R$1>>>0)<($87>>>0);
     if ($88) {
      _abort();
@@ -11242,7 +11103,7 @@ function _free($mem) {
     if ($98) {
      $p$0 = $14;$psize$0 = $15;
     } else {
-     $99 = HEAP32[((584 + 16|0))>>2]|0;
+     $99 = HEAP32[((456 + 16|0))>>2]|0;
      $100 = ($97>>>0)<($99>>>0);
      if ($100) {
       _abort();
@@ -11278,32 +11139,32 @@ function _free($mem) {
  $115 = $112 & 2;
  $116 = ($115|0)==(0);
  if ($116) {
-  $117 = HEAP32[((584 + 24|0))>>2]|0;
+  $117 = HEAP32[((456 + 24|0))>>2]|0;
   $118 = ($9|0)==($117|0);
   if ($118) {
-   $119 = HEAP32[((584 + 12|0))>>2]|0;
+   $119 = HEAP32[((456 + 12|0))>>2]|0;
    $120 = (($119) + ($psize$0))|0;
-   HEAP32[((584 + 12|0))>>2] = $120;
-   HEAP32[((584 + 24|0))>>2] = $p$0;
+   HEAP32[((456 + 12|0))>>2] = $120;
+   HEAP32[((456 + 24|0))>>2] = $p$0;
    $121 = $120 | 1;
    $122 = (($p$0) + 4|0);
    HEAP32[$122>>2] = $121;
-   $123 = HEAP32[((584 + 20|0))>>2]|0;
+   $123 = HEAP32[((456 + 20|0))>>2]|0;
    $124 = ($p$0|0)==($123|0);
    if (!($124)) {
     return;
    }
-   HEAP32[((584 + 20|0))>>2] = 0;
-   HEAP32[((584 + 8|0))>>2] = 0;
+   HEAP32[((456 + 20|0))>>2] = 0;
+   HEAP32[((456 + 8|0))>>2] = 0;
    return;
   }
-  $125 = HEAP32[((584 + 20|0))>>2]|0;
+  $125 = HEAP32[((456 + 20|0))>>2]|0;
   $126 = ($9|0)==($125|0);
   if ($126) {
-   $127 = HEAP32[((584 + 8|0))>>2]|0;
+   $127 = HEAP32[((456 + 8|0))>>2]|0;
    $128 = (($127) + ($psize$0))|0;
-   HEAP32[((584 + 8|0))>>2] = $128;
-   HEAP32[((584 + 20|0))>>2] = $p$0;
+   HEAP32[((456 + 8|0))>>2] = $128;
+   HEAP32[((456 + 20|0))>>2] = $p$0;
    $129 = $128 | 1;
    $130 = (($p$0) + 4|0);
    HEAP32[$130>>2] = $129;
@@ -11323,10 +11184,10 @@ function _free($mem) {
     $138 = (($mem) + ($$sum2324)|0);
     $139 = HEAP32[$138>>2]|0;
     $140 = $134 << 1;
-    $141 = ((584 + ($140<<2)|0) + 40|0);
+    $141 = ((456 + ($140<<2)|0) + 40|0);
     $142 = ($137|0)==($141|0);
     if (!($142)) {
-     $143 = HEAP32[((584 + 16|0))>>2]|0;
+     $143 = HEAP32[((456 + 16|0))>>2]|0;
      $144 = ($137>>>0)<($143>>>0);
      if ($144) {
       _abort();
@@ -11344,9 +11205,9 @@ function _free($mem) {
     if ($148) {
      $149 = 1 << $134;
      $150 = $149 ^ -1;
-     $151 = HEAP32[584>>2]|0;
+     $151 = HEAP32[456>>2]|0;
      $152 = $151 & $150;
-     HEAP32[584>>2] = $152;
+     HEAP32[456>>2] = $152;
      break;
     }
     $153 = ($139|0)==($141|0);
@@ -11354,7 +11215,7 @@ function _free($mem) {
      $$pre65 = (($139) + 8|0);
      $$pre$phi66Z2D = $$pre65;
     } else {
-     $154 = HEAP32[((584 + 16|0))>>2]|0;
+     $154 = HEAP32[((456 + 16|0))>>2]|0;
      $155 = ($139>>>0)<($154>>>0);
      if ($155) {
       _abort();
@@ -11421,7 +11282,7 @@ function _free($mem) {
        }
        $R7$0 = $R7$0$be;$RP9$0 = $RP9$0$be;
       }
-      $187 = HEAP32[((584 + 16|0))>>2]|0;
+      $187 = HEAP32[((456 + 16|0))>>2]|0;
       $188 = ($RP9$0$lcssa>>>0)<($187>>>0);
       if ($188) {
        _abort();
@@ -11434,7 +11295,7 @@ function _free($mem) {
      } else {
       $165 = (($mem) + ($8)|0);
       $166 = HEAP32[$165>>2]|0;
-      $167 = HEAP32[((584 + 16|0))>>2]|0;
+      $167 = HEAP32[((456 + 16|0))>>2]|0;
       $168 = ($166>>>0)<($167>>>0);
       if ($168) {
        _abort();
@@ -11466,7 +11327,7 @@ function _free($mem) {
      $$sum18 = (($8) + 20)|0;
      $190 = (($mem) + ($$sum18)|0);
      $191 = HEAP32[$190>>2]|0;
-     $192 = ((584 + ($191<<2)|0) + 304|0);
+     $192 = ((456 + ($191<<2)|0) + 304|0);
      $193 = HEAP32[$192>>2]|0;
      $194 = ($9|0)==($193|0);
      if ($194) {
@@ -11475,13 +11336,13 @@ function _free($mem) {
       if ($cond54) {
        $195 = 1 << $191;
        $196 = $195 ^ -1;
-       $197 = HEAP32[((584 + 4|0))>>2]|0;
+       $197 = HEAP32[((456 + 4|0))>>2]|0;
        $198 = $197 & $196;
-       HEAP32[((584 + 4|0))>>2] = $198;
+       HEAP32[((456 + 4|0))>>2] = $198;
        break;
       }
      } else {
-      $199 = HEAP32[((584 + 16|0))>>2]|0;
+      $199 = HEAP32[((456 + 16|0))>>2]|0;
       $200 = ($161>>>0)<($199>>>0);
       if ($200) {
        _abort();
@@ -11501,7 +11362,7 @@ function _free($mem) {
        break;
       }
      }
-     $206 = HEAP32[((584 + 16|0))>>2]|0;
+     $206 = HEAP32[((456 + 16|0))>>2]|0;
      $207 = ($R7$1>>>0)<($206>>>0);
      if ($207) {
       _abort();
@@ -11533,7 +11394,7 @@ function _free($mem) {
      $216 = HEAP32[$215>>2]|0;
      $217 = ($216|0)==(0|0);
      if (!($217)) {
-      $218 = HEAP32[((584 + 16|0))>>2]|0;
+      $218 = HEAP32[((456 + 16|0))>>2]|0;
       $219 = ($216>>>0)<($218>>>0);
       if ($219) {
        _abort();
@@ -11554,10 +11415,10 @@ function _free($mem) {
   HEAP32[$223>>2] = $222;
   $224 = (($p$0) + ($133)|0);
   HEAP32[$224>>2] = $133;
-  $225 = HEAP32[((584 + 20|0))>>2]|0;
+  $225 = HEAP32[((456 + 20|0))>>2]|0;
   $226 = ($p$0|0)==($225|0);
   if ($226) {
-   HEAP32[((584 + 8|0))>>2] = $133;
+   HEAP32[((456 + 8|0))>>2] = $133;
    return;
   } else {
    $psize$1 = $133;
@@ -11576,22 +11437,22 @@ function _free($mem) {
  $232 = ($psize$1>>>0)<(256);
  if ($232) {
   $233 = $231 << 1;
-  $234 = ((584 + ($233<<2)|0) + 40|0);
-  $235 = HEAP32[584>>2]|0;
+  $234 = ((456 + ($233<<2)|0) + 40|0);
+  $235 = HEAP32[456>>2]|0;
   $236 = 1 << $231;
   $237 = $235 & $236;
   $238 = ($237|0)==(0);
   if ($238) {
    $239 = $235 | $236;
-   HEAP32[584>>2] = $239;
+   HEAP32[456>>2] = $239;
    $$sum16$pre = (($233) + 2)|0;
-   $$pre = ((584 + ($$sum16$pre<<2)|0) + 40|0);
+   $$pre = ((456 + ($$sum16$pre<<2)|0) + 40|0);
    $$pre$phiZ2D = $$pre;$F16$0 = $234;
   } else {
    $$sum17 = (($233) + 2)|0;
-   $240 = ((584 + ($$sum17<<2)|0) + 40|0);
+   $240 = ((456 + ($$sum17<<2)|0) + 40|0);
    $241 = HEAP32[$240>>2]|0;
-   $242 = HEAP32[((584 + 16|0))>>2]|0;
+   $242 = HEAP32[((456 + 16|0))>>2]|0;
    $243 = ($241>>>0)<($242>>>0);
    if ($243) {
     _abort();
@@ -11643,7 +11504,7 @@ function _free($mem) {
    $I18$0 = $271;
   }
  }
- $272 = ((584 + ($I18$0<<2)|0) + 304|0);
+ $272 = ((456 + ($I18$0<<2)|0) + 304|0);
  $273 = (($p$0) + 28|0);
  $I18$0$c = $I18$0;
  HEAP32[$273>>2] = $I18$0$c;
@@ -11651,14 +11512,14 @@ function _free($mem) {
  HEAP32[$274>>2] = 0;
  $275 = (($p$0) + 16|0);
  HEAP32[$275>>2] = 0;
- $276 = HEAP32[((584 + 4|0))>>2]|0;
+ $276 = HEAP32[((456 + 4|0))>>2]|0;
  $277 = 1 << $I18$0;
  $278 = $276 & $277;
  $279 = ($278|0)==(0);
  L205: do {
   if ($279) {
    $280 = $276 | $277;
-   HEAP32[((584 + 4|0))>>2] = $280;
+   HEAP32[((456 + 4|0))>>2] = $280;
    HEAP32[$272>>2] = $p$0;
    $281 = (($p$0) + 24|0);
    HEAP32[$281>>2] = $272;
@@ -11712,7 +11573,7 @@ function _free($mem) {
       $T$0$lcssa = $$lcssa73;
       break;
      }
-     $303 = HEAP32[((584 + 16|0))>>2]|0;
+     $303 = HEAP32[((456 + 16|0))>>2]|0;
      $304 = ($$lcssa>>>0)<($303>>>0);
      if ($304) {
       _abort();
@@ -11731,7 +11592,7 @@ function _free($mem) {
    } while(0);
    $308 = (($T$0$lcssa) + 8|0);
    $309 = HEAP32[$308>>2]|0;
-   $310 = HEAP32[((584 + 16|0))>>2]|0;
+   $310 = HEAP32[((456 + 16|0))>>2]|0;
    $311 = ($T$0$lcssa>>>0)>=($310>>>0);
    $312 = ($309>>>0)>=($310>>>0);
    $or$cond = $311 & $312;
@@ -11752,14 +11613,14 @@ function _free($mem) {
    }
   }
  } while(0);
- $317 = HEAP32[((584 + 32|0))>>2]|0;
+ $317 = HEAP32[((456 + 32|0))>>2]|0;
  $318 = (($317) + -1)|0;
- HEAP32[((584 + 32|0))>>2] = $318;
+ HEAP32[((456 + 32|0))>>2] = $318;
  $319 = ($318|0)==(0);
  if (!($319)) {
   return;
  }
- $sp$0$in$i = ((584 + 456|0));
+ $sp$0$in$i = ((456 + 456|0));
  while(1) {
   $sp$0$i = HEAP32[$sp$0$in$i>>2]|0;
   $320 = ($sp$0$i|0)==(0|0);
@@ -11770,7 +11631,7 @@ function _free($mem) {
    $sp$0$in$i = $321;
   }
  }
- HEAP32[((584 + 32|0))>>2] = -1;
+ HEAP32[((456 + 32|0))>>2] = -1;
  return;
 }
 function _calloc($n_elements,$elem_size) {
@@ -11880,6 +11741,27 @@ function _memcpy(dest, src, num) {
 }
 
   
+function dynCall_vid(index,a1,a2) {
+  index = index|0;
+  a1=a1|0; a2=+a2;
+  FUNCTION_TABLE_vid[index&7](a1|0,+a2);
+}
+
+
+function dynCall_vi(index,a1) {
+  index = index|0;
+  a1=a1|0;
+  FUNCTION_TABLE_vi[index&15](a1|0);
+}
+
+
+function dynCall_vii(index,a1,a2) {
+  index = index|0;
+  a1=a1|0; a2=a2|0;
+  FUNCTION_TABLE_vii[index&15](a1|0,a2|0);
+}
+
+
 function dynCall_iiiii(index,a1,a2,a3,a4) {
   index = index|0;
   a1=a1|0; a2=a2|0; a3=a3|0; a4=a4|0;
@@ -11887,24 +11769,10 @@ function dynCall_iiiii(index,a1,a2,a3,a4) {
 }
 
 
-function dynCall_vi(index,a1) {
+function dynCall_viii(index,a1,a2,a3) {
   index = index|0;
-  a1=a1|0;
-  FUNCTION_TABLE_vi[index&7](a1|0);
-}
-
-
-function dynCall_iii(index,a1,a2) {
-  index = index|0;
-  a1=a1|0; a2=a2|0;
-  return FUNCTION_TABLE_iii[index&3](a1|0,a2|0)|0;
-}
-
-
-function dynCall_vid(index,a1,a2) {
-  index = index|0;
-  a1=a1|0; a2=+a2;
-  FUNCTION_TABLE_vid[index&15](a1|0,+a2);
+  a1=a1|0; a2=a2|0; a3=a3|0;
+  FUNCTION_TABLE_viii[index&15](a1|0,a2|0,a3|0);
 }
 
 
@@ -11914,20 +11782,22 @@ function dynCall_v(index) {
   FUNCTION_TABLE_v[index&15]();
 }
 
-function b0(p0,p1,p2,p3) { p0 = p0|0;p1 = p1|0;p2 = p2|0;p3 = p3|0; nullFunc_iiiii(0);return 0; }
+function b0(p0,p1) { p0 = p0|0;p1 = +p1; nullFunc_vid(0); }
 function b1(p0) { p0 = p0|0; nullFunc_vi(1); }
-function b2(p0,p1) { p0 = p0|0;p1 = p1|0; nullFunc_iii(2);return 0; }
-function b3(p0,p1) { p0 = p0|0;p1 = +p1; nullFunc_vid(3); }
-function b4() { ; nullFunc_v(4); }
+function b2(p0,p1) { p0 = p0|0;p1 = p1|0; nullFunc_vii(2); }
+function b3(p0,p1,p2,p3) { p0 = p0|0;p1 = p1|0;p2 = p2|0;p3 = p3|0; nullFunc_iiiii(3);return 0; }
+function b4(p0,p1,p2) { p0 = p0|0;p1 = p1|0;p2 = p2|0; nullFunc_viii(4); }
+function b5() { ; nullFunc_v(5); }
 
 // EMSCRIPTEN_END_FUNCS
-var FUNCTION_TABLE_iiiii = [b0,_sls_context_init];
-var FUNCTION_TABLE_vi = [b1,b1,_sls_context_dtor,b1,_sls_mainloop_dtor,_sls_mainloop_run,_sls_mainloop_iter,b1];
-var FUNCTION_TABLE_iii = [b2,b2,b2,_sls_mainloop_init];
-var FUNCTION_TABLE_vid = [b3,b3,b3,b3,b3,b3,b3,_sls_mainloop_update,_sls_mainloop_display,b3,b3,b3,b3,b3,b3,b3];
-var FUNCTION_TABLE_v = [b4,b4,b4,b4,b4,b4,b4,b4,b4,_em_iter_fn,_sls_terminate,b4,b4,b4,b4,b4];
+var FUNCTION_TABLE_vid = [b0,b0,b0,b0,b0,b0,_sls_context_update,_sls_context_display];
+var FUNCTION_TABLE_vi = [b1,b1,_sls_context_dtor,_sls_context_run,_sls_context_iter,b1,b1,b1,_sls_em_callback,b1,b1,b1,b1,b1,b1,b1];
+var FUNCTION_TABLE_vii = [b2,b2,b2,b2,b2,b2,b2,b2,b2,_sls_error_cback,b2,b2,b2,b2,b2,b2];
+var FUNCTION_TABLE_iiiii = [b3,_sls_context_init];
+var FUNCTION_TABLE_viii = [b4,b4,b4,b4,b4,_sls_context_resize,b4,b4,b4,b4,_sls_window_resize,b4,b4,b4,b4,b4];
+var FUNCTION_TABLE_v = [b5,b5,b5,b5,b5,b5,b5,b5,b5,b5,b5,_sls_terminate,b5,b5,b5,b5];
 
-  return { _strlen: _strlen, _free: _free, _main: _main, _memset: _memset, _malloc: _malloc, _memcpy: _memcpy, _calloc: _calloc, runPostSets: runPostSets, stackAlloc: stackAlloc, stackSave: stackSave, stackRestore: stackRestore, setThrew: setThrew, setTempRet0: setTempRet0, getTempRet0: getTempRet0, dynCall_iiiii: dynCall_iiiii, dynCall_vi: dynCall_vi, dynCall_iii: dynCall_iii, dynCall_vid: dynCall_vid, dynCall_v: dynCall_v };
+  return { _strlen: _strlen, _free: _free, _main: _main, _memset: _memset, _malloc: _malloc, _memcpy: _memcpy, _calloc: _calloc, runPostSets: runPostSets, stackAlloc: stackAlloc, stackSave: stackSave, stackRestore: stackRestore, setThrew: setThrew, setTempRet0: setTempRet0, getTempRet0: getTempRet0, dynCall_vid: dynCall_vid, dynCall_vi: dynCall_vi, dynCall_vii: dynCall_vii, dynCall_iiiii: dynCall_iiiii, dynCall_viii: dynCall_viii, dynCall_v: dynCall_v };
 })
 // EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
@@ -11962,10 +11832,11 @@ var _malloc = Module["_malloc"] = asm["_malloc"];
 var _memcpy = Module["_memcpy"] = asm["_memcpy"];
 var _calloc = Module["_calloc"] = asm["_calloc"];
 var runPostSets = Module["runPostSets"] = asm["runPostSets"];
-var dynCall_iiiii = Module["dynCall_iiiii"] = asm["dynCall_iiiii"];
-var dynCall_vi = Module["dynCall_vi"] = asm["dynCall_vi"];
-var dynCall_iii = Module["dynCall_iii"] = asm["dynCall_iii"];
 var dynCall_vid = Module["dynCall_vid"] = asm["dynCall_vid"];
+var dynCall_vi = Module["dynCall_vi"] = asm["dynCall_vi"];
+var dynCall_vii = Module["dynCall_vii"] = asm["dynCall_vii"];
+var dynCall_iiiii = Module["dynCall_iiiii"] = asm["dynCall_iiiii"];
+var dynCall_viii = Module["dynCall_viii"] = asm["dynCall_viii"];
 var dynCall_v = Module["dynCall_v"] = asm["dynCall_v"];
 
 Runtime.stackAlloc = asm['stackAlloc'];

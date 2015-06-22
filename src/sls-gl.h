@@ -9,12 +9,13 @@
  * use gles directly if
  */
 #ifdef __EMSCRIPTEN__
-  #define SLS_NOGLEW
-#elif __APPLE__ && TARGET_OS_IPHONE
-  #include <GLES2/gl2.h>
-  #define SLS_NOGLEW
+#   define SLS_NOGLEW
+#elif defined(__APPLE__) && defined(TARGET_OS_IPHONE)
+#   include <GLES2/gl2.h>
+#   define SLS_NOGLEW
 #else
-  #include <GL/glew.h>
+#   include <GL/glew.h>
+#   define GLFW_INCLUDE_NONE
 #endif
 
 #include <GLFW/glfw3.h>

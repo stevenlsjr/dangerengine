@@ -5,6 +5,10 @@
 #ifndef DANGERENGINE_DANGERENGINE_H
 #define DANGERENGINE_DANGERENGINE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "sls-gl.h"
 
 #include "slscontext.h"
@@ -16,5 +20,10 @@
 #include "data-types/array.h"
 
 #include "math/mathmacs.h"
+#include "shader/shader-utils.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //DANGERENGINE_DANGERENGINE_H

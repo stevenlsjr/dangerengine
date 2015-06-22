@@ -3,6 +3,7 @@
 //
 
 #include "sls-handlers.h"
+#include "sls-gl.h"
 #include "slsutils.h"
 #include <stdlib.h>
 #include <stdbool.h>
@@ -11,9 +12,10 @@ static slsBool sls_active_flag = SLS_FALSE;
 slsContext *sls_active_context = NULL;
 
 void sls_error_cback(int, const char *);
-void sls_mouse(GLFWwindow*, int, int, int);
-void sls_window_resize(GLFWwindow *win, int x, int y);
 
+void sls_mouse(GLFWwindow *, int, int, int);
+
+void sls_window_resize(GLFWwindow *win, int x, int y);
 
 
 void sls_bind_context(slsContext *ctx)
@@ -26,6 +28,12 @@ void sls_bind_context(slsContext *ctx)
 
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);
+
+#ifndef SLS_NOGLEW
+  {
+    GLenum err = glew_init();
+  }
+#endif
 
   return;
 }
@@ -42,7 +50,7 @@ void sls_unbind_context(void)
 void sls_window_resize(GLFWwindow *win, int x, int y)
 {
   if (sls_active_context) {
-    sls_msg(sls_active_context, resize, (size_t)x, (size_t)y);
+    sls_msg(sls_active_context, resize, (size_t) x, (size_t) y);
   }
 }
 
@@ -57,7 +65,7 @@ bool sls_init(void)
   atexit(sls_terminate);
 
   return true;
-error:
+  error:
   return false;
 }
 

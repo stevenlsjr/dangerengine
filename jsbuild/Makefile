@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.1.1_1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/Shea/Projects/dangerengine
+CMAKE_SOURCE_DIR = /Users/Shea/projects/dangerengine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/Shea/Projects/dangerengine/jsbuild
+CMAKE_BINARY_DIR = /Users/Shea/projects/dangerengine/jsbuild
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -115,7 +115,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/Projects/dangerengine/jsbuild/CPackSourceConfig.cmake
+	/usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/projects/dangerengine/jsbuild/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -134,9 +134,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/Projects/dangerengine/jsbuild/CMakeFiles /Users/Shea/Projects/dangerengine/jsbuild/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/projects/dangerengine/jsbuild/CMakeFiles /Users/Shea/projects/dangerengine/jsbuild/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/Projects/dangerengine/jsbuild/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/projects/dangerengine/jsbuild/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -346,30 +346,6 @@ src/slscontext.c.s:
 	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slscontext.c.s
 .PHONY : src/slscontext.c.s
 
-src/slsloop.o: src/slsloop.c.o
-.PHONY : src/slsloop.o
-
-# target to build an object file
-src/slsloop.c.o:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.o
-.PHONY : src/slsloop.c.o
-
-src/slsloop.i: src/slsloop.c.i
-.PHONY : src/slsloop.i
-
-# target to preprocess a source file
-src/slsloop.c.i:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.i
-.PHONY : src/slsloop.c.i
-
-src/slsloop.s: src/slsloop.c.s
-.PHONY : src/slsloop.s
-
-# target to generate assembly for a file
-src/slsloop.c.s:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/slsloop.c.s
-.PHONY : src/slsloop.c.s
-
 src/slsutils.o: src/slsutils.c.o
 .PHONY : src/slsutils.o
 
@@ -429,9 +405,6 @@ help:
 	@echo "... src/slscontext.o"
 	@echo "... src/slscontext.i"
 	@echo "... src/slscontext.s"
-	@echo "... src/slsloop.o"
-	@echo "... src/slsloop.i"
-	@echo "... src/slsloop.s"
 	@echo "... src/slsutils.o"
 	@echo "... src/slsutils.i"
 	@echo "... src/slsutils.s"

@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.1.1_1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/Shea/Projects/dangerengine
+CMAKE_SOURCE_DIR = /Users/Shea/projects/dangerengine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/Shea/Projects/dangerengine/jsbuild
+CMAKE_BINARY_DIR = /Users/Shea/projects/dangerengine/jsbuild
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -105,7 +105,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /Users/Shea/Projects/dangerengine/jsbuild && /usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackConfig.cmake
+	cd /Users/Shea/projects/dangerengine/jsbuild && /usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -115,7 +115,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /Users/Shea/Projects/dangerengine/jsbuild && /usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/Projects/dangerengine/jsbuild/CPackSourceConfig.cmake
+	cd /Users/Shea/projects/dangerengine/jsbuild && /usr/local/Cellar/cmake/3.1.1_1/bin/cpack --config ./CPackSourceConfig.cmake /Users/Shea/projects/dangerengine/jsbuild/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -134,14 +134,14 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/Projects/dangerengine/jsbuild/CMakeFiles /Users/Shea/Projects/dangerengine/jsbuild/extern/kazmath/kazmath/CMakeFiles/progress.marks
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/Projects/dangerengine/jsbuild/CMakeFiles 0
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/projects/dangerengine/jsbuild/CMakeFiles /Users/Shea/projects/dangerengine/jsbuild/extern/kazmath/kazmath/CMakeFiles/progress.marks
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/Shea/projects/dangerengine/jsbuild/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/clean
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/clean
 .PHONY : clean
 
 # The main clean target
@@ -150,22 +150,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/preinstall
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/preinstall
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 extern/kazmath/kazmath/CMakeFiles/kazmath.dir/rule:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/CMakeFiles/kazmath.dir/rule
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f CMakeFiles/Makefile2 extern/kazmath/kazmath/CMakeFiles/kazmath.dir/rule
 .PHONY : extern/kazmath/kazmath/CMakeFiles/kazmath.dir/rule
 
 # Convenience name for target.
@@ -174,7 +174,7 @@ kazmath: extern/kazmath/kazmath/CMakeFiles/kazmath.dir/rule
 
 # fast build rule for target.
 kazmath/fast:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build
 .PHONY : kazmath/fast
 
 aabb2.o: aabb2.c.o
@@ -182,7 +182,7 @@ aabb2.o: aabb2.c.o
 
 # target to build an object file
 aabb2.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.o
 .PHONY : aabb2.c.o
 
 aabb2.i: aabb2.c.i
@@ -190,7 +190,7 @@ aabb2.i: aabb2.c.i
 
 # target to preprocess a source file
 aabb2.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.i
 .PHONY : aabb2.c.i
 
 aabb2.s: aabb2.c.s
@@ -198,7 +198,7 @@ aabb2.s: aabb2.c.s
 
 # target to generate assembly for a file
 aabb2.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb2.c.s
 .PHONY : aabb2.c.s
 
 aabb3.o: aabb3.c.o
@@ -206,7 +206,7 @@ aabb3.o: aabb3.c.o
 
 # target to build an object file
 aabb3.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.o
 .PHONY : aabb3.c.o
 
 aabb3.i: aabb3.c.i
@@ -214,7 +214,7 @@ aabb3.i: aabb3.c.i
 
 # target to preprocess a source file
 aabb3.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.i
 .PHONY : aabb3.c.i
 
 aabb3.s: aabb3.c.s
@@ -222,7 +222,7 @@ aabb3.s: aabb3.c.s
 
 # target to generate assembly for a file
 aabb3.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/aabb3.c.s
 .PHONY : aabb3.c.s
 
 mat3.o: mat3.c.o
@@ -230,7 +230,7 @@ mat3.o: mat3.c.o
 
 # target to build an object file
 mat3.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.o
 .PHONY : mat3.c.o
 
 mat3.i: mat3.c.i
@@ -238,7 +238,7 @@ mat3.i: mat3.c.i
 
 # target to preprocess a source file
 mat3.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.i
 .PHONY : mat3.c.i
 
 mat3.s: mat3.c.s
@@ -246,7 +246,7 @@ mat3.s: mat3.c.s
 
 # target to generate assembly for a file
 mat3.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat3.c.s
 .PHONY : mat3.c.s
 
 mat4.o: mat4.c.o
@@ -254,7 +254,7 @@ mat4.o: mat4.c.o
 
 # target to build an object file
 mat4.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.o
 .PHONY : mat4.c.o
 
 mat4.i: mat4.c.i
@@ -262,7 +262,7 @@ mat4.i: mat4.c.i
 
 # target to preprocess a source file
 mat4.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.i
 .PHONY : mat4.c.i
 
 mat4.s: mat4.c.s
@@ -270,7 +270,7 @@ mat4.s: mat4.c.s
 
 # target to generate assembly for a file
 mat4.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/mat4.c.s
 .PHONY : mat4.c.s
 
 plane.o: plane.c.o
@@ -278,7 +278,7 @@ plane.o: plane.c.o
 
 # target to build an object file
 plane.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.o
 .PHONY : plane.c.o
 
 plane.i: plane.c.i
@@ -286,7 +286,7 @@ plane.i: plane.c.i
 
 # target to preprocess a source file
 plane.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.i
 .PHONY : plane.c.i
 
 plane.s: plane.c.s
@@ -294,7 +294,7 @@ plane.s: plane.c.s
 
 # target to generate assembly for a file
 plane.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/plane.c.s
 .PHONY : plane.c.s
 
 quaternion.o: quaternion.c.o
@@ -302,7 +302,7 @@ quaternion.o: quaternion.c.o
 
 # target to build an object file
 quaternion.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.o
 .PHONY : quaternion.c.o
 
 quaternion.i: quaternion.c.i
@@ -310,7 +310,7 @@ quaternion.i: quaternion.c.i
 
 # target to preprocess a source file
 quaternion.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.i
 .PHONY : quaternion.c.i
 
 quaternion.s: quaternion.c.s
@@ -318,7 +318,7 @@ quaternion.s: quaternion.c.s
 
 # target to generate assembly for a file
 quaternion.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/quaternion.c.s
 .PHONY : quaternion.c.s
 
 ray2.o: ray2.c.o
@@ -326,7 +326,7 @@ ray2.o: ray2.c.o
 
 # target to build an object file
 ray2.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.o
 .PHONY : ray2.c.o
 
 ray2.i: ray2.c.i
@@ -334,7 +334,7 @@ ray2.i: ray2.c.i
 
 # target to preprocess a source file
 ray2.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.i
 .PHONY : ray2.c.i
 
 ray2.s: ray2.c.s
@@ -342,7 +342,7 @@ ray2.s: ray2.c.s
 
 # target to generate assembly for a file
 ray2.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray2.c.s
 .PHONY : ray2.c.s
 
 ray3.o: ray3.c.o
@@ -350,7 +350,7 @@ ray3.o: ray3.c.o
 
 # target to build an object file
 ray3.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.o
 .PHONY : ray3.c.o
 
 ray3.i: ray3.c.i
@@ -358,7 +358,7 @@ ray3.i: ray3.c.i
 
 # target to preprocess a source file
 ray3.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.i
 .PHONY : ray3.c.i
 
 ray3.s: ray3.c.s
@@ -366,7 +366,7 @@ ray3.s: ray3.c.s
 
 # target to generate assembly for a file
 ray3.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/ray3.c.s
 .PHONY : ray3.c.s
 
 utility.o: utility.c.o
@@ -374,7 +374,7 @@ utility.o: utility.c.o
 
 # target to build an object file
 utility.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.o
 .PHONY : utility.c.o
 
 utility.i: utility.c.i
@@ -382,7 +382,7 @@ utility.i: utility.c.i
 
 # target to preprocess a source file
 utility.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.i
 .PHONY : utility.c.i
 
 utility.s: utility.c.s
@@ -390,7 +390,7 @@ utility.s: utility.c.s
 
 # target to generate assembly for a file
 utility.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/utility.c.s
 .PHONY : utility.c.s
 
 vec2.o: vec2.c.o
@@ -398,7 +398,7 @@ vec2.o: vec2.c.o
 
 # target to build an object file
 vec2.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.o
 .PHONY : vec2.c.o
 
 vec2.i: vec2.c.i
@@ -406,7 +406,7 @@ vec2.i: vec2.c.i
 
 # target to preprocess a source file
 vec2.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.i
 .PHONY : vec2.c.i
 
 vec2.s: vec2.c.s
@@ -414,7 +414,7 @@ vec2.s: vec2.c.s
 
 # target to generate assembly for a file
 vec2.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec2.c.s
 .PHONY : vec2.c.s
 
 vec3.o: vec3.c.o
@@ -422,7 +422,7 @@ vec3.o: vec3.c.o
 
 # target to build an object file
 vec3.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.o
 .PHONY : vec3.c.o
 
 vec3.i: vec3.c.i
@@ -430,7 +430,7 @@ vec3.i: vec3.c.i
 
 # target to preprocess a source file
 vec3.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.i
 .PHONY : vec3.c.i
 
 vec3.s: vec3.c.s
@@ -438,7 +438,7 @@ vec3.s: vec3.c.s
 
 # target to generate assembly for a file
 vec3.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec3.c.s
 .PHONY : vec3.c.s
 
 vec4.o: vec4.c.o
@@ -446,7 +446,7 @@ vec4.o: vec4.c.o
 
 # target to build an object file
 vec4.c.o:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.o
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.o
 .PHONY : vec4.c.o
 
 vec4.i: vec4.c.i
@@ -454,7 +454,7 @@ vec4.i: vec4.c.i
 
 # target to preprocess a source file
 vec4.c.i:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.i
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.i
 .PHONY : vec4.c.i
 
 vec4.s: vec4.c.s
@@ -462,7 +462,7 @@ vec4.s: vec4.c.s
 
 # target to generate assembly for a file
 vec4.c.s:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.s
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/vec4.c.s
 .PHONY : vec4.c.s
 
 # Help Target
@@ -527,6 +527,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/Shea/Projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/Shea/projects/dangerengine/jsbuild && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
