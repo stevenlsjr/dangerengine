@@ -1,0 +1,8 @@
+//
+// Created by Steven on 6/23/15.
+//
+
+#ifndef DANGERENGINE_SLSSHADER_H
+#define DANGERENGINE_SLSSHADER_H
+
+#endif //DANGERENGINE_SLSSHADER_H

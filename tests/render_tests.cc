@@ -31,7 +31,6 @@ protected:
     sls_msg(ctx, dtor);
 
 
-
     Test::TearDown();
   }
 
@@ -46,8 +45,8 @@ TEST_F(RenderTests, ContextCreation)
 TEST_F(RenderTests, ShaderRead)
 {
 
-  auto vs_path = string("resources/shaders/default.vert.glsl");
-  auto fs_path = string("resources/shaders/default.frag.glsl");
+  auto vs_path = string("resources/shaders/default.vert");
+  auto fs_path = string("resources/shaders/default.frag");
   auto program = sls_create_program(vs_path.c_str(), fs_path.c_str());
 
   auto res = GL_FALSE;

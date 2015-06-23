@@ -22,67 +22,31 @@ static inline void setup()
 
 typedef struct {
   GLuint program;
-  GLuint vbo;
-  GLuint ibo;
-  GLuint vao;
-
-  struct {
-    GLuint position;
-  } atribs;
+  slsMesh *mesh;
 } demoData;
 
 void demo_context_setup(slsContext *self)
 {
   sls_context_class()->setup(self);
 
+  self->data = calloc(sizeof(demoData), 1);
+
   demoData *data = self->data;
-  char const *vs_path = "resources/shaders/default.vert.glsl";
-  char const *fs_path = "resources/shaders/default.frag.glsl";
+  char const *vs_path = "resources/shaders/default.vert";
+  char const *fs_path = "resources/shaders/default.frag";
 
   data->program = sls_create_program(vs_path, fs_path);
-  data->atribs.position = 0;
 
-  glUseProgram(data->program);
-
-  glGenBuffers(1, &data->vbo);
-  glGenBuffers(1, &data->ibo);
-
-  glGenVertexArrays(1, &data->vao);
-
-
-
-  // make a triangle
-  float verts[]={
-    -1.0f, -1.0f, 0.0f,
-     0.0f,  1.0f, 0.0f,
-     1.0f, -1.0f, 0.0f
+  slsVertex verts[] = {
+    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}},
+    (slsVertex){.position={ 0.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}},
+    (slsVertex){.position={ 1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}}
   };
-  const int vert_dim = 3;
 
-  glBindVertexArray(data->vao);
-  {
-    glBindBuffer(GL_ARRAY_BUFFER, data->vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+  unsigned inds[] = {0, 1, 2};
+  data->mesh = sls_mesh_new(verts, sizeof(verts)/sizeof(slsVertex), inds, sizeof(inds)/sizeof(unsigned));
+  sls_msg(data->mesh, bind, data->program);
 
-    glEnableVertexAttribArray(data->atribs.position);
-
-    sls_log_info("%d", data->atribs.position);
-
-    glVertexAttribPointer(
-      data->atribs.position,
-      vert_dim,
-      GL_FLOAT,
-      GL_FALSE,
-      0,
-      (GLvoid *)0
-    );
-    glBindVertexArray(0);
-    glDisableVertexAttribArray(data->atribs.position);
-  }
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-  glUseProgram(0);
 
   glClearColor(0.1, 0.24, 0.3, 1.0);
 }
@@ -103,15 +67,19 @@ void demo_context_display(slsContext *self, double dt)
   glUseProgram(data->program);
   // setup vert position pointer
 
-  glBindVertexArray(data->vao);
+  glBindVertexArray(data->mesh->vao);
+  glBindBuffer(GL_ARRAY_BUFFER, data->mesh->vbo);
 
-  glEnableVertexAttribArray(data->atribs.position);
 
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+
+  glDrawArrays(GL_TRIANGLES, 0, (GLsizei)sls_msg(data->mesh->indices, length));
+
 
   glfwSwapBuffers(self->window);
   glUseProgram(0);
   glBindVertexArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 
 }
@@ -119,9 +87,12 @@ void demo_context_display(slsContext *self, double dt)
 void demo_context_teardown(slsContext *self) {
   demoData *data = self->data;
 
-  GLuint buffers[] = {data->vbo, data->ibo};
-  glDeleteBuffers(2, buffers);
-  glDeleteVertexArrays(1, &data->vao);
+  if (data) {
+    if (data->mesh) {
+      sls_msg(data->mesh, dtor);
+    }
+    free(data);
+  }
 
   glDeleteProgram(data->program);
 }
@@ -130,8 +101,7 @@ int sls_main()
 {
   slsContext *c = sls_context_new("window", 640, 640);
 
-  demoData *data = calloc(sizeof(demoData), 1);
-  c->data = data;
+  c->data = NULL;
 
   c->setup = demo_context_setup;
   c->update = demo_context_update;
@@ -142,7 +112,6 @@ int sls_main()
   sls_msg(c, run);
   sls_msg(c, dtor);
 
-  free(data);
 
   return 0;
 }
