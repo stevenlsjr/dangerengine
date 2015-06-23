@@ -4,6 +4,7 @@
 
 #include "slsmesh.h"
 #include "../slsutils.h"
+#include "shaderutils.h"
 
 slsMesh *sls_mesh_init(slsMesh *self,
                        slsVertex const *vertices,
@@ -92,16 +93,6 @@ void sls_mesh_bind(slsMesh *self, GLuint shader_program)
 {
   if (!self) {return;}
 
-  GLuint attrs =0;
-
-  GLuint position, normal, uv, color;
-  {
-    // set proper layout locations
-    position = attrs++;
-    normal = attrs++;
-    uv = attrs++;
-    color = attrs++;
-  }
 
   slsVertex *verts = sls_msg(self->vertices, get, 0);
   // bind gl objects
@@ -116,40 +107,38 @@ void sls_mesh_bind(slsMesh *self, GLuint shader_program)
 
 
 
-  glVertexAttribPointer(position,
+  glVertexAttribPointer(SLS_ATTRIB_POSITION,
                         3,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
                         (GLvoid*)offsetof(slsVertex, position));
-  glEnableVertexAttribArray(position);
+  glEnableVertexAttribArray(SLS_ATTRIB_POSITION);
 
-  glVertexAttribPointer(normal,
+  glVertexAttribPointer(SLS_ATTRIB_NORMAL,
                         3,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
                         (GLvoid*)offsetof(slsVertex, normal));
-  glEnableVertexAttribArray(normal);
+  glEnableVertexAttribArray(SLS_ATTRIB_NORMAL);
 
-  glVertexAttribPointer(uv,
+  glVertexAttribPointer(SLS_ATTRIB_UV,
                         2,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
                         (GLvoid*)offsetof(slsVertex, uv));
-  glEnableVertexAttribArray(uv);
+  glEnableVertexAttribArray(SLS_ATTRIB_UV);
 
 
-  glVertexAttribPointer(color,
+  glVertexAttribPointer(SLS_ATTRIB_COLOR,
                         4,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
                         (GLvoid*)offsetof(slsVertex, color));
-  glEnableVertexAttribArray(color);
+  glEnableVertexAttribArray(SLS_ATTRIB_COLOR);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
 }
-
-
 
 

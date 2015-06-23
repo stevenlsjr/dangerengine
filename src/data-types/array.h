@@ -54,5 +54,4 @@ slsArray *sls_array_new(void const *array,
                   get,                \
                   (idx)))))
 
-
 #endif //DANGERENGINE_ARRAY_H

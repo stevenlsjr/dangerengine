@@ -13,6 +13,8 @@ typedef struct slsMesh_p slsMesh_p;
 
 typedef struct slsVertex slsVertex;
 
+
+
 struct slsVertex {
   float position[3];
   float normal[3];
