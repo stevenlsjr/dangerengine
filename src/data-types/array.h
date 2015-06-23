@@ -11,24 +11,35 @@ typedef struct slsArray slsArray;
 typedef struct slsArray_p slsArray_p;
 
 struct slsArray {
-  slsArray *(*init)(slsArray *self, void *data, size_t esize, size_t n_elements);
+
+  /**
+   * @brief initializer
+   *
+   * @param data array of elements.
+   */
+  slsArray *(*init)(slsArray *self,
+                    void *data,
+                    size_t esize,
+                    size_t n_elements);
+
   void (*dtor)(slsArray *self);
 
   size_t (*length)(slsArray *self);
+
   size_t (*element_size)(slsArray *self);
 
-  void *(*get)(slsArray *self, size_t i);
+  void *(*get)(slsArray const *self, size_t i);
 
-  slsArray *(*concat)(slsArray *self, slsArray **others, size_t n_arrays);
+  void (*set)(slsArray *self, size_t i, void *value);
+
+
 
   slsArray_p *priv;
 };
 
 slsArray const *sls_array_class();
 
-slsArray * sls_array_new(void *array, size_t element_size, size_t n_elements);
-
-
+slsArray *sls_array_new(void *array, size_t element_size, size_t n_elements);
 
 
 #endif //DANGERENGINE_ARRAY_H

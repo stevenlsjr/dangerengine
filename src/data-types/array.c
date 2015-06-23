@@ -7,7 +7,10 @@
 #include "../math/mathmacs.h"
 
 
-slsArray *sls_array_init(slsArray *self, void *data, size_t element_size, size_t n_elements);
+slsArray *sls_array_init(slsArray *self,
+                         void *data,
+                         size_t element_size,
+                         size_t n_elements);
 
 void sls_array_dtor(slsArray *self);
 
@@ -17,7 +20,8 @@ size_t sls_array_element_size(slsArray *self);
 
 
 
-void *sls_array_get(slsArray *self, size_t i);
+
+void *sls_array_get(slsArray const *self, size_t i);
 
 struct slsArray_p {
   size_t length;
@@ -96,7 +100,7 @@ size_t sls_array_element_size(slsArray *self)
   return 0;
 }
 
-void *sls_array_get(slsArray *self, size_t i)
+void *sls_array_get(slsArray const *self, size_t i)
 {
   if (!self) {return NULL;}
   sls_check(i < self->priv->length, "out of index error!");
