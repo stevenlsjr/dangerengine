@@ -16,12 +16,13 @@ add_subdirectory(extern/kazmath)
 
 set(DANGER_DEPS kazmath)
 
+find_package(OpenGL)
+find_package(GLEW)
+find_package(Doxygen)
+
 if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
-
-  find_package(OpenGL)
-  find_package(GLEW)
 
   set(DANGER_DEPS
     ${DANGER_DEPS}
