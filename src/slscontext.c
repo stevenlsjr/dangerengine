@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "sls-handlers.h"
+#include "contexthandlers.h"
 
 
 #ifdef EMSCRIPTEN
@@ -172,7 +172,6 @@ void sls_context_run(slsContext *self)
   sls_msg(self, teardown);
 }
 
-
 void sls_emscripten_loop(void *vctx)
 {
   slsContext *ctx = vctx;
@@ -216,7 +215,7 @@ void sls_context_update(slsContext *self, double dt) {
 void sls_context_display(slsContext *self, double dt)
 {
   if (!self || !self->priv) { return; }
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glfwSwapBuffers(self->window);
 }
@@ -241,10 +240,8 @@ void sls_context_setup(slsContext *self)
 
   // setup opengl pipeline
 
-  int width, height;
-  glfwGetWindowSize(self->window, &width, &height);
-
-  sls_msg(self, resize, width, height);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_SCISSOR_TEST);
 
 
 }

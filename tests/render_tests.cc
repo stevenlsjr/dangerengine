@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "../src/dangerengine.h"
 #include <string>
-
+#include "test-utils.h"
 
 using namespace std;
 using namespace testing;
@@ -19,8 +19,10 @@ protected:
   {
     Test::SetUp();
 
-    ctx = sls_context_new("title", 480, 480);
-    sls_msg(ctx, setup);
+    sls::silence_stderr([this](){
+      ctx = sls_context_new("title", 10, 10);
+      sls_msg(ctx, setup);
+    });
 
   }
 

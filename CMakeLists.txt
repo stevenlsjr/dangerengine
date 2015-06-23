@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.1)
 
 project(dangerengine)
 
-
-# copy resources
-file(COPY ${CMAKE_SOURCE_DIR}/resources/
-    DESTINATION ${CMAKE_BINARY_DIR}/)
-
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_BINARY_DIR}/resources)
 
@@ -25,9 +20,9 @@ if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
 
-
   find_package(OpenGL)
   find_package(GLEW)
+
   set(DANGER_DEPS
     ${DANGER_DEPS}
     glfw
@@ -56,38 +51,11 @@ else (NOT EMSCRIPTEN) # if emscripten
 endif (NOT EMSCRIPTEN)
 
 
-set(DANGER_SRC
-    src/dangerengine.h
-    src/sls-gl.h
-    src/slscontext.h
-    src/slscontext.c
-    src/slsutils.c
-    src/slsutils.h
-    src/sls-handlers.c
-    src/sls-handlers.h
-    src/math/mathmacs.h
-    src/math/mathmacs.c
-    src/data-types/array.h
-    src/data-types/array.c
-    src/data-types/btree.h
-    src/data-types/btree.c
-    src/renderer/shaderutils.c
-    src/renderer/shaderutils.h)
-
-set (DANGER_CTEST_SRC
-    tests/c_cases.c
-    tests/c_cases.h)
-
-set (DANGER_TEST_SRC
-    tests/minunit-runner.cc
-    tests/btree_test.cc
-    tests/math_tests.cc
-    tests/main.cc
-    tests/render_tests.cc
-    tests/array-tests.cc)
+# included files listing sources
+include(engine_src.cmake)
+include(test_src.cmake)
 
 include_directories(
-    
     ${CMAKE_SOURCE_DIR}/extern/kazmath
     ${CMAKE_SOURCE_DIR}/extern/googlemock/include
     ${CMAKE_SOURCE_DIR}/extern/gtest/include)

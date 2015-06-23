@@ -14,14 +14,17 @@ extern "C" {
 #include "slscontext.h"
 #include "slsutils.h"
 
-#include "sls-handlers.h"
+#include "contexthandlers.h"
 
 #include "data-types/btree.h"
 #include "data-types/array.h"
 
 #include "math/mathmacs.h"
+#include "math/math-types.h"
+
 
 #include "renderer/shaderutils.h"
+#include "renderer/slsmesh.h"
 
 #ifdef __cplusplus
 }

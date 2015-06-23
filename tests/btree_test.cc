@@ -6,7 +6,7 @@ extern "C" {
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "array-tests.h"
+#include "test-utils.h"
 
 /*
 mock callbacks for a binary tree
@@ -34,7 +34,7 @@ void *mock_copy(void const *val)
 
 void mock_free(void *val)
 {
-  printf("freeing node with val %d\n", *((int *) val));
+  //printf("freeing node with val %d\n", *((int *) val));
   free(val);
 }
 
@@ -70,9 +70,11 @@ TEST_F(BTreeTest, MakeNode)
 
 TEST_F(BTreeTest, MakeInvalidNode)
 {
-  auto node = (slsBNode *) nullptr;
-  node = sls_bnode_new(nullptr, nullptr, nullptr, nullptr);
-  EXPECT_EQ(nullptr, node);
+  sls::silence_stderr([&](){
+    auto node = (slsBNode *) nullptr;
+    node = sls_bnode_new(nullptr, nullptr, nullptr, nullptr);
+    EXPECT_EQ(nullptr, node);
+  });
 }
 
 TEST_F(BTreeTest, AddNodeToTree)

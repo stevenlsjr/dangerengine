@@ -2,7 +2,7 @@
 // Created by Steven on 5/2/15.
 //
 
-#include "sls-handlers.h"
+#include "contexthandlers.h"
 #include "slsutils.h"
 #include <stdlib.h>
 #include <stdbool.h>
@@ -23,7 +23,6 @@ void sls_bind_context(slsContext *ctx)
   glfwSetErrorCallback(sls_error_cback);
   glfwSetWindowSizeCallback(ctx->window, sls_window_resize);
 
-
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);
 
@@ -42,7 +41,7 @@ void sls_unbind_context(void)
 void sls_window_resize(GLFWwindow *win, int x, int y)
 {
   if (sls_active_context) {
-    sls_msg(sls_active_context, resize, (size_t)x, (size_t)y);
+    sls_msg(sls_active_context, resize, x, y);
   }
 }
 

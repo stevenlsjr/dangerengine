@@ -5,17 +5,21 @@
 
 #include <gtest/gtest.h>
 #include "../src/dangerengine.h"
+#include "test-utils.h"
+#include <vector>
+
+using namespace std;
 
 class ArrayTest : public ::testing::Test {
 protected:
 
+  vector<int> nums = {0, 1, 2, 3};
   slsArray *a = nullptr;
 
   virtual void SetUp()
   {
-    int nums[] = {0, 1, 2, 3};
 
-    a = sls_array_new((void *) nums, sizeof(int), sizeof(nums) / sizeof(int));
+    a = sls_array_new((void *) nums.data(), sizeof(int), sizeof(nums) / sizeof(int));
   }
 
   virtual void TearDown()
@@ -30,11 +34,21 @@ TEST_F(ArrayTest, ArratInit) {
 }
 
 TEST_F(ArrayTest, GetElem) {
-  auto n = static_cast<int*>(sls_msg(a, get, 0));
-  auto overflow = static_cast<int*>(sls_msg(a, get, 100));
+  const size_t valid_idx = 0;
+  const size_t invalid_idx = 100;
+
+
+
+  auto n = static_cast<int*>(sls_msg(a, get, valid_idx));
+  auto overflow = static_cast<int*>(nullptr);
+
+  sls::silence_stderr([&](){
+     overflow = static_cast<int*>(sls_msg(a, get, invalid_idx));
+  });
+
 
   EXPECT_EQ(nullptr, overflow);
-  ASSERT_NE(nullptr, n);
-  EXPECT_EQ(0, *n);
+  EXPECT_NE(nullptr, n);
+  EXPECT_EQ(nums[valid_idx], *n);
 }
 
