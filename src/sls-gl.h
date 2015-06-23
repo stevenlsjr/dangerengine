@@ -1,6 +1,9 @@
-//
-// Created by Steven on 5/3/15.
-//
+/**
+ * Created by Steven on 5/3/15.
+ * @file sls-gh.h
+ * @brief header file which configures the proper location
+ * of the proper opengl or gles header
+ */
 
 #ifndef DANGERENGINE_SLS_GL_H
 #define DANGERENGINE_SLS_GL_H

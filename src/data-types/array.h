@@ -1,6 +1,8 @@
-//
-// Created by Steven on 5/3/15.
-//
+/**
+ * // Created by Steven on 5/3/15.
+ * @file data-types/array.h
+ * @brief __
+ */
 
 #include <stddef.h>
 

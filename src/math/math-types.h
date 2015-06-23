@@ -1,7 +1,9 @@
-/// @file math/math-types.h
-///
-/// Created by Steven on 6/23/15.
-///
+/**
+ * Created by Steven on 6/23/15.
+ *
+ * @file math/math-types.h
+ * @brief
+ */
 
 #ifndef DANGERENGINE_MATH_TYPES_H
 #define DANGERENGINE_MATH_TYPES_H

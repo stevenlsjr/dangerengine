@@ -1,6 +1,8 @@
-//
-// Created by Steven on 6/23/15.
-//
+/**
+ * Created by Steven on 6/23/15.
+ * @file
+ * @brief
+ */
 
 #ifndef DANGERENGINE_SLS_MESH_H
 #define DANGERENGINE_SLS_MESH_H

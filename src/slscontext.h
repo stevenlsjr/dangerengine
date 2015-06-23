@@ -1,6 +1,9 @@
-//
-// Created by Steven on 4/25/15.
-//
+/**
+ * Created by Steven on 4/25/15.
+ *
+ * @file slscontext.h
+ * @brief glfw and openGL context handler
+ */
 
 #ifndef DANGERENGINE_SLSCONTEXT_H
 #define DANGERENGINE_SLSCONTEXT_H

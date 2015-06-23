@@ -1,6 +1,11 @@
-//
-// Created by Steven on 4/27/15.
-//
+/**
+ * Created by Steven on 4/27/15.
+ *
+ * @file math/math-types.h
+ * @brief
+ */
+
+
 
 #ifndef DANGERENGINE_MATHMACS_H
 #define DANGERENGINE_MATHMACS_H
