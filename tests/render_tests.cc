@@ -44,9 +44,8 @@ TEST_F(RenderTests, ContextCreation)
 TEST_F(RenderTests, ShaderRead)
 {
 
-  const auto source_path = string("/Users/Shea/Projects/dangerengine/");
-  auto vs_path = source_path + string("resources/shaders/default.vert.glsl");
-  auto fs_path = source_path + string("resources/shaders/default.frag.glsl");
+  auto vs_path = string("resources/shaders/default.vert.glsl");
+  auto fs_path = string("resources/shaders/default.frag.glsl");
   auto program = sls_create_program(vs_path.c_str(), fs_path.c_str());
 
   auto res = GL_FALSE;

@@ -109,8 +109,8 @@ slsContext *sls_context_init(slsContext *self,
     // glfw window hints
     glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -227,14 +227,15 @@ void sls_context_setup(slsContext *self)
 
 # ifndef SLS_NOGLEW
   {
+    glewExperimental = GL_TRUE;
     GLenum glew = glewInit();
     if (glew != GLEW_OK) {
       sls_log_err("glew error: %s", glewGetErrorString(glew));
       self->is_running = SLS_FALSE;
-      sls_log_info("glew version", glewGetString(GLEW_VERSION));
     }
+    sls_log_info("glew version %s", glewGetString(GLEW_VERSION));
   }
-# endif
+# endif// !SLS_NOGLEW
 
   sls_log_info("openGL version %s", glGetString(GL_VERSION));
 

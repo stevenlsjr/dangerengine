@@ -7,6 +7,8 @@ project(dangerengine)
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_BINARY_DIR}/)
 
+file(COPY ${CMAKE_SOURCE_DIR}/resources/
+    DESTINATION ${CMAKE_BINARY_DIR}/resources)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
@@ -81,7 +83,8 @@ set (DANGER_TEST_SRC
     tests/btree_test.cc
     tests/math_tests.cc
     tests/main.cc
-    tests/render_tests.cc)
+    tests/render_tests.cc
+    tests/array-tests.cc)
 
 include_directories(
     

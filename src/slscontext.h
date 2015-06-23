@@ -82,6 +82,7 @@ struct slsContext {
   slsBool is_running;
   clock_t interval;
   slsContext_p *priv;
+  void *data;
 };
 
 slsContext const *sls_context_class();
