@@ -12,9 +12,12 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        unsigned const *indices,
                        size_t idx_count);
 
-void sls_mesh_dtor(slsMesh *self);
-void sls_mesh_bind(slsMesh *self, GLuint shader_program);
+void sls_mesh_bind_buffer_data(slsMesh *pMesh, GLuint program);
+void sls_mesh_bind_attributes(slsMesh *pMesh, GLuint program);
 
+void sls_mesh_dtor(slsMesh *self);
+
+void sls_mesh_bind(slsMesh *self, GLuint shader_program);
 
 
 struct slsMesh_p {
@@ -32,6 +35,10 @@ static const slsMesh sls_mesh_proto = {
 
 
 };
+
+/*================================
+ * IMPLEMENTATIONS
+ *================================*/
 
 slsMesh const *sls_mesh_class()
 {
@@ -54,7 +61,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        unsigned const *indices,
                        size_t idx_count)
 {
-  if (!vertices || ! indices || !self) {return NULL;}
+  if (!vertices || !indices || !self) { return NULL; }
   self->indices = sls_array_new(indices, sizeof(unsigned), idx_count);
   self->vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
 
@@ -66,16 +73,16 @@ slsMesh *sls_mesh_init(slsMesh *self,
   glGenBuffers(1, &self->ibo);
 
   return self;
-error:
-  if (self && self->dtor) {sls_msg(self, dtor);}
+  error:
+  if (self && self->dtor) { sls_msg(self, dtor); }
   return NULL;
 }
 
 void sls_mesh_dtor(slsMesh *self)
 {
-  if(!self) {return;}
+  if (!self) { return; }
 
-  if (self->priv) {free(self->priv);}
+  if (self->priv) { free(self->priv); }
 
   sls_msg(self->indices, dtor);
   sls_msg(self->vertices, dtor);
@@ -83,7 +90,7 @@ void sls_mesh_dtor(slsMesh *self)
   GLuint buffers[] = {self->vbo, self->ibo};
 
 
-  glDeleteBuffers(sizeof(buffers)/sizeof(GLuint), buffers);
+  glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
   glDeleteVertexArrays(1, &(self->vao));
 
   free(self);
@@ -91,41 +98,68 @@ void sls_mesh_dtor(slsMesh *self)
 
 void sls_mesh_bind(slsMesh *self, GLuint shader_program)
 {
-  if (!self) {return;}
+  if (!self) { return; }
 
 
-  slsVertex *verts = sls_msg(self->vertices, get, 0);
   // bind gl objects
   glUseProgram(shader_program);
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  // set buffer data
+  sls_mesh_bind_buffer_data(self, shader_program);
+  sls_mesh_bind_attributes(self, shader_program);
+
+  // unbind
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  glBindVertexArray(0);
+}
+
+void sls_mesh_bind_buffer_data(slsMesh *self, GLuint program)
+{
+  if (!self) { return; }
+
+
   const size_t vbo_size = sls_msg(self->vertices, length) * sls_msg(self->vertices, element_size);
+  const size_t ibo_size = sls_msg(self->indices, length) * sls_msg(self->indices, element_size);
+
+
+  slsVertex *verts = sls_msg(self->vertices, get, 0);
+  //slsVertex *idxs = sls_msg(self->indices, get, 0);
+
+  // push index buffer data
+  //glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);
+
+  // push vertex buffer data
   glBufferData(GL_ARRAY_BUFFER, vbo_size, verts, GL_STATIC_DRAW);
 
+}
+
+
+void sls_mesh_bind_attributes(slsMesh *self, GLuint program)
+{
 
 
   glVertexAttribPointer(SLS_ATTRIB_POSITION,
                         3,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
-                        (GLvoid*)offsetof(slsVertex, position));
+                        (GLvoid *) offsetof(slsVertex, position));
   glEnableVertexAttribArray(SLS_ATTRIB_POSITION);
 
   glVertexAttribPointer(SLS_ATTRIB_NORMAL,
                         3,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
-                        (GLvoid*)offsetof(slsVertex, normal));
+                        (GLvoid *) offsetof(slsVertex, normal));
   glEnableVertexAttribArray(SLS_ATTRIB_NORMAL);
 
   glVertexAttribPointer(SLS_ATTRIB_UV,
                         2,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
-                        (GLvoid*)offsetof(slsVertex, uv));
+                        (GLvoid *) offsetof(slsVertex, uv));
   glEnableVertexAttribArray(SLS_ATTRIB_UV);
 
 
@@ -133,12 +167,9 @@ void sls_mesh_bind(slsMesh *self, GLuint shader_program)
                         4,
                         GL_FLOAT, GL_FALSE,
                         sizeof(slsVertex),
-                        (GLvoid*)offsetof(slsVertex, color));
+                        (GLvoid *) offsetof(slsVertex, color));
   glEnableVertexAttribArray(SLS_ATTRIB_COLOR);
 
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  if (!self) {return;}
+
 }
-
-

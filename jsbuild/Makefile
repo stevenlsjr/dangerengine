@@ -190,6 +190,19 @@ dangerengine/fast:
 .PHONY : dangerengine/fast
 
 #=============================================================================
+# Target rules for targets named doc
+
+# Build rule for target.
+doc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 doc
+.PHONY : doc
+
+# fast build rule for target.
+doc/fast:
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/build
+.PHONY : doc/fast
+
+#=============================================================================
 # Target rules for targets named kazmath
 
 # Build rule for target.
@@ -201,6 +214,30 @@ kazmath: cmake_check_build_system
 kazmath/fast:
 	$(MAKE) -f extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build.make extern/kazmath/kazmath/CMakeFiles/kazmath.dir/build
 .PHONY : kazmath/fast
+
+src/contexthandlers.o: src/contexthandlers.c.o
+.PHONY : src/contexthandlers.o
+
+# target to build an object file
+src/contexthandlers.c.o:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/contexthandlers.c.o
+.PHONY : src/contexthandlers.c.o
+
+src/contexthandlers.i: src/contexthandlers.c.i
+.PHONY : src/contexthandlers.i
+
+# target to preprocess a source file
+src/contexthandlers.c.i:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/contexthandlers.c.i
+.PHONY : src/contexthandlers.c.i
+
+src/contexthandlers.s: src/contexthandlers.c.s
+.PHONY : src/contexthandlers.s
+
+# target to generate assembly for a file
+src/contexthandlers.c.s:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/contexthandlers.c.s
+.PHONY : src/contexthandlers.c.s
 
 src/data-types/array.o: src/data-types/array.c.o
 .PHONY : src/data-types/array.o
@@ -274,6 +311,30 @@ src/exec.c.s:
 	$(MAKE) -f CMakeFiles/dangerbird_bin.dir/build.make CMakeFiles/dangerbird_bin.dir/src/exec.c.s
 .PHONY : src/exec.c.s
 
+src/math/math-types.o: src/math/math-types.c.o
+.PHONY : src/math/math-types.o
+
+# target to build an object file
+src/math/math-types.c.o:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/math/math-types.c.o
+.PHONY : src/math/math-types.c.o
+
+src/math/math-types.i: src/math/math-types.c.i
+.PHONY : src/math/math-types.i
+
+# target to preprocess a source file
+src/math/math-types.c.i:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/math/math-types.c.i
+.PHONY : src/math/math-types.c.i
+
+src/math/math-types.s: src/math/math-types.c.s
+.PHONY : src/math/math-types.s
+
+# target to generate assembly for a file
+src/math/math-types.c.s:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/math/math-types.c.s
+.PHONY : src/math/math-types.c.s
+
 src/math/mathmacs.o: src/math/mathmacs.c.o
 .PHONY : src/math/mathmacs.o
 
@@ -322,29 +383,29 @@ src/renderer/shaderutils.c.s:
 	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/shaderutils.c.s
 .PHONY : src/renderer/shaderutils.c.s
 
-src/sls-handlers.o: src/sls-handlers.c.o
-.PHONY : src/sls-handlers.o
+src/renderer/slsmesh.o: src/renderer/slsmesh.c.o
+.PHONY : src/renderer/slsmesh.o
 
 # target to build an object file
-src/sls-handlers.c.o:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/sls-handlers.c.o
-.PHONY : src/sls-handlers.c.o
+src/renderer/slsmesh.c.o:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/slsmesh.c.o
+.PHONY : src/renderer/slsmesh.c.o
 
-src/sls-handlers.i: src/sls-handlers.c.i
-.PHONY : src/sls-handlers.i
+src/renderer/slsmesh.i: src/renderer/slsmesh.c.i
+.PHONY : src/renderer/slsmesh.i
 
 # target to preprocess a source file
-src/sls-handlers.c.i:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/sls-handlers.c.i
-.PHONY : src/sls-handlers.c.i
+src/renderer/slsmesh.c.i:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/slsmesh.c.i
+.PHONY : src/renderer/slsmesh.c.i
 
-src/sls-handlers.s: src/sls-handlers.c.s
-.PHONY : src/sls-handlers.s
+src/renderer/slsmesh.s: src/renderer/slsmesh.c.s
+.PHONY : src/renderer/slsmesh.s
 
 # target to generate assembly for a file
-src/sls-handlers.c.s:
-	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/sls-handlers.c.s
-.PHONY : src/sls-handlers.c.s
+src/renderer/slsmesh.c.s:
+	$(MAKE) -f CMakeFiles/dangerengine.dir/build.make CMakeFiles/dangerengine.dir/src/renderer/slsmesh.c.s
+.PHONY : src/renderer/slsmesh.c.s
 
 src/slscontext.o: src/slscontext.c.o
 .PHONY : src/slscontext.o
@@ -404,6 +465,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... install"
+	@echo "... doc"
 	@echo "... list_install_components"
 	@echo "... dangerengine"
 	@echo "... package"
@@ -411,6 +473,9 @@ help:
 	@echo "... dangerbird_bin"
 	@echo "... install/local"
 	@echo "... kazmath"
+	@echo "... src/contexthandlers.o"
+	@echo "... src/contexthandlers.i"
+	@echo "... src/contexthandlers.s"
 	@echo "... src/data-types/array.o"
 	@echo "... src/data-types/array.i"
 	@echo "... src/data-types/array.s"
@@ -420,15 +485,18 @@ help:
 	@echo "... src/exec.o"
 	@echo "... src/exec.i"
 	@echo "... src/exec.s"
+	@echo "... src/math/math-types.o"
+	@echo "... src/math/math-types.i"
+	@echo "... src/math/math-types.s"
 	@echo "... src/math/mathmacs.o"
 	@echo "... src/math/mathmacs.i"
 	@echo "... src/math/mathmacs.s"
 	@echo "... src/renderer/shaderutils.o"
 	@echo "... src/renderer/shaderutils.i"
 	@echo "... src/renderer/shaderutils.s"
-	@echo "... src/sls-handlers.o"
-	@echo "... src/sls-handlers.i"
-	@echo "... src/sls-handlers.s"
+	@echo "... src/renderer/slsmesh.o"
+	@echo "... src/renderer/slsmesh.i"
+	@echo "... src/renderer/slsmesh.s"
 	@echo "... src/slscontext.o"
 	@echo "... src/slscontext.i"
 	@echo "... src/slscontext.s"

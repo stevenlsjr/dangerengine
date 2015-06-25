@@ -64,5 +64,7 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t idx_count);
 
 
+
+
 #endif //DANGERENGINE_SLS_MESH_H
 

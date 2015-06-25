@@ -38,14 +38,20 @@ void demo_context_setup(slsContext *self)
   data->program = sls_create_program(vs_path, fs_path);
 
   slsVertex verts[] = {
-    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}},
-    (slsVertex){.position={ 0.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 1.0, 1.0}}
+    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
+    (slsVertex){.position={-1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 1.0}, .color={0.0, 1.0, 1.0, 1.0}},
+    (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
+    (slsVertex){.position={ 1.0,  -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 0.0}, .color={1.0, 0.0, 1.0, 1.0}},
+    (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
+    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
   };
 
-  unsigned inds[] = {0, 1, 2};
+  sls_log_info("%lu", sizeof(verts));
+
+  unsigned inds[] = {0, 1, 2, 3, 2, 0};
   data->mesh = sls_mesh_new(verts, sizeof(verts)/sizeof(slsVertex), inds, sizeof(inds)/sizeof(unsigned));
   sls_msg(data->mesh, bind, data->program);
+
 
 
   glClearColor(0.1, 0.24, 0.3, 1.0);
@@ -60,6 +66,11 @@ void demo_context_display(slsContext *self, double dt)
 {
   demoData *data = self->data;
 
+  GLint time = glGetUniformLocation(data->program, "time");
+
+  float t = clock()/(float)CLOCKS_PER_SEC;
+  glUniform1f(time, t);
+
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -68,17 +79,13 @@ void demo_context_display(slsContext *self, double dt)
   // setup vert position pointer
 
   glBindVertexArray(data->mesh->vao);
-  glBindBuffer(GL_ARRAY_BUFFER, data->mesh->vbo);
 
 
-
-  glDrawArrays(GL_TRIANGLES, 0, (GLsizei)sls_msg(data->mesh->indices, length));
-
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+  //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+  glBindVertexArray(0);
 
   glfwSwapBuffers(self->window);
-  glUseProgram(0);
-  glBindVertexArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
 
