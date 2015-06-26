@@ -1,0 +1,16 @@
+language: cpp
+compiler:
+    - clang
+before_install:
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update -qq
+    - git submodule update --init
+script:
+    - mkdir -p build
+    - cd build
+    - cmake -DCMAKE_BUILD_TYPE=Debug ..
+    - ./dangerbirt_test
+after_success:
+    - lcov --directory test --base-directory ../include/boost/compute/ --capture --output-file coverage.info
+    - lcov --remove coverage.info '/usr*' -o coverage.info
+    - cd .. && coveralls-lcov build/coverage.info
