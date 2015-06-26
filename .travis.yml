@@ -11,10 +11,7 @@ script:
     - cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
     - ./dangerbirt_test
-after_success:
-    - lcov --directory test --base-directory ../include/boost/compute/ --capture --output-file coverage.info
-    - lcov --remove coverage.info '/usr*' -o coverage.info
-    - cd .. && coveralls-lcov build/coverage.info
+#after_success:
 notifications:
   recipients:
     - stevenlsjr@gmail.com
