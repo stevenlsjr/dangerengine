@@ -9,12 +9,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fblocks")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
 add_subdirectory(extern/kazmath)
+set (KAZMATH_BUILD_TESTS OFF)
+set (KAZMATH_BUILD_JNI_WRAPPER OFF)
+set (KAZMATH_BUILD_GL_UTILS OFF)
+
 
 set(DANGER_DEPS kazmath)
+
 
 find_package(OpenGL)
 find_package(GLEW)
