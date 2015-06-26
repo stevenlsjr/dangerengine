@@ -1,4 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
 
@@ -301,3 +300,7 @@ install_manifest.txt
 *.dSYM/
 
 
+#### custom project setup ####
+
+# bower files in resource folder
+resources/bower/
