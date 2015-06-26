@@ -19,9 +19,12 @@ namespace sls {
  *
  * @param fn function, function-object, or lambda for use in execution
  */
+
+#ifndef WIN32
 static inline
 void silence_stderr(std::function<void(void)> fn)
 {
+
   constexpr auto devnull = "/dev/null";
   auto _stderr = stderr;
 
@@ -36,6 +39,14 @@ void silence_stderr(std::function<void(void)> fn)
     stderr = _stderr;
   }
 }
+
+#else
+static inline
+void silence_stderr(std::function<void(void)> fn)
+{
+
+}
+#endif
 
 }
 

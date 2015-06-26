@@ -23,7 +23,7 @@ out vec2 frag_uv;
 void main()
 {
 
-  float timeB = time * -10;
+  float timeB = -time;
 
     mat4 rot = mat4(
       vec4(cos(timeB), -sin(timeB), 0.0, 0.0),

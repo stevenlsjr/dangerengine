@@ -10,7 +10,7 @@
 
 using namespace std;
 
-using VALUE_TYPE = int;
+typedef int VALUE_TYPE;
 
 class ArrayTest : public ::testing::Test {
 protected:
