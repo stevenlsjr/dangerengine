@@ -12,9 +12,3 @@ script:
     - cmake -DCMAKE_BUILD_TYPE=Debug ..
     - ./dangerbirt_test
 #after_success:
-notifications:
-  recipients:
-    - stevenlsjr@gmail.com
-  email:
-    on_success: change
-    on_failure: never
