@@ -300,3 +300,7 @@ install_manifest.txt
 *.dSYM/
 
 
+#### custom project setup ####
+
+# bower files in resource folder
+resources/bower/

@@ -119,6 +119,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shaders", "shaders", "{8634
 		resources\shaders\default.vert = resources\shaders\default.vert
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-files", "solution-files", "{8ADCB06A-C942-4B5E-A660-17091CBC0A46}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.gitmodules = .gitmodules
+		.travis.yml = .travis.yml
+		doxyfile.in = doxyfile.in
+		em.js.post = em.js.post
+		em.js.pre = em.js.pre
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -238,6 +248,7 @@ Global
 		{24826D53-C185-460A-8B8B-A529B44229BD} = {7DF506AA-5DEB-4037-B85A-199B64C9B9DB}
 		{B9E68FFE-E346-41B5-8ED7-2DC4C6E4A71C} = {7DF506AA-5DEB-4037-B85A-199B64C9B9DB}
 		{97C9A009-57AF-4423-BD81-3E3566C65C34} = {0A009E01-1E5D-4E9B-931A-7A82B232372B}
+		{31D4005C-BE2E-4203-9301-1E0BE21B581B} = {8ADCB06A-C942-4B5E-A660-17091CBC0A46}
 		{8634C073-5CD5-4D61-8F96-CA0D3CAE4CC9} = {31D4005C-BE2E-4203-9301-1E0BE21B581B}
 	EndGlobalSection
 EndGlobal
