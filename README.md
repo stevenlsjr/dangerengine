@@ -2,6 +2,9 @@ dangerengine
 ==============
 OpenGL engine in C
 
+Travis!!
+![travis!!](https://travis-ci.org/dangerbird2/dangerengine.svg?branch=master)
+
 **Goals**:
 
 * Create a demonstration rendering engine in C
