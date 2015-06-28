@@ -15,20 +15,19 @@ protected:
 
   slsContext *ctx = nullptr;
 
-  virtual void SetUp()
+  RenderTests()
   {
-    Test::SetUp();
-
-    sls::silence_stderr([this](){
-      ctx = sls_context_new("title", 10, 10);
-      sls_msg(ctx, setup);
-    });
+    sls_init();
+    ctx = sls_context_new("title", 480, 480);
+    EXPECT_TRUE(ctx) << "ctx is null";
+    sls_msg(ctx, setup);
 
   }
 
-  virtual void TearDown()
+  ~RenderTests()
   {
     sls_msg(ctx, dtor);
+    sls_terminate();
 
 
     Test::TearDown();
@@ -39,7 +38,7 @@ protected:
 
 TEST_F(RenderTests, ContextCreation)
 {
-  ASSERT_NE(nullptr, ctx);
+  ASSERT_TRUE(ctx) << "context is null";
 }
 
 TEST_F(RenderTests, ShaderRead)

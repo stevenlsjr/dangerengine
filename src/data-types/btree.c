@@ -20,6 +20,7 @@ slsBTree *sls_btree_new(slsCopyFn copy_fn, slsFreeFn free_fn) {
   slsBTree *tree = NULL;
   tree = sls_objalloc(&proto, sizeof(slsBTree));
   sls_checkmem(tree);
+
   return tree;
 error:
   return NULL;

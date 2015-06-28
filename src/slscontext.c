@@ -119,6 +119,7 @@ slsContext *sls_context_init(slsContext *self,
 
   // create glfw window
   self->window = glfwCreateWindow((int) width, (int) height, caption, NULL, NULL);
+  
   sls_check(self->window, "window creation failed");
 
   // allocate and initialize private members

@@ -17,15 +17,11 @@ set (KAZMATH_BUILD_TESTS OFF)
 set (KAZMATH_BUILD_JNI_WRAPPER OFF)
 set (KAZMATH_BUILD_GL_UTILS OFF)
 
-
 set(DANGER_DEPS kazmath)
-
 
 find_package(OpenGL)
 find_package(GLEW)
 find_package(Doxygen)
-
-
 
 if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)

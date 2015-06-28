@@ -65,6 +65,8 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
 
 
 
+slsMesh *sls_mesh_create_shape(char const *name);
+
 
 #endif //DANGERENGINE_SLS_MESH_H
 

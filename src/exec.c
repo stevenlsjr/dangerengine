@@ -20,7 +20,7 @@ static inline void setup()
 #endif //__EMSCRIPTEN__
 };
 
-typedef struct {
+typedef struct demoData {
   GLuint program;
   slsMesh *mesh;
 } demoData;
@@ -36,25 +36,18 @@ void demo_context_setup(slsContext *self)
   char const *fs_path = "resources/shaders/default.frag";
 
   data->program = sls_create_program(vs_path, fs_path);
+  data->mesh = sls_mesh_create_shape("square");
+  sls_checkmem(data->mesh);
 
-  slsVertex verts[] = {
-    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
-    (slsVertex){.position={-1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 1.0}, .color={0.0, 1.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0,  -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 0.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
-  };
-
-  sls_log_info("%lu", sizeof(verts));
-
-  unsigned inds[] = {0, 1, 2, 3, 2, 0};
-  data->mesh = sls_mesh_new(verts, sizeof(verts)/sizeof(slsVertex), inds, sizeof(inds)/sizeof(unsigned));
   sls_msg(data->mesh, bind, data->program);
 
 
 
-  glClearColor(0.1, 0.24, 0.3, 1.0);
+  glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
+  return;
+error:
+  getchar();
+  exit(EXIT_FAILURE);
 }
 
 void demo_context_update(slsContext *self, double dt)
@@ -80,9 +73,10 @@ void demo_context_display(slsContext *self, double dt)
 
   glBindVertexArray(data->mesh->vao);
 
+  size_t elements = sls_msg(data->mesh->indices, length);
+  //glDrawArrays(GL_TRIANGLES, 0, 6);
+  glDrawElements(GL_TRIANGLES, elements, GL_UNSIGNED_INT, NULL);
 
-  glDrawArrays(GL_TRIANGLES, 0, 6);
-  //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
   glBindVertexArray(0);
 
   glfwSwapBuffers(self->window);

@@ -72,7 +72,7 @@ void sls_terminate(void)
 
 void sls_error_cback(int i, char const *string)
 {
-
+  sls_log_err("%s", string);
 }
 
 bool sls_is_active(void)
