@@ -10,6 +10,10 @@
 #include <emscripten.h>
 #endif //__EMSCRIPTEN__
 
+static GLuint x_modelview;
+static GLuint x_projection;
+static GLuint x_normalmat;
+
 static inline void setup()
 {
 #ifdef __EMSCRIPTEN__
@@ -41,7 +45,18 @@ void demo_context_setup(slsContext *self)
 
   sls_msg(data->mesh, bind, data->program);
 
+  glUseProgram(data->program);
+  
+  GLenum err;
+  char const *str;
+  x_modelview = glGetUniformLocation(data->program, "model_view");
 
+  x_projection = glGetUniformLocation(data->program, "projection");
+  x_normalmat = glGetUniformLocation(data->program, "normal_mat");
+
+  kmMat4 projection;
+  kmMat4OrthographicProjection(&projection, -20.0, 20.0, -20.0, 20.0, -10.0, 10.0);
+  glUniformMatrix4fv(x_projection, 1, GL_FALSE, projection.mat);
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
