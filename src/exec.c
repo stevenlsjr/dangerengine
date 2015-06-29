@@ -10,9 +10,6 @@
 #include <emscripten.h>
 #endif //__EMSCRIPTEN__
 
-static GLuint x_modelview;
-static GLuint x_projection;
-static GLuint x_normalmat;
 
 static inline void setup()
 {
@@ -27,6 +24,13 @@ static inline void setup()
 typedef struct demoData {
   GLuint program;
   slsMesh *mesh;
+
+  struct {
+    GLint time_;
+    GLint projection;
+    GLint model_view;
+    GLint normal_mat;
+  } uniforms;
 } demoData;
 
 void demo_context_setup(slsContext *self)
@@ -46,17 +50,27 @@ void demo_context_setup(slsContext *self)
   sls_msg(data->mesh, bind, data->program);
 
   glUseProgram(data->program);
-  
-  GLenum err;
-  char const *str;
-  x_modelview = glGetUniformLocation(data->program, "model_view");
 
-  x_projection = glGetUniformLocation(data->program, "projection");
-  x_normalmat = glGetUniformLocation(data->program, "normal_mat");
+  data->uniforms.time_ = glGetUniformLocation(data->program, "time");
+  data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
+  data->uniforms.projection = glGetUniformLocation(data->program, "projection");
+  data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
 
+
+
+  // setup projection matrix
   kmMat4 projection;
+  kmMat4OrthographicProjection(&projection,
+                               -2.0, 2.0,
+                               -2.0, 2.0,
+                               -10.0, 10.0);
+
+  glUniformMatrix4fv(data->uniforms.projection,
+                     16, GL_FALSE,
+                     projection.mat);
+
   kmMat4OrthographicProjection(&projection, -20.0, 20.0, -20.0, 20.0, -10.0, 10.0);
-  glUniformMatrix4fv(x_projection, 1, GL_FALSE, projection.mat);
+  glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
@@ -85,7 +99,6 @@ void demo_context_display(slsContext *self, double dt)
   _sls_mesh_roughdraw(data->mesh, data->program);
 
   glfwSwapBuffers(self->window);
-
 
 
 }

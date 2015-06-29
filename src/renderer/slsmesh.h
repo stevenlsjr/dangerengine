@@ -9,6 +9,8 @@
 
 #include "../data-types/array.h"
 #include "../sls-gl.h"
+#include <kazmath/kazmath.h>
+#include <kazmath/vec4.h>
 
 typedef struct slsMesh slsMesh;
 typedef struct slsMesh_p slsMesh_p;
@@ -23,6 +25,12 @@ struct slsVertex {
   float uv[2];
   float color[4];
 };
+
+
+slsVertex sls_vertex_make(kmVec3 position,
+                          kmVec3 normal,
+                          kmVec2 uv,
+                          kmVec4 color);
 
 struct slsMesh {
   slsMesh *(*init)(slsMesh *self,

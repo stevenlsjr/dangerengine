@@ -101,6 +101,16 @@ if (NOT EMSCRIPTEN)
 endif (NOT EMSCRIPTEN)
 
 if (DOXYGEN_FOUND)
+
+  set(DANGER_DOC_FILES
+    "${CMAKE_SOURCE_DIR}/src/                     \
+    ${CMAKE_SOURCE_DIR}/src/data-types/           \
+    ${CMAKE_SOURCE_DIR}/src/math/                 \
+    ${CMAKE_SOURCE_DIR}/extern/glfw/include/GLFW \
+    ${CMAKE_SOURCE_DIR}/extern/kazmath/kazmath   \
+    ${CMAKE_SOURCE_DIR}/extern/kazmath/kazmath/GL")
+
+
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile.in
     ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 

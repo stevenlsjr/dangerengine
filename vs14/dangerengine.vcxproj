@@ -263,7 +263,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\data-types\array.h" />
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\data-types\btree.h" />
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmesh.h" />
-    <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsshadertable.h" />
+    <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmodel.h" />
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.h" />
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\slscontext.c"  />
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\slsutils.c"  />
@@ -273,7 +273,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\data-types\array.c"  />
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\data-types\btree.c"  />
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmesh.c"  />
-    <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsshadertable.c"  />
+    <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmodel.c"  />
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.c"  />
     <None Include="C:\Users\steve\Source\Repos\dangerengine" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\.DS_Store" />
@@ -283,6 +283,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\default.frag" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\default.vert" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\demo.fs" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\demo.vs" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\em.js.post" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\em.js.pre" />
     <None Include="C:\Users\steve\Source\Repos\dangerengine\engine_src.cmake" />

@@ -10,10 +10,12 @@ uniform mat4 model_view;
 uniform mat4 normal_mat;
 uniform mat4 projection;
 
+
 uniform float time;
+
 
 void main()
 {
-  
   color = frag_color;
 }
+

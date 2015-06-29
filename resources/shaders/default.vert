@@ -16,16 +16,7 @@ out vec2 frag_uv;
 
 void main()
 {
-
-  float timeB = -time;
-
-    mat4 rot = mat4(
-      vec4(cos(timeB), -sin(timeB), 0.0, 0.0),
-      vec4(sin(timeB),  cos(timeB), 0.0, 0.0),
-      vec4(0.0,       0.0,        1.0, 0.0),
-      vec4(0.0,       0.0,        0.0, 1.0)
-    );
   frag_color = color;
   frag_uv = uv;
-  gl_Position =  projection * rot * vec4(position, 1.0f) ;
+  gl_Position = projection * vec4(position, 1.0f);
 }

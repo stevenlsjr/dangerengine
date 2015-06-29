@@ -43,6 +43,31 @@ static const slsMesh sls_mesh_proto = {
  * IMPLEMENTATIONS
  *================================*/
 
+slsVertex sls_vertex_make(kmVec3 position,
+  kmVec3 normal,
+  kmVec2 uv,
+  kmVec4 color)
+{
+  slsVertex v;
+  v.position[0] = position.x;
+  v.position[1] = position.y;
+  v.position[2] = position.z;
+
+  v.normal[0] = normal.x;
+  v.normal[1] = normal.y;
+  v.normal[2] = normal.z;
+
+  v.uv[0] = uv.x;
+  v.uv[1] = uv.y;
+
+  v.color[0] = color.x;
+  v.color[1] = color.y;
+  v.color[1] = color.z;
+  v.color[4] = color.w;
+
+  return v;
+}
+
 slsMesh const *sls_mesh_class()
 {
   slsMesh const *proto = &sls_mesh_proto;
