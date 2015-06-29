@@ -52,6 +52,8 @@ void demo_context_setup(slsContext* self)
 
   char const* vs_path;
 
+#ifndef SLS_GLES
+
   int major, minor;
   glGetIntegerv(GL_MAJOR_VERSION, &major);
   glGetIntegerv(GL_MINOR_VERSION, &minor);
@@ -63,6 +65,11 @@ void demo_context_setup(slsContext* self)
     vs_path = "resources/shaders/default.vert";
     fs_path = "resources/shaders/default.frag";
   }
+
+#else
+  vs_path = "resources/shaders/default-legacy.vert";
+  fs_path = "resources/shaders/default-legacy.frag";
+#endif
 
 
   data->program = sls_create_program(vs_path, fs_path);

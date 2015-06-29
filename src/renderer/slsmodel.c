@@ -67,7 +67,10 @@ void sls_model_dtor(slsModel* self)
 
 kmMat4 sls_model_push_transform(slsModel* self, kmMat4 const* model_view, GLuint model_view_handle)
 {
-  if (!self) { return; }
+  if (!self) { 
+    kmMat4 m;
+    return *kmMat4Identity(&m);
+  }
   kmMat4 new_mv;
   if (model_view) {
     kmMat4Multiply(&new_mv, model_view, &self->transform);
