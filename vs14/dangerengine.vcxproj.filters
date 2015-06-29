@@ -25,6 +25,9 @@
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmesh.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsshadertable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,12 +63,29 @@
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsmesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slsshadertable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\steve\Source\Repos\dangerengine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\steve\Source\Repos\dangerengine" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\.DS_Store" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\appSetup.js" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\favicon.ico" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\index.html" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\default.frag" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\resources\shaders\default.vert" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\em.js.post" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\em.js.pre" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\engine_src.cmake" />
+    <None Include="C:\Users\steve\Source\Repos\dangerengine\test_src.cmake" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

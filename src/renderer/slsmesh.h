@@ -33,8 +33,6 @@ struct slsMesh {
 
   void (*dtor)(slsMesh *self);
   void (*bind)(slsMesh *self, GLuint shader_program);
-
-
   /**
    * @brief vertex array
    * @details TYPE slsVertex
@@ -52,7 +50,6 @@ struct slsMesh {
 
   slsMesh_p *priv;
 
-
   void *data;
 };
 
@@ -66,6 +63,8 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
 
 
 slsMesh *sls_mesh_create_shape(char const *name);
+
+void _sls_mesh_roughdraw(slsMesh *self, GLuint program);
 
 
 #endif //DANGERENGINE_SLS_MESH_H

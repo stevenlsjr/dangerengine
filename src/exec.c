@@ -67,17 +67,7 @@ void demo_context_display(slsContext *self, double dt)
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-  glUseProgram(data->program);
-  // setup vert position pointer
-
-  glBindVertexArray(data->mesh->vao);
-
-  size_t elements = sls_msg(data->mesh->indices, length);
-  //glDrawArrays(GL_TRIANGLES, 0, 6);
-  glDrawElements(GL_TRIANGLES, elements, GL_UNSIGNED_INT, NULL);
-
-  glBindVertexArray(0);
+  _sls_mesh_roughdraw(data->mesh, data->program);
 
   glfwSwapBuffers(self->window);
 

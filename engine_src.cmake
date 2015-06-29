@@ -18,6 +18,8 @@ set (DANGER_SRC
   src/data-types/btree.c
   src/renderer/slsmesh.c
   src/renderer/slsmesh.h
+  src/renderer/slsshadertable.c
+  src/renderer/slsshadertable.h
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h)
 

@@ -5,6 +5,13 @@ project(dangerengine)
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_BINARY_DIR}/resources)
 
+file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}
+  resources/*
+  resources/**/*
+  CMakeLists.txt
+  em.js.*
+  *.cmake)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
@@ -64,12 +71,13 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/extern/googlemock/include
     ${CMAKE_SOURCE_DIR}/extern/gtest/include)
 
-add_library(dangerengine ${DANGER_SRC})
+add_library(dangerengine ${DANGER_SRC} ${DANGER_RES})
 target_link_libraries(dangerengine
     ${DANGER_DEPS})
 
 
-add_executable(dangerbird_bin src/exec.c)
+add_executable(dangerbird_bin 
+    src/exec.c)
 target_link_libraries(dangerbird_bin
     dangerengine
     ${DANGER_DEPS})
