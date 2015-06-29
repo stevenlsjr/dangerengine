@@ -57,20 +57,9 @@ void demo_context_setup(slsContext *self)
   data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
 
 
-
-  // setup projection matrix
-  kmMat4 projection;
-  kmMat4OrthographicProjection(&projection,
-                               -2.0, 2.0,
-                               -2.0, 2.0,
-                               -10.0, 10.0);
-
-  glUniformMatrix4fv(data->uniforms.projection,
-                     16, GL_FALSE,
-                     projection.mat);
-
-  kmMat4OrthographicProjection(&projection, -20.0, 20.0, -20.0, 20.0, -10.0, 10.0);
-  glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
+  int x, y;
+  glfwGetWindowSize(self->window, &x, &y);
+  sls_msg(self, resize, x, y);
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
@@ -96,11 +85,9 @@ void demo_context_display(slsContext *self, double dt)
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  _sls_mesh_roughdraw(data->mesh, data->program);
+  _sls_mesh_roughdraw(data->mesh, data->program, dt);
 
   glfwSwapBuffers(self->window);
-
-
 }
 
 void demo_context_teardown(slsContext *self) {
@@ -116,6 +103,19 @@ void demo_context_teardown(slsContext *self) {
   glDeleteProgram(data->program);
 }
 
+void demo_context_resize(slsContext *self, int x, int y)
+{
+  sls_context_class()->resize(self, x, y);
+  demoData *data = self->data;
+
+  float aspect = y / (float)x;
+
+  kmMat4 projection;
+  kmMat4OrthographicProjection(&projection, -aspect, aspect, -1, 1, -10.0, 10.0);
+  glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
+
+}
+
 int sls_main()
 {
   slsContext *c = sls_context_new("window", 640, 640);
@@ -126,6 +126,7 @@ int sls_main()
   c->update = demo_context_update;
   c->display = demo_context_display;
   c->teardown = demo_context_teardown;
+  c->resize = demo_context_resize;
 
   assert(c);
   sls_msg(c, run);
