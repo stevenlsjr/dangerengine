@@ -49,6 +49,7 @@ static const slsMesh sls_mesh_proto = {
   .vbo = 0,
   .ibo = 0,
   .vao = 0,
+  .is_drawing = SLS_FALSE
 };
 
 /*================================
@@ -280,6 +281,8 @@ void sls_mesh_predraw(slsMesh* self, GLuint program, double dt)
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
+  self->is_drawing = SLS_TRUE;
+
 }
 
 void sls_mesh_draw(slsMesh* self, GLuint program, double dt)
@@ -292,4 +295,5 @@ void sls_mesh_postdraw(slsMesh* self, GLuint program, double dt)
 {
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  self->is_drawing = SLS_FALSE;
 }

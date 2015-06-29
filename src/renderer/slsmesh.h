@@ -9,6 +9,7 @@
 
 #include "../data-types/array.h"
 #include "../sls-gl.h"
+#include "../slsutils.h"
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 
@@ -45,9 +46,19 @@ struct slsMesh {
   void(*bind_buffers)(slsMesh *self, GLuint shader_program);
   void(*bind_attributes)(slsMesh *self, GLuint shader_program);
 
-
+  /**
+   * @brief set up buffer objects for drawing
+   */
   void(*pre_draw)(slsMesh *self, GLuint program, double dt);
+
+  /**
+   * @brief calls drawElements routine
+   */
   void(*draw)(slsMesh *self, GLuint program, double dt);
+
+  /**
+   * @brief unbinds buffer objects
+   */
   void(*post_draw)(slsMesh *self, GLuint program, double dt);
   /**
    * @brief vertex array
@@ -63,6 +74,12 @@ struct slsMesh {
 
   GLuint vbo, ibo;
   GLuint vao;
+
+  /**
+  * @brief true if pre_draw has been called
+  * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up yet
+  */
+  slsBool is_drawing;
 
   slsMesh_p *priv;
 
@@ -81,7 +98,6 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
 slsMesh *sls_mesh_create_shape(char const *name);
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
-
 
 #endif //DANGERENGINE_SLS_MESH_H
 
