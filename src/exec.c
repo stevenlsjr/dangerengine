@@ -48,8 +48,22 @@ void demo_context_setup(slsContext* self)
   self->data = calloc(sizeof(demoData), 1);
 
   demoData* data = self->data;
-  char const* vs_path = "resources/shaders/default.vert";
-  char const* fs_path = "resources/shaders/default.frag";
+  char const* fs_path;
+
+  char const* vs_path;
+
+  int major, minor;
+  glGetIntegerv(GL_MAJOR_VERSION, &major);
+  glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+  if (major < 3 || (major == 3 && minor < 2)) {
+    vs_path = "resources/shaders/default-legacy.vert";
+    fs_path = "resources/shaders/default-legacy.frag";
+  } else {
+    vs_path = "resources/shaders/default.vert";
+    fs_path = "resources/shaders/default.frag";
+  }
+
 
   data->program = sls_create_program(vs_path, fs_path);
   data->mesh = sls_mesh_create_shape("square");
