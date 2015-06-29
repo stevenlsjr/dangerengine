@@ -20,7 +20,7 @@ void sls_bind_context(slsContext *ctx)
 {
   sls_unbind_context();
 
-  glfwSetErrorCallback(sls_error_cback);
+  // window callbacks
   glfwSetWindowSizeCallback(ctx->window, sls_window_resize);
 
   sls_active_context = ctx;
@@ -53,6 +53,9 @@ bool sls_init(void)
 
   sls_active_flag = SLS_TRUE;
 
+
+  // set error callback
+  glfwSetErrorCallback(sls_error_cback);
   atexit(sls_terminate);
 
   return true;
@@ -72,7 +75,7 @@ void sls_terminate(void)
 
 void sls_error_cback(int i, char const *string)
 {
-
+  sls_log_err("glfw error: %s", string);
 }
 
 bool sls_is_active(void)

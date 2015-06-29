@@ -7,31 +7,16 @@ layout (location=3) in vec4 color;
 
 uniform mat4 model_view;
 uniform mat4 normal_mat;
+uniform mat4 projection;
 
 uniform float time;
-
-const mat4 projection = mat4(
-  vec4(0.5, 0.0, 0.0, 0.0),
-  vec4(0.0, 0.5, 0.0, 0.0),
-  vec4(0.0, 0.0, 0.5, 0.0),
-  vec4(0.0, 0.0, 0.0, 1.0)
-);
 
 out vec4 frag_color;
 out vec2 frag_uv;
 
 void main()
 {
-
-  float timeB = -time;
-
-    mat4 rot = mat4(
-      vec4(cos(timeB), -sin(timeB), 0.0, 0.0),
-      vec4(sin(timeB),  cos(timeB), 0.0, 0.0),
-      vec4(0.0,       0.0,        1.0, 0.0),
-      vec4(0.0,       0.0,        0.0, 1.0)
-    );
   frag_color = color;
   frag_uv = uv;
-  gl_Position = vec4(position, 1.0f) * rot * projection ;
+  gl_Position = projection * model_view * vec4(position, 1.0f);
 }

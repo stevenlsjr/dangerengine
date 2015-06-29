@@ -9,6 +9,9 @@
 
 #include "../data-types/array.h"
 #include "../sls-gl.h"
+#include "../slsutils.h"
+#include <kazmath/kazmath.h>
+#include <kazmath/vec4.h>
 
 typedef struct slsMesh slsMesh;
 typedef struct slsMesh_p slsMesh_p;
@@ -24,6 +27,12 @@ struct slsVertex {
   float color[4];
 };
 
+
+slsVertex sls_vertex_make(kmVec3 position,
+                          kmVec3 normal,
+                          kmVec2 uv,
+                          kmVec4 color);
+
 struct slsMesh {
   slsMesh *(*init)(slsMesh *self,
                    slsVertex const *vertices,
@@ -34,7 +43,23 @@ struct slsMesh {
   void (*dtor)(slsMesh *self);
   void (*bind)(slsMesh *self, GLuint shader_program);
 
+  void(*bind_buffers)(slsMesh *self, GLuint shader_program);
+  void(*bind_attributes)(slsMesh *self, GLuint shader_program);
 
+  /**
+   * @brief set up buffer objects for drawing
+   */
+  void(*pre_draw)(slsMesh *self, GLuint program, double dt);
+
+  /**
+   * @brief calls drawElements routine
+   */
+  void(*draw)(slsMesh *self, GLuint program, double dt);
+
+  /**
+   * @brief unbinds buffer objects
+   */
+  void(*post_draw)(slsMesh *self, GLuint program, double dt);
   /**
    * @brief vertex array
    * @details TYPE slsVertex
@@ -50,8 +75,13 @@ struct slsMesh {
   GLuint vbo, ibo;
   GLuint vao;
 
-  slsMesh_p *priv;
+  /**
+  * @brief true if pre_draw has been called
+  * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up yet
+  */
+  slsBool is_drawing;
 
+  slsMesh_p *priv;
 
   void *data;
 };
@@ -65,6 +95,9 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
 
 
 
+slsMesh *sls_mesh_create_shape(char const *name);
+
+void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
 
 #endif //DANGERENGINE_SLS_MESH_H
 

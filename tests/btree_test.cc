@@ -56,7 +56,7 @@ protected:
 
 TEST_F(BTreeTest, TreeExists)
 {
-  EXPECT_NE(nullptr, tree) << "this->tree should not be nullptr";
+  EXPECT_TRUE(tree) << "this->tree should not be nullptr";
 }
 
 TEST_F(BTreeTest, MakeNode)
@@ -64,7 +64,7 @@ TEST_F(BTreeTest, MakeNode)
   int i = 10;
   auto node = (slsBNode *) nullptr;
   node = sls_bnode_new(tree, (void const *) &i, nullptr, nullptr);
-  EXPECT_NE(nullptr, node);
+  EXPECT_TRUE(node);
   sls_bnode_destroy(node);
 }
 

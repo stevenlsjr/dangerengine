@@ -25,6 +25,7 @@ extern "C" {
 
 #include "renderer/shaderutils.h"
 #include "renderer/slsmesh.h"
+#include "renderer/slsmesh.h"
 
 #ifdef __cplusplus
 }

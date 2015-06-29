@@ -5,11 +5,14 @@
 #include <gtest/gtest.h>
 #include "c_cases.h"
 
+#if 0
 TEST(MINUNIT, RunCTests)
 {
-auto const minunit_res = c_run_all_tests();
+  auto const minunit_res = c_run_all_tests();
 
-EXPECT_EQ(0, minunit_res) << "Test failed with message: " << minunit_res << "\n";
+  EXPECT_EQ(0, minunit_res) << "Test failed with message: " << minunit_res << "\n";
 
-RecordProperty("Minunit tests run", tests_run);
+  RecordProperty("Minunit tests run", tests_run);
 }
+
+#endif
