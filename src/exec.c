@@ -23,6 +23,13 @@ static inline void setup()
 typedef struct demoData {
   GLuint program;
   slsMesh *mesh;
+
+  struct {
+    GLint time_;
+    GLint projection;
+    GLint model_view;
+    GLint normal_mat;
+  } uniforms;
 } demoData;
 
 void demo_context_setup(slsContext *self)
@@ -41,7 +48,38 @@ void demo_context_setup(slsContext *self)
 
   sls_msg(data->mesh, bind, data->program);
 
+  glUseProgram(data->program);
 
+  data->uniforms.time_ = glGetUniformLocation(data->program, "time");
+  data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
+  data->uniforms.projection = glGetUniformLocation(data->program, "projection");
+  data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
+
+
+
+  // setup projection matrix
+  kmMat4 projection = {};
+  kmMat4OrthographicProjection(&projection,
+                               -2.0, 2.0,
+                               -2.0, 2.0,
+                               -10.0, 10.0);
+
+  glUniformMatrix4fv(data->uniforms.projection,
+                     16, GL_FALSE,
+                     projection.mat);
+
+
+  GLenum type;
+  GLint u_size;
+  glGetActiveUniform(data->program,
+                     data->uniforms.projection,
+                     0,
+                     NULL,
+                     &u_size,
+                     &type,
+                     NULL);
+
+  sls_log_info("type %s", type == GL_FLOAT_MAT4? "GL_FLOAT_MAT4" : "unknown type");
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
@@ -70,7 +108,6 @@ void demo_context_display(slsContext *self, double dt)
   _sls_mesh_roughdraw(data->mesh, data->program);
 
   glfwSwapBuffers(self->window);
-
 
 
 }
