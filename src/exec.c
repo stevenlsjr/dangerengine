@@ -41,9 +41,7 @@ void demo_context_setup(slsContext *self)
     (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
     (slsVertex){.position={-1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 1.0}, .color={0.0, 1.0, 1.0, 1.0}},
     (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0,  -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 0.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
-    (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
+    (slsVertex){.position={ 1.0,  -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 0.0}, .color={1.0, 0.0, 1.0, 1.0}}
   };
 
   sls_log_info("%lu", sizeof(verts));
@@ -81,8 +79,7 @@ void demo_context_display(slsContext *self, double dt)
   glBindVertexArray(data->mesh->vao);
 
 
-  glDrawArrays(GL_TRIANGLES, 0, 6);
-  //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+  glDrawElements(GL_TRIANGLES, 4, GL_UNSIGNED_INT, NULL);
   glBindVertexArray(0);
 
   glfwSwapBuffers(self->window);
