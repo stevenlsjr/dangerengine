@@ -20,10 +20,17 @@ void sls_mesh_dtor(slsMesh *self);
 
 void sls_mesh_bind(slsMesh *self, GLuint shader_program);
 
-
 void _sls_mesh_binddata(slsMesh *self, GLuint program);
 
 void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
+
+
+void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
+void sls_mesh_draw(slsMesh *self, GLuint program, double dt);
+void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
+
+
+
 
 struct slsMesh_p {
   int placeholder;
@@ -34,6 +41,11 @@ static const slsMesh sls_mesh_proto = {
   .init = sls_mesh_init,
   .dtor = sls_mesh_dtor,
   .bind = sls_mesh_bind,
+  .bind_buffers=_sls_mesh_binddata,
+  .bind_attributes=_sls_mesh_bindattrs,
+  .pre_draw=sls_mesh_predraw,
+  .draw=sls_mesh_draw,
+  .post_draw= sls_mesh_postdraw,
   .vbo = 0,
   .ibo = 0,
   .vao = 0,
@@ -251,21 +263,33 @@ slsMesh *sls_mesh_create_shape(char const *name)
 
 }
 
-void _sls_mesh_roughdraw(slsMesh* self, GLuint program)
+void _sls_mesh_roughdraw(slsMesh* self, GLuint program, double dt)
 {
 
+  sls_msg(self, pre_draw, program, dt);
+  sls_msg(self, draw, program, dt);
+  sls_msg(self, post_draw, program, dt);
+
+}
+
+void sls_mesh_predraw(slsMesh* self, GLuint program, double dt)
+{
   glUseProgram(program);
   // setup vert position pointer
 
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
+}
+
+void sls_mesh_draw(slsMesh* self, GLuint program, double dt)
+{
   size_t elements = sls_msg(self->indices, length);
-
-
   glDrawElements(GL_TRIANGLES, elements, GL_UNSIGNED_INT, (GLvoid*)NULL);
+}
 
+void sls_mesh_postdraw(slsMesh* self, GLuint program, double dt)
+{
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
 }
