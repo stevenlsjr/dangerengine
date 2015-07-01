@@ -33,12 +33,19 @@ find_package(Doxygen)
 if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
+  # add_subdirectory(extern/libdevil)
 
   set(DANGER_DEPS
     ${DANGER_DEPS}
+    # glfw
     glfw
     ${GLFW_LIBRARIES}
+    # devIL
+    # il
+    # ilu
+    # ilut
     ${OPENGL_gl_LIBRARY})
+
 
   if (GLEW_FOUND)
     set (DANGER_DEPS
@@ -49,6 +56,8 @@ if (NOT EMSCRIPTEN)
       ${GLFW_SOURCE_DIR}/include
       ${OPENGL_INCLUDE_DIR})
   endif(GLEW_FOUND)
+
+
 
 else (NOT EMSCRIPTEN) # if emscripten
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3")

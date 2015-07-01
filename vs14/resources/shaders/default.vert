@@ -11,11 +11,6 @@ uniform mat4 projection;
 
 uniform float time;
 
-<<<<<<< HEAD
-=======
-uniform mat4 projection;
-
->>>>>>> 8ffdb773d1fdacb03adef3e0c5effb0f32a74c99
 out vec4 frag_color;
 out vec2 frag_uv;
 
@@ -23,9 +18,5 @@ void main()
 {
   frag_color = color;
   frag_uv = uv;
-<<<<<<< HEAD
-  gl_Position =  projection * rot * vec4(position, 1.0f) ;
-=======
-  gl_Position = projection * vec4(position, 1.0f);
->>>>>>> 8ffdb773d1fdacb03adef3e0c5effb0f32a74c99
+  gl_Position = projection * model_view * vec4(position, 1.0f);
 }
