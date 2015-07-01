@@ -10,3 +10,6 @@
 [submodule "extern/kazmath"]
 	path = extern/kazmath
 	url = https://github.com/Kazade/kazmath.git
+[submodule "extern/libdevil"]
+	path = extern/libdevil
+	url = https://github.com/LuaDist/libdevil
