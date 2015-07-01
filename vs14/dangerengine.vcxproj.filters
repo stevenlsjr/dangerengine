@@ -31,6 +31,9 @@
     <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slstexture.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\dangerengine.h">
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\shaderutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\steve\Source\Repos\dangerengine\src\renderer\slstexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

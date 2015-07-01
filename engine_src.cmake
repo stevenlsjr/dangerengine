@@ -21,5 +21,7 @@ set (DANGER_SRC
   src/renderer/slsmodel.c
   src/renderer/slsmodel.h
   src/renderer/shaderutils.c
-  src/renderer/shaderutils.h)
+  src/renderer/shaderutils.h
+  src/renderer/slstexture.c
+  src/renderer/slstexture.h)
 

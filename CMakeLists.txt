@@ -29,23 +29,23 @@ set(DANGER_DEPS kazmath)
 find_package(OpenGL)
 find_package(GLEW)
 find_package(Doxygen)
+find_package(DevIL)
 
 if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
-  # add_subdirectory(extern/libdevil)
 
   set(DANGER_DEPS
     ${DANGER_DEPS}
     # glfw
     glfw
     ${GLFW_LIBRARIES}
-    # devIL
-    # il
-    # ilu
-    # ilut
+    ${DEVIL_LIBRARIES}
     ${OPENGL_gl_LIBRARY})
 
+
+  include_directories(
+    ${IL_INCLUDE_DIR})
 
   if (GLEW_FOUND)
     set (DANGER_DEPS

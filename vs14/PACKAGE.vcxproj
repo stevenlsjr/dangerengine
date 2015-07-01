@@ -65,7 +65,7 @@
     </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -91,7 +91,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -117,7 +117,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -143,7 +143,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

@@ -19,32 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{58F1044D-91BB-4AF9-9559-CCD587B3B0D9}</ProjectGUID>
+    <ProjectGUID>{3CD63687-7951-4324-B72A-1D2312229F9A}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
-    <ProjectName>dangerbird_bin</ProjectName>
+    <ProjectName>ALL_BUILD</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
@@ -58,53 +58,12 @@
   <PropertyGroup Label="UserMacros" />
     <PropertyGroup>
       <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\steve\Source\Repos\dangerengine\vs14\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dangerbird_bin.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dangerbird_bin</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\steve\Source\Repos\dangerengine\vs14\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dangerbird_bin.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dangerbird_bin</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\steve\Source\Repos\dangerengine\vs14\MinSizeRel\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dangerbird_bin.dir\MinSizeRel\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dangerbird_bin</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\steve\Source\Repos\dangerengine\vs14\RelWithDebInfo\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dangerbird_bin.dir\RelWithDebInfo\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dangerbird_bin</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <AdditionalOptions> -std=gnu11 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <CompileAs>CompileAsC</CompileAs>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <Optimization>Disabled</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
     <Midl>
       <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -113,42 +72,8 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Debug\dangerengine.lib;extern\kazmath\kazmath\Debug\kazmath.lib;extern\glfw\src\Debug\glfw3.lib;opengl32.lib;opengl32.lib;glew-1.12.0\lib\Release\x64\glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/steve/Source/Repos/dangerengine/vs14/Debug/dangerbird_bin.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/steve/Source/Repos/dangerengine/vs14/Debug/dangerbird_bin.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-      <Version></Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <AdditionalOptions> -std=gnu11 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Release/</AssemblerListingLocation>
-      <CompileAs>CompileAsC</CompileAs>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
     <Midl>
       <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -157,42 +82,8 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;Release\dangerengine.lib;extern\kazmath\kazmath\Release\kazmath.lib;extern\glfw\src\Release\glfw3.lib;opengl32.lib;opengl32.lib;glew-1.12.0\lib\Release\x64\glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/steve/Source/Repos/dangerengine/vs14/Release/dangerbird_bin.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/steve/Source/Repos/dangerengine/vs14/Release/dangerbird_bin.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-      <Version></Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
-    <ClCompile>
-      <AdditionalOptions> -std=gnu11 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
-      <CompileAs>CompileAsC</CompileAs>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MinSpace</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
     <Midl>
       <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -201,42 +92,8 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;MinSizeRel\dangerengine.lib;extern\kazmath\kazmath\MinSizeRel\kazmath.lib;extern\glfw\src\MinSizeRel\glfw3.lib;opengl32.lib;opengl32.lib;glew-1.12.0\lib\Release\x64\glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/steve/Source/Repos/dangerengine/vs14/MinSizeRel/dangerbird_bin.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/steve/Source/Repos/dangerengine/vs14/MinSizeRel/dangerbird_bin.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-      <Version></Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
-    <ClCompile>
-      <AdditionalOptions> -std=gnu11 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
-      <CompileAs>CompileAsC</CompileAs>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>
-      </ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
     <Midl>
       <AdditionalIncludeDirectories>C:\Users\steve\Source\Repos\dangerengine\vs14\devIL\include;C:\Users\steve\Source\Repos\dangerengine\vs14\glew-1.12.0\include;C:\Users\steve\Source\Repos\dangerengine\extern\glfw\include;C:\Users\steve\Source\Repos\dangerengine\extern\kazmath;C:\Users\steve\Source\Repos\dangerengine\extern\googlemock\include;C:\Users\steve\Source\Repos\dangerengine\extern\gtest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -245,20 +102,6 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;RelWithDebInfo\dangerengine.lib;extern\kazmath\kazmath\RelWithDebInfo\kazmath.lib;extern\glfw\src\RelWithDebInfo\glfw3.lib;opengl32.lib;opengl32.lib;glew-1.12.0\lib\Release\x64\glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/steve/Source/Repos/dangerengine/vs14/RelWithDebInfo/dangerbird_bin.lib</ImportLibrary>
-      <ProgramDataBaseFile>C:/Users/steve/Source/Repos/dangerengine/vs14/RelWithDebInfo/dangerbird_bin.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-      <Version></Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\steve\Source\Repos\dangerengine\CMakeLists.txt">
@@ -317,17 +160,37 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\steve\Source\Repos\dangerengine\src\exec.c"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/ZERO_CHECK.vcxproj">
       <Project>6AA8CF62-58EC-443A-B874-A168169FFFFC</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/dangerbird_bin.vcxproj">
+      <Project>58F1044D-91BB-4AF9-9559-CCD587B3B0D9</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/dangerbird_c_tests.vcxproj">
+      <Project>FF308A2E-F9FB-4303-B8F4-021D944E576D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/dangerbird_test.vcxproj">
+      <Project>D72770B6-80AC-41D7-8E2F-26440BB92F71</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/dangerengine.vcxproj">
       <Project>A71F531D-96FF-43C7-9031-BC4516E2D5D2</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/glfw/src/glfw.vcxproj">
       <Project>A129E692-93C2-4C52-810F-269E815BEC54</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/googlemock/gmock.vcxproj">
+      <Project>D36E3834-04CC-4960-B673-C1170CB031D5</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/googlemock/gmock_main.vcxproj">
+      <Project>F97C5F34-DEB2-4D03-980B-2E0BD9054BD4</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/googlemock/gtest/gtest.vcxproj">
+      <Project>B6D20854-D2C7-4CB4-98AA-081D5A742DF7</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/googlemock/gtest/gtest_main.vcxproj">
+      <Project>23C11D8F-A1E9-4FF1-AD41-A4147E2D8414</Project>
     </ProjectReference>
     <ProjectReference Include="C:/Users/steve/Source/Repos/dangerengine/vs14/extern/kazmath/kazmath/kazmath.vcxproj">
       <Project>1DD06AAC-7E60-40E3-BF4C-E5F9BE4FEB44</Project>

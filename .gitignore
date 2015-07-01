@@ -303,3 +303,6 @@ install_manifest.txt
 
 # bower files in resource folder
 resources/bower/
+
+vs14/devIL/
+vs14/glew-1.12.0/
