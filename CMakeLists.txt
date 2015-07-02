@@ -5,6 +5,8 @@ project(dangerengine)
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_BINARY_DIR}/resources)
 
+
+
 file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}
   resources/*
   resources/**/*
@@ -34,9 +36,14 @@ if (NOT EMSCRIPTEN)
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
 
+  find_package(DevIL)
+
+
   set(DANGER_DEPS
     ${DANGER_DEPS}
     glfw
+    ${IL_LIBRARIES}
+    ${ILU_LIBRARIES}
     ${GLFW_LIBRARIES}
     ${OPENGL_gl_LIBRARY})
 
@@ -74,6 +81,17 @@ include_directories(
 add_library(dangerengine ${DANGER_SRC} ${DANGER_RES})
 target_link_libraries(dangerengine
     ${DANGER_DEPS})
+
+# copy resources on build
+
+add_custom_command(
+  TARGET dangerengine PRE_BUILD
+  COMMAND
+    ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources &&
+    ${CMAKE_COMMAND} -E cmake_echo_color --green
+        "--    copying resources/ to ${CMAKE_BINARY_DIR}"
+  COMMENT "")
 
 
 add_executable(dangerbird_bin 

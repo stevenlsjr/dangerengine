@@ -6,6 +6,9 @@
 #include "slsutils.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <IL/il.h>
+#include <IL/ilu.h>
+#include <IL/ilut.h>
 
 static slsBool sls_active_flag = SLS_FALSE;
 slsContext *sls_active_context = NULL;
@@ -49,7 +52,15 @@ void sls_window_resize(GLFWwindow *win, int x, int y)
 bool sls_init(void)
 {
   sls_check(!sls_active_flag, "runtime is already active!");
+
+  // setup glfw
   sls_check(glfwInit(), "glfw Init failed");
+
+  // setup devIL
+  ilInit();
+  //iluInit();
+  //ilutInit();
+  //
 
   sls_active_flag = SLS_TRUE;
 
@@ -69,8 +80,9 @@ void sls_terminate(void)
     return;
   }
 
+
   glfwTerminate();
-  sls_active_flag = false;
+  sls_active_flag = SLS_FALSE;
 }
 
 void sls_error_cback(int i, char const *string)

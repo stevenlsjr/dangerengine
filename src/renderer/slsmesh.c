@@ -25,12 +25,11 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program);
 void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
 
 
-
 void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
+
 void sls_mesh_draw(slsMesh *self, GLuint program, double dt);
+
 void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
-
-
 
 
 struct slsMesh_p {
@@ -39,20 +38,20 @@ struct slsMesh_p {
 
 
 static const slsMesh sls_mesh_proto = {
-  .init = sls_mesh_init,
-  .dtor = sls_mesh_dtor,
-  .bind = sls_mesh_bind,
+    .init = sls_mesh_init,
+    .dtor = sls_mesh_dtor,
+    .bind = sls_mesh_bind,
 
-  .bind_buffers=_sls_mesh_binddata,
-  .bind_attributes=_sls_mesh_bindattrs,
-  .pre_draw=sls_mesh_predraw,
+    .bind_buffers=_sls_mesh_binddata,
+    .bind_attributes=_sls_mesh_bindattrs,
+    .pre_draw=sls_mesh_predraw,
 
-  .draw=sls_mesh_draw,
-  .post_draw= sls_mesh_postdraw,
-  .vbo = 0,
-  .ibo = 0,
-  .vao = 0,
-  .is_drawing = SLS_FALSE
+    .draw=sls_mesh_draw,
+    .post_draw= sls_mesh_postdraw,
+    .vbo = 0,
+    .ibo = 0,
+    .vao = 0,
+    .is_drawing = SLS_FALSE
 };
 
 /*================================
@@ -60,10 +59,9 @@ static const slsMesh sls_mesh_proto = {
  *================================*/
 
 slsVertex sls_vertex_make(kmVec3 position,
-  kmVec3 normal,
-  kmVec2 uv,
-  kmVec4 color)
-{
+                          kmVec3 normal,
+                          kmVec2 uv,
+                          kmVec4 color) {
   slsVertex v;
   v.position[0] = position.x;
   v.position[1] = position.y;
@@ -78,14 +76,13 @@ slsVertex sls_vertex_make(kmVec3 position,
 
   v.color[0] = color.x;
   v.color[1] = color.y;
-  v.color[1] = color.z;
-  v.color[4] = color.w;
+  v.color[2] = color.z;
+  v.color[3] = color.w;
 
   return v;
 }
 
-slsMesh const *sls_mesh_class()
-{
+slsMesh const *sls_mesh_class() {
   slsMesh const *proto = &sls_mesh_proto;
   return proto;
 }
@@ -93,8 +90,7 @@ slsMesh const *sls_mesh_class()
 slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t vert_count,
                       unsigned const *indices,
-                      size_t idx_count)
-{
+                      size_t idx_count) {
   slsMesh *obj = sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
   return obj->init(obj, vertices, vert_count, indices, idx_count);
 }
@@ -103,8 +99,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        slsVertex const *vertices,
                        size_t vert_count,
                        unsigned const *indices,
-                       size_t idx_count)
-{
+                       size_t idx_count) {
   if (!vertices || !indices || !self) { return NULL; }
   self->indices = sls_array_new(indices, sizeof(unsigned), idx_count);
   self->vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
@@ -112,9 +107,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
   self->priv = calloc(sizeof(slsMesh_p), 1);
   sls_checkmem(self->priv);
 
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   glGenVertexArrays(1, &self->vao);
-# endif
 
   glGenBuffers(1, &self->vbo);
   glGenBuffers(1, &self->ibo);
@@ -125,8 +118,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
   return NULL;
 }
 
-void sls_mesh_dtor(slsMesh *self)
-{
+void sls_mesh_dtor(slsMesh *self) {
   if (!self) { return; }
 
   if (self->priv) { free(self->priv); }
@@ -139,18 +131,13 @@ void sls_mesh_dtor(slsMesh *self)
 
   glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
 
-
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   glDeleteVertexArrays(1, &(self->vao));
-# endif
 
   free(self);
 }
 
-void sls_mesh_bind(slsMesh *self, GLuint program)
-{
+void sls_mesh_bind(slsMesh *self, GLuint program) {
   if (!self) { return; }
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   // bind gl objects
   glUseProgram(program);
   glBindVertexArray(self->vao);
@@ -165,36 +152,15 @@ void sls_mesh_bind(slsMesh *self, GLuint program)
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
-# else
-
-  // bind gl objects
-  glUseProgram(program);
-  glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
-
-  _sls_mesh_binddata(self, program);
-
-  _sls_mesh_bindattrs(self, program);
-
-  // unbind
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-# endif
 }
 
 
-
-
-void _sls_mesh_binddata(slsMesh * self, GLuint program)
-{
+void _sls_mesh_binddata(slsMesh *self, GLuint program) {
   if (!self) { return; }
   // bind gl objects
   glUseProgram(program);
 
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   glBindVertexArray(self->vao);
-# endif
 
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
@@ -215,53 +181,48 @@ void _sls_mesh_binddata(slsMesh * self, GLuint program)
   glBufferData(GL_ARRAY_BUFFER, vbo_size, verts, GL_STATIC_DRAW);
 }
 
-void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
-{
+void _sls_mesh_bindattrs(slsMesh *self, GLuint program) {
 
   if (!self) { return; }
 
   glUseProgram(program);
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   glBindVertexArray(self->vao);
-# endif
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
   glVertexAttribPointer(SLS_ATTRIB_POSITION,
-    3,
-    GL_FLOAT, GL_FALSE,
-    sizeof(slsVertex),
-    (GLvoid *)offsetof(slsVertex, position));
+                        3,
+                        GL_FLOAT, GL_FALSE,
+                        sizeof(slsVertex),
+                        (GLvoid *) offsetof(slsVertex, position));
   glEnableVertexAttribArray(SLS_ATTRIB_POSITION);
 
   glVertexAttribPointer(SLS_ATTRIB_NORMAL,
-    3,
-    GL_FLOAT, GL_FALSE,
-    sizeof(slsVertex),
-    (GLvoid *)offsetof(slsVertex, normal));
+                        3,
+                        GL_FLOAT, GL_FALSE,
+                        sizeof(slsVertex),
+                        (GLvoid *) offsetof(slsVertex, normal));
   glEnableVertexAttribArray(SLS_ATTRIB_NORMAL);
 
   glVertexAttribPointer(SLS_ATTRIB_UV,
-    2,
-    GL_FLOAT, GL_FALSE,
-    sizeof(slsVertex),
-    (GLvoid *)offsetof(slsVertex, uv));
+                        2,
+                        GL_FLOAT, GL_FALSE,
+                        sizeof(slsVertex),
+                        (GLvoid *) offsetof(slsVertex, uv));
   glEnableVertexAttribArray(SLS_ATTRIB_UV);
 
 
   glVertexAttribPointer(SLS_ATTRIB_COLOR,
-    4,
-    GL_FLOAT, GL_FALSE,
-    sizeof(slsVertex),
-    (GLvoid *)offsetof(slsVertex, color));
+                        4,
+                        GL_FLOAT, GL_FALSE,
+                        sizeof(slsVertex),
+                        (GLvoid *) offsetof(slsVertex, color));
   glEnableVertexAttribArray(SLS_ATTRIB_COLOR);
 
 }
 
 
-
-slsMesh *sls_mesh_create_shape(char const *name)
-{
+slsMesh *sls_mesh_create_shape(char const *name) {
 
   if (!name) { return NULL; }
 
@@ -278,14 +239,33 @@ slsMesh *sls_mesh_create_shape(char const *name)
   } else if (strncmp(name, sphere, max_count) == 0) {
     sls_log_err("sphere mesh not implemented");
   } else if (strncmp(name, square, max_count) == 0) {
-     slsVertex verts[] = {
-      (slsVertex){.position={-1.0, -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}, .color={1.0, 1.0, 0.0, 1.0}},
-      (slsVertex){.position={-1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={0.0, 1.0}, .color={0.0, 1.0, 1.0, 1.0}},
-      (slsVertex){.position={ 1.0,  1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 1.0}, .color={1.0, 0.0, 1.0, 1.0}},
-      (slsVertex){.position={ 1.0,  -1.0, 0.0}, .normal={0.0, 0.0, 1.0}, .uv={1.0, 0.0}, .color={1.0, 0.0, 1.0, 1.0}}
+    slsVertex verts[] = {
+        (slsVertex) {.position= {-1.0, -1.0, 0.0},
+            .normal={0.0, 0.0, 1.0},
+            .uv= {0.0, 0.0},
+            .color={1.0, 1.0, 1.0, 1.0}},
+        (slsVertex) {.position= {-1.0, 1.0, 0.0},
+            .normal={0.0, 0.0, 1.0},
+            .uv= {0.0, 0.0},
+            .color={1.0, 1.0, 1.0, 1.0}},
+        (slsVertex) {.position= {1.0, 1.0, 0.0},
+            .normal={0.0, 0.0, 1.0},
+            .uv= {0.0, 0.0},
+            .color={1.0, 1.0, 1.0, 1.0}},
+        (slsVertex) {.position= {1.0, -1.0, 0.0},
+            .normal={0.0, 0.0, 1.0},
+            .uv= {0.0, 0.0},
+            .color={1.0, 1.0, 1.0, 1.0}}
     };
 
-    unsigned int idxs[] = { 0, 1, 2, 3, 2, 0 };
+    slsVertex const *v = verts;
+    printf("\n\n");
+    for (int i = 0; i < 4; ++i) {
+      float const *p = v[i].position;
+      printf("%f %f %f\n", p[0], p[1], p[2]);
+    }
+
+    unsigned int idxs[] = {0, 1, 2, 3, 2, 0};
 
     size_t n_verts = sizeof(verts) / sizeof(slsVertex);
     size_t n_idx = sizeof(idxs) / sizeof(unsigned int);
@@ -300,8 +280,7 @@ slsMesh *sls_mesh_create_shape(char const *name)
 
 }
 
-void _sls_mesh_roughdraw(slsMesh* self, GLuint program, double dt)
-{
+void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt) {
 
   sls_msg(self, pre_draw, program, dt);
   sls_msg(self, draw, program, dt);
@@ -309,42 +288,30 @@ void _sls_mesh_roughdraw(slsMesh* self, GLuint program, double dt)
 
 }
 
-void sls_mesh_predraw(slsMesh* self, GLuint program, double dt)
-{
+void sls_mesh_predraw(slsMesh *self, GLuint program, double dt) {
   glUseProgram(program);
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
   self->is_drawing = SLS_TRUE;
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   // setup vert position pointer
 
   glBindVertexArray(self->vao);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-# else
-  // without vao, you must repoint gl attributes
-  glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
-
-  sls_msg(self, bind_attributes, program);
-# endif
 
 }
 
-void sls_mesh_draw(slsMesh* self, GLuint program, double dt)
-{
+void sls_mesh_draw(slsMesh *self, GLuint program, double dt) {
+
   size_t elements = sls_msg(self->indices, length);
-  glDrawElements(GL_TRIANGLES, elements, GL_UNSIGNED_INT, (GLvoid*)NULL);
+  glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
+
 }
 
-void sls_mesh_postdraw(slsMesh* self, GLuint program, double dt)
-{
+void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt) {
   self->is_drawing = SLS_FALSE;
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-
-# ifndef SLS_GLES // gles and webgl don't support vertex array objects
   glBindVertexArray(0);
-# else
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-# endif
 }
+

@@ -13,8 +13,7 @@
 #include "renderer/slsmodel.h"
 #include "time.h"
 
-static inline void setup()
-{
+static inline void setup() {
 #ifdef __EMSCRIPTEN__
   EM_ASM({
     var canvas = document.getElementById('canvas');
@@ -24,14 +23,12 @@ static inline void setup()
 
 };
 
-typedef struct demoData
-{
+typedef struct demoData {
   GLuint program;
-  slsMesh* mesh;
-  slsModel* model;
+  slsMesh *mesh;
+  slsModel *model;
 
-  struct
-  {
+  struct {
     GLint time_;
     GLint projection;
     GLint model_view;
@@ -41,16 +38,14 @@ typedef struct demoData
   kmMat4 model_view;
 } demoData;
 
-void demo_context_setup(slsContext* self)
-{
+void demo_context_setup(slsContext *self) {
   sls_context_class()->setup(self);
 
   self->data = calloc(sizeof(demoData), 1);
 
-  demoData* data = self->data;
-  char const* fs_path;
-
-  char const* vs_path;
+  demoData *data = self->data;
+  char const *fs_path;
+  char const *vs_path;
 
 
 #ifndef SLS_GLES
@@ -94,48 +89,48 @@ void demo_context_setup(slsContext* self)
   glfwGetWindowSize(self->window, &x, &y);
   sls_msg(self, resize, x, y);
 
+
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
+
 error:
   getchar();
   exit(EXIT_FAILURE);
 }
 
-void demo_context_update(slsContext* self, double dt)
-{
-  float t = clock() / (float)CLOCKS_PER_SEC;
+void demo_context_update(slsContext *self, double dt) {
+  float t = clock() / (float) CLOCKS_PER_SEC;
+  demoData *data = self->data;
+
 
   kmMat4 rot, scale;
-  *kmMat4Multiply(&((demoData*)self->data)->model->transform,
-                  kmMat4RotationZ(&rot, t),
-    kmMat4Scaling(&scale, 0.25, 0.25, 1.0));
+  kmMat4Multiply(&data->model->transform,
+                 kmMat4RotationZ(&rot, t),
+                 kmMat4Scaling(&scale, 0.25, 0.25, 1.0));
 
-  demoData* data = self->data;
 }
 
-void demo_context_display(slsContext* self, double dt)
-{
-  demoData* data = self->data;
+void demo_context_display(slsContext *self, double dt) {
+  demoData *data = self->data;
 
   GLint time = glGetUniformLocation(data->program, "time");
 
-  float t = clock() / (float)CLOCKS_PER_SEC;
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+  float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
   kmMat4Identity(&data->model_view);
-  sls_msg(data->model, push_transform, &data->model_view, data->uniforms.model_view);
+  sls_msg(data->model, push_transform, &data->model_view, (GLuint) data->uniforms.model_view);
   sls_msg(data->model, draw, GL_TRIANGLES, dt);
 
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  _sls_mesh_roughdraw(data->mesh, data->program, dt);
 
   glfwSwapBuffers(self->window);
 }
 
-void demo_context_teardown(slsContext* self)
-{
-  demoData* data = self->data;
+void demo_context_teardown(slsContext *self) {
+  demoData *data = self->data;
 
   if (data) {
     if (data->mesh) {
@@ -150,21 +145,19 @@ void demo_context_teardown(slsContext* self)
   }
 }
 
-void demo_context_resize(slsContext* self, int x, int y)
-{
+void demo_context_resize(slsContext *self, int x, int y) {
   sls_context_class()->resize(self, x, y);
-  demoData* data = self->data;
+  demoData *data = self->data;
 
-  float aspect = x / (float)y;
+  float aspect = x / (float) y;
 
   kmMat4 projection;
   kmMat4OrthographicProjection(&projection, -aspect, aspect, -1, 1, -10.0, 10.0);
   glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
 }
 
-int sls_main()
-{
-  slsContext* c = sls_context_new("window", 640, 480);
+int sls_main() {
+  slsContext *c = sls_context_new("window", 640, 480);
 
   c->data = NULL;
 
@@ -183,8 +176,7 @@ int sls_main()
 }
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
   return sls_main();
 }
 

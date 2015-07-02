@@ -20,6 +20,8 @@ set (DANGER_SRC
   src/renderer/slsmesh.h
   src/renderer/slsmodel.c
   src/renderer/slsmodel.h
+  src/renderer/slstexture.c
+  src/renderer/slstexture.h
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h)
 

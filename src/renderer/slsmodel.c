@@ -42,6 +42,8 @@ slsModel* sls_model_init(slsModel* self, slsMesh* mesh, GLuint program, kmMat4 c
 {
   sls_check(self && mesh, "invalid null arguments!! self: %8x mesh: %8x", self, mesh);
 
+
+
   self->mesh = mesh;
   self->program = program;
   if (transform) {
@@ -88,7 +90,7 @@ void sls_model_draw(slsModel* self,
   GLenum draw_type,
   double dt)
 {
-  if (!self || self->mesh) { return; }
+  if (!self || !self->mesh) { return; }
 
   sls_msg(self->mesh, pre_draw, self->program, dt);
   sls_msg(self->mesh, draw, self->program, dt);

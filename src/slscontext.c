@@ -104,7 +104,6 @@ slsContext *sls_context_init(slsContext *self,
     bool res = sls_init();
   }
 
-# ifndef SLS_GLES
   // GLFW hints
   int hints [] = {
     GLFW_DOUBLEBUFFER, GL_TRUE,
@@ -121,9 +120,6 @@ slsContext *sls_context_init(slsContext *self,
     glfwWindowHint(hints[ii], hints[ii+1]);
   }
 
-# endif
-
-  
 
   // create glfw window
   self->window = glfwCreateWindow((int) width, (int) height, caption, NULL, NULL);
