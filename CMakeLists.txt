@@ -95,7 +95,7 @@ add_custom_command(
 
 
 add_executable(dangerbird_bin 
-    src/exec.c)
+    ${DANGER_DEMO_SRC})
 target_link_libraries(dangerbird_bin
     dangerengine
     ${DANGER_DEPS})

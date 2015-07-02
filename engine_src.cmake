@@ -25,3 +25,9 @@ set (DANGER_SRC
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h)
 
+set (DANGER_DEMO_SRC
+  demos/exec.c
+  demos/render_demo.c
+  demos/render_demo.h
+  demos/pong_demo.c
+  demos/pong_demo.h)

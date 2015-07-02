@@ -10,3 +10,4 @@ set (DANGER_TEST_SRC
   tests/render_tests.cc
   tests/image_tests.cc
   tests/array-tests.cc)
+
