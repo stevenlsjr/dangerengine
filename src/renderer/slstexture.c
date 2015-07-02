@@ -13,8 +13,8 @@ GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt) {
   GLenum gl_format, gl_type;
 
 
-  il_format = IL_RGBA;
-  gl_format = GL_RGBA;
+  il_format = IL_RGB;
+  gl_format = GL_RGB;
 
   il_type = IL_UNSIGNED_BYTE;
   gl_type = GL_UNSIGNED_BYTE;

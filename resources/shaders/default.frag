@@ -10,13 +10,12 @@ uniform mat4 model_view;
 uniform mat4 normal_mat;
 uniform mat4 projection;
 
-
 uniform float time;
-
+uniform sampler2D tex_sample;
 
 void main()
 {
-  color = frag_color;
+  color = texture(tex_sample, frag_uv) * frag_color;
 }
 
 

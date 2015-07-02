@@ -25,6 +25,9 @@ static inline void setup() {
 
 typedef struct demoData {
   GLuint program;
+
+  GLuint tex;
+
   slsMesh *mesh;
   slsModel *model;
 
@@ -33,6 +36,7 @@ typedef struct demoData {
     GLint projection;
     GLint model_view;
     GLint normal_mat;
+    GLint tex_sample;
   } uniforms;
 
   kmMat4 model_view;
@@ -68,7 +72,11 @@ void demo_context_setup(slsContext *self) {
 #endif
 
 
+  char const *img_path = "resources/1080.jpeg";
+
   data->program = sls_create_program(vs_path, fs_path);
+  data->tex = sls_gltex_from_file(img_path, -1, -1);
+
   data->mesh = sls_mesh_create_shape("square");
   sls_checkmem(data->mesh);
 
@@ -83,6 +91,8 @@ void demo_context_setup(slsContext *self) {
   data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
   data->uniforms.projection = glGetUniformLocation(data->program, "projection");
   data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
+  data->uniforms.tex_sample = glGetUniformLocation(data->program, "tex_sample");
+
 
 
   int x, y;
@@ -99,14 +109,28 @@ error:
 }
 
 void demo_context_update(slsContext *self, double dt) {
-  float t = clock() / (float) CLOCKS_PER_SEC;
   demoData *data = self->data;
+
+  static float theta = 0.0;
+  const double speed = 70;
+
+  float motion = 0.0;
+  if (glfwGetKey(self->window, GLFW_KEY_LEFT)) {
+    motion += 1;
+  }
+  if (glfwGetKey(self->window, GLFW_KEY_RIGHT)) {
+    motion -= 1;
+  }
+
+  if (motion != 0.0) {
+    theta += motion * speed * dt;
+  }
 
 
   kmMat4 rot, scale;
   kmMat4Multiply(&data->model->transform,
-                 kmMat4RotationZ(&rot, t),
-                 kmMat4Scaling(&scale, 0.25, 0.25, 1.0));
+                 kmMat4RotationZ(&rot, theta),
+                 kmMat4Scaling(&scale, 0.5, .5, 1.0));
 
 }
 
@@ -118,6 +142,9 @@ void demo_context_display(slsContext *self, double dt) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, data->tex);
+
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
@@ -127,6 +154,9 @@ void demo_context_display(slsContext *self, double dt) {
 
 
   glfwSwapBuffers(self->window);
+
+  glBindTexture(GL_TEXTURE_2D, 0);
+
 }
 
 void demo_context_teardown(slsContext *self) {
@@ -140,6 +170,7 @@ void demo_context_teardown(slsContext *self) {
       sls_msg(data->model, dtor);
     }
     glDeleteProgram(data->program);
+    glDeleteTextures(1, &data->tex);
 
     free(data);
   }
