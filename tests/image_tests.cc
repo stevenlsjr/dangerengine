@@ -29,7 +29,9 @@ public:
 
     path = "resources/1080.jpeg";
 
-    glGenTextures(1, tex);
+    glGenTextures(1, &tex);
+
+    //
   }
 
   virtual ~ImageTests() {
@@ -41,6 +43,15 @@ public:
   }
 };
 
+/**
+ * @brief asserts that generated texture
+ * is a valid openGL texture handle
+ */
+TEST_F(ImageTests, ValidTextureInstance) {
+  glBindTexture(GL_TEXTURE_2D, tex);
+  EXPECT_TRUE(glIsTexture(tex));
+  glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 TEST_F(ImageTests, ImageCreation) {
   ILuint img;
@@ -59,3 +70,17 @@ TEST_F(ImageTests, ImageCreation) {
   ilDeleteImage(img);
 }
 
+TEST_F(ImageTests, TexCreation) {
+  // push away gl errors
+  GLenum err;
+  while ((err = glGetError()) != GL_NO_ERROR) {
+    //sls_log_warn("gl error: 0x%x %i", err);
+  }
+  tex = sls_gltex_from_file(path.c_str(), get<0>(size), get<1>(size));
+  glBindTexture(GL_TEXTURE_2D, tex);
+  int width;
+
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+
+}

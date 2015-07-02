@@ -246,15 +246,15 @@ slsMesh *sls_mesh_create_shape(char const *name) {
             .color={1.0, 1.0, 1.0, 1.0}},
         (slsVertex) {.position= {-1.0, 1.0, 0.0},
             .normal={0.0, 0.0, 1.0},
-            .uv= {0.0, 0.0},
+            .uv= {0.0, 1.0},
             .color={1.0, 1.0, 1.0, 1.0}},
         (slsVertex) {.position= {1.0, 1.0, 0.0},
             .normal={0.0, 0.0, 1.0},
-            .uv= {0.0, 0.0},
+            .uv= {1.0, 1.0},
             .color={1.0, 1.0, 1.0, 1.0}},
         (slsVertex) {.position= {1.0, -1.0, 0.0},
             .normal={0.0, 0.0, 1.0},
-            .uv= {0.0, 0.0},
+            .uv= {1.0, 0.0},
             .color={1.0, 1.0, 1.0, 1.0}}
     };
 
