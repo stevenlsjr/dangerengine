@@ -1,6 +1,8 @@
 
 set (DANGER_SRC
   src/dangerengine.h
+
+  # context handling and general utilities
   src/sls-gl.h
   src/slscontext.h
   src/slscontext.c
@@ -8,14 +10,22 @@ set (DANGER_SRC
   src/slsutils.h
   src/contexthandlers.c
   src/contexthandlers.h
+
   src/math/mathmacs.h
   src/math/mathmacs.c
   src/math/math-types.c
   src/math/math-types.h
+
+  #data types
+  src/data-types/callbacks.h
   src/data-types/array.h
   src/data-types/array.c
   src/data-types/btree.h
   src/data-types/btree.c
+  src/data-types/hashtable.c
+  src/data-types/hashtable.h
+
+  #renderer types
   src/renderer/slsmesh.c
   src/renderer/slsmesh.h
   src/renderer/slsmodel.c
@@ -23,7 +33,12 @@ set (DANGER_SRC
   src/renderer/slstexture.c
   src/renderer/slstexture.h
   src/renderer/shaderutils.c
-  src/renderer/shaderutils.h)
+  src/renderer/shaderutils.h
+
+  #resource types
+  src/resource/slsmanager.c
+  src/resource/slsmanager.h
+  )
 
 set (DANGER_DEMO_SRC
   demos/exec.c

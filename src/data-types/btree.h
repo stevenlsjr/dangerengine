@@ -11,28 +11,16 @@ for CMPS 1600, project 2
 
 #include <stdlib.h>
 #include "../slsutils.h"
+#include <sys/rbtree.h>
 
 typedef struct slsBNode slsBNode;
 typedef struct slsBTree slsBTree;
 
-/**
- * @brief function pointer type for copying btree data
- * @details a function pointer taking a const void pointer and
- *
- * @param data pointer to data for copying
- * @return copy of input data
- */
-typedef void *(*slsCopyFn)(void const *data);
+#include "callbacks.h"
 
-/**
- * @brief function pointer type for freeing btree data
- * @details takes a void pointer, to free associated memory
- * and close files
- *
- * @param pointer to data [description]
- * @return [description]
- */
-typedef void (*slsFreeFn)(void *data);
+struct StrNode {
+  RB_ENTRY(StrNode) _entry;
+};
 
 /**
  * @brief enumeration used for determining
@@ -42,6 +30,15 @@ typedef enum slsChildSelector {
   SLS_CHILD_LEFT,
   SLS_CHILD_RIGHT
 } slsChildSelector;
+
+
+/**
+ * @brief Color for red/black tree nodes
+ */
+typedef enum slsNodeColor {
+  SLS_NODE_RED,
+  SLS_NODE_BLACK
+} slsNodeColor;
 
 /**
  * @brief binary tree abstract data type
@@ -62,6 +59,18 @@ struct slsBTree {
    */
   slsFreeFn free_fn;
 
+  /**
+  * callback for copying values
+  * in nodes
+  */
+  slsCopyFn key_copy_fn;
+  /**
+   * callback for freeing values in nodes
+   */
+  slsFreeFn key_free_fn;
+
+  slsCmpFn key_cmp_fn;
+
   slsBNode *head;
 };
 
@@ -70,7 +79,7 @@ struct slsBTree {
  * @details stores a pointer to arbitrary data, whose
  * memory is 'owned' by the binary tree. If the tree is
  * constructed correctly, all memory will be freed when
- * tree is destoryed
+ * tree is destroyed
  */
 struct slsBNode {
   /**
@@ -98,7 +107,10 @@ struct slsBNode {
   /**
    * @brief data stored in node
    */
+  void *key;
   void *val;
+
+  slsNodeColor color;
 };
 
 /**
@@ -111,7 +123,11 @@ struct slsBNode {
  * @param free_fn callback for freeing node values
  * @return [description]
  */
-slsBTree *sls_btree_new(slsCopyFn copy_fn, slsFreeFn free_fn);
+slsBTree *sls_btree_new(slsCopyFn key_copy_fn,
+                        slsFreeFn key_free_fn,
+                        slsCmpFn key_cmp_fn,
+                        slsCopyFn val_copy_fn,
+                        slsFreeFn val_free_fn);
 
 /**
  * @brief destroys a binary tree and
@@ -134,7 +150,9 @@ void sls_btree_destroy(slsBTree *tree);
  * @param right (nullable) pointer to right node
  * @return [description]
  */
-slsBNode *sls_bnode_new(slsBTree *tree, void const *val, slsBNode *left,
+slsBNode *sls_bnode_new(slsBTree *tree,
+                        void const *val,
+                        slsBNode *left,
                         slsBNode *right);
 
 /**
@@ -144,6 +162,9 @@ slsBNode *sls_bnode_new(slsBTree *tree, void const *val, slsBNode *left,
  *
  * @param node [description]
  */
+
+
+
 void sls_bnode_destroy(slsBNode *node);
 
 

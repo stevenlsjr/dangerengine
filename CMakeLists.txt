@@ -17,6 +17,10 @@ file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
+# include libbsd data typeheaders
+include_directories(${CMAKE_SOURCE_DIR}/include/bsd)
+
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")

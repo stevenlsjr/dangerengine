@@ -7,13 +7,14 @@ extern "C" {
 #include <vector>
 #include <algorithm>
 #include "test-utils.h"
+#include "../src/dangerengine.h"
+
 
 /*
 mock callbacks for a binary tree
 storing integers
 */
-int mock_cmp(void const *a, void const *b)
-{
+int mock_cmp(void const *a, void const *b) {
   const int *aa = (const int *) a;
   const int *bb = (const int *) b;
   int answer = 0;
@@ -25,28 +26,24 @@ int mock_cmp(void const *a, void const *b)
   return answer;
 }
 
-void *mock_copy(void const *val)
-{
+void *mock_copy(void const *val) {
   int *ival = new int[1];
   memcpy(ival, val, sizeof(int));
   return ival;
 }
 
-void mock_free(void *val)
-{
+void mock_free(void *val) {
   //printf("freeing node with val %d\n", *((int *) val));
   free(val);
 }
 
-namespace slsTest {
 
 class BTreeTest : public ::testing::Test {
 protected:
   slsBTree *tree = nullptr;
 
-  virtual void SetUp()
-  {
-    tree = sls_btree_new(mock_copy, mock_free);
+  virtual void SetUp() {
+    tree = sls_btree_new(mock_copy, mock_free, NULL, NULL, NULL);
     int i = 10;
     tree->head = sls_bnode_new(tree, (void const *) &i, nullptr, nullptr);
   }
@@ -54,13 +51,11 @@ protected:
   virtual void TearDown() { sls_btree_destroy(tree); }
 };
 
-TEST_F(BTreeTest, TreeExists)
-{
+TEST_F(BTreeTest, TreeExists) {
   EXPECT_TRUE(tree) << "this->tree should not be nullptr";
 }
 
-TEST_F(BTreeTest, MakeNode)
-{
+TEST_F(BTreeTest, MakeNode) {
   int i = 10;
   auto node = (slsBNode *) nullptr;
   node = sls_bnode_new(tree, (void const *) &i, nullptr, nullptr);
@@ -68,17 +63,15 @@ TEST_F(BTreeTest, MakeNode)
   sls_bnode_destroy(node);
 }
 
-TEST_F(BTreeTest, MakeInvalidNode)
-{
-  sls::silence_stderr([&](){
+TEST_F(BTreeTest, MakeInvalidNode) {
+  sls::silence_stderr([&]() {
     auto node = (slsBNode *) nullptr;
     node = sls_bnode_new(nullptr, nullptr, nullptr, nullptr);
     EXPECT_EQ(nullptr, node);
   });
 }
 
-TEST_F(BTreeTest, AddNodeToTree)
-{
+TEST_F(BTreeTest, AddNodeToTree) {
   int i = 10;
   int j = 11;
 
@@ -94,5 +87,12 @@ TEST_F(BTreeTest, AddNodeToTree)
 }
 
 
+class HashTests : public ::testing::Test {
+protected:
+  slsHashtable *table;
+public:
+  HashTests() : Test() {
+  }
 
-}  // slsTest
+  virtual ~HashTests() { }
+};

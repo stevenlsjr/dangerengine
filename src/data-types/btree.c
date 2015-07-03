@@ -10,19 +10,23 @@ for CMPS 1600, project 2
 #include <assert.h>
 
 
-
-slsBTree *sls_btree_new(slsCopyFn copy_fn, slsFreeFn free_fn) {
+slsBTree *sls_btree_new(slsCopyFn key_copy_fn, slsFreeFn key_free_fn, slsCmpFn key_cmp_fn, slsCopyFn val_copy_fn,
+                        slsFreeFn val_free_fn) {
   slsBTree const proto = {
-    .copy_fn=copy_fn,
-    .free_fn=free_fn,
-    .head=NULL
+      .key_copy_fn=key_copy_fn,
+      .key_free_fn=key_free_fn,
+      .key_cmp_fn=key_cmp_fn,
+      .copy_fn=val_copy_fn,
+      .free_fn=val_free_fn,
+      .head=NULL
   };
+
   slsBTree *tree = NULL;
   tree = sls_objalloc(&proto, sizeof(slsBTree));
   sls_checkmem(tree);
 
   return tree;
-error:
+  error:
   return NULL;
 }
 
