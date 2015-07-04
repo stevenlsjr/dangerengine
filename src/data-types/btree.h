@@ -11,16 +11,12 @@ for CMPS 1600, project 2
 
 #include <stdlib.h>
 #include "../slsutils.h"
-#include <sys/rbtree.h>
 
 typedef struct slsBNode slsBNode;
 typedef struct slsBTree slsBTree;
 
 #include "callbacks.h"
 
-struct StrNode {
-  RB_ENTRY(StrNode) _entry;
-};
 
 /**
  * @brief enumeration used for determining

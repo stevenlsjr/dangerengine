@@ -18,7 +18,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
 # include libbsd data typeheaders
-include_directories(${CMAKE_SOURCE_DIR}/include/bsd)
+include_directories(${CMAKE_SOURCE_DIR}/extern/uthash/src)
 
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")

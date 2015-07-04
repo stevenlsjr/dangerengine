@@ -7,24 +7,18 @@
 
 
 #include <stddef.h>
+#include <uthash.h>
 #include "callbacks.h"
 
 typedef struct slsHashtable slsHashtable;
 typedef struct slsTableEntry slsTableEntry;
 
-typedef enum {
-  SLS_ENTRY_EMPTY,
-  SLS_ENTRY_FILLED,
-  /**
-   * @brief there is no active entry, but tells algorithm to continue probing
-   */
-      SLS_ENTRY_SENTILEL
-} slsTableEntryStatus;
 
 struct slsTableEntry {
   void *key;
   void *val;
-  slsTableEntryStatus status;
+
+  UT_hash_handle hh;
 };
 
 struct slsHashtable {
