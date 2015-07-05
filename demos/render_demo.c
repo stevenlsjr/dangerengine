@@ -36,7 +36,10 @@ void demo_context_setup(slsContext *self) {
 #endif
 
 
-  char const *img_path = "resources/1080.jpeg";
+  char const *img_path = "resources/free-textures/151.jpg";
+  char const *norm_path = "resources/free-textures/151.jpg";
+
+  data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
 
   data->program = sls_create_program(vs_path, fs_path);
   data->tex = sls_gltex_from_file(img_path, -1, -1);
@@ -75,7 +78,11 @@ void demo_context_update(slsContext *self, double dt) {
   demoData *data = self->data;
 
   static float theta = 0.0;
+
+
   const double speed = 70;
+
+
 
   float motion = 0.0;
   if (glfwGetKey(self->window, GLFW_KEY_LEFT)) {
@@ -98,6 +105,9 @@ void demo_context_update(slsContext *self, double dt) {
 }
 
 void demo_context_display(slsContext *self, double dt) {
+
+  
+
   demoData *data = self->data;
 
   GLint time = glGetUniformLocation(data->program, "time");
@@ -124,6 +134,7 @@ void demo_context_display(slsContext *self, double dt) {
 
 void demo_context_teardown(slsContext *self) {
   demoData *data = self->data;
+
 
   if (data) {
     if (data->mesh) {

@@ -20,8 +20,6 @@ set (DANGER_SRC
   src/data-types/callbacks.h
   src/data-types/array.h
   src/data-types/array.c
-  src/data-types/btree.h
-  src/data-types/btree.c
   src/data-types/hashtable.c
   src/data-types/hashtable.h
 
@@ -36,8 +34,6 @@ set (DANGER_SRC
   src/renderer/shaderutils.h
 
   #resource types
-  src/resource/slsmanager.c
-  src/resource/slsmanager.h
   )
 
 set (DANGER_DEMO_SRC

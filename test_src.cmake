@@ -4,7 +4,6 @@ set (DANGER_CTEST_SRC
 
 set (DANGER_TEST_SRC
   tests/minunit-runner.cc
-  tests/btree_test.cc
   tests/math_tests.cc
   tests/main.cc
   tests/render_tests.cc

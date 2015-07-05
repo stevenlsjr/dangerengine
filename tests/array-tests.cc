@@ -44,15 +44,15 @@ TEST_F(ArrayTest, GetElem) {
   const size_t invalid_idx = 100;
 
 
-  auto overflow = static_cast<VALUE_TYPE*>(nullptr);
+  VALUE_TYPE const* overflow;
 
   sls::silence_stderr([&](){
-     overflow = static_cast<VALUE_TYPE*>(sls_msg(a, get, invalid_idx));
+     overflow = static_cast<VALUE_TYPE const*>(sls_msg(a, get, invalid_idx));
   });
 
 
   for (auto i=0lu; i<nums.size(); ++i) {
-    auto ptr = static_cast<VALUE_TYPE*>(sls_msg(a, get, i));
+    auto ptr = static_cast<VALUE_TYPE const*>(sls_msg(a, get, i));
 
     EXPECT_NE(nullptr, ptr);
     EXPECT_EQ(nums[i], *ptr);

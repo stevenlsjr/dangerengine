@@ -236,6 +236,7 @@ slsMesh *sls_mesh_create_shape(char const *name) {
 
   if (strncmp(name, cube, max_count) == 0) {
     sls_log_err("cube mesh not implemented");
+
   } else if (strncmp(name, sphere, max_count) == 0) {
     sls_log_err("sphere mesh not implemented");
   } else if (strncmp(name, square, max_count) == 0) {
@@ -259,12 +260,6 @@ slsMesh *sls_mesh_create_shape(char const *name) {
     };
 
     slsVertex const *v = verts;
-    printf("\n\n");
-    for (int i = 0; i < 4; ++i) {
-      float const *p = v[i].position;
-      printf("%f %f %f\n", p[0], p[1], p[2]);
-    }
-
     unsigned int idxs[] = {0, 1, 2, 3, 2, 0};
 
     size_t n_verts = sizeof(verts) / sizeof(slsVertex);

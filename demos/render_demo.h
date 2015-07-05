@@ -15,6 +15,8 @@ typedef struct demoData {
   slsMesh *mesh;
   slsModel *model;
 
+  slsTexture *tex_obj;
+
   struct {
     GLint time_;
     GLint projection;

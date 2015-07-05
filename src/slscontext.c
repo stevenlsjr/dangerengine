@@ -188,6 +188,16 @@ void sls_context_iter(slsContext *self)
   if (!self || !self->priv) {
     return;
   }
+
+  // ensure that windows sets correct size at start of program
+  static slsBool first_resize = SLS_FALSE;
+
+  if (!first_resize) {
+    int width, height;
+    glfwGetFramebufferSize(self->window, &width, &height);
+    sls_msg(self, resize, width, height);
+  }
+
   clock_t now = clock();
   slsContext_p *priv = self->priv;
   priv->dt_acc += now - priv->last;
@@ -195,6 +205,7 @@ void sls_context_iter(slsContext *self)
 
 
   if (priv->dt_acc > self->interval) {
+
     double dt = priv->dt_acc / (double) CLOCKS_PER_SEC;
     priv->dt_acc = 0;
     sls_msg(self, update, dt);
@@ -219,6 +230,9 @@ void sls_context_update(slsContext *self, double dt) {
 
 void sls_context_display(slsContext *self, double dt)
 {
+
+
+
   if (!self || !self->priv) { return; }
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

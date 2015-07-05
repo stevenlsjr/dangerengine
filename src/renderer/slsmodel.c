@@ -40,7 +40,9 @@ slsModel* sls_model_new(slsMesh* mesh,
 
 slsModel* sls_model_init(slsModel* self, slsMesh* mesh, GLuint program, kmMat4 const* transform)
 {
-  sls_check(self && mesh, "invalid null arguments!! self: %8x mesh: %8x", self, mesh);
+  sls_check(self && mesh, 
+            "invalid null arguments!! self: %lx mesh: %lx", 
+            (size_t)self, (size_t)mesh);
 
 
 

@@ -12,16 +12,60 @@
 
 typedef struct slsTexture slsTexture;
 typedef struct slsTexture_p slsTexture_p;
+typedef struct slsTexPair slsTexPair;
+
+struct slsTexPair {
+  GLuint unit;
+  GLuint uniform;
+  slsBool is_active;
+};
 
 struct slsTexture {
-  slsTexture *(*init)(slsTexture *self);
+  /**
+   * @brief initializes a slsTexture object.
+   * @details all parameters (aside from `self`) are optional:
+   * if a path parameter is NULL, the slsTexPair will be marked as
+   * inactivek
+   * 
+   * @param diffuse_path path to diffuse map image
+   * @param specular_path path to specular map image
+   * @param normal_path path to normal map image
+   * @return initilized `self`
+   */
+  slsTexture *(*init)(slsTexture *self, 
+                      char const *diffuse_path,
+                      char const *specular_path,
+                      char const *normal_path);
 
   void (*dtor)(slsTexture *self);
 
-  void (*bind_texture)(GLuint program, GLuint uniform_location);
+  void (*set_program)(slsTexture *self, GLuint program);
 
-  GLuint tex_object;
+  void (*bind)(slsTexture *self);
+
+  GLuint program;
+
+  slsTexPair diffuse;
+  slsTexPair specular;
+  slsTexPair normal;
 };
+
+slsTexture const *sls_texture_class();
+
+/**
+ * @brief allocates and initializes a slsTexture object.
+ * @details all parameters (aside from `self`) are optional:
+ * if a path parameter is NULL, the slsTexPair will be marked as
+ * inactive
+ * 
+ * @param diffuse_path path to diffuse map image
+ * @param specular_path path to specular map image
+ * @param normal_path path to normal map image
+ * @return initilized `self`
+ */
+slsTexture *sls_texture_new(char const *diffuse_path,
+                            char const *specular_path,
+                            char const *normal_path);
 
 /**
  * @brief generates a openGL texture handle from given path.
@@ -37,7 +81,7 @@ GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt);
  * @brief reads through the devIL error stack and reports errors.
  * @detail will abort program if out of memory occurs
  *
- * @returns last error or IL_NO_ERROR if no errors reported
+ * @returns top error or IL_NO_ERROR if no errors reported
  */
 ILenum sls_il_get_errors();
 

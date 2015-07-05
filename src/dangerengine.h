@@ -16,7 +16,6 @@ extern "C" {
 
 #include "contexthandlers.h"
 
-#include "data-types/btree.h"
 #include "data-types/hashtable.h"
 #include "data-types/callbacks.h"
 #include "data-types/array.h"
