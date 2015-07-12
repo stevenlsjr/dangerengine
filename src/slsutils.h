@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+#include "slserrcode.h"
 
 
 #ifdef WIN32
@@ -83,14 +84,24 @@
 } while (0)
 
 
-#define sls_check(cond, msg, ...) do { \
+#define sls_check(cond, msg,  ...) do { \
     if (!(cond)) { \
-        sls_log_err(msg, ##__VA_ARGS__);    \
+        sls_log_err((msg), ##__VA_ARGS__);    \
         goto error;                         \
     }   \
 } while (0)
 
-#define sls_checkmem(pointer) sls_check((pointer), "memory error! %s", #pointer)
+#define sls_check_code(cond, code, msg, ...) do  {\
+  if (!(cond)) {                                  \
+    sls_log_err((msg), ##__VA_ARGS__);            \
+    sls_push_error((slsError)(code));             \
+    goto error;                                   \
+  }                                               \
+} while (0)
+
+#define sls_checkmem(pointer) do {  \
+  sls_check_code((pointer), SLS_MALLOC_ERR, "memory error! %s", #pointer); \
+} while (0)
 
 #define sls_fail() sls_check(0, "reached fail location %s %d", __FILE__, __LINE__);
 

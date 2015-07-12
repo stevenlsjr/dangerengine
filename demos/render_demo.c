@@ -58,8 +58,9 @@ void demo_context_setup(slsContext *self) {
   data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
   data->uniforms.projection = glGetUniformLocation(data->program, "projection");
   data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
-  data->uniforms.tex_sample = glGetUniformLocation(data->program, "tex_sample");
+  data->uniforms.tex_sample = glGetUniformLocation(data->program, "diffuse_map");
 
+  sls_msg(data->tex_obj, set_program, data->program);
 
   int x, y;
   glfwGetWindowSize(self->window, &x, &y);

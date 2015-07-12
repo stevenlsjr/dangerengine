@@ -1,0 +1,10 @@
+add_custom_command	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^add_custom_command($/
+add_library	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^add_library(dangerengine ${DANGER_SRC} ${DANGER_RE/
+cmake_minimum_required	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^cmake_minimum_required(VERSION 2.8)$/
+file	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}$/
+if	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")$/
+include_directories	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^    include_directories($/
+target_link_libraries	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^target_link_libraries(dangerbird_bin$/
+F	/Users/Shea/Documents/projects/dangerengine/R	/^A1	.\/extern\/googlemock\/include\/gmock\/gmock-ge/
+glew	/Users/Shea/Documents/projects/dangerengine/README.md	/^* glew (not included)$/
+set	/Users/Shea/Documents/projects/dangerengine/engine_src.cmake	/^set (DANGER_SRC$/

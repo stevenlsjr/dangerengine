@@ -17,7 +17,15 @@ typedef struct slsTexPair slsTexPair;
 struct slsTexPair {
   GLuint unit;
   GLuint uniform;
+  /**
+   * @brief flags the texture's successful load in memory
+   */
   slsBool is_active;
+
+  /**
+   * @brief flags that the texture is bound to a shader uniform
+   */
+  slsBool is_bound;
 };
 
 struct slsTexture {

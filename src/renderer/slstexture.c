@@ -69,6 +69,7 @@ slsTexture *sls_texture_init(slsTexture *self,
        ++i) {
 
     struct tmp_tuple const *tup = tups + i;
+    tup->pair->is_bound = SLS_FALSE;
 
     if (tup->path) {
       tup->pair->unit = sls_gltex_from_file(tup->path, 
@@ -105,9 +106,34 @@ void sls_texture_set_program(slsTexture *self, GLuint program)
   if (!self) {return;}
   sls_check(glIsProgram, "object %ui is not a program handle", program);
 
-  self->diffuse.uniform = glGetUniformLocation(program, "diffuse");
-  self->specular.uniform = glGetUniformLocation(program, "specular");
-  self->normal.uniform = glGetUniformLocation(program, "normal");
+  int diffuse, specular, normal;
+  diffuse = glGetUniformLocation(program, "diffuse_map");
+  specular = glGetUniformLocation(program, "specular_map");
+  normal = glGetUniformLocation(program, "normal_map");
+
+  if (diffuse < 0) {
+    self->diffuse.is_bound = SLS_FALSE;
+  } else {
+    self->diffuse.uniform = diffuse;
+    self->diffuse.is_bound = SLS_FALSE;
+
+  }
+
+  if (specular < 0) {
+    self->specular.is_bound = SLS_FALSE;
+  } else {
+    self->specular.uniform = specular;
+    self->specular.is_bound = SLS_FALSE;
+
+  }
+
+  if (normal < 0) {
+    self->normal.is_bound = SLS_FALSE;
+  } else {
+    self->normal.uniform = normal;
+    self->normal.is_bound = SLS_TRUE;
+
+  }
 
   return;
 error:

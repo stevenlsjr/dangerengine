@@ -10,7 +10,10 @@ uniform mat4 normal_mat;
 uniform mat4 projection;
 
 uniform float time;
-uniform sampler2D tex_sample;
+
+uniform sampler2D diffuse_map;
+uniform sampler2D specular_map;
+uniform sampler2D normal_map;
 
 
 out vec4 frag_color;

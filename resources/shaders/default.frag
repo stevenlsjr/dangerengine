@@ -11,13 +11,13 @@ uniform mat4 normal_mat;
 uniform mat4 projection;
 
 uniform float time;
-uniform sampler2D diffuse;
-uniform sampler2D specular;
-uniform sampler2D normal;
+uniform sampler2D diffuse_map;
+uniform sampler2D specular_map;
+uniform sampler2D normal_map;
 
 void main()
 {
-  color = texture(tex_sample0, frag_uv) * frag_color;
+  color = texture(diffuse_map, frag_uv) * frag_color;
 }
 
 

@@ -171,8 +171,8 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program) {
   assert(sls_msg(self->indices, element_size) == sizeof(unsigned int));
   assert(sls_msg(self->vertices, element_size) == sizeof(slsVertex));
 
-  slsVertex *verts = sls_msg(self->vertices, get, 0);
-  unsigned int *idxs = sls_msg(self->indices, get, 0);
+  slsVertex const *verts = sls_msg(self->vertices, get, 0);
+  unsigned int const *idxs = sls_msg(self->indices, get, 0);
 
   // push index buffer data
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);

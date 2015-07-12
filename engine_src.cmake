@@ -10,6 +10,8 @@ set (DANGER_SRC
   src/slsutils.h
   src/contexthandlers.c
   src/contexthandlers.h
+  src/slserrcode.c
+  src/slserrcode.h
 
   src/math/mathmacs.h
   src/math/mathmacs.c

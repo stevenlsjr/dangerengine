@@ -6,6 +6,7 @@ set (DANGER_TEST_SRC
   tests/minunit-runner.cc
   tests/math_tests.cc
   tests/main.cc
+  tests/utiltests.cc
   tests/render_tests.cc
   tests/image_tests.cc
   tests/array-tests.cc)
