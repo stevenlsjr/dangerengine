@@ -2,6 +2,8 @@
 // Created by Steven on 5/3/15.
 //
 
+
+
 #include "array.h"
 #include "../slsutils.h"
 #include "../math/mathmacs.h"
@@ -16,15 +18,6 @@ slsArray *sls_array_init(slsArray *self,
 
 void sls_array_dtor(slsArray *self);
 
-size_t sls_array_length(slsArray const *self);
-
-size_t sls_array_element_size(slsArray const *self);
-
-
-slsArray *sls_array_copy(slsArray const *self);
-
-
-void const *sls_array_get(slsArray const *self, size_t i);
 
 struct slsArray_p {
   size_t length;
@@ -36,10 +29,6 @@ struct slsArray_p {
 static const slsArray sls_array_proto = {
   .init = sls_array_init,
   .dtor = sls_array_dtor,
-  .length = sls_array_length,
-  .element_size = sls_array_element_size,
-  .copy = sls_array_copy,
-  .get = sls_array_get,
   .priv = NULL
 };
 
@@ -150,4 +139,14 @@ slsArray *sls_array_copy(slsArray const *self)
   return sls_array_new(self->priv->array,
                        self->priv->element_size,
                        self->priv->length);
+}
+
+void sls_array_set(slsArray *self, size_t i, void *value)
+{
+
+}
+
+void sls_array_insert(slsArray *self, size_t i, void *value)
+{
+
 }

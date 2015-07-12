@@ -26,36 +26,6 @@ struct slsArray {
 
   void (*dtor)(slsArray *self);
 
-  size_t (*length)(slsArray const *self);
-
-  size_t (*element_size)(slsArray const *self);
-
-  void const *(*get)(slsArray const *self, size_t i);
-
-  /**
-   * @brief sets the value of a current element
-   * @details [long description]
-   * 
-   * @param t [description]
-   * @param i [description]
-   * @param value [description]
-   * @return [description]
-   */
-  void (*set)(slsArray *self, size_t i, void *value);
-
-  /**
-   * @brief inserts an element, pushing back elements ahead in the array.
-   * @details [long description]
-   * 
-   * @param t [description]
-   * @param i [description]
-   * @param value [description]
-   * @return [description]
-   */
-  void (*insert)(slsArray *self, size_t i, void *value);
-
-  slsArray *(*copy)(slsArray const *self);
-
   slsArray_p *priv;
 };
 
