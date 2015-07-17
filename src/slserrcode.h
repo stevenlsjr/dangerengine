@@ -11,7 +11,8 @@
 
 typedef enum slsError {
   SLS_OK = 0,
-  SLS_MALLOC_ERR
+  SLS_MALLOC_ERR,
+  SLS_INDEX_OVERFLOW
 } slsError;
 
 void sls_push_error(slsError err);

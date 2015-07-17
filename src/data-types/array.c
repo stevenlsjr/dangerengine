@@ -124,7 +124,7 @@ error:
 void const *sls_array_get(slsArray const *self, size_t i)
 {
   if (!self) { return NULL; }
-  sls_check(i <= self->priv->length, "out of index error!");
+  sls_check_code(i <= self->priv->length, SLS_INDEX_OVERFLOW, "out of index error!");
 
   char *ptr = self->priv->array + (i * self->priv->element_size);
 
@@ -144,9 +144,56 @@ slsArray *sls_array_copy(slsArray const *self)
 void sls_array_set(slsArray *self, size_t i, void *value)
 {
 
+  void *ptr = (void*)sls_array_get(self, i);
+  if (!ptr || !value) {return;}
+
+  memcpy(ptr, value, self->priv->element_size);
 }
 
 void sls_array_insert(slsArray *self, size_t i, void *value)
+{
+  if (!self || ! self->priv) { return;}
+  slsArray_p *p = self->priv;
+  size_t len = p->length;
+  size_t newlen = len + 1;
+  size_t newsize = newlen * p->element_size;
+  sls_check_code(i <= len,
+                 SLS_INDEX_OVERFLOW,
+                 "index %lu cannot be appended above %lu", i, len);
+
+  // resize array if necessary
+  if (newsize >= p->alloc_size) {
+    newsize = p->alloc_size * 2;
+    p->array = realloc(p->array, newsize);
+    sls_checkmem(p->array);
+    p->alloc_size = newsize;
+  }
+
+  // now shift bytes determined by offset size
+  size_t items_offset = len - i;
+  if (items_offset > 0) {
+    size_t byteidx = i * p->element_size;
+    char *src = p->array + i * p->element_size; // location which inserted value is offseting
+    char *offset = p->array + (i + 1) * p->element_size; // new location of bytes
+    memmove(offset, src, p->element_size * items_offset);
+  }
+
+  // set value and increment length
+  sls_array_set(self, i, value);
+  ++p->length;
+
+  return;
+error:
+  return;
+}
+
+
+size_t sls_array_alloc_size(slsArray *self)
+{
+  return self->priv->alloc_size;
+}
+
+void sls_array_reserve(slsArray *self, size_t count)
 {
 
 }

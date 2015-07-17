@@ -20,6 +20,7 @@ set (DANGER_SRC
 
   #data types
   src/data-types/callbacks.h
+  src/data-types/callbacks.c
   src/data-types/array.h
   src/data-types/array.c
   src/data-types/hashtable.c

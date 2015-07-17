@@ -35,8 +35,8 @@ protected:
 
 TEST_F(ArrayTest, ArratInit) {
   EXPECT_NE(nullptr, a);
-  EXPECT_EQ(nums.size(), sls_msg(a, length));
-  EXPECT_EQ(sizeof(VALUE_TYPE), sls_msg(a, element_size));
+  EXPECT_EQ(nums.size(), sls_array_length(a));
+  EXPECT_EQ(sizeof(VALUE_TYPE), sls_array_element_size(a));
 }
 
 
@@ -47,12 +47,12 @@ TEST_F(ArrayTest, GetElem) {
   VALUE_TYPE const* overflow;
 
   sls::silence_stderr([&](){
-     overflow = static_cast<VALUE_TYPE const*>(sls_msg(a, get, invalid_idx));
+     overflow = static_cast<VALUE_TYPE const*>(sls_array_get(a, invalid_idx));
   });
 
 
   for (auto i=0lu; i<nums.size(); ++i) {
-    auto ptr = static_cast<VALUE_TYPE const*>(sls_msg(a, get, i));
+    auto ptr = static_cast<VALUE_TYPE const*>(sls_array_get(a, i));
 
     EXPECT_NE(nullptr, ptr);
     EXPECT_EQ(nums[i], *ptr);
@@ -62,11 +62,11 @@ TEST_F(ArrayTest, GetElem) {
 
 TEST_F(ArrayTest, Copy)
 {
-  auto cpy = sls_msg(a, copy);
-  void const *a_ptr = sls_msg(a, get, 0);
-  void const *cpy_ptr = sls_msg(cpy, get, 0);
+  auto cpy = sls_array_copy(a);
+  void const *a_ptr = sls_array_get(a, 0);
+  void const *cpy_ptr = sls_array_get(cpy, 0);
 
-  size_t size = sls_msg(a, element_size) * sls_msg(a, length);
+  size_t size = sls_array_element_size(a) * sls_array_length(a);
 
   EXPECT_NE(cpy, a);
   EXPECT_NE(a_ptr, cpy_ptr);
@@ -76,9 +76,50 @@ TEST_F(ArrayTest, Copy)
 
 TEST_F(ArrayTest, GetMacro)
 {
-  auto idx = 0;
-  for (auto const &i : nums) {
-    EXPECT_EQ(i, SLS_ARRAY_IDX(a, VALUE_TYPE, idx));
-    ++idx;
+  auto len = sls_array_length(a);
+  for (auto i=0; i<len; ++i) {
+    auto item = nums[i];
+    EXPECT_EQ(item, SLS_ARRAY_IDX(a, VALUE_TYPE, i));
   }
+}
+
+
+TEST_F(ArrayTest, Set)
+{
+  auto n = VALUE_TYPE(1000);
+  auto len = sls_array_length(a);
+  for (auto i=0; i<len; ++i) {
+    sls_array_set(a, i, &n);
+    EXPECT_EQ(n, SLS_ARRAY_IDX(a, VALUE_TYPE, i))  << "index " << i;
+  }
+
+}
+
+TEST_F(ArrayTest, Insert)
+{
+  auto val = VALUE_TYPE(-1);
+  nums.emplace(nums.begin(), val);
+  sls_array_insert(a, 0, &val);
+  auto len = sls_array_length(a);
+  EXPECT_EQ(nums.size(), len);
+
+  for (auto i=0; i<len; ++i) {
+    EXPECT_EQ(nums[i], SLS_ARRAY_IDX(a, VALUE_TYPE, i))  << "index " << i;
+  }
+  EXPECT_LE(sls_array_length(a) * sls_array_element_size(a), sls_array_alloc_size(a));
+
+}
+
+TEST_F(ArrayTest, ResizeInsert)
+{
+  auto n = 1000;
+  auto val = VALUE_TYPE(-1);
+  for (auto i=0; i<n; ++i) {
+    auto idx = 0;
+    sls_array_insert(a, idx, &val);
+    EXPECT_EQ(val, SLS_ARRAY_IDX(a, VALUE_TYPE, idx));
+  }
+
+  EXPECT_LE(sls_array_length(a) * sls_array_element_size(a), sls_array_alloc_size(a));
+
 }

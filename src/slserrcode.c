@@ -39,21 +39,30 @@ slsError sls_geterr()
 
 char const *sls_strerr(slsError err)
 {
-  static char const *sls_ok = "SLS_OK, no error";
-  static char const *sls_malloc_err = "SLS_MALLOC_ERR, malloc error";
-  static char const *sls_unknown = "unknown error code";
+  typedef struct err_pair_s {
+    slsError key;
+    char *value;
+  } err_pair_t;
 
+  static const err_pair_t pairs[] = {
+      {SLS_OK, "SLS_OK, no error"},
+      {SLS_MALLOC_ERR, "SLS_MALLOC_ERR, malloc error"},
+      {SLS_INDEX_OVERFLOW, "SLS_INDEX_OVERFLOW, index overflow"}
+  };
 
-  char const *rval = NULL;
-  switch (err) {
-    case SLS_OK:
-      rval = sls_ok;
+  static char *unknown = "unknown error";
+
+  char *rval = NULL;
+  const size_t len = sizeof(pairs)/sizeof(err_pair_t);
+  for (int i=0; i<len; ++i) {
+    if (err == pairs[i].key) {
+      rval = pairs[i].value;
       break;
-    case SLS_MALLOC_ERR:
-      rval = sls_malloc_err;
-      break;
+    }
+  }
 
-    default: rval = sls_unknown;
+  if (!rval) {
+    rval = unknown;
   }
 
 

@@ -25,6 +25,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
+
+#kazmath
 add_subdirectory(extern/kazmath)
 set (KAZMATH_BUILD_TESTS OFF)
 set (KAZMATH_BUILD_JNI_WRAPPER OFF)
@@ -37,6 +39,7 @@ find_package(GLEW)
 find_package(Doxygen)
 
 if (NOT EMSCRIPTEN)
+  #only compile gtest and glfw when not using emscripten
   add_subdirectory(extern/googlemock)
   add_subdirectory(extern/glfw)
 
@@ -82,9 +85,11 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/extern/googlemock/include
     ${CMAKE_SOURCE_DIR}/extern/gtest/include)
 
-add_library(dangerengine ${DANGER_SRC} ${DANGER_RES})
+add_library(dangerengine STATIC ${DANGER_SRC} ${DANGER_RES})
+
 target_link_libraries(dangerengine
     ${DANGER_DEPS})
+
 
 # copy resources on build
 
@@ -97,16 +102,15 @@ add_custom_command(
         "--    copying resources/ to ${CMAKE_BINARY_DIR}"
   COMMENT "")
 
-
 add_executable(dangerbird_bin 
     ${DANGER_DEMO_SRC})
+
 target_link_libraries(dangerbird_bin
     dangerengine
     ${DANGER_DEPS})
 
 
 if (NOT EMSCRIPTEN)
-
     # add a separate library for tests compiled in C. Used for supporting build
     # systems which don't compile C and C++ code separately
     add_library(dangerbird_c_tests ${DANGER_CTEST_SRC})

@@ -165,14 +165,12 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program) {
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  const size_t vbo_size = sls_msg(self->vertices, length) * sls_msg(self->vertices, element_size);
-  const size_t ibo_size = sls_msg(self->indices, length) * sls_msg(self->indices, element_size);
+  const size_t vbo_size = sls_array_length(self->vertices) * sls_array_element_size(self->vertices);
+  const size_t ibo_size = sls_array_length(self->indices) * sls_array_element_size(self->indices);
 
-  assert(sls_msg(self->indices, element_size) == sizeof(unsigned int));
-  assert(sls_msg(self->vertices, element_size) == sizeof(slsVertex));
 
-  slsVertex const *verts = sls_msg(self->vertices, get, 0);
-  unsigned int const *idxs = sls_msg(self->indices, get, 0);
+  slsVertex const *verts = sls_array_get(self->vertices, 0);
+  unsigned int const *idxs = sls_array_get(self->indices, 0);
 
   // push index buffer data
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);
@@ -298,7 +296,7 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt) {
 
 void sls_mesh_draw(slsMesh *self, GLuint program, double dt) {
 
-  size_t elements = sls_msg(self->indices, length);
+  size_t elements = sls_array_length(self->indices);
   glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
 
 }
