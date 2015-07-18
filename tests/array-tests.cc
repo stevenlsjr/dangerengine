@@ -123,3 +123,16 @@ TEST_F(ArrayTest, ResizeInsert)
   EXPECT_LE(sls_array_length(a) * sls_array_element_size(a), sls_array_alloc_size(a));
 
 }
+
+class ListTests : public ::testing::Test {
+
+protected:
+
+public:
+
+  ListTests() : Test() { }
+
+  virtual ~ListTests() { }
+
+
+};

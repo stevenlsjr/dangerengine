@@ -9,7 +9,7 @@
 #include "../slsutils.h"
 
 
-static const size_t const max_string_len = (size_t)500e6; // 500 megabytes!
+static const size_t max_string_len = (size_t) 500e6; // 500 megabytes!
 
 
 void *sls_copy_assign(void const *ptr)
@@ -35,9 +35,6 @@ int sls_cmp_string(void const *a, void const *b)
     sls_log_err("invalid null arguments! %p %p\n", a, b);
     return 0;
   }
-
-
-
 
   return 0;
 }
