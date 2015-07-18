@@ -17,9 +17,10 @@ extern "C" {
 
 #include "contexthandlers.h"
 
-#include "data-types/hashtable.h"
+//#include "data-types/hashtable.h"
 #include "data-types/callbacks.h"
 #include "data-types/array.h"
+#include "data-types/linkedlist.h"
 
 #include "math/mathmacs.h"
 #include "math/math-types.h"

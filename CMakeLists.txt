@@ -81,9 +81,10 @@ include(engine_src.cmake)
 include(test_src.cmake)
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/extern/kazmath
-    ${CMAKE_SOURCE_DIR}/extern/googlemock/include
-    ${CMAKE_SOURCE_DIR}/extern/gtest/include)
+  ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/extern/kazmath
+  ${CMAKE_SOURCE_DIR}/extern/googlemock/include
+  ${CMAKE_SOURCE_DIR}/extern/gtest/include)
 
 add_library(dangerengine STATIC ${DANGER_SRC} ${DANGER_RES})
 
