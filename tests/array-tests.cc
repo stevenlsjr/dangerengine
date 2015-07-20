@@ -127,12 +127,69 @@ TEST_F(ArrayTest, ResizeInsert)
 class ListTests : public ::testing::Test {
 
 protected:
+  slsLinkedList *ls;
+  vector<int> nums;
+
+  void setup_list(){
+    if (!ls) {
+      return;
+    }
+
+    slsListNode *node = nullptr;
+    for (auto &i: nums) {
+      slsListNode *next = sls_list_node_new(&i,
+                                            nullptr,
+                                            nullptr,
+                                            &ls->callbacks);
+      if (!ls->head) {
+        ls->head = next;
+      }
+      node = next;
+    }
+  }
 
 public:
 
-  ListTests() : Test() { }
+  ListTests() : Test(),
+                ls(sls_linked_list_new(NULL)),
+                nums(vector<int>{0, 1, 2, 3, 4}) {
+    setup_list();
+  }
 
-  virtual ~ListTests() { }
-
+  virtual ~ListTests() {
+    if (ls) {
+      free(sls_linked_list_dtor(ls));
+    }
+  }
 
 };
+
+TEST_F(ListTests, ListConstruction)
+{
+  ASSERT_TRUE(ls);
+  ASSERT_TRUE(ls->head);
+
+  auto expect_length = nums.size();
+  auto idx = 0lu;
+
+  for (auto itor = ls->head; itor != nullptr; itor = itor->next) {
+    int *ptr = static_cast<int*>(itor->data);
+    EXPECT_TRUE(ptr);
+
+    if (ptr) {
+      EXPECT_EQ(nums[idx], *ptr);
+    }
+
+    ++idx;
+  }
+
+  // linked list should have same length as nums vector
+  EXPECT_EQ(expect_length, idx + 1);
+
+}
+
+
+TEST_F(ListTests, ListIteration)
+{
+  // create dummy linked list
+}

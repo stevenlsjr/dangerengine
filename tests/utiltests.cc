@@ -22,6 +22,11 @@ public:
       sls_geterr();
     }
   }
+  virtual ~ErrorTests() {
+    while(sls_get_error_count() > 0) {
+      sls_geterr();
+    }
+  }
 
 protected:
 

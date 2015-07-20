@@ -41,20 +41,37 @@ slsLinkedList *sls_linked_list_dtor(slsLinkedList *self)
 
   if (self->head) {
     slsListNode *itor;
-    SLS_LINKEDLIST_FOREACH(self->head, itor) {
+    slsListNode *head = self->head;
+    slsListNode *last = NULL;
+    while(!head->next) {
+      slsListNode *next = sls_list_node_remove_ahead(head);
+      if (last == next) {
+        sls_log_err("linked list %p failed to remove its nodes\n"
+                        "expect memory error", self);
+        break;
+      }
 
     }
+    head->next = NULL;
+    sls_list_node_dtor(head);
+    self->head = NULL;
   }
 
   return self;
 }
 
-slsListNode *sls_list_node_new(void *data, slsListNode *prev, slsListNode *next, slsCallbackTable *callbacks)
+slsListNode *sls_list_node_new(void *data,
+                               slsListNode *prev,
+                               slsListNode *next,
+                               slsCallbackTable *callbacks)
 {
   slsListNode *node = NULL;
   node = calloc(sizeof(slsListNode), 1);
   sls_checkmem(node);
-  return NULL;
+
+  *node = (slsListNode){.data=data, .prev=prev, .next=next, .callbacks=callbacks};
+
+  return node;
 
   error:
   if (node) {
@@ -87,7 +104,15 @@ void sls_list_node_dtor(slsListNode *self)
 
 void sls_list_node_insert_ahead(slsListNode *self, slsListNode *new_node)
 {
+  if (!self || !new_node) {return;}
+  slsListNode *next = self->next;
+  new_node->next = next;
+  self->next = new_node;
+  new_node->prev = self;
 
+  if (next) {
+    next->prev = new_node;
+  }
 }
 
 slsListNode *sls_list_node_remove_ahead(slsListNode *self)
