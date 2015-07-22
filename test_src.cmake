@@ -9,5 +9,6 @@ set (DANGER_TEST_SRC
   tests/utiltests.cc
   tests/render_tests.cc
   tests/image_tests.cc
+  tests/hash-tests.cc
   tests/array-tests.cc)
 

@@ -15,6 +15,9 @@ typedef enum slsError {
   SLS_INDEX_OVERFLOW
 } slsError;
 
+void sls_setup_errstack();
+void sls_teardown_errstack();
+
 void sls_push_error(slsError err);
 slsError sls_geterr();
 char const *sls_strerr(slsError err);

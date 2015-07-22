@@ -25,8 +25,8 @@ set (DANGER_SRC
   src/data-types/array.c
   src/data-types/linkedlist.h
   src/data-types/linkedlist.c
-  #src/data-types/hashtable.c
-  #src/data-types/hashtable.h
+  src/data-types/hashtable.c
+  src/data-types/hashtable.h
 
   #renderer types
   src/renderer/slsmesh.c

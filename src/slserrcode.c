@@ -6,24 +6,29 @@
 #include <stdlib.h>
 #include "slsutils.h"
 
+#include <pthread.h>
+
 #define SLS_ERRSTACK_MAXSIZE 100
 
 static slsError error_stack[SLS_ERRSTACK_MAXSIZE] = {};
 static size_t error_stack_count = 0;
+static pthread_mutex_t err_lock = PTHREAD_MUTEX_INITIALIZER;
+
+
 
 void sls_push_error(slsError err)
 {
   if (error_stack_count > SLS_ERRSTACK_MAXSIZE) {
     sls_log_err("error-code stack overflow!");
-    error_stack_count = 0; // clear stack
+    sls_setup_errstack(); // reset error stack
   }
 
+  pthread_mutex_lock(&err_lock);
   // push code to top of stack
   error_stack[error_stack_count] = err;
 
   ++error_stack_count;
-
-
+  pthread_mutex_unlock(&err_lock);
 
 }
 
@@ -32,8 +37,11 @@ slsError sls_geterr()
   if (error_stack_count < 1) {
     return SLS_OK;
   } else {
+    pthread_mutex_lock(&err_lock);
     --error_stack_count;
-    return error_stack[error_stack_count];
+    slsError res = error_stack[error_stack_count];
+    pthread_mutex_unlock(&err_lock);
+    return res;
   }
 }
 
@@ -72,4 +80,20 @@ char const *sls_strerr(slsError err)
 size_t sls_get_error_count()
 {
   return error_stack_count;
+}
+
+void sls_setup_errstack()
+{
+  pthread_mutex_lock(&err_lock);
+  error_stack_count = 0;
+  pthread_mutex_unlock(&err_lock);
+}
+
+void sls_teardown_errstack()
+{
+  pthread_mutex_lock(&err_lock);
+  error_stack_count = 0;
+  pthread_mutex_unlock(&err_lock);
+
+
 }

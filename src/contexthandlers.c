@@ -67,6 +67,9 @@ bool sls_init(void)
 
   // set error callback
   glfwSetErrorCallback(sls_error_cback);
+
+  sls_setup_errstack();
+
   atexit(sls_terminate);
 
   return true;
@@ -80,6 +83,7 @@ void sls_terminate(void)
     return;
   }
 
+  sls_teardown_errstack();
 
   glfwTerminate();
   sls_active_flag = SLS_FALSE;

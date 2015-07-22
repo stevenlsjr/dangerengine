@@ -144,6 +144,7 @@ protected:
       if (!ls->head) {
         ls->head = next;
       }
+      sls_list_node_insert_ahead(node, next);
       node = next;
     }
   }
@@ -184,12 +185,20 @@ TEST_F(ListTests, ListConstruction)
   }
 
   // linked list should have same length as nums vector
-  EXPECT_EQ(expect_length, idx + 1);
+  EXPECT_EQ(expect_length, idx);
 
 }
 
-
+/**
+ * @brief tests the foreach macro for linked list iteration
+ */
 TEST_F(ListTests, ListIteration)
 {
-  // create dummy linked list
+  auto idx = 0lu;
+  slsListNode *itor = NULL;
+  SLS_LINKEDLIST_FOREACH(ls->head, itor) {
+    int n = *static_cast<int*>(itor->data);
+    EXPECT_EQ(nums[idx], n);
+    ++idx;
+  }
 }

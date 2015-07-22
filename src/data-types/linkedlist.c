@@ -2,8 +2,8 @@
 // Created by Steven on 7/17/15.
 //
 
+#include <assert.h>
 #include "linkedlist.h"
-
 #include "../slsutils.h"
 
 
@@ -117,6 +117,19 @@ void sls_list_node_insert_ahead(slsListNode *self, slsListNode *new_node)
 
 slsListNode *sls_list_node_remove_ahead(slsListNode *self)
 {
-  return NULL;
+  assert(self);
+  slsListNode *removed = self->next;
+  if (removed) {
+    slsListNode *new_next = removed->next;
+    removed->prev = NULL;
+    removed->next = NULL;
+    self->next = new_next;
+    if (new_next) {
+      new_next->prev = self;
+    }
+  }
+
+
+  return removed;
 }
 
