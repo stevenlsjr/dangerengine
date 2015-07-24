@@ -10,5 +10,6 @@ set (DANGER_TEST_SRC
   tests/render_tests.cc
   tests/image_tests.cc
   tests/hash-tests.cc
+  tests/ptrarray-tests.cc
   tests/array-tests.cc)
 

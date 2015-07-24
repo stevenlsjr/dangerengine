@@ -1,8 +1,0 @@
-//
-// Created by Steven on 7/22/15.
-//
-
-#ifndef DANGERENGINE_SLSCAMERA_H
-#define DANGERENGINE_SLSCAMERA_H
-
-#endif //DANGERENGINE_SLSCAMERA_H

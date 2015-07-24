@@ -18,15 +18,12 @@ typedef struct slsMesh_p slsMesh_p;
 
 typedef struct slsVertex slsVertex;
 
-
-
 struct slsVertex {
   float position[3];
   float normal[3];
   float uv[2];
   float color[4];
 };
-
 
 slsVertex sls_vertex_make(kmVec3 position,
                           kmVec3 normal,
@@ -54,7 +51,7 @@ struct slsMesh {
   /**
    * @brief calls drawElements routine
    */
-  void(*draw)(slsMesh *self, GLuint program, double dt);
+  void(*draw)(slsMesh *self, double dt);
 
   /**
    * @brief unbinds buffer objects

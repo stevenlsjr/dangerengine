@@ -5,7 +5,7 @@
 #ifndef DANGERENGINE_SLSSHADER_H
 #define DANGERENGINE_SLSSHADER_H
 
-
+#include <sls-gl.h>
 
 typedef struct slsShader slsShader;
 

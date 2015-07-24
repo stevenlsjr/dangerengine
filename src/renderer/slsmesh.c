@@ -27,7 +27,7 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
 
 void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
 
-void sls_mesh_draw(slsMesh *self, GLuint program, double dt);
+void sls_mesh_draw(slsMesh *self, double dt);
 
 void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
 
@@ -276,7 +276,7 @@ slsMesh *sls_mesh_create_shape(char const *name) {
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt) {
 
   sls_msg(self, pre_draw, program, dt);
-  sls_msg(self, draw, program, dt);
+  sls_msg(self, draw, dt);
   sls_msg(self, post_draw, program, dt);
 
 }
@@ -291,10 +291,10 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt) {
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-
 }
 
-void sls_mesh_draw(slsMesh *self, GLuint program, double dt) {
+void sls_mesh_draw(slsMesh *self, double dt)
+{
 
   size_t elements = sls_array_length(self->indices);
   glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);

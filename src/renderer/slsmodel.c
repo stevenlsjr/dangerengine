@@ -95,7 +95,7 @@ void sls_model_draw(slsModel* self,
   if (!self || !self->mesh) { return; }
 
   sls_msg(self->mesh, pre_draw, self->program, dt);
-  sls_msg(self->mesh, draw, self->program, dt);
+  sls_msg(self->mesh, draw, dt);
   sls_msg(self->mesh, post_draw, self->program, dt);
 
 }

@@ -5,8 +5,42 @@
 #include "render_demo.h"
 #include "../src/dangerengine.h"
 
+void demo_add_model(demoData *data, float x, float y)
+{
+  if (data->n_models >= DEMO_MAX_MODELS) { return; }
+  kmMat4 mat, scale;
+  kmMat4Translation(&mat, x, y, 0);
 
-void demo_context_setup(slsContext *self) {
+  kmMat4Scaling(&scale, 0.25, 0.25, 1.0);
+  kmMat4Multiply(&mat, &mat, &scale);
+
+  slsModel *model = sls_model_new(data->mesh, data->program, &mat);
+  sls_checkmem(model);
+
+  data->models[data->n_models++] = model;
+
+
+  return;
+
+  error:
+  if (model && model->dtor) {
+    sls_msg(model, dtor);
+  }
+
+}
+
+void demo_uniform_locations(demoData *data)
+{
+  assert(data);
+  data->uniforms.time_ = glGetUniformLocation(data->program, "time");
+  data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
+  data->uniforms.projection = glGetUniformLocation(data->program, "projection");
+  data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
+  data->uniforms.tex_sample = glGetUniformLocation(data->program, "diffuse_map");
+}
+
+void demo_context_setup(slsContext *self)
+{
   sls_context_class()->setup(self);
 
   self->data = calloc(sizeof(demoData), 1);
@@ -47,25 +81,21 @@ void demo_context_setup(slsContext *self) {
   data->mesh = sls_mesh_create_shape("square");
   sls_checkmem(data->mesh);
 
-  kmMat4 transform;
-  data->model = sls_model_new(data->mesh, data->program, kmMat4Scaling(&transform, 0.5, 0.5, 1.0));
-
   sls_msg(data->mesh, bind, data->program);
 
   glUseProgram(data->program);
 
-  data->uniforms.time_ = glGetUniformLocation(data->program, "time");
-  data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
-  data->uniforms.projection = glGetUniformLocation(data->program, "projection");
-  data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
-  data->uniforms.tex_sample = glGetUniformLocation(data->program, "diffuse_map");
+  demo_uniform_locations(data);
+
 
   sls_msg(data->tex_obj, set_program, data->program);
+
+  demo_add_model(data, 0.0, 0.0);
+  demo_add_model(data, -1.0, 0.30);
 
   int x, y;
   glfwGetWindowSize(self->window, &x, &y);
   sls_msg(self, resize, x, y);
-
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
@@ -75,39 +105,16 @@ void demo_context_setup(slsContext *self) {
   exit(EXIT_FAILURE);
 }
 
-void demo_context_update(slsContext *self, double dt) {
+void demo_context_update(slsContext *self, double dt)
+{
   demoData *data = self->data;
 
-  static float theta = 0.0;
 
-
-  const double speed = 70;
-
-
-
-  float motion = 0.0;
-  if (glfwGetKey(self->window, GLFW_KEY_LEFT)) {
-    motion += 1;
-  }
-  if (glfwGetKey(self->window, GLFW_KEY_RIGHT)) {
-    motion -= 1;
-  }
-
-  if (motion != 0.0) {
-    theta += motion * speed * dt;
-  }
-
-
-  kmMat4 rot, scale;
-  kmMat4Multiply(&data->model->transform,
-                 kmMat4RotationZ(&rot, theta),
-                 kmMat4Scaling(&scale, 0.5, .5, 1.0));
 
 }
 
 void demo_context_display(slsContext *self, double dt) {
 
-  
 
   demoData *data = self->data;
 
@@ -122,30 +129,46 @@ void demo_context_display(slsContext *self, double dt) {
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
-  kmMat4Identity(&data->model_view);
-  sls_msg(data->model, push_transform, &data->model_view, (GLuint) data->uniforms.model_view);
-  sls_msg(data->model, draw, GL_TRIANGLES, dt);
+  kmMat4 view;
+  kmMat4Identity(&view);
+
+  sls_msg(data->mesh, pre_draw, data->program, dt);
+
+  for (int i = 0; i < data->n_models; ++i) {
+    slsModel *model = data->models[i];
+    if (!model) { continue; }
+
+    kmMat4 model_view;
+    kmMat4Multiply(&model_view, &view, &model->transform);
+
+    glUniformMatrix4fv(data->uniforms.model_view, 1, GL_FALSE, model_view.mat);
+
+    sls_msg(model->mesh, draw, dt);
+  }
+
+  sls_msg(data->mesh, post_draw, data->program, dt);
 
 
   glfwSwapBuffers(self->window);
-
   glBindTexture(GL_TEXTURE_2D, 0);
-
 }
 
 void demo_context_teardown(slsContext *self) {
   demoData *data = self->data;
 
-
   if (data) {
     if (data->mesh) {
       sls_msg(data->mesh, dtor);
     }
-    if (data->model) {
-      sls_msg(data->model, dtor);
-    }
+
     glDeleteProgram(data->program);
     glDeleteTextures(1, &data->tex);
+
+    for (int i = 0; i < data->n_models; ++i) {
+      slsModel *model = data->models[i];
+      if (model) { sls_msg(model, dtor); }
+
+    }
 
     free(data);
   }
