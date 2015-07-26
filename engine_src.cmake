@@ -23,6 +23,8 @@ set (DANGER_SRC
   src/data-types/callbacks.c
   src/data-types/array.h
   src/data-types/array.c
+  src/data-types/ptrarray.h
+  src/data-types/ptrarray.c
   src/data-types/linkedlist.h
   src/data-types/linkedlist.c
   src/data-types/hashtable.c
@@ -37,8 +39,12 @@ set (DANGER_SRC
   src/renderer/slstexture.h
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h
-  src/renderer/slsbatch.c
-  src/renderer/slsbatch.h
+  src/renderer/slsSpriteRenderer.c
+  src/renderer/slsSpriteRenderer.h
+
+  #entity component system
+  src/ecs/slsWorld.c
+  src/ecs/slsWorld.h
 
   #resource types
   )

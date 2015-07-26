@@ -14,6 +14,9 @@ static slsBool sls_active_flag = SLS_FALSE;
 slsContext *sls_active_context = NULL;
 
 void sls_error_cback(int, const char *);
+
+
+
 void sls_mouse(GLFWwindow*, int, int, int);
 void sls_window_resize(GLFWwindow *win, int x, int y);
 
@@ -48,6 +51,10 @@ void sls_window_resize(GLFWwindow *win, int x, int y)
   }
 }
 
+void sls_mouse(GLFWwindow *wwindow, int i, int i1, int i2)
+{
+
+}
 
 bool sls_init(void)
 {

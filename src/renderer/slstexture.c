@@ -4,6 +4,8 @@
 
 #include "slstexture.h"
 
+#include <assert.h>
+
 /*----------------------------*
  * prototypes
  *----------------------------*/

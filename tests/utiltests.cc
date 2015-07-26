@@ -30,6 +30,22 @@ public:
 
 protected:
 
+  static void *errstack_thread_work(void *data)  {
+
+    auto dist = uniform_int_distribution<int>(0, 100000);
+    random_device rd;
+
+    // sleep between 0 and .1 seconds
+    auto mu_sec = useconds_t(dist(rd));
+    usleep(mu_sec);
+
+    // push given error to error stack
+    slsError *err = (slsError*)data;
+    sls_push_error(*err);
+
+    return NULL;
+  }
+
 };
 
 TEST_F(ErrorTests, MallocError)
@@ -53,22 +69,7 @@ error:
 }
 
 
-void *thread_safety_run(void *data)
-{
 
-  auto dist = uniform_int_distribution<int>(0, 100000);
-  random_device rd;
-
-  // sleep between 0 and .1 seconds
-  auto mu_sec = useconds_t(dist(rd));
-  usleep(mu_sec);
-
-  // push given error to error stack
-  slsError *err = (slsError*)data;
-  sls_push_error(*err);
-
-  return NULL;
-}
 
 TEST_F(ErrorTests, ThreadSafety)
 {
@@ -83,9 +84,9 @@ TEST_F(ErrorTests, ThreadSafety)
 
   for (auto &p: threads) {
     int rc;
-    rc = pthread_create(&p.first, NULL, thread_safety_run, &i);
+    rc = pthread_create(&p.first, NULL, ErrorTests::errstack_thread_work, &i);
     ASSERT_EQ(0, rc);
-    rc = pthread_create(&p.second, NULL, thread_safety_run, &m);
+    rc = pthread_create(&p.second, NULL, ErrorTests::errstack_thread_work, &m);
     ASSERT_EQ(0, rc);
 
   }

@@ -73,24 +73,40 @@
     fprintf((file), "\n");  \
 } while(0)
 
-
+/**
+ * @brief prints a log message to stderr using the given printf format
+ * @detail, log, warn, and err macros provide different levels of urgency
+ */
 #define sls_log_info(fmt, ...) sls_debug(stderr, "LOG", fmt, ##__VA_ARGS__)
 #define sls_log_warn(fmt, ...) sls_debug(stderr, "WARNING", fmt, ##__VA_ARGS__)
 #define sls_log_err(fmt, ...) sls_debug(stderr, "ERROR", fmt, ##__VA_ARGS__)
 
+/**
+ * @brief Logs a message, throws an assertion failure, and exits with a failure
+ * @detail Used to specify a fatal error
+ */
 #define sls_log_fatal(fmt, ...) do{ \
-    sls_debug(stderr, "FATAL ERROR", fmt, ##__VA_ARGS__);    \
-    exit(EXIT_FAILURE);  \
+  sls_debug(stderr, "FATAL ERROR", fmt, ##__VA_ARGS__);    \
+  assert(0);  \
+  exit(EXIT_FAILURE);  \
 } while (0)
 
-
+/**
+ * @brief A pseudo exception check macro for handling runtime errors
+ * @detail takes a condition, if the condition fails, it calls a 'goto' to
+ * the `error:` label, which must exist in the function
+ */
 #define sls_check(cond, msg,  ...) do { \
-    if (!(cond)) { \
-        sls_log_err((msg), ##__VA_ARGS__);    \
-        goto error;                         \
-    }   \
+  if (!(cond)) { \
+    sls_log_err((msg), ##__VA_ARGS__);    \
+    goto error;                         \
+  }   \
 } while (0)
 
+/**
+ * @brief Error checker with same format as sls_check, but submits
+ * a given error code on failure
+ */
 #define sls_check_code(cond, code, msg, ...) do  {\
   if (!(cond)) {                                  \
     sls_log_err((msg), ##__VA_ARGS__);            \

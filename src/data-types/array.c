@@ -195,5 +195,20 @@ size_t sls_array_alloc_size(slsArray *self)
 
 void sls_array_reserve(slsArray *self, size_t count)
 {
+  assert(self && self->priv);
+  slsArray_p *p = self->priv;
+
+  if (p->alloc_size < count) {
+    size_t new_size = sls_nearest_squarelu(count);
+    p->alloc_size = new_size;
+
+    p->array = realloc(p->array, new_size * p->element_size);
+    sls_checkmem(p->array);
+  }
+
+  return;
+error:
+  assert(0);
+  return;
 
 }

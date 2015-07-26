@@ -6,6 +6,8 @@
 #include <gtest/gtest.h>
 #include "../src/dangerengine.h"
 #include "test-utils.h"
+
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -181,6 +183,7 @@ TEST_F(ListTests, ListConstruction)
       EXPECT_EQ(nums[idx], *ptr);
     }
 
+
     ++idx;
   }
 
@@ -202,3 +205,4 @@ TEST_F(ListTests, ListIteration)
     ++idx;
   }
 }
+

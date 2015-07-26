@@ -30,9 +30,14 @@ slsPtrArray *sls_ptrarray_init(slsPtrArray *self,
 
 slsPtrArray *sls_ptrarray_dtor(slsPtrArray *self);
 
-void sls_ptrarray_expand(slsPtrArray *self);
 
+void sls_ptrarray_reserve(slsPtrArray *self, size_t size);
+
+void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr);
 void *sls_ptrarray_remove(slsPtrArray *self, size_t idx);
+void sls_ptrarray_append(slsPtrArray *self, void *ptr);
+void sls_ptrarray_prepend(slsPtrArray *self, void *ptr);
+
 
 
 #endif //DANGERENGINE_PTRARRAY_H

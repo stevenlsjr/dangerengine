@@ -39,6 +39,8 @@ slsPtrArray *sls_ptrarray_init(slsPtrArray *self, void **data, size_t n_elements
   if (self) {
     sls_ptrarray_dtor(self);
   }
+
+  assert(0);
   return NULL;
 }
 
@@ -68,16 +70,54 @@ slsPtrArray *sls_ptrarray_dtor(slsPtrArray *self)
 }
 
 
-void sls_ptrarray_expand(slsPtrArray *self)
+void sls_ptrarray_reserve(slsPtrArray *self, size_t size)
 {
   assert(self);
   if (!self) { return; }
 
-  size_t new_size = self->n_alloced * 2;
-  self->data = realloc(self->data, sizeof(void *) * new_size);
-  sls_checkmem(self->data);
+  size_t new_size = sls_nearest_squarelu(size);
+
+  if (new_size > self->n_alloced) {
+    self->data = realloc(self->data, sizeof(void *) * new_size);
+    sls_checkmem(self->data);
+  }
 
   return;
+
   error:
+  assert(0);
   return;
+}
+
+void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
+{
+  assert(self && ptr);
+  if (!self || !ptr) {return;}
+
+  sls_check_code(idx <= self->n_elements,
+                 SLS_INDEX_OVERFLOW,
+                 "Index overflow: index %lu is greater than array sized %lu",
+                 idx, self->n_elements);
+
+
+
+
+  return;
+
+error:
+  assert(0);
+}
+
+void *sls_ptrarray_remove(slsPtrArray *self, size_t idx)
+{
+  return NULL;
+}
+
+void sls_ptrarray_append(slsPtrArray *self, void *ptr)
+{
+}
+
+void sls_ptrarray_prepend(slsPtrArray *self, void *ptr)
+{
+
 }
