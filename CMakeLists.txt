@@ -32,6 +32,9 @@ set (KAZMATH_BUILD_TESTS OFF)
 set (KAZMATH_BUILD_JNI_WRAPPER OFF)
 set (KAZMATH_BUILD_GL_UTILS OFF)
 
+#objc bindings
+add_subdirectory(src/objc)
+
 set(DANGER_DEPS kazmath)
 
 find_package(OpenGL)
@@ -91,6 +94,11 @@ add_library(dangerengine STATIC ${DANGER_SRC} ${DANGER_RES})
 target_link_libraries(dangerengine
     ${DANGER_DEPS})
 
+if(SLS_USE_OBJC)
+  add_executable(demo_objc demos/objc-demo.m)
+  target_link_libraries(demo_objc dangerengine-fw)
+endif(SLS_USE_OBJC)
+
 
 # copy resources on build
 
@@ -103,10 +111,10 @@ add_custom_command(
         "--    copying resources/ to ${CMAKE_BINARY_DIR}"
   COMMENT "")
 
-add_executable(dangerbird_bin 
+add_executable(demo 
     ${DANGER_DEMO_SRC})
 
-target_link_libraries(dangerbird_bin
+target_link_libraries(demo
     dangerengine
     ${DANGER_DEPS})
 
@@ -114,13 +122,13 @@ target_link_libraries(dangerbird_bin
 if (NOT EMSCRIPTEN)
     # add a separate library for tests compiled in C. Used for supporting build
     # systems which don't compile C and C++ code separately
-    add_library(dangerbird_c_tests ${DANGER_CTEST_SRC})
-    target_link_libraries(dangerbird_c_tests dangerengine)
+    add_library(c_tests ${DANGER_CTEST_SRC})
+    target_link_libraries(c_tests dangerengine)
 
-    add_executable(dangerbird_test ${DANGER_TEST_SRC})
-    target_link_libraries(dangerbird_test
+    add_executable(tests ${DANGER_TEST_SRC})
+    target_link_libraries(tests
         dangerengine
-        dangerbird_c_tests
+        c_tests
         ${DANGER_DEPS}
         gtest
         gtest_main)

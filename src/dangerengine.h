@@ -31,6 +31,8 @@ extern "C" {
 #include "renderer/slsmodel.h"
 #include "renderer/slstexture.h"
 
+#include "objc/DangerengineFW.h"
+
 #ifdef __cplusplus
 }
 #endif

@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
     char const *render_name = "render";
 
     if (strncasecmp(pong_name, s, max_chars) == 0) {
+      
       demo = pong_demo_main;
       break;
 
