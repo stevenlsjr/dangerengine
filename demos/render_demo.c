@@ -5,6 +5,12 @@
 #include "render_demo.h"
 #include "../src/dangerengine.h"
 
+void demo_setup_textures(slsContext *pContext);
+
+void demo_setup_shaders(slsContext *self);
+
+void demo_setup_scene(slsContext *self);
+
 void demo_add_model(demoData *data, float x, float y)
 {
   if (data->n_models >= DEMO_MAX_MODELS) { return; }
@@ -39,15 +45,13 @@ void demo_uniform_locations(demoData *data)
   data->uniforms.tex_sample = glGetUniformLocation(data->program, "diffuse_map");
 }
 
-void demo_context_setup(slsContext *self)
+
+void demo_setup_shaders(slsContext *self)
 {
-  sls_context_class()->setup(self);
-
-  self->data = calloc(sizeof(demoData), 1);
-
-  demoData *data = self->data;
   char const *fs_path;
   char const *vs_path;
+
+  demoData *data = self->data;
 
 
 #ifndef SLS_GLES
@@ -69,14 +73,36 @@ void demo_context_setup(slsContext *self)
   fs_path = "resources/shaders/default-legacy.frag";
 #endif
 
-
-  char const *img_path = "resources/free-textures/151.jpg";
-  char const *norm_path = "resources/free-textures/151.jpg";
-
-  data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
-
   data->program = sls_create_program(vs_path, fs_path);
-  data->tex = sls_gltex_from_file(img_path, -1, -1);
+
+}
+
+void demo_context_setup(slsContext *self)
+{
+  sls_context_class()->setup(self);
+
+  self->data = calloc(sizeof(demoData), 1);
+
+
+  demo_setup_shaders(self);
+
+  demo_setup_textures(self);
+
+  demo_setup_scene(self);
+
+
+  int x, y;
+  glfwGetWindowSize(self->window, &x, &y);
+  sls_msg(self, resize, x, y);
+
+  glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
+  return;
+
+}
+
+void demo_setup_scene(slsContext *self)
+{
+  demoData *data = self->data;
 
   data->mesh = sls_mesh_create_shape("square");
   sls_checkmem(data->mesh);
@@ -90,19 +116,26 @@ void demo_context_setup(slsContext *self)
 
   sls_msg(data->tex_obj, set_program, data->program);
 
-  demo_add_model(data, 0.0, 0.0);
-  demo_add_model(data, -1.0, 0.30);
+  demo_add_model(data, 0.0f, 0.0f);
+  demo_add_model(data, -1.0f, 0.30f);
 
-  int x, y;
-  glfwGetWindowSize(self->window, &x, &y);
-  sls_msg(self, resize, x, y);
-
-  glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
-  return;
 
   error:
   getchar();
   exit(EXIT_FAILURE);
+}
+
+void demo_setup_textures(slsContext *self)
+{
+
+  demoData *data = self->data;
+
+  char const *img_path = "resources/free-textures/151.jpg";
+  char const *norm_path = "resources/free-textures/151.jpg";
+
+  data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
+
+  data->tex = sls_gltex_from_file(img_path, -1, -1);
 }
 
 void demo_context_update(slsContext *self, double dt)

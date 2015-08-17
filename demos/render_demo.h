@@ -22,6 +22,8 @@ typedef struct demoData {
 
   slsTexture *tex_obj;
 
+  slsSprite *sprite;
+
   struct {
     GLint time_;
     GLint projection;
