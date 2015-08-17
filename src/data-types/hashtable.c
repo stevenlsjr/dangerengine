@@ -3,13 +3,13 @@
 //
 
 #include "hashtable.h"
+#include "callbacks.h"
 #include <stdlib.h>
+#include <data-types/callbacks.h>
 
-slsHashTable *sls_hashtable_init(slsHashTable *self, size_t n_entries)
+slsHashTable *sls_hashtable_init(slsHashTable *self, size_t n_entries, slsHashFn hash_fn, slsCmpFn cmp_fn)
 {
-  if (self) {
-
-  }
+  if (!self) { return NULL; }
   return self;
 }
 

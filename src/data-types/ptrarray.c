@@ -10,7 +10,12 @@
 #include <slsutils.h>
 #include <string.h>
 
-slsPtrArray *sls_ptrarray_init(slsPtrArray *self, void **data, size_t n_elements, slsFreeFn free_fn)
+#define SLS_PTRARRAY_SIZE_INC 2
+
+slsPtrArray *sls_ptrarray_init(slsPtrArray *self,
+                               void **data,
+                               size_t n_elements,
+                               slsFreeFn free_fn)
 {
   assert(self);
   if (!self) { return NULL; }
@@ -93,6 +98,7 @@ void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
 {
   assert(self && ptr);
   if (!self || !ptr) {return;}
+  sls_check(self->data, "self->data does is null");
 
   sls_check_code(idx <= self->n_elements,
                  SLS_INDEX_OVERFLOW,
@@ -100,11 +106,29 @@ void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
                  idx, self->n_elements);
 
 
+  if (self->n_elements + 1 >= self->n_alloced) {
+    sls_ptrarray_reserve(self, self->n_alloced * SLS_PTRARRAY_SIZE_INC);
+    assert(self->n_elements < self->n_alloced);
+  }
 
+  size_t offset = self->n_elements - idx;
+  if (offset > 0) {
+    sls_check(self->data[0], "self->data has no values");
+
+    void **src = self->data + idx;
+    void **dest = src + 1;
+    void *res = memmove(dest, src, offset * sizeof(void *));
+
+    sls_check(res == dest, "memmove failed! could not insert item into array");
+  }
+
+
+  self->data[idx] = ptr;
+  self->n_elements++;
 
   return;
 
-error:
+  error:
   assert(0);
 }
 
@@ -115,9 +139,12 @@ void *sls_ptrarray_remove(slsPtrArray *self, size_t idx)
 
 void sls_ptrarray_append(slsPtrArray *self, void *ptr)
 {
+  sls_ptrarray_insert(self, self->n_elements, ptr);
 }
 
 void sls_ptrarray_prepend(slsPtrArray *self, void *ptr)
 {
+  sls_ptrarray_insert(self, 0, ptr);
+
 
 }

@@ -39,6 +39,12 @@ void sls_ptrarray_append(slsPtrArray *self, void *ptr);
 void sls_ptrarray_prepend(slsPtrArray *self, void *ptr);
 
 
+#define SLS_PTRARRAY_FOREACH(array, itor) \
+  for ((itor) = (array)->data;  \
+   itor != (array)->data + (array)->n_elements; \
+    ++itor)
+
+
 
 #endif //DANGERENGINE_PTRARRAY_H
 

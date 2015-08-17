@@ -40,7 +40,6 @@ slsLinkedList *sls_linked_list_dtor(slsLinkedList *self)
   if (!self) { return NULL; }
 
   if (self->head) {
-    slsListNode *itor;
     slsListNode *head = self->head;
     slsListNode *last = NULL;
     while(!head->next) {

@@ -50,15 +50,28 @@ TEST_F(PtrArrayTests, Insert)
   sls_ptrarray_insert(array, array->n_elements, &foo);
 
   EXPECT_EQ(old_size + 1, array->n_elements);
-  EXPECT_EQ(&foo, static_cast<int*>(array->data[array->n_elements]));
+  EXPECT_EQ(&foo, static_cast<int *>(array->data[old_size]));
 }
 
 TEST_F(PtrArrayTests, Prepend)
 {
   int foo = 100;
+
+
   sls_ptrarray_prepend(array, &foo);
   EXPECT_EQ(&foo, array->data[0]);
   for (auto i=0; i<num_ptrs.size(); ++i){
     ASSERT_EQ(num_ptrs[i], static_cast<int*>(array->data[i + 1]));
   }
 }
+
+
+TEST_F(PtrArrayTests, Append)
+{
+  int foo = 100;
+
+
+  sls_ptrarray_append(array, &foo);
+  EXPECT_EQ(&foo, array->data[array->n_elements - 1]);
+}
+
