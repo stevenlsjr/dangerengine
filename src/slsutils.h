@@ -141,6 +141,10 @@ typedef enum slsBool {
  */
 void *sls_objalloc(void const *prototype, size_t size);
 
+/**
+ * @brief stupid sleep function. Do not use if
+ * more robust thread sleep exists
+ */
 void sls_sleep(clock_t ticks);
 
 #endif //DANGERENGINE_SLSUTILS_H
