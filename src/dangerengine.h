@@ -24,12 +24,16 @@ extern "C" {
 
 #include "math/mathmacs.h"
 #include "math/math-types.h"
+#include "math/slsTransform2D.h"
 
 
 #include "renderer/shaderutils.h"
 #include "renderer/slsmesh.h"
 #include "renderer/slsmodel.h"
 #include "renderer/slstexture.h"
+#include "renderer/slsshader.h"
+
+#include "ecs/slsEntity.h"
 
 #include "objc/DangerengineFW.h"
 
