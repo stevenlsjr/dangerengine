@@ -17,6 +17,8 @@ set (DANGER_SRC
   src/math/mathmacs.c
   src/math/math-types.c
   src/math/math-types.h
+  src/math/slsTransform2D.c
+  src/math/slsTransform2D.h
 
   #data types
   src/data-types/callbacks.h
@@ -37,15 +39,15 @@ set (DANGER_SRC
   src/renderer/slsmodel.h
   src/renderer/slstexture.c
   src/renderer/slstexture.h
+  src/renderer/slsshader.c
+  src/renderer/slsshader.h
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h
   src/renderer/slsSpriteRenderer.c
   src/renderer/slsSpriteRenderer.h
 
   #entity component system
-  src/ecs/slsWorld.c
-  src/ecs/slsWorld.h
-
+  src/ecs/slsEntity.h
   #resource types
   )
 

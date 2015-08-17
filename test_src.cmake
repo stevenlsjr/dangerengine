@@ -7,6 +7,7 @@ set (DANGER_TEST_SRC
   tests/math_tests.cc
   tests/main.cc
   tests/utiltests.cc
+  tests/ecs-tests.cc
   tests/render_tests.cc
   tests/image_tests.cc
   tests/hash-tests.cc
