@@ -164,17 +164,14 @@ void sls_array_insert(slsArray *self, size_t i, void *value)
   // resize array if necessary
   if (newsize >= p->alloc_size) {
     newsize = p->alloc_size * 2;
-    p->array = realloc(p->array, newsize);
-    sls_checkmem(p->array);
-    p->alloc_size = newsize;
+    sls_array_reserve(self, newsize);
   }
 
   // now shift bytes determined by offset size
   size_t items_offset = len - i;
   if (items_offset > 0) {
-    size_t byteidx = i * p->element_size;
     char *src = p->array + i * p->element_size; // location which inserted value is offseting
-    char *offset = p->array + (i + 1) * p->element_size; // new location of bytes
+    char *offset = src + p->element_size;
     memmove(offset, src, p->element_size * items_offset);
   }
 
