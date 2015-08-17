@@ -32,6 +32,8 @@ extern "C" {
 #include "renderer/slsmodel.h"
 #include "renderer/slstexture.h"
 #include "renderer/slsshader.h"
+#include "renderer/slsSprite.h"
+#include "renderer/slsSpriteRenderer.h"
 
 #include "ecs/slsEntity.h"
 

@@ -45,6 +45,8 @@ set (DANGER_SRC
   src/renderer/shaderutils.h
   src/renderer/slsSpriteRenderer.c
   src/renderer/slsSpriteRenderer.h
+  src/renderer/slsSprite.c
+  src/renderer/slsSprite.h
 
   #entity component system
   src/ecs/slsEntity.h

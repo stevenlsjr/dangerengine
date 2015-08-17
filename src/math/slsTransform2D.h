@@ -6,6 +6,7 @@
 #define DANGERENGINE_SLSTRANSFORM2D_H
 
 #include "../slsutils.h"
+#include <kazmath/kazmath.h>
 
 typedef struct slsTransform2D slsTransform2D;
 struct slsTransform2D {
