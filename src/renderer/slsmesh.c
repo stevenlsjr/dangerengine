@@ -61,7 +61,8 @@ static const slsMesh sls_mesh_proto = {
 slsVertex sls_vertex_make(kmVec3 position,
                           kmVec3 normal,
                           kmVec2 uv,
-                          kmVec4 color) {
+                          kmVec4 color)
+{
   slsVertex v;
   v.position[0] = position.x;
   v.position[1] = position.y;
@@ -82,7 +83,8 @@ slsVertex sls_vertex_make(kmVec3 position,
   return v;
 }
 
-slsMesh const *sls_mesh_class() {
+slsMesh const *sls_mesh_class()
+{
   slsMesh const *proto = &sls_mesh_proto;
   return proto;
 }
@@ -90,7 +92,8 @@ slsMesh const *sls_mesh_class() {
 slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t vert_count,
                       unsigned const *indices,
-                      size_t idx_count) {
+                      size_t idx_count)
+{
   slsMesh *obj = sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
   return obj->init(obj, vertices, vert_count, indices, idx_count);
 }
@@ -99,7 +102,8 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        slsVertex const *vertices,
                        size_t vert_count,
                        unsigned const *indices,
-                       size_t idx_count) {
+                       size_t idx_count)
+{
   if (!vertices || !indices || !self) { return NULL; }
   self->indices = sls_array_new(indices, sizeof(unsigned), idx_count);
   self->vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
@@ -118,7 +122,8 @@ slsMesh *sls_mesh_init(slsMesh *self,
   return NULL;
 }
 
-void sls_mesh_dtor(slsMesh *self) {
+void sls_mesh_dtor(slsMesh *self)
+{
   if (!self) { return; }
 
   if (self->priv) { free(self->priv); }
@@ -136,7 +141,8 @@ void sls_mesh_dtor(slsMesh *self) {
   free(self);
 }
 
-void sls_mesh_bind(slsMesh *self, GLuint program) {
+void sls_mesh_bind(slsMesh *self, GLuint program)
+{
   if (!self) { return; }
   // bind gl objects
   glUseProgram(program);
@@ -155,7 +161,8 @@ void sls_mesh_bind(slsMesh *self, GLuint program) {
 }
 
 
-void _sls_mesh_binddata(slsMesh *self, GLuint program) {
+void _sls_mesh_binddata(slsMesh *self, GLuint program)
+{
   if (!self) { return; }
   // bind gl objects
   glUseProgram(program);
@@ -179,7 +186,8 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program) {
   glBufferData(GL_ARRAY_BUFFER, vbo_size, verts, GL_STATIC_DRAW);
 }
 
-void _sls_mesh_bindattrs(slsMesh *self, GLuint program) {
+void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
+{
 
   if (!self) { return; }
 
@@ -220,7 +228,8 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program) {
 }
 
 
-slsMesh *sls_mesh_create_shape(char const *name) {
+slsMesh *sls_mesh_create_shape(char const *name)
+{
 
   if (!name) { return NULL; }
 
@@ -257,7 +266,7 @@ slsMesh *sls_mesh_create_shape(char const *name) {
             .color={1.0, 1.0, 1.0, 1.0}}
     };
 
-    slsVertex const *v = verts;
+
     unsigned int idxs[] = {0, 1, 2, 3, 2, 0};
 
     size_t n_verts = sizeof(verts) / sizeof(slsVertex);
@@ -273,7 +282,8 @@ slsMesh *sls_mesh_create_shape(char const *name) {
 
 }
 
-void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt) {
+void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
+{
 
   sls_msg(self, pre_draw, program, dt);
   sls_msg(self, draw, dt);
@@ -281,7 +291,8 @@ void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt) {
 
 }
 
-void sls_mesh_predraw(slsMesh *self, GLuint program, double dt) {
+void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
+{
   glUseProgram(program);
 
 
@@ -301,7 +312,8 @@ void sls_mesh_draw(slsMesh *self, double dt)
 
 }
 
-void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt) {
+void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
+{
   self->is_drawing = SLS_FALSE;
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
