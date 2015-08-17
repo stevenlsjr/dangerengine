@@ -7,6 +7,8 @@
 #ifndef DANGERENGINE_CALLBACKS_H
 #define DANGERENGINE_CALLBACKS_H
 
+#include <inttypes.h>
+
 
 typedef struct slsCallbackTable slsCallbackTable;
 
@@ -38,6 +40,8 @@ typedef void (*slsFreeFn)(void *data);
  * > 0 if rhs has lower order, and 0 if they are equal
  */
 typedef int (*slsCmpFn)(void const *lhs, void const *rhs);
+
+typedef uint32_t (*slsHashFn)(void const *key);
 
 struct slsCallbackTable {
   slsFreeFn free_fn;
