@@ -78,7 +78,6 @@ TEST_F(ImageTests, TexCreation) {
   }
   tex = sls_gltex_from_file(path.c_str(), get<0>(size), get<1>(size));
   glBindTexture(GL_TEXTURE_2D, tex);
-  int width;
 
   glBindTexture(GL_TEXTURE_2D, 0);
 

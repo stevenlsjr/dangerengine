@@ -23,7 +23,8 @@ struct slsTexPair {
   slsBool is_active;
 
   /**
-   * @brief flags that the texture is bound to a shader uniform
+   * @brief flags that the texture is bound to a shader uniform.
+   * @detail Will be SLS_FALSE if associated variable is not in shader program, or texture has not yet been bound
    */
   slsBool is_bound;
 };
@@ -47,11 +48,18 @@ struct slsTexture {
 
   void (*dtor)(slsTexture *self);
 
+  /**
+   * @brief Program property.
+   * @detail Methods for setting and getting active mesh shader program
+   */
   void (*set_program)(slsTexture *self, GLuint program);
+
+  GLuint (*get_program)(slsTexture *self);
 
   void (*bind)(slsTexture *self);
 
-  GLuint program;
+  slsTexture_p *priv;
+
 
   slsTexPair diffuse;
   slsTexPair specular;

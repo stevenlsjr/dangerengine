@@ -10,7 +10,21 @@
  * prototypes
  *----------------------------*/
 
-slsTexture *sls_texture_init(slsTexture *self, 
+/**
+ * @brief Private texture information
+ * @detail
+ **/
+struct slsTexture_p {
+  GLuint program;
+
+};
+
+
+/*----------------------------*
+ * prototypes
+ *----------------------------*/
+
+slsTexture *sls_texture_init(slsTexture *self,
                              char const *diffuse_path,
                              char const *specular_path,
                              char const *normal_path);
@@ -18,21 +32,32 @@ slsTexture *sls_texture_init(slsTexture *self,
 void sls_texture_dtor(slsTexture *self);
 
 void sls_texture_set_program(slsTexture *self, GLuint program);
+
+
+GLuint sls_texture_get_program(slsTexture *self);
+
 void sls_texture_bind(slsTexture *self);
 
 /*----------------------------*
  * class implementation
  *----------------------------*/
 
-slsTexture const *sls_texture_class() {
+slsTexture const *sls_texture_class()
+{
 
   static slsTexture proto = {
-    .init=sls_texture_init,
-    .dtor=sls_texture_dtor,
-    .set_program = sls_texture_set_program,
-    .bind=sls_texture_bind
+      .init         =sls_texture_init,
+      .dtor         =sls_texture_dtor,
+      .set_program  = sls_texture_set_program,
+      .get_program  = sls_texture_get_program,
+      .bind         =sls_texture_bind
   };
+
+#pragma clang diagnostic push
+  // suppress warning for returning address to static memory
+#pragma clang diagnostic ignored "-Wreturn-stack-address"
   return &proto;
+#pragma clang diagnostic pop
 }
 
 slsTexture *sls_texture_new(char const *diffuse_path,
@@ -44,12 +69,15 @@ slsTexture *sls_texture_new(char const *diffuse_path,
   return sls_msg(self, init, diffuse_path, specular_path, normal_path);
 }
 
-slsTexture *sls_texture_init(slsTexture *self, 
+slsTexture *sls_texture_init(slsTexture *self,
                              char const *diffuse_path,
                              char const *specular_path,
                              char const *normal_path)
 {
-  if (!self) {return NULL;}
+  if (!self) { return NULL; }
+
+  self->priv = calloc(1, sizeof(slsTexture_p));
+  sls_checkmem(self->priv);
 
   const int width = -1;
   const int height = -1;
@@ -60,28 +88,31 @@ slsTexture *sls_texture_init(slsTexture *self,
   };
 
   struct tmp_tuple tups[] = {
-    {diffuse_path, &self->diffuse},
-    {specular_path, &self->specular},
-    {normal_path, &self->normal},
+      {diffuse_path,  &self->diffuse},
+      {specular_path, &self->specular},
+      {normal_path,   &self->normal},
   };
 
-  glUseProgram;
-  for (int i=0; 
-       i<sizeof(tups)/sizeof(struct tmp_tuple); 
+  for (int i = 0;
+       i < sizeof(tups) / sizeof(struct tmp_tuple);
        ++i) {
 
-    struct tmp_tuple const *tup = tups + i;
-    tup->pair->is_bound = SLS_FALSE;
+    struct tmp_tuple const tup = tups[i];
+    tup.pair->is_bound = SLS_FALSE;
 
-    if (tup->path) {
-      tup->pair->unit = sls_gltex_from_file(tup->path, 
-                                            width, 
+    if (tup.path) {
+      tup.pair->unit = sls_gltex_from_file(tup.path,
+                                           width,
                                             height);
 
-      tup->pair->is_active = SLS_TRUE;
+      tup.pair->is_active = SLS_TRUE;
 
     } else {
-      tup->pair->is_active = SLS_FALSE;
+      tup.pair->is_active = SLS_FALSE;
+    }
+
+    if (tup.path) {
+      assert(tup.pair->is_active);
     }
 
   }
@@ -89,68 +120,84 @@ slsTexture *sls_texture_init(slsTexture *self,
 
   return self;
 
-error:
+  error:
   if (self && self->dtor) {
     sls_msg(self, dtor);
   }
+  return NULL;
 }
 
 void sls_texture_dtor(slsTexture *self)
 {
-  if (!self) {return ;}
+  if (!self) { return; }
 
+  if (self->priv) {
+    free(self->priv);
+  }
 
   free(self);
 }
 
 void sls_texture_set_program(slsTexture *self, GLuint program)
 {
-  if (!self) {return;}
-  sls_check(glIsProgram, "object %ui is not a program handle", program);
+  if (!self) { return; }
+  sls_check(glIsProgram(program), "object %ui is not a program handle", program);
 
   int diffuse, specular, normal;
   diffuse = glGetUniformLocation(program, "diffuse_map");
   specular = glGetUniformLocation(program, "specular_map");
   normal = glGetUniformLocation(program, "normal_map");
 
-  if (diffuse < 0) {
-    self->diffuse.is_bound = SLS_FALSE;
+  if (diffuse < 0 && self->diffuse.is_active) {
+    sls_log_warn("could not find `diffuse_map` location in shader program");
   } else {
-    self->diffuse.uniform = diffuse;
-    self->diffuse.is_bound = SLS_FALSE;
-
+    self->diffuse.uniform = (GLuint) diffuse;
   }
 
-  if (specular < 0) {
-    self->specular.is_bound = SLS_FALSE;
+  if (specular < 0 && self->specular.is_active) {
+    sls_log_warn("could not find `specular_map` location in shader program");
   } else {
-    self->specular.uniform = specular;
-    self->specular.is_bound = SLS_FALSE;
-
+    self->specular.uniform = (GLuint) specular;
   }
 
-  if (normal < 0) {
-    self->normal.is_bound = SLS_FALSE;
+  if (normal < 0 && self->normal.is_active) {
+    sls_log_warn("could not find `normal_map` location in shader program");
   } else {
-    self->normal.uniform = normal;
-    self->normal.is_bound = SLS_TRUE;
-
+    self->normal.uniform = (GLuint) normal;
   }
 
+  self->priv->program = program;
   return;
-error:
+  error:
   return;
 }
 
 
+GLuint sls_texture_get_program(slsTexture *self)
+{
+  assert(self);
+  assert(self->priv);
+
+  return self->priv->program;
+}
+
 void sls_texture_bind(slsTexture *self)
 {
-  if (!self) {return;}
-  glUseProgram(self->program);
+  if (!self) { return; }
+  glUseProgram(self->priv->program);
 
-  if (self->diffuse.is_active) {}
-  if (self->specular.is_active) {}
-  if (self->normal.is_active) {}
+  slsTexPair *pairs[] = {&self->diffuse,
+                         &self->specular,
+                         &self->normal};
+
+  for (size_t i = 0; i < sizeof(pairs) / sizeof(slsTexPair); ++i) {
+    slsTexPair *p = pairs[i];
+    if (p && p->is_active) {
+      glUniform1i(p->uniform, (GLint) i);
+      glBindTexture(GL_TEXTURE_2D, p->unit);
+      p->is_bound = SLS_TRUE;
+    }
+  }
 }
 
 
@@ -158,9 +205,9 @@ void sls_texture_bind(slsTexture *self)
  * utility functions
  *----------------------------*/
 
-GLuint sls_gltex_from_file(char const *path, 
+GLuint sls_gltex_from_file(char const *path,
                            int width_opt,
-                           int height_opt) 
+                           int height_opt)
 {
 
   ILuint img;
@@ -191,7 +238,6 @@ GLuint sls_gltex_from_file(char const *path,
   }
 
 
-
   depth = ilGetInteger(IL_IMAGE_DEPTH);
   bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
   il_format = ilGetInteger(IL_IMAGE_FORMAT);
@@ -200,7 +246,7 @@ GLuint sls_gltex_from_file(char const *path,
     sls_log_warn("il format unexpected");
   }
 
-  gl_format = (il_format == IL_RGBA)? GL_RGBA: GL_RGB;
+  gl_format = (il_format == IL_RGBA) ? GL_RGBA : GL_RGB;
 
 
   width = (width_opt > 0) ?
@@ -233,7 +279,8 @@ GLuint sls_gltex_from_file(char const *path,
   return tex;
 }
 
-ILenum sls_il_get_errors() {
+ILenum sls_il_get_errors()
+{
   ILenum err, last;
   last = IL_NO_ERROR;
   while ((err = ilGetError()) != IL_NO_ERROR) {
@@ -249,3 +296,4 @@ ILenum sls_il_get_errors() {
 
   return last;
 }
+
