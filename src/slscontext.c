@@ -102,6 +102,7 @@ slsContext *sls_context_init(slsContext *self,
   // initialize libraries if not active
   if (!sls_is_active()) {
     bool res = sls_init();
+    sls_check(res, "initialization failed!");
   }
 
   // GLFW hints
