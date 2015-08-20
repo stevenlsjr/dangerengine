@@ -9,9 +9,6 @@
  */
 
 
-/*
- *
- */
 #ifndef _SLS_SHADERUTILS_H_
 #define _SLS_SHADERUTILS_H_
 

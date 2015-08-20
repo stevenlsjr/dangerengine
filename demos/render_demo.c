@@ -48,6 +48,7 @@ void demo_uniform_locations(demoData *data)
 
 void demo_setup_shaders(slsContext *self)
 {
+  if (!self || !self->data) { exit(EXIT_FAILURE); }
   char const *fs_path;
   char const *vs_path;
 
@@ -79,6 +80,8 @@ void demo_setup_shaders(slsContext *self)
 
 void demo_context_setup(slsContext *self)
 {
+  if (!self || !self->data) { exit(EXIT_FAILURE); }
+
   sls_context_class()->setup(self);
 
   self->data = calloc(sizeof(demoData), 1);
@@ -145,6 +148,7 @@ void demo_context_update(slsContext *self, double dt)
 
 
 }
+
 
 void demo_context_display(slsContext *self, double dt) {
 
