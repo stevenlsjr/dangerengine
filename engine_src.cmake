@@ -4,6 +4,7 @@ set (DANGER_SRC
 
   # context handling and general utilities
   src/sls-gl.h
+  src/sls-imagelib.h
   src/slscontext.h
   src/slscontext.c
   src/slsutils.c

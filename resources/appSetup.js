@@ -3,8 +3,7 @@
  */
 
 
-
-require(['dangerbird_bin', 'jquery'], function(engine, $){
+require(['demo', 'jquery'], function(engine, $){
     function main() {
         var Module = {};
         engine(Module);

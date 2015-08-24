@@ -123,4 +123,7 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height);
  */
 void sls_emscripten_loop(void *vctx);
 
+
+int sls_get_glversion();
+
 #endif //DANGERENGINE_SLSCONTEXT_H

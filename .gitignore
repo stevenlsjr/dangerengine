@@ -301,5 +301,9 @@ install_manifest.txt
 
 #### custom project setup ####
 
-# bower files in resource folder
+# Bower files in resource folder
 resources/bower/
+
+# build directories
+build/
+jsbuild/

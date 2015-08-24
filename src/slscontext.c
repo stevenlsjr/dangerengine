@@ -46,8 +46,8 @@
 #endif //EMSCRIPTEN
 
 struct slsContext_p {
-  clock_t last;
-  clock_t dt_acc;
+    clock_t last;
+    clock_t dt_acc;
 };
 
 
@@ -55,42 +55,48 @@ struct slsContext_p {
  * slsContext default method prototypes
  *----------------------------------------*/
 void sls_context_run(slsContext *self);
+
 void sls_context_iter(slsContext *self);
+
 void sls_context_resize(slsContext *self, int x, int y);
+
 void sls_context_update(slsContext *self, double dt);
+
 void sls_context_display(slsContext *self, double dt);
+
 slsContext *sls_context_init(slsContext *self,
                              char const *caption,
                              size_t width,
                              size_t height);
 
 void sls_context_setup(slsContext *self);
+
 void sls_context_teardown(slsContext *self);
+
 void sls_context_dtor(slsContext *self);
 
 /*----------------------------------------*
  * slsContext static prototype
  *----------------------------------------*/
 static const slsContext sls_context_proto = {
-  .init = sls_context_init,
-  .dtor = sls_context_dtor,
+    .init = sls_context_init,
+    .dtor = sls_context_dtor,
 
-  .setup = sls_context_setup,
-  .teardown = sls_context_teardown,
+    .setup = sls_context_setup,
+    .teardown = sls_context_teardown,
 
-  .run = sls_context_run,
-  .iter = sls_context_iter,
-  .resize = sls_context_resize,
+    .run = sls_context_run,
+    .iter = sls_context_iter,
+    .resize = sls_context_resize,
 
-  .update = sls_context_update,
-  .display = sls_context_display,
+    .update = sls_context_update,
+    .display = sls_context_display,
 
-  .is_running = SLS_FALSE,
-  .interval = 50,
-  .priv = NULL,
-  .window = NULL
+    .is_running = SLS_FALSE,
+    .interval = 50,
+    .priv = NULL,
+    .window = NULL
 };
-
 
 
 /*----------------------------------------*
@@ -107,7 +113,6 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height)
 
   slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
 
-  
 
   return self->init(self, caption, width, height);
 }
@@ -124,7 +129,7 @@ slsContext *sls_context_init(slsContext *self,
 {
 
   // nullptr check and initialize class values
- if (!self) { return NULL; }
+  if (!self) { return NULL; }
   *self = *sls_context_class();
 
   // initialize libraries if not active
@@ -134,25 +139,25 @@ slsContext *sls_context_init(slsContext *self,
   }
 
   // GLFW hints
-  int hints [] = {
-    GLFW_DOUBLEBUFFER, GL_TRUE,
-    GLFW_CONTEXT_VERSION_MAJOR, 4,
-    GLFW_CONTEXT_VERSION_MINOR, 1,
-    GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE,
-    GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE
+  int hints[] = {
+      GLFW_DOUBLEBUFFER, GL_TRUE,
+      GLFW_CONTEXT_VERSION_MAJOR, 4,
+      GLFW_CONTEXT_VERSION_MINOR, 1,
+      GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE,
+      GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE
   };
 
-  size_t n_hints = sizeof(hints)/sizeof(int);
-  sls_check(n_hints %2 == 0, "you must include an even number of glfw hint values");
-  for (int i=0; i<n_hints/2; ++i){
+  size_t n_hints = sizeof(hints) / sizeof(int);
+  sls_check(n_hints % 2 == 0, "you must include an even number of glfw hint values");
+  for (int i = 0; i < n_hints / 2; ++i) {
     const int ii = i * 2;
-    glfwWindowHint(hints[ii], hints[ii+1]);
+    glfwWindowHint(hints[ii], hints[ii + 1]);
   }
 
 
   // create glfw window
   self->window = glfwCreateWindow((int) width, (int) height, caption, NULL, NULL);
-  
+
   sls_check(self->window, "window creation failed");
 
   // allocate and initialize private members
@@ -253,13 +258,13 @@ void sls_context_resize(slsContext *self, int x, int y)
   glViewport(0, 0, (int) x, (int) y);
 }
 
-void sls_context_update(slsContext *self, double dt) {
+void sls_context_update(slsContext *self, double dt)
+{
   sls_log_info("update dt: %f", dt);
 }
 
 void sls_context_display(slsContext *self, double dt)
 {
-
 
 
   if (!self || !self->priv) { return; }
@@ -299,3 +304,29 @@ void sls_context_teardown(slsContext *self)
   sls_unbind_context();
 }
 
+#ifndef __EMSCRIPTEN__
+int sls_get_glversion()
+{
+  int
+      major = 0,
+      minor = 0,
+      major_mul = 100,
+      minor_mul = 10,
+      full;
+
+  glGetIntegerv(GL_MAJOR_VERSION, &major);
+  glGetIntegerv(GL_MINOR_VERSION, &minor);
+
+  full = (major * major_mul) + (minor * minor_mul);
+  return full;
+}
+
+#else
+int sls_get_glversion()
+{
+  // emscripten uses webgl 1.0.0
+  const int webgl_default_version = 100;
+  return webgl_default_version;
+}
+
+#endif

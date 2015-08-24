@@ -34,24 +34,30 @@
 #include "slsutils.h"
 #include <stdlib.h>
 #include <stdbool.h>
-#include <IL/il.h>
-#include <IL/ilu.h>
-#include <IL/ilut.h>
 
+#include "sls-imagelib.h"
+
+#include <pthread.h>
+
+static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static slsBool sls_active_flag = SLS_FALSE;
+
+static pthread_mutex_t sls_active_context_mutex = PTHREAD_MUTEX_INITIALIZER;
 slsContext *sls_active_context = NULL;
 
 void sls_error_cback(int, const char *);
 
+void sls_mouse(GLFWwindow *, int, int, int);
 
-
-void sls_mouse(GLFWwindow*, int, int, int);
 void sls_window_resize(GLFWwindow *win, int x, int y);
+
+bool sls_il_init();
 
 
 
 void sls_bind_context(slsContext *ctx)
 {
+  pthread_mutex_lock(&sls_active_context_mutex);
   sls_unbind_context();
 
   // window callbacks
@@ -59,6 +65,8 @@ void sls_bind_context(slsContext *ctx)
 
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);
+  pthread_mutex_unlock(&sls_active_context_mutex);
+
 
   return;
 }
@@ -84,21 +92,32 @@ void sls_mouse(GLFWwindow *wwindow, int i, int i1, int i2)
 
 }
 
+bool sls_il_init()
+{
+
+#ifndef __EMSCRIPTEN__
+  ilInit();
+  //iluInit();
+  //ilutInit();
+
+#endif
+  return true;
+}
+
+
+
 bool sls_init(void)
 {
+
   sls_check(!sls_active_flag, "runtime is already active!");
 
   // setup glfw
   sls_check(glfwInit(), "glfw Init failed");
 
-  // setup devIL
-  ilInit();
-  //iluInit();
-  //ilutInit();
-  //
+  sls_check(sls_il_init(), "devIL failed");
+
 
   sls_active_flag = SLS_TRUE;
-
 
   // set error callback
   glfwSetErrorCallback(sls_error_cback);
@@ -108,7 +127,7 @@ bool sls_init(void)
   atexit(sls_terminate);
 
   return true;
-error:
+  error:
   return false;
 }
 

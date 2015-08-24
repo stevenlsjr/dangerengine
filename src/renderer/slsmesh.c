@@ -138,7 +138,9 @@ slsMesh *sls_mesh_init(slsMesh *self,
   self->priv = calloc(sizeof(slsMesh_p), 1);
   sls_checkmem(self->priv);
 
+#ifndef SLS_GLES
   glGenVertexArrays(1, &self->vao);
+#endif
 
   glGenBuffers(1, &self->vbo);
   glGenBuffers(1, &self->ibo);
@@ -163,8 +165,10 @@ void sls_mesh_dtor(slsMesh *self)
 
   glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
 
-  glDeleteVertexArrays(1, &(self->vao));
 
+#ifndef SLS_GLES
+  glDeleteVertexArrays(1, &(self->vao));
+#endif
   free(self);
 }
 
@@ -173,7 +177,11 @@ void sls_mesh_bind(slsMesh *self, GLuint program)
   if (!self) { return; }
   // bind gl objects
   glUseProgram(program);
+
+#ifndef SLS_GLES
   glBindVertexArray(self->vao);
+#endif
+
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
@@ -184,7 +192,12 @@ void sls_mesh_bind(slsMesh *self, GLuint program)
   // unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+#ifndef SLS_GLES
   glBindVertexArray(0);
+#endif
+
+
 }
 
 
@@ -193,8 +206,9 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program)
   if (!self) { return; }
   // bind gl objects
   glUseProgram(program);
-
+#ifndef SLS_GLES
   glBindVertexArray(self->vao);
+#endif
 
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
@@ -219,7 +233,9 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
   if (!self) { return; }
 
   glUseProgram(program);
+#ifndef SLS_GLES
   glBindVertexArray(self->vao);
+#endif
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
@@ -326,7 +342,13 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
   self->is_drawing = SLS_TRUE;
   // setup vert position pointer
 
+#ifndef SLS_GLES
   glBindVertexArray(self->vao);
+#else
+  // without a vertex array, you must rebind attributes
+  _sls_mesh_bindattrs(self, program);
+#endif
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
 }
@@ -344,6 +366,9 @@ void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
   self->is_drawing = SLS_FALSE;
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+#ifndef SLS_GLES
   glBindVertexArray(0);
+
+#endif
 }
 

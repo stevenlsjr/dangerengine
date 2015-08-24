@@ -13,6 +13,8 @@
 #include "shaderutils.h"
 
 
+int sls_get_glversion();
+
 /**
  * Store all the file's contents in memory, useful to pass shaders
  * source code to OpenGL
@@ -23,14 +25,14 @@ char *sls_file_read(const char *filename)
   if (file == NULL) return NULL;
 
   int file_size = BUFSIZ;
-  char *file_str = (char *) malloc(file_size);
+  char *file_str = (char *) malloc((size_t) file_size);
   int nb_read_total = 0;
 
   while (!feof(file) && !ferror(file)) {
     if (nb_read_total + BUFSIZ > file_size) {
       if (file_size > 10 * 1024 * 1024) break;
       file_size = file_size * 2;
-      file_str = (char *) realloc(file_str, file_size);
+      file_str = (char *) realloc(file_str, (size_t) file_size);
     }
     char *p_res = file_str + nb_read_total;
     nb_read_total += fread(p_res, 1, BUFSIZ, file);
@@ -74,17 +76,41 @@ void sls_print_log(GLuint object)
  */
 GLuint sls_create_shader(const char *filename, GLenum type)
 {
+  GLchar const *modern_preamble =
+      "#version 410\n#define SLS_MODERN_OPENGL 1\n";
+  GLchar const *legacy_preamble =
+      "#version 130\n";
+  GLchar const *gles_preamble =
+      "#version 100\n";
+
+  GLchar const *preamble;
+
+#ifndef SLS_GLES
+  int v = sls_get_glversion();
+  if (v >= 330) {
+    preamble = modern_preamble;
+  } else {
+    preamble = legacy_preamble;
+  }
+
+#else
+  preamble = gles_preamble;
+#endif
+
   GLchar *source = sls_file_read(filename);
-  if (source == NULL) {
+  if (!source) {
     sls_log_err("Error opening %s: ", filename);
     perror("");
     return 0;
   }
   GLuint res = glCreateShader(type);
 
-  const int n_sources = 1;
+  char const *sources[] = {preamble, source};
+  const size_t n_sources = sizeof(sources)/ sizeof(char*);
 
-  glShaderSource(res, n_sources, (GLchar const *const *) &source, NULL);
+  glShaderSource(res, n_sources, sources, NULL);
+
+
   free(source);
 
   glCompileShader(res);
@@ -94,7 +120,11 @@ GLuint sls_create_shader(const char *filename, GLenum type)
   if (compile_ok == GL_FALSE) {
     fprintf(stderr, "%s:", filename);
     sls_print_log(res);
+
+
+
     glDeleteShader(res);
+
     return 0;
   }
 
@@ -102,23 +132,29 @@ GLuint sls_create_shader(const char *filename, GLenum type)
 }
 
 
+
+
 GLuint sls_create_program(const char *vertexfile, const char *fragmentfile)
 {
-  GLuint program = glCreateProgram();
-  GLuint shader;
+  GLuint
+      program = glCreateProgram(),
+      vs = 0,
+      fs = 0;
 
   if (vertexfile) {
-    shader = sls_create_shader(vertexfile, GL_VERTEX_SHADER);
-    if (!shader)
+    vs = sls_create_shader(vertexfile, GL_VERTEX_SHADER);
+    if (vs == 0) {
       return 0;
-    glAttachShader(program, shader);
+    }
+    glAttachShader(program, vs);
   }
 
   if (fragmentfile) {
-    shader = sls_create_shader(fragmentfile, GL_FRAGMENT_SHADER);
-    if (!shader)
+    fs = sls_create_shader(fragmentfile, GL_FRAGMENT_SHADER);
+    if (fs == 0) {
       return 0;
-    glAttachShader(program, shader);
+    }
+    glAttachShader(program, fs);
   }
 
   //
@@ -132,6 +168,9 @@ GLuint sls_create_program(const char *vertexfile, const char *fragmentfile)
     glDeleteProgram(program);
     return 0;
   }
+
+  glDeleteShader(vs);
+  glDeleteShader(fs);
 
   return program;
 }

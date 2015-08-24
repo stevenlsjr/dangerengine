@@ -238,6 +238,7 @@ void sls_texture_bind(slsTexture *self)
  * utility functions
  *----------------------------*/
 
+#ifndef __EMSCRIPTEN__
 GLuint sls_gltex_from_file(char const *path,
                            int width_opt,
                            int height_opt)
@@ -312,6 +313,17 @@ GLuint sls_gltex_from_file(char const *path,
   return tex;
 }
 
+#else
+GLuint sls_gltex_from_file(char const *path,
+                           int width_opt,
+                           int height_opt)
+{
+  return 0;
+}
+#endif
+
+#ifndef __EMSCRIPTEN__
+
 ILenum sls_il_get_errors()
 {
   ILenum err, last;
@@ -330,3 +342,4 @@ ILenum sls_il_get_errors()
   return last;
 }
 
+#endif

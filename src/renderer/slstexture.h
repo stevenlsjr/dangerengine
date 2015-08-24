@@ -37,8 +37,8 @@
 #ifndef DANGERENGINE_SLSTEXTURE_H
 #define DANGERENGINE_SLSTEXTURE_H
 
-#include <IL/il.h>
 #include "../sls-gl.h"
+#include "../sls-imagelib.h"
 #include "../slsutils.h"
 #include <inttypes.h>
 
@@ -125,6 +125,8 @@ slsTexture *sls_texture_new(char const *diffuse_path,
  */
 GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt);
 
+
+#ifndef __EMSCRIPTEN__
 /**
  * @brief reads through the devIL error stack and reports errors.
  * @detail will abort program if out of memory occurs
@@ -132,5 +134,7 @@ GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt);
  * @returns top error or IL_NO_ERROR if no errors reported
  */
 ILenum sls_il_get_errors();
+
+#endif
 
 #endif //DANGERENGINE_SLSTEXTURE_H

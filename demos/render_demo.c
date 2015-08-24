@@ -49,30 +49,11 @@ void demo_uniform_locations(demoData *data)
 void demo_setup_shaders(slsContext *self)
 {
   if (!self || !self->data) { exit(EXIT_FAILURE); }
-  char const *fs_path;
-  char const *vs_path;
+  char const *fs_path = "resources/shaders/default.frag";
+  char const *vs_path = "resources/shaders/default.vert";
 
   demoData *data = self->data;
 
-
-#ifndef SLS_GLES
-
-  int major, minor;
-  glGetIntegerv(GL_MAJOR_VERSION, &major);
-  glGetIntegerv(GL_MINOR_VERSION, &minor);
-
-  if (major < 3 || (major == 3 && minor < 2)) {
-    vs_path = "resources/shaders/default-legacy.vert";
-    fs_path = "resources/shaders/default-legacy.frag";
-  } else {
-    vs_path = "resources/shaders/default.vert";
-    fs_path = "resources/shaders/default.frag";
-  }
-
-#else
-  vs_path = "resources/shaders/default-legacy.vert";
-  fs_path = "resources/shaders/default-legacy.frag";
-#endif
 
   data->program = sls_create_program(vs_path, fs_path);
 
@@ -80,7 +61,7 @@ void demo_setup_shaders(slsContext *self)
 
 void demo_context_setup(slsContext *self)
 {
-  if (!self || !self->data) { exit(EXIT_FAILURE); }
+  if (!self) { exit(EXIT_FAILURE); }
 
   sls_context_class()->setup(self);
 
@@ -122,8 +103,8 @@ void demo_setup_scene(slsContext *self)
   demo_add_model(data, 0.0f, 0.0f);
   demo_add_model(data, -1.0f, 0.30f);
 
-
-  error:
+  return;
+error:
   getchar();
   exit(EXIT_FAILURE);
 }
@@ -146,11 +127,11 @@ void demo_context_update(slsContext *self, double dt)
   demoData *data = self->data;
 
 
-
 }
 
 
-void demo_context_display(slsContext *self, double dt) {
+void demo_context_display(slsContext *self, double dt)
+{
 
 
   demoData *data = self->data;
@@ -190,7 +171,8 @@ void demo_context_display(slsContext *self, double dt) {
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void demo_context_teardown(slsContext *self) {
+void demo_context_teardown(slsContext *self)
+{
   demoData *data = self->data;
 
   if (data) {
@@ -211,7 +193,8 @@ void demo_context_teardown(slsContext *self) {
   }
 }
 
-void demo_context_resize(slsContext *self, int x, int y) {
+void demo_context_resize(slsContext *self, int x, int y)
+{
   sls_context_class()->resize(self, x, y);
   demoData *data = self->data;
 
@@ -223,7 +206,8 @@ void demo_context_resize(slsContext *self, int x, int y) {
 }
 
 
-int render_demo_main(int *argc, char **argv) {
+int render_demo_main(int *argc, char **argv)
+{
   slsContext *c = sls_context_new("window", 640, 480);
 
   c->data = NULL;
