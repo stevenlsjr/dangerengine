@@ -105,6 +105,15 @@ struct slsContext {
   void (*display)(slsContext *self, double dt);
 
 
+  // glfw input events. Can be NULL
+  void (*key_event)(slsContext *self, int key, int scancode, int action, int mods);
+
+  void (*cusrsor_event)(slsContext *self, double xpos, double ypos);
+
+  void (*enter_event)(slsContext *self, int entered);
+
+  void (*mouse_event)(slsContext *self, int button, int action, int mods);
+
 
   GLFWwindow *window;
   slsBool is_running;
@@ -122,7 +131,6 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height);
  * @brief sets emscripten mainloop for context execution
  */
 void sls_emscripten_loop(void *vctx);
-
 
 int sls_get_glversion();
 

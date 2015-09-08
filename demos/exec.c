@@ -13,8 +13,10 @@
 
 #include "render_demo.h"
 #include "pong_demo.h"
+#include "lab2-demo.c.h"
 
-static inline void setup() {
+static inline void setup()
+{
 #ifdef __EMSCRIPTEN__
   EM_ASM({
     var canvas = document.getElementById('canvas');
@@ -25,34 +27,12 @@ static inline void setup() {
 };
 
 
-
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   typedef int (*demo_t)(int *, char **);
 
-  demo_t demo = NULL;
-
-  for (int i = 1; i < argc && (argv[i] != NULL); ++i) {
-    char const *s = argv[i];
-    const size_t max_chars = 50;
-
-    char const *pong_name = "pong";
-    char const *render_name = "render";
-
-    if (strncasecmp(pong_name, s, max_chars) == 0) {
-      
-      demo = pong_demo_main;
-      break;
-
-    } else if (strncasecmp(render_name, s, max_chars) == 0) {
-      demo = render_demo_main;
-      break;
-    }
-  }
-
-  if (!demo) {
-    demo = render_demo_main;
-  }
+  demo_t demo = lab_demo_main;
 
   return demo(&argc, argv);
 

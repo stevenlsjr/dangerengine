@@ -89,7 +89,9 @@ void sls_window_resize(GLFWwindow *win, int x, int y)
 
 void sls_mouse(GLFWwindow *wwindow, int i, int i1, int i2)
 {
+  if (sls_active_context && sls_active_context->mouse_event) {
 
+  }
 }
 
 bool sls_il_init()

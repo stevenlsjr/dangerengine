@@ -201,7 +201,7 @@ void demo_context_resize(slsContext *self, int x, int y)
   float aspect = x / (float) y;
 
   kmMat4 projection;
-  kmMat4OrthographicProjection(&projection, -aspect, aspect, -1, 1, -10.0, 10.0);
+  kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
   glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
 }
 

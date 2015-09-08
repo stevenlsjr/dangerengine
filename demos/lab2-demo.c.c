@@ -1,8 +1,8 @@
 /**
- * @file default.frag
- * @brief sample frag shader. Define SLS_MODERN_GL to use modern shaders.
+ * @file ${FILE}
+ * @brief  
  *
- * Copyright (c) 2015, Steven Shea
+ * Copyright (c) 9/8/15, Steven Shea
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -27,31 +27,11 @@
  * 
  * The views and conclusions contained in the software and documentation are those
  * of the authors and should not be interpreted as representing official policies,
- * either expressed or implied, of Steven Shea. 
-**/
+ * either expressed or implied, of ${ORGANIZATION_NAME}. **/
+#include "lab2-demo.c.h"
 
 
-/*----------------------------*
- * gl4.1 shader
- *----------------------------*/
-
-  out vec4 color;
-
-  in vec4 frag_color;
-  in vec2 frag_uv;
-
-
-  uniform mat4 model_view;
-  uniform mat4 normal_mat;
-  uniform mat4 projection;
-
-  uniform float time;
-  uniform sampler2D diffuse_map;
-  uniform sampler2D specular_map;
-  uniform sampler2D normal_map;
-
-  void main()
-  {
-    color = texture(diffuse_map, frag_uv) * frag_color;
-  }
-
+int lab_demo_main(int *argc, char **argv)
+{
+  return 0;
+}

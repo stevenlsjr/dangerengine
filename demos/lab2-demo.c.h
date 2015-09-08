@@ -1,8 +1,8 @@
 /**
- * @file default.frag
- * @brief sample frag shader. Define SLS_MODERN_GL to use modern shaders.
+ * @file ${FILE}
+ * @brief  
  *
- * Copyright (c) 2015, Steven Shea
+ * Copyright (c) 9/8/15, Steven Shea
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -27,31 +27,29 @@
  * 
  * The views and conclusions contained in the software and documentation are those
  * of the authors and should not be interpreted as representing official policies,
- * either expressed or implied, of Steven Shea. 
-**/
+ * either expressed or implied, of ${ORGANIZATION_NAME}. **/
+#ifndef DANGERENGINE_LAB2_DEMO_C_H
+#define DANGERENGINE_LAB2_DEMO_C_H
 
 
-/*----------------------------*
- * gl4.1 shader
- *----------------------------*/
+#import <dangerengine.h>
 
-  out vec4 color;
+typedef struct labData {
 
-  in vec4 frag_color;
-  in vec2 frag_uv;
+  GLuint program;
 
 
-  uniform mat4 model_view;
-  uniform mat4 normal_mat;
-  uniform mat4 projection;
+  struct {
+    GLint time_;
+    GLint projection;
+    GLint model_view;
+    GLint normal_mat;
+    GLint tex_sample;
+  } uniforms;
 
-  uniform float time;
-  uniform sampler2D diffuse_map;
-  uniform sampler2D specular_map;
-  uniform sampler2D normal_map;
+} labData;
 
-  void main()
-  {
-    color = texture(diffuse_map, frag_uv) * frag_color;
-  }
+int lab_demo_main(int *argc, char **argv);
 
+
+#endif //DANGERENGINE_LAB2_DEMO_C_H
