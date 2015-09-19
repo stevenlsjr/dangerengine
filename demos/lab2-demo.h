@@ -34,22 +34,9 @@
 
 #import <dangerengine.h>
 
-typedef struct labData {
-
-  GLuint program;
 
 
-  struct {
-    GLint time_;
-    GLint projection;
-    GLint model_view;
-    GLint normal_mat;
-    GLint tex_sample;
-  } uniforms;
-
-} labData;
-
-int lab_demo_main(int *argc, char **argv);
+int lab1_main(int *argc, char **argv);
 
 
 #endif //DANGERENGINE_LAB2_DEMO_C_H

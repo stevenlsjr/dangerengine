@@ -37,6 +37,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math/math-types.h>
+#include <assert.h>
 
 #include "contexthandlers.h"
 
@@ -45,9 +47,11 @@
 #   include <emscripten.h>
 #endif //EMSCRIPTEN
 
+
 struct slsContext_p {
-    clock_t last;
-    clock_t dt_acc;
+  clock_t last;
+  clock_t dt_acc;
+  slsIPoint last_size;
 };
 
 
@@ -139,31 +143,45 @@ slsContext *sls_context_init(slsContext *self,
   }
 
   // GLFW hints
-  int hints[] = {
-      GLFW_DOUBLEBUFFER, GL_TRUE,
-      GLFW_CONTEXT_VERSION_MAJOR, 4,
-      GLFW_CONTEXT_VERSION_MINOR, 1,
-      GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE,
-      GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE
-  };
 
-  size_t n_hints = sizeof(hints) / sizeof(int);
-  sls_check(n_hints % 2 == 0, "you must include an even number of glfw hint values");
-  for (int i = 0; i < n_hints / 2; ++i) {
-    const int ii = i * 2;
-    glfwWindowHint(hints[ii], hints[ii + 1]);
-  }
+  glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+
+  glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+
 
 
   // create glfw window
-  self->window = glfwCreateWindow((int) width, (int) height, caption, NULL, NULL);
+  self->window =
+      glfwCreateWindow((int) width,
+                       (int) height,
+                       caption,
+                       NULL,
+                       NULL);
 
   sls_check(self->window, "window creation failed");
+
+# ifndef SLS_NOGLEW
+  {
+    glewExperimental = GL_TRUE;
+    GLenum glew = glewInit();
+    if (glew != GLEW_OK) {
+      sls_log_err("glew error: %s", glewGetErrorString(glew));
+      self->is_running = SLS_FALSE;
+    }
+    sls_log_info("glew version %s", glewGetString(GLEW_VERSION));
+  }
+# endif// !SLS_NOGLEW
 
   // allocate and initialize private members
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
-  *(self->priv) = (slsContext_p) {.dt_acc=0, .last=0};
+
 
   return self;
 
@@ -199,14 +217,13 @@ void sls_context_run(slsContext *self)
 
   sls_msg(self, setup);
 
-# ifndef EMSCRIPTEN
+  slsIPoint last_size = self->priv->last_size;
+  sls_msg(self, resize, last_size.x, last_size.y);
+
   // use a simple run loop (loop execution encapsulated in iter method)
   while (self->is_running) {
     sls_msg(self, iter);
   }
-# else
-  emscripten_set_main_loop_arg(sls_emscripten_loop, self, -1, SLS_FALSE);
-# endif //!EMSCRIPTEN
 
   sls_msg(self, teardown);
 }
@@ -219,18 +236,12 @@ void sls_emscripten_loop(void *vctx)
 
 void sls_context_iter(slsContext *self)
 {
+  glfwPollEvents();
+
   if (!self || !self->priv) {
     return;
   }
 
-  // ensure that windows sets correct size at start of program
-  static slsBool first_resize = SLS_FALSE;
-
-  if (!first_resize) {
-    int width, height;
-    glfwGetFramebufferSize(self->window, &width, &height);
-    sls_msg(self, resize, width, height);
-  }
 
   clock_t now = clock();
   slsContext_p *priv = self->priv;
@@ -246,7 +257,6 @@ void sls_context_iter(slsContext *self)
     sls_msg(self, display, dt);
   }
 
-  glfwPollEvents();
   if (glfwWindowShouldClose(self->window)) {
     self->is_running = SLS_FALSE;
   }
@@ -265,29 +275,31 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
-
-
+/*
   if (!self || !self->priv) { return; }
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glfwSwapBuffers(self->window);
+*/
 }
 
 void sls_context_setup(slsContext *self)
 {
+  if (!self || !self->priv) {
+    assert(0);
+    return;
+  }
   sls_bind_context(self);
 
-# ifndef SLS_NOGLEW
-  {
-    glewExperimental = GL_TRUE;
-    GLenum glew = glewInit();
-    if (glew != GLEW_OK) {
-      sls_log_err("glew error: %s", glewGetErrorString(glew));
-      self->is_running = SLS_FALSE;
-    }
-    sls_log_info("glew version %s", glewGetString(GLEW_VERSION));
-  }
-# endif// !SLS_NOGLEW
+  slsContext_p *priv = self->priv;
+
+
+  int x, y, w, h;
+
+  priv->last_size = (slsIPoint) {w, h};
+  sls_msg(self, resize, w, h);
+
+
 
   sls_log_info("openGL version %s", glGetString(GL_VERSION));
 
@@ -305,6 +317,7 @@ void sls_context_teardown(slsContext *self)
 }
 
 #ifndef __EMSCRIPTEN__
+
 int sls_get_glversion()
 {
   int

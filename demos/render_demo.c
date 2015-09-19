@@ -200,15 +200,19 @@ void demo_context_resize(slsContext *self, int x, int y)
 
   float aspect = x / (float) y;
 
-  kmMat4 projection;
-  kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
-  glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
+  if (x != 0 && y!= 0) {
+    kmMat4 projection;
+    kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
+    glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
+  }
 }
 
 
 int render_demo_main(int *argc, char **argv)
 {
-  slsContext *c = sls_context_new("window", 640, 480);
+  size_t w = 640;
+  size_t h = 480;
+  slsContext *c = sls_context_new("window", w, h);
 
   c->data = NULL;
 
@@ -218,7 +222,10 @@ int render_demo_main(int *argc, char **argv)
   c->teardown = demo_context_teardown;
   c->resize = demo_context_resize;
 
+
   assert(c);
+
+
   sls_msg(c, run);
   sls_msg(c, dtor);
 

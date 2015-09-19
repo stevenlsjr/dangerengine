@@ -84,17 +84,13 @@ set(DANGER_DEMO_SRC
     demos/exec.c
     demos/render_demo.c
     demos/render_demo.h
-    demos/pong_demo.c
-    demos/pong_demo.h demos/lab2-demo.c.c demos/lab2-demo.c.h)
+    demos/lab2-demo.c
+    demos/lab2-demo.h)
 
 #--------------------------------------------
 #-------------project config-----------------
 #--------------------------------------------
 
-
-# included files listing sources
-include(engine_src.cmake)
-include(test_src.cmake)
 
 #copy resources to build
 file(COPY ${CMAKE_SOURCE_DIR}/resources/

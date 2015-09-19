@@ -49,10 +49,9 @@ void sls_error_cback(int, const char *);
 
 void sls_mouse(GLFWwindow *, int, int, int);
 
-void sls_window_resize(GLFWwindow *win, int x, int y);
+void sls_fb_resize(GLFWwindow *win, int x, int y);
 
 bool sls_il_init();
-
 
 
 void sls_bind_context(slsContext *ctx)
@@ -61,7 +60,7 @@ void sls_bind_context(slsContext *ctx)
   sls_unbind_context();
 
   // window callbacks
-  glfwSetWindowSizeCallback(ctx->window, sls_window_resize);
+  glfwSetFramebufferSizeCallback(ctx->window, sls_fb_resize);
 
   sls_active_context = ctx;
   glfwMakeContextCurrent(ctx->window);
@@ -80,8 +79,9 @@ void sls_unbind_context(void)
 }
 
 
-void sls_window_resize(GLFWwindow *win, int x, int y)
+void sls_fb_resize(GLFWwindow *win, int x, int y)
 {
+
   if (sls_active_context) {
     sls_msg(sls_active_context, resize, x, y);
   }
@@ -123,6 +123,7 @@ bool sls_init(void)
 
   // set error callback
   glfwSetErrorCallback(sls_error_cback);
+
 
   sls_setup_errstack();
 
