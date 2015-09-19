@@ -136,44 +136,31 @@ find_package(OpenGL)
 find_package(GLEW)
 find_package(Doxygen)
 
-if (NOT EMSCRIPTEN)
+#only compile gtest and glfw when not using emscripten
+add_subdirectory(extern/googlemock)
+add_subdirectory(extern/glfw)
+
+find_package(DevIL)
 
 
-  #only compile gtest and glfw when not using emscripten
-  add_subdirectory(extern/googlemock)
-  add_subdirectory(extern/glfw)
+set(DANGER_DEPS
+    ${DANGER_DEPS}
+    glfw
+    ${IL_LIBRARIES}
+    ${ILU_LIBRARIES}
+    ${GLFW_LIBRARIES}
+    ${OPENGL_gl_LIBRARY})
 
-  find_package(DevIL)
-
-
+if (GLEW_FOUND)
   set(DANGER_DEPS
       ${DANGER_DEPS}
-      glfw
-      ${IL_LIBRARIES}
-      ${ILU_LIBRARIES}
-      ${GLFW_LIBRARIES}
-      ${OPENGL_gl_LIBRARY})
+      ${GLEW_LIBRARIES})
+  include_directories(
+      ${GLEW_INCLUDE_DIR}
+      ${GLFW_SOURCE_DIR}/include
+      ${OPENGL_INCLUDE_DIR})
+endif (GLEW_FOUND)
 
-  if (GLEW_FOUND)
-    set(DANGER_DEPS
-        ${DANGER_DEPS}
-        ${GLEW_LIBRARIES})
-    include_directories(
-        ${GLEW_INCLUDE_DIR}
-        ${GLFW_SOURCE_DIR}/include
-        ${OPENGL_INCLUDE_DIR})
-  endif (GLEW_FOUND)
-
-else (NOT EMSCRIPTEN) # if emscripten
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -g4")
-  set(CMAKE_EXE_LINKER_FLAGS
-      "${CMAKE_EXE_LINKER_FLAGS} --pre-js ${CMAKE_SOURCE_DIR}/em.js.pre")
-  set(CMAKE_EXE_LINKER_FLAGS
-      "${CMAKE_EXE_LINKER_FLAGS} --post-js ${CMAKE_SOURCE_DIR}/em.js.post")
-
-  set(CMAKE_C_DEBUG_FLAGS "${CMAKE_C_FLAGS} -g4 -Wno-warn-absolute-paths --emit-symbol-map")
-endif (NOT EMSCRIPTEN)
 
 #---------------------------------------
 # build dangerengine
@@ -221,29 +208,27 @@ target_link_libraries(demo
     ${DANGER_DEPS})
 
 
-if (NOT EMSCRIPTEN)
 
 
-  # add a separate library for tests compiled in C. Used for supporting build
-  # systems which don't compile C and C++ code separately
-  add_dependencies(dangerengine glfw)
-  add_library(c_tests ${DANGER_CTEST_SRC})
-  add_dependencies(c_tests dangerengine)
-  target_link_libraries(c_tests dangerengine)
+# add a separate library for tests compiled in C. Used for supporting build
+# systems which don't compile C and C++ code separately
+add_dependencies(dangerengine glfw)
+add_library(c_tests ${DANGER_CTEST_SRC})
+add_dependencies(c_tests dangerengine)
+target_link_libraries(c_tests dangerengine)
 
-  add_executable(tests ${DANGER_TEST_SRC})
-  add_dependencies(tests
-      gtest
-      gtest_main
-      dangerengine)
-  target_link_libraries(tests
-      dangerengine
-      c_tests
-      ${DANGER_DEPS}
-      gtest
-      gtest_main)
+add_executable(tests ${DANGER_TEST_SRC})
+add_dependencies(tests
+    gtest
+    gtest_main
+    dangerengine)
+target_link_libraries(tests
+    dangerengine
+    c_tests
+    ${DANGER_DEPS}
+    gtest
+    gtest_main)
 
-endif (NOT EMSCRIPTEN)
 
 if (SLS_USE_OBJC)
   add_dependencies(c_tests dangerengine-fw)
