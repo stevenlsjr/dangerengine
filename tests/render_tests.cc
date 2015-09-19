@@ -133,5 +133,22 @@ TEST_F(RenderTests, TextureComponents)
   EXPECT_FALSE(tex->normal.is_bound); // shader does not use normal_map variable
   EXPECT_FALSE(tex->specular.is_bound);
 
-
 }
+
+TEST_F(RenderTests, TestGeometries)
+{
+  auto n_verts = 10;
+  kmVec4 color = {1.0, 1.0, 1.0, 1.0};
+  slsVertex *sphere = nullptr;
+  slsMesh *m = nullptr;
+  sphere = sls_sphere_vertices(n_verts, &color);
+  m = sls_sphere_mesh(n_verts, &color);
+
+  ASSERT_TRUE(sphere);
+  ASSERT_TRUE(m);
+
+  free(sphere);
+  m->dtor(m);
+}
+
+

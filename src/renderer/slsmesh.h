@@ -64,10 +64,9 @@ struct slsMesh {
                    size_t idx_count);
 
   void (*dtor)(slsMesh *self);
+
   void (*bind)(slsMesh *self, GLuint shader_program);
 
-  void(*bind_buffers)(slsMesh *self, GLuint shader_program);
-  void(*bind_attributes)(slsMesh *self, GLuint shader_program);
 
   /**
    * @brief set up buffer objects for drawing
@@ -83,6 +82,7 @@ struct slsMesh {
    * @brief unbinds buffer objects
    */
   void(*post_draw)(slsMesh *self, GLuint program, double dt);
+
   /**
    * @brief vertex array
    * @details TYPE slsVertex
@@ -117,10 +117,15 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t idx_count);
 
 
-
 slsMesh *sls_mesh_create_shape(char const *name);
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
+
+slsVertex *sls_sphere_vertices(size_t n_vertices,
+                               kmVec4 const *color);
+
+slsMesh *sls_sphere_mesh(size_t n_vertices,
+                         kmVec4 const *color);
 
 #endif //DANGERENGINE_SLS_MESH_H
 

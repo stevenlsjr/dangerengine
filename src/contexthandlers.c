@@ -37,62 +37,12 @@
 
 #include "sls-imagelib.h"
 
+#include <SDL2/SDL.h>
 #include <pthread.h>
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static slsBool sls_active_flag = SLS_FALSE;
 
-static pthread_mutex_t sls_active_context_mutex = PTHREAD_MUTEX_INITIALIZER;
-slsContext *sls_active_context = NULL;
-
-void sls_error_cback(int, const char *);
-
-void sls_mouse(GLFWwindow *, int, int, int);
-
-void sls_window_resize(GLFWwindow *win, int x, int y);
-
-bool sls_il_init();
-
-
-
-void sls_bind_context(slsContext *ctx)
-{
-  pthread_mutex_lock(&sls_active_context_mutex);
-  sls_unbind_context();
-
-  // window callbacks
-  glfwSetWindowSizeCallback(ctx->window, sls_window_resize);
-
-  sls_active_context = ctx;
-  glfwMakeContextCurrent(ctx->window);
-  pthread_mutex_unlock(&sls_active_context_mutex);
-
-
-  return;
-}
-
-void sls_unbind_context(void)
-{
-  if (sls_active_context) {
-    glfwMakeContextCurrent(NULL);
-    sls_active_context = NULL;
-  }
-}
-
-
-void sls_window_resize(GLFWwindow *win, int x, int y)
-{
-  if (sls_active_context) {
-    sls_msg(sls_active_context, resize, x, y);
-  }
-}
-
-void sls_mouse(GLFWwindow *wwindow, int i, int i1, int i2)
-{
-  if (sls_active_context && sls_active_context->mouse_event) {
-
-  }
-}
 
 bool sls_il_init()
 {
@@ -107,22 +57,23 @@ bool sls_il_init()
 }
 
 
-
-bool sls_init(void)
+bool sls_init()
 {
 
   sls_check(!sls_active_flag, "runtime is already active!");
 
-  // setup glfw
-  sls_check(glfwInit(), "glfw Init failed");
+
+  uint32_t sdl_flags = SDL_INIT_EVERYTHING;
+  uint32_t img_flags;
+
+  int sdl = SDL_Init(sdl_flags);
+  sls_check(sdl == 0, "sdl creation failed");
+  sls_log_info("sdl created: %i", sdl);
 
   sls_check(sls_il_init(), "devIL failed");
 
 
   sls_active_flag = SLS_TRUE;
-
-  // set error callback
-  glfwSetErrorCallback(sls_error_cback);
 
   sls_setup_errstack();
 
@@ -130,7 +81,11 @@ bool sls_init(void)
 
   return true;
   error:
-  return false;
+  {
+    sls_active_flag = SLS_FALSE;
+    return false;
+  }
+
 }
 
 void sls_terminate(void)
@@ -139,9 +94,10 @@ void sls_terminate(void)
     return;
   }
 
+  SDL_Quit();
+
   sls_teardown_errstack();
 
-  glfwTerminate();
   sls_active_flag = SLS_FALSE;
 }
 

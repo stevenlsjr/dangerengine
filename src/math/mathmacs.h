@@ -26,6 +26,8 @@ kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b);
 size_t sls_nearest_squarelu(size_t x);
 
 
+
+
 #ifndef __cplusplus
 
 #define sls_add(out, a, b) _Generic((out),    \

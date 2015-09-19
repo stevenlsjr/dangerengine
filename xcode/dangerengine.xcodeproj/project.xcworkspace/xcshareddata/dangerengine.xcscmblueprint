@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "50C6487BA6940B197DAAD8584F322537E5F24378",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "50C6487BA6940B197DAAD8584F322537E5F24378" : 0,
+    "F91D28A7E95E8F0399C74826E40B332B63E48E1C" : 0,
+    "9FDFF8CEB5E5AE6CC655403E48A0D4DBB47BFEB1" : 0,
+    "AA202FF08E6F8B61ACEA562A5BECD781FB2D44F8" : 0,
+    "E83CBAE4FBA3BF16D5F62513241EB2C3217246B1" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D173E315-A1C8-47C6-9DA1-5D3A58B76685",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "50C6487BA6940B197DAAD8584F322537E5F24378" : "dangerengine\/",
+    "F91D28A7E95E8F0399C74826E40B332B63E48E1C" : "dangerengine\/extern\/glfw\/",
+    "9FDFF8CEB5E5AE6CC655403E48A0D4DBB47BFEB1" : "dangerengine\/extern\/gtest\/",
+    "AA202FF08E6F8B61ACEA562A5BECD781FB2D44F8" : "dangerengine\/extern\/kazmath\/",
+    "E83CBAE4FBA3BF16D5F62513241EB2C3217246B1" : "dangerengine\/extern\/googlemock\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "dangerengine",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "xcode\/dangerengine.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/dangerbird2\/dangerengine",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "50C6487BA6940B197DAAD8584F322537E5F24378"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/googletest",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9FDFF8CEB5E5AE6CC655403E48A0D4DBB47BFEB1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Kazade\/kazmath.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA202FF08E6F8B61ACEA562A5BECD781FB2D44F8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/googlemock",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E83CBAE4FBA3BF16D5F62513241EB2C3217246B1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/glfw\/glfw",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F91D28A7E95E8F0399C74826E40B332B63E48E1C"
+    }
+  ]
+}

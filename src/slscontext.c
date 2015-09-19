@@ -37,6 +37,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math/math-types.h>
+#include <assert.h>
 
 #include "contexthandlers.h"
 
@@ -45,35 +47,40 @@
 #   include <emscripten.h>
 #endif //EMSCRIPTEN
 
+
 struct slsContext_p {
-    clock_t last;
-    clock_t dt_acc;
+  clock_t last;
+  clock_t dt_acc;
+  slsIPoint last_size;
 };
 
 
 /*----------------------------------------*
  * slsContext default method prototypes
  *----------------------------------------*/
-void sls_context_run(slsContext *self);
+void sls_context_run(slsContext *self) SLS_NONNULL(1);
 
-void sls_context_iter(slsContext *self);
+void sls_context_iter(slsContext *self) SLS_NONNULL(1);
 
-void sls_context_resize(slsContext *self, int x, int y);
+void sls_context_resize(slsContext *self, int x, int y) SLS_NONNULL(1);
 
-void sls_context_update(slsContext *self, double dt);
+void sls_context_update(slsContext *self, double dt) SLS_NONNULL(1);
 
-void sls_context_display(slsContext *self, double dt);
+void sls_context_display(slsContext *self, double dt) SLS_NONNULL(1);
 
 slsContext *sls_context_init(slsContext *self,
                              char const *caption,
                              size_t width,
-                             size_t height);
+                             size_t height) SLS_NONNULL(1);
 
-void sls_context_setup(slsContext *self);
+void sls_context_setup(slsContext *self) SLS_NONNULL(1);
 
-void sls_context_teardown(slsContext *self);
+void sls_context_teardown(slsContext *self) SLS_NONNULL(1);
 
-void sls_context_dtor(slsContext *self);
+void sls_context_dtor(slsContext *self) SLS_NONNULL(1);
+
+
+void sls_context_handle_event(slsContext *self, SDL_Event const *e);
 
 /*----------------------------------------*
  * slsContext static prototype
@@ -91,6 +98,8 @@ static const slsContext sls_context_proto = {
 
     .update = sls_context_update,
     .display = sls_context_display,
+
+    .handle_event = sls_context_handle_event,
 
     .is_running = SLS_FALSE,
     .interval = 50,
@@ -128,8 +137,6 @@ slsContext *sls_context_init(slsContext *self,
                              size_t height)
 {
 
-  // nullptr check and initialize class values
-  if (!self) { return NULL; }
   *self = *sls_context_class();
 
   // initialize libraries if not active
@@ -139,59 +146,74 @@ slsContext *sls_context_init(slsContext *self,
   }
 
   // GLFW hints
-  int hints[] = {
-      GLFW_DOUBLEBUFFER, GL_TRUE,
-      GLFW_CONTEXT_VERSION_MAJOR, 4,
-      GLFW_CONTEXT_VERSION_MINOR, 1,
-      GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE,
-      GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE
-  };
 
-  size_t n_hints = sizeof(hints) / sizeof(int);
-  sls_check(n_hints % 2 == 0, "you must include an even number of glfw hint values");
-  for (int i = 0; i < n_hints / 2; ++i) {
-    const int ii = i * 2;
-    glfwWindowHint(hints[ii], hints[ii + 1]);
-  }
+
+
 
 
   // create glfw window
-  self->window = glfwCreateWindow((int) width, (int) height, caption, NULL, NULL);
+
+  uint32_t window_flags =
+      SDL_WINDOW_ALLOW_HIGHDPI |
+      SDL_WINDOW_RESIZABLE;
+  self->window = SDL_CreateWindow(caption,
+                                  SDL_WINDOWPOS_CENTERED,
+                                  SDL_WINDOWPOS_CENTERED,
+                                  (int) width,
+                                  (int) height,
+                                  window_flags);
 
   sls_check(self->window, "window creation failed");
+
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+  self->gl_context = SDL_GL_CreateContext(self->window);
+
+
+  glewExperimental = GL_TRUE;
+  GLenum glew = glewInit();
+  if (glew != GLEW_OK) {
+    sls_log_err("glew error: %s", glewGetErrorString(glew));
+    self->is_running = SLS_FALSE;
+  }
+  sls_log_info("\nglew version %s\n"
+                   "gl version %s",
+               glewGetString(GLEW_VERSION),
+               glGetString(GL_VERSION));
+
 
   // allocate and initialize private members
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
-  *(self->priv) = (slsContext_p) {.dt_acc=0, .last=0};
+
 
   return self;
 
   /// exception
   error:
-  if (self && self->dtor) {
+
+  sls_log_err("sdl error: %s", SDL_GetError());
+  if (self->dtor) {
     sls_msg(self, dtor);
   }
-  else if (self) {
-    free(self);
-  }
+  free(self);
   return NULL;
 }
 
 void sls_context_dtor(slsContext *self)
 {
-  if (self) {
-    if (self->priv) {
-      free(self->priv);
-    }
-    free(self);
+  if (self->priv) {
+    free(self->priv);
   }
+  free(self);
 }
 
 
 void sls_context_run(slsContext *self)
 {
-  if (!self || !self->priv) { return; }
+  if (!self->priv) { return; }
   self->priv->last = clock();
   self->priv->dt_acc = 0;
 
@@ -199,14 +221,13 @@ void sls_context_run(slsContext *self)
 
   sls_msg(self, setup);
 
-# ifndef EMSCRIPTEN
+  slsIPoint last_size = self->priv->last_size;
+  sls_msg(self, resize, last_size.x, last_size.y);
+
   // use a simple run loop (loop execution encapsulated in iter method)
   while (self->is_running) {
     sls_msg(self, iter);
   }
-# else
-  emscripten_set_main_loop_arg(sls_emscripten_loop, self, -1, SLS_FALSE);
-# endif //!EMSCRIPTEN
 
   sls_msg(self, teardown);
 }
@@ -219,18 +240,12 @@ void sls_emscripten_loop(void *vctx)
 
 void sls_context_iter(slsContext *self)
 {
-  if (!self || !self->priv) {
+  sls_context_pollevents(self);
+
+  if (!self->priv) {
     return;
   }
 
-  // ensure that windows sets correct size at start of program
-  static slsBool first_resize = SLS_FALSE;
-
-  if (!first_resize) {
-    int width, height;
-    glfwGetFramebufferSize(self->window, &width, &height);
-    sls_msg(self, resize, width, height);
-  }
 
   clock_t now = clock();
   slsContext_p *priv = self->priv;
@@ -243,13 +258,16 @@ void sls_context_iter(slsContext *self)
     double dt = priv->dt_acc / (double) CLOCKS_PER_SEC;
     priv->dt_acc = 0;
     sls_msg(self, update, dt);
+
+    glClear(GL_COLOR_BUFFER_BIT |
+            GL_DEPTH_BUFFER_BIT);
+
     sls_msg(self, display, dt);
+
+    SDL_GL_SwapWindow(self->window);
   }
 
-  glfwPollEvents();
-  if (glfwWindowShouldClose(self->window)) {
-    self->is_running = SLS_FALSE;
-  }
+
 }
 
 
@@ -266,45 +284,81 @@ void sls_context_update(slsContext *self, double dt)
 void sls_context_display(slsContext *self, double dt)
 {
 
-
-  if (!self || !self->priv) { return; }
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  glfwSwapBuffers(self->window);
 }
 
 void sls_context_setup(slsContext *self)
 {
-  sls_bind_context(self);
-
-# ifndef SLS_NOGLEW
-  {
-    glewExperimental = GL_TRUE;
-    GLenum glew = glewInit();
-    if (glew != GLEW_OK) {
-      sls_log_err("glew error: %s", glewGetErrorString(glew));
-      self->is_running = SLS_FALSE;
-    }
-    sls_log_info("glew version %s", glewGetString(GLEW_VERSION));
+  if (!self->priv) {
+    assert(0);
+    return;
   }
-# endif// !SLS_NOGLEW
+
+  slsContext_p *priv = self->priv;
+
+
+  int x, y, w, h;
+
+  priv->last_size = (slsIPoint) {w, h};
+  sls_msg(self, resize, w, h);
+
 
   sls_log_info("openGL version %s", glGetString(GL_VERSION));
 
   // setup opengl pipeline
 
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_SCISSOR_TEST);
+  glEnable(GL_BLEND);
+  glEnable(GL_POINT_SIZE);
+  glEnable(GL_POINT_SPRITE);
+
+  //glEnable(GL_SCISSOR_TEST);
 
 
+}
+
+void sls_context_pollevents(slsContext *self)
+{
+  SDL_Event e;
+  if (self->handle_event) {
+    while (SDL_PollEvent(&e)) {
+      self->handle_event(self, &e);
+    }
+  }
+}
+
+static inline void _sls_context_windowevent(slsContext *self, SDL_WindowEvent const *we)
+{
+  switch (we->event) {
+    case SDL_WINDOWEVENT_RESIZED: {
+      int w = we->data1, h = we->data2;
+      sls_msg(self, resize, w, h);
+    }
+      break;
+    default:
+      break;
+  }
+}
+
+void sls_context_handle_event(slsContext *self, SDL_Event const *e)
+{
+  switch (e->type) {
+    case SDL_QUIT:
+      self->is_running = SLS_FALSE;
+      break;
+    case SDL_WINDOWEVENT:
+      _sls_context_windowevent(self, &e->window);
+      break;
+    default:
+      break;
+  }
 }
 
 void sls_context_teardown(slsContext *self)
 {
-  sls_unbind_context();
 }
 
 #ifndef __EMSCRIPTEN__
+
 int sls_get_glversion()
 {
   int

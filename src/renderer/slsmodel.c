@@ -30,9 +30,11 @@
  * either expressed or implied, of Steven Shea. 
 **/
 
+#include <kazmath/kazmath.h>
+#include <tgmath.h>
+
 #include "slsmodel.h"
 #include "../slsutils.h"
-#include <kazmath/kazmath.h>
 #include "slsmesh.h"
 
 slsModel* sls_model_init(slsModel* self,
@@ -131,3 +133,9 @@ void sls_model_draw(slsModel* self,
   sls_msg(self->mesh, post_draw, self->program, dt);
 
 }
+
+
+
+
+
+

@@ -33,8 +33,9 @@
 #ifndef DANGERENGINE_SLSCONTEXT_H
 #define DANGERENGINE_SLSCONTEXT_H
 
-#include <GLFW/glfw3.h>
 #include "slsutils.h"
+#include "sls-gl.h"
+#include <SDL2/SDL.h>
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
@@ -55,13 +56,13 @@ struct slsContext {
    */
   slsContext * (*init)(slsContext *self,
                        char const *caption,
-                       size_t width, size_t height);
+                       size_t width, size_t height) SLS_NONNULL(1);
 
   /**
    * @brief destructor method
    * @detail finalizes object and frees it from memory
    */
-  void (*dtor)(slsContext *self);
+  void (*dtor)(slsContext *self) SLS_NONNULL(1);
 
 
 
@@ -70,55 +71,52 @@ struct slsContext {
    * @detail executed at the begining of main loop
    * must be called to use openGL functions with this context
    */
-  void (*setup)(slsContext *self);
+  void (*setup)(slsContext *self) SLS_NONNULL(1);
 
   /**
    *  @brief tears down context
    */
-  void (*teardown)(slsContext *self);
+  void (*teardown)(slsContext *self) SLS_NONNULL(1);
 
 
   /**
    * @brief sets up run loop
    * @detail sets up context, executes main loop, and tears down context at end
    */
-  void (*run)(slsContext *self);
+  void (*run)(slsContext *self) SLS_NONNULL(1);
 
   /**
    * @brief performs a single iteration of the mainloop
    */
-  void (*iter) (slsContext *self);
+  void (*iter) (slsContext *self) SLS_NONNULL(1);
+
+  void (*handle_event) (slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
 
   /**
    * @brief callback method for window resize
    */
-  void (*resize)(slsContext *self, int x, int y);
+  void (*resize)(slsContext *self, int x, int y) SLS_NONNULL(1);
 
   /**
    * @brief update method
    */
-  void (*update)(slsContext *self, double dt);
+  void (*update)(slsContext *self, double dt) SLS_NONNULL(1);
 
   /**
    * @brief performs all drawing operations
    */
-  void (*display)(slsContext *self, double dt);
+  void (*display)(slsContext *self, double dt) SLS_NONNULL(1);
 
 
-  // glfw input events. Can be NULL
-  void (*key_event)(slsContext *self, int key, int scancode, int action, int mods);
 
-  void (*cusrsor_event)(slsContext *self, double xpos, double ypos);
-
-  void (*enter_event)(slsContext *self, int entered);
-
-  void (*mouse_event)(slsContext *self, int button, int action, int mods);
+  SDL_Window *window;
+  SDL_GLContext gl_context;
 
 
-  GLFWwindow *window;
   slsBool is_running;
   clock_t interval;
   slsContext_p *priv;
+
   void *data;
 };
 
@@ -133,5 +131,7 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height);
 void sls_emscripten_loop(void *vctx);
 
 int sls_get_glversion();
+
+void sls_context_pollevents(slsContext *self) SLS_NONNULL(1);
 
 #endif //DANGERENGINE_SLSCONTEXT_H

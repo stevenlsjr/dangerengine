@@ -69,8 +69,6 @@ static const slsMesh sls_mesh_proto = {
     .dtor = sls_mesh_dtor,
     .bind = sls_mesh_bind,
 
-    .bind_buffers=_sls_mesh_binddata,
-    .bind_attributes=_sls_mesh_bindattrs,
     .pre_draw=sls_mesh_predraw,
 
     .draw=sls_mesh_draw,
@@ -328,9 +326,9 @@ slsMesh *sls_mesh_create_shape(char const *name)
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
 {
 
-  sls_msg(self, pre_draw, program, dt);
-  sls_msg(self, draw, dt);
-  sls_msg(self, post_draw, program, dt);
+  self->pre_draw(self, program, dt);
+  self->draw(self, dt);
+  self->post_draw(self, program, dt);
 
 }
 
@@ -342,12 +340,8 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
   self->is_drawing = SLS_TRUE;
   // setup vert position pointer
 
-#ifndef SLS_GLES
   glBindVertexArray(self->vao);
-#else
-  // without a vertex array, you must rebind attributes
-  _sls_mesh_bindattrs(self, program);
-#endif
+
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
@@ -366,9 +360,64 @@ void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
   self->is_drawing = SLS_FALSE;
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-#ifndef SLS_GLES
-  glBindVertexArray(0);
-
-#endif
 }
 
+slsVertex *sls_sphere_vertices(size_t n_vertices,
+                               kmVec4 const *color)
+{
+  slsVertex *sphere = NULL;
+
+  size_t sphere_size = n_vertices + 1;
+  sphere = calloc(sphere_size, sizeof(slsVertex));
+
+  sls_log_info("making circle");
+  for (int i=0; i<n_vertices; ++i) {
+    double theta = (M_PI * 2.0 * (double) i) / (double)n_vertices;
+
+    float pos[3] = {(float)cos(theta), (float)sin(theta), 1.0f};
+
+    slsVertex v =  {.normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}};
+    memcpy(v.position, pos, sizeof(float[3]));
+    v.color[0] = color->x;
+    v.color[1] = color->y;
+    v.color[2] = color->z;
+    v.color[3] = color->w;
+
+    sls_log_info("angle %f, position %f %f", theta, v.position[0], v.position[1]);
+
+
+  }
+
+  return sphere;
+}
+
+slsMesh *sls_sphere_mesh(size_t n_vertices,
+                         kmVec4 const *color)
+{
+  slsMesh *m = NULL;
+
+  size_t n_triangles = n_vertices - 2;
+  size_t n_elements = n_triangles * 3;
+  uint32_t *elements = calloc(n_elements + 1, sizeof(uint32_t));
+  slsVertex *verts = sls_sphere_vertices(n_vertices, color);
+
+  sls_log_info("%lu %lu", n_elements, n_triangles);
+
+  // naive fan sphere triangulation
+  int starting_pos = 1;
+  for (int i=starting_pos; i<n_triangles; ++i) {
+    sls_log_info("%i, %i, %i, (n_vertices) %i", i, i+1, i+2, (int)n_vertices);
+
+    assert(i + 2 < n_vertices);
+    uint32_t triangle[3] = {0, i, i+1};
+
+    memcpy(elements + i, triangle, sizeof(uint32_t[3]));
+  }
+
+  m = sls_mesh_new(verts, n_vertices, elements, n_elements);
+
+  free(elements);
+  free(verts);
+
+  return m;
+}

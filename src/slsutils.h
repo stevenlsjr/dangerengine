@@ -147,4 +147,6 @@ void *sls_objalloc(void const *prototype, size_t size);
  */
 void sls_sleep(clock_t ticks);
 
+#define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
+
 #endif //DANGERENGINE_SLSUTILS_H

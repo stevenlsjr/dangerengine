@@ -12,8 +12,6 @@
 #endif //__EMSCRIPTEN__
 
 #include "render_demo.h"
-#include "pong_demo.h"
-#include "lab2-demo.c.h"
 
 static inline void setup()
 {
@@ -30,11 +28,7 @@ static inline void setup()
 int main(int argc, char *argv[])
 {
 
-  typedef int (*demo_t)(int *, char **);
-
-  demo_t demo = lab_demo_main;
-
-  return demo(&argc, argv);
+  return render_demo_main(&argc, argv);
 
 }
 

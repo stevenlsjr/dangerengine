@@ -39,14 +39,12 @@
 #ifdef __EMSCRIPTEN__
 #   define SLS_NOGLEW
 #   define SLS_GLES
-#   define GLFW_INCLUDE_NONE
 #   include <GLES2/gl2.h>
 #else
-#   define GLFW_INCLUDE_NONE
 #   include <GL/glew.h>
 #endif
 
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
 
 
 #endif //DANGERENGINE_SLS_GL_H
