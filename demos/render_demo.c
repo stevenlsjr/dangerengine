@@ -76,7 +76,7 @@ void demo_context_setup(slsContext *self)
 
 
   int x, y;
-  glfwGetWindowSize(self->window, &x, &y);
+  SDL_GetWindowSize(self->window, &x, &y);
   sls_msg(self, resize, x, y);
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
@@ -138,7 +138,6 @@ void demo_context_display(slsContext *self, double dt)
 
   GLint time = glGetUniformLocation(data->program, "time");
 
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
   glActiveTexture(GL_TEXTURE0);
@@ -167,7 +166,6 @@ void demo_context_display(slsContext *self, double dt)
   sls_msg(data->mesh, post_draw, data->program, dt);
 
 
-  glfwSwapBuffers(self->window);
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -206,6 +204,7 @@ void demo_context_resize(slsContext *self, int x, int y)
     glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
   }
 }
+
 
 
 int render_demo_main(int *argc, char **argv)

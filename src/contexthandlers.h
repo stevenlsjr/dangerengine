@@ -42,11 +42,6 @@
 #include <stdbool.h>
 #include "slscontext.h"
 
-/**
- * @brief set slsContext object as current render target
- */
-void sls_bind_context(slsContext *ctx);
-void sls_unbind_context(void);
 
 /**
  * @brief initializes runtime libraries

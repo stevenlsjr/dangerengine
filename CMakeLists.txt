@@ -83,9 +83,7 @@ set(DANGER_TEST_SRC
 set(DANGER_DEMO_SRC
     demos/exec.c
     demos/render_demo.c
-    demos/render_demo.h
-    demos/lab2-demo.c
-    demos/lab2-demo.h)
+    demos/render_demo.h)
 
 #--------------------------------------------
 #-------------project config-----------------
@@ -132,41 +130,48 @@ add_subdirectory(src/objc)
 
 set(DANGER_DEPS kazmath)
 
-find_package(OpenGL)
-find_package(GLEW)
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(Doxygen)
+
+find_package(PkgConfig REQUIRED)
+
+pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2IMG REQUIRED SDL2_image)
+
+set(CMAKE_LIBRARY_PATH 
+  "${CMAKE_LIBRARY_PATH} ${SDL2_LIBRARY_DIRS} ${SDL2IMG_LIBRARY_DIRS}"
+  CACHE STRING "library search path")
+
 
 #only compile gtest and glfw when not using emscripten
 add_subdirectory(extern/googlemock)
-add_subdirectory(extern/glfw)
 
 find_package(DevIL)
 
 
 set(DANGER_DEPS
     ${DANGER_DEPS}
-    glfw
     ${IL_LIBRARIES}
     ${ILU_LIBRARIES}
     ${GLFW_LIBRARIES}
-    ${OPENGL_gl_LIBRARY})
+    ${OPENGL_gl_LIBRARY}
+    ${GLEW_LIBRARIES}
+    ${SDL2_LIBRARIES}
+    ${SDL2IMG_LIBRARIES})
 
-if (GLEW_FOUND)
-  set(DANGER_DEPS
-      ${DANGER_DEPS}
-      ${GLEW_LIBRARIES})
-  include_directories(
-      ${GLEW_INCLUDE_DIR}
-      ${GLFW_SOURCE_DIR}/include
-      ${OPENGL_INCLUDE_DIR})
-endif (GLEW_FOUND)
+include_directories(
+    ${GLEW_INCLUDE_DIR}
+    ${OPENGL_INCLUDE_DIR}
+    ${SDL2_INCLUDE_DIRS})
+
 
 
 #---------------------------------------
 # build dangerengine
 #---------------------------------------
 
-add_library(dangerengine STATIC ${DANGER_SRC} ${DANGER_RES})
+add_library(dangerengine STATIC ${DANGER_SRC} )
 
 add_dependencies(dangerengine
     kazmath)
@@ -180,7 +185,7 @@ target_link_libraries(dangerengine
 
 
 if (SLS_USE_OBJC)
-  add_executable(demo_objc demos/objc-demo.m)
+  add_executable(demo_objc demos/objc-demo.m ${DANGER_RES})
   target_link_libraries(demo_objc
       dangerengine-fw)
 endif (SLS_USE_OBJC)
@@ -198,7 +203,7 @@ add_custom_command(
     COMMENT "")
 
 add_executable(demo
-    ${DANGER_DEMO_SRC})
+    ${DANGER_DEMO_SRC} ${DANGER_RES})
 
 add_dependencies(demo
     dangerengine)
@@ -212,7 +217,6 @@ target_link_libraries(demo
 
 # add a separate library for tests compiled in C. Used for supporting build
 # systems which don't compile C and C++ code separately
-add_dependencies(dangerengine glfw)
 add_library(c_tests ${DANGER_CTEST_SRC})
 add_dependencies(c_tests dangerengine)
 target_link_libraries(c_tests dangerengine)

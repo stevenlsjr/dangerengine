@@ -12,7 +12,6 @@
 #endif //__EMSCRIPTEN__
 
 #include "render_demo.h"
-#include "lab2-demo.h"
 
 static inline void setup()
 {
