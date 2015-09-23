@@ -24,6 +24,13 @@ typedef struct demoData {
 
   slsSprite *sprite;
 
+  kmMat4 view_matrix;
+
+
+  slsIPoint mouse_motion;
+  slsIPoint mouse_p;
+
+
   struct {
     GLint time_;
     GLint projection;

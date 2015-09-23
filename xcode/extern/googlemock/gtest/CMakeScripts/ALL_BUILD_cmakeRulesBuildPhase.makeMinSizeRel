@@ -2,9 +2,9 @@
 # Custom rules for ALL_BUILD
 .SUFFIXES: 
 all: \
-	/Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeFiles/ALL_BUILD
+	/Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeFiles/ALL_BUILD
 
 
-/Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeFiles/ALL_BUILD: 
+/Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeFiles/ALL_BUILD: 
 	echo ""
 	echo Build\ all\ projects

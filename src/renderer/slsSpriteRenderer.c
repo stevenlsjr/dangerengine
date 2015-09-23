@@ -35,27 +35,45 @@
 **/
 
 #include "slsSpriteRenderer.h"
+#include "slsSprite.h"
 
 #include <assert.h>
 #include <string.h>
 
-
+static void sls_sprite_freefn(void *sprite)
+{
+  if (sprite) {
+    slsSprite *sprite1 = sprite;
+    free(sprite1->dtor(sprite1));
+  }
+}
 
 slsSpriteBatch *sls_spritebatch_init(slsSpriteBatch *self)
 {
-  assert(self);
+
   if (!self) { return NULL; }
+
+  self->sprites = *sls_ptrarray_init(&self->sprites, ((void *[]){}), 0, sls_sprite_freefn);
 
 
   return self;
+  error:
+    return sls_spritebatch_dtor(self);
 }
 
 
 slsSpriteBatch *sls_spritebatch_dtor(slsSpriteBatch *self)
 {
-  assert(self);
-  if (!self) { return NULL; }
 
+  sls_ptrarray_dtor(&self->sprites);
 
   return self;
+error:
+  return self;
+}
+
+
+void sls_spritebatch_display(slsSpriteBatch *self, double dt)
+{
+
 }

@@ -2,9 +2,9 @@
 # Custom rules for doc
 .SUFFIXES: 
 all: \
-	/Users/Shea/Documents/projects/dangerengine/xcode/CMakeFiles/doc
+	/Users/Shea/Projects/dangerengine/xcode/CMakeFiles/doc
 
 
-/Users/Shea/Documents/projects/dangerengine/xcode/CMakeFiles/doc: 
+/Users/Shea/Projects/dangerengine/xcode/CMakeFiles/doc: 
 	echo "Generating API documentation with Doxygen"
-	cd /Users/Shea/Documents/projects/dangerengine/xcode && /usr/local/bin/doxygen /Users/Shea/Documents/projects/dangerengine/xcode/Doxyfile
+	cd /Users/Shea/Projects/dangerengine/xcode && /usr/local/bin/doxygen /Users/Shea/Projects/dangerengine/xcode/Doxyfile

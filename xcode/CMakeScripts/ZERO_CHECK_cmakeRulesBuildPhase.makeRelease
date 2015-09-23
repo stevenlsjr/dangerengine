@@ -2,9 +2,9 @@
 # Custom rules for ZERO_CHECK
 .SUFFIXES: 
 all: \
-	/Users/Shea/Documents/projects/dangerengine/xcode/CMakeFiles/ZERO_CHECK
+	/Users/Shea/Projects/dangerengine/xcode/CMakeFiles/ZERO_CHECK
 
 
-/Users/Shea/Documents/projects/dangerengine/xcode/CMakeFiles/ZERO_CHECK: 
+/Users/Shea/Projects/dangerengine/xcode/CMakeFiles/ZERO_CHECK: 
 	echo ""
-	make -f /Users/Shea/Documents/projects/dangerengine/xcode/CMakeScripts/ReRunCMake.make
+	make -f /Users/Shea/Projects/dangerengine/xcode/CMakeScripts/ReRunCMake.make

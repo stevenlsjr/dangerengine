@@ -100,3 +100,7 @@ int sls_cmp_uintptr(void const *a, void const *b)
   return (int)bi - (int)ai;
 }
 
+int sls_cmp_voidptr(void const *a, void const *b)
+{
+  return (int)(b - a);
+}

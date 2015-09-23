@@ -42,37 +42,61 @@
 #include <data-types/callbacks.h>
 #include "../slsutils.h"
 #include "callbacks.h"
+#include "ptrarray.h"
 
 
 typedef struct slsHashTable slsHashTable;
-typedef struct slsTableEntry slsTableEntry;
+typedef struct slsKeyEntry slsKeyEntry;
 
+typedef uint32_t (*slsHashFn)(void const *key);
 
-struct slsTableEntry{
-  void *key;
-  void *val;
-  uint32_t hash;
+/**
+ * @brief Entry for a hash table key.
+ * @detail Contains a void pointer as well as a sentinel
+ * value determining if the table location is filled (in the event
+ * of a key-value pair being removed)
+ */
+struct slsKeyEntry {
+  void *ptr;
+  /**
+   * @brief if false, the entry can be used to insert a new pair.
+   * @detail This functions as a sentinel flag which tells the probing algorithm
+   * to skip the index if a key-value had previously been inserted at this position
+   */
+  bool is_occupied;
 };
 
+struct slsHashTable {
+  slsKeyEntry *keys;
+  void **vals;
+
+  size_t array_size;
+  size_t n_entries;
 
 
-struct slsHashTable{
-  slsArray *entries;
-
+  slsCallbackTable key_callbacks;
+  slsCallbackTable val_callbacks;
 
   slsHashFn hash;
   slsCmpFn cmp;
 };
 
 slsHashTable *sls_hashtable_init(slsHashTable *self,
-                                 size_t n_entries,
+                                 size_t array_size,
                                  slsHashFn hash_fn,
-                                 slsCmpFn cmp_fn);
+                                 slsCmpFn cmp_fn,
+                                 slsCallbackTable const *key_cback,
+                                 slsCallbackTable const *val_cback) SLS_NONNULL(1, 3, 4);
 
-slsHashTable *sls_hashtable_dtor(slsHashTable *self);
+slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
 
-void sls_hashtable_insert(slsHashTable *self, void *key, void *val);
+void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
 
+void sls_hashtable_insert(slsHashTable *self, void *key, void *val) SLS_NONNULL(1, 2, 3);
+
+void *sls_hashtable_find(slsHashTable *self, void const *key) SLS_NONNULL(1, 2);
+
+void *sls_hashtable_findval(slsHashTable *self, void const *val) SLS_NONNULL(1, 2);
 
 
 

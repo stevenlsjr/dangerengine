@@ -1,6 +1,3 @@
-[submodule "extern/glfw"]
-	path = extern/glfw
-	url = https://github.com/glfw/glfw
 [submodule "extern/googlemock"]
 	path = extern/googlemock
 	url = https://chromium.googlesource.com/external/googlemock

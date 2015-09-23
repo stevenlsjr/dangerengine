@@ -27,6 +27,9 @@ static inline void setup()
 
 int main(int argc, char *argv[])
 {
+  
+  char const *working_dir = SDL_GetBasePath();
+  sls_log_info("dir %s", working_dir);
 
   return render_demo_main(&argc, argv);
 

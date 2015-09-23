@@ -326,10 +326,20 @@ GLuint sls_gltex_from_file(char const *path,
 
 ILenum sls_il_get_errors()
 {
-  ILenum err, last;
+  ILenum last;
   last = IL_NO_ERROR;
-  while ((err = ilGetError()) != IL_NO_ERROR) {
-    sls_log_warn("devIL: %s", ilGetString(err));
+  for (ILenum err = ilGetError();
+       err != IL_NO_ERROR;
+       err = ilGetError()) {
+    
+    size_t max_cmp_size = 1000;
+    char const *err_str =ilGetString(err);
+    if (!err_str || strncasecmp(err_str, "(null)", max_cmp_size) == 0) {
+      break;
+    }
+    
+    
+    sls_log_warn("devIL: %s", err_str);
     if (err == IL_OUT_OF_MEMORY) {
       sls_log_fatal("out of memory error!");
     }

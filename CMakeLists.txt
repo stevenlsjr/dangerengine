@@ -102,6 +102,15 @@ file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}
     em.js.*
     *.cmake)
 
+add_custom_target(sls_resources
+  COMMAND
+  ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/ &&
+  ${CMAKE_COMMAND} -E cmake_echo_color --green
+  "--    copying resources/ to ${CMAKE_BINARY_DIR}"
+  COMMENT "application resources"
+  SOURCES ${DANGER_RES})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
@@ -120,7 +129,6 @@ set(KAZMATH_BUILD_GL_UTILS OFF)
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/extern/kazmath
-    ${CMAKE_SOURCE_DIR}/extern/glfw/include
 
     ${CMAKE_SOURCE_DIR}/extern/googlemock/include
     ${CMAKE_SOURCE_DIR}/extern/gtest/include)
@@ -185,16 +193,17 @@ target_link_libraries(dangerengine
 
 
 if (SLS_USE_OBJC)
-  add_executable(demo_objc demos/objc-demo.m ${DANGER_RES})
+  add_executable(demo_objc demos/objc-demo.m)
   target_link_libraries(demo_objc
       dangerengine-fw)
+  add_dependencies(demo_objc dangerengine-fw sls_resources)
 endif (SLS_USE_OBJC)
 
 
 # copy resources on build
 
 add_custom_command(
-    TARGET dangerengine PRE_BUILD
+    TARGET sls_resources PRE_BUILD
     COMMAND
     ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/ &&
@@ -203,10 +212,11 @@ add_custom_command(
     COMMENT "")
 
 add_executable(demo
-    ${DANGER_DEMO_SRC} ${DANGER_RES})
+    ${DANGER_DEMO_SRC})
 
 add_dependencies(demo
-    dangerengine)
+    dangerengine
+    sls_resources)
 
 target_link_libraries(demo
     dangerengine
