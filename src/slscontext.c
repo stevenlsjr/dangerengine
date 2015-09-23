@@ -221,8 +221,16 @@ void sls_context_run(slsContext *self)
 
   sls_msg(self, setup);
 
-  slsIPoint last_size = self->priv->last_size;
-  sls_msg(self, resize, last_size.x, last_size.y);
+
+  // setup render size
+  do {
+    int x, y, w, h;
+
+    SDL_GetWindowSize(self->window, &w, &h);
+
+    sls_msg(self, resize, w, h);
+  } while (0);
+
 
   // use a simple run loop (loop execution encapsulated in iter method)
   while (self->is_running) {
@@ -296,10 +304,7 @@ void sls_context_setup(slsContext *self)
   slsContext_p *priv = self->priv;
 
 
-  int x, y, w, h;
 
-  priv->last_size = (slsIPoint) {w, h};
-  sls_msg(self, resize, w, h);
 
 
   sls_log_info("openGL version %s", glGetString(GL_VERSION));

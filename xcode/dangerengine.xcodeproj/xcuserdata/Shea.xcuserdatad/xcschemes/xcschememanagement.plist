@@ -79,6 +79,11 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>sls_resources.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>tests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -163,6 +168,11 @@
 			<true/>
 		</dict>
 		<key>FCE1E37C8D164876B5F2A1E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD5183A2B3EB462DACCA49E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

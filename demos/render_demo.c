@@ -11,6 +11,38 @@ void demo_setup_shaders(slsContext *self);
 
 void demo_setup_scene(slsContext *self);
 
+
+
+void demo_update_modelview(slsContext *self,
+                           kmMat4 const *model) SLS_NONNULL(1, 2);
+
+
+void demo_handle_event(slsContext *self, const SDL_Event *e) SLS_NONNULL(1);
+
+
+
+void demo_handle_event(slsContext *self, const SDL_Event *e)
+{
+  sls_context_class()->handle_event(self, e);
+  demoData* data =self->data;
+  switch (e->type) {
+    case (SDL_MOUSEMOTION): {
+      SDL_MouseMotionEvent me = e->motion;
+      if (me.state & SDL_MOUSEBUTTONDOWN) { // mouse button is down
+        data->mouse_motion = (slsIPoint){me.xrel, me.yrel};
+      } else {
+        data->mouse_motion = (slsIPoint){0, 0};
+      }
+
+      data->mouse_p = (slsIPoint) {me.x, me.y};
+
+    }
+      break;
+    default:
+      break;
+  }
+}
+
 void demo_add_model(demoData *data, float x, float y)
 {
   if (data->n_models >= DEMO_MAX_MODELS) { return; }
@@ -97,6 +129,8 @@ void demo_setup_scene(slsContext *self)
 
   demo_uniform_locations(data);
 
+  kmMat4Identity(&data->view_matrix);
+
 
   sls_msg(data->tex_obj, set_program, data->program);
 
@@ -126,6 +160,18 @@ void demo_context_update(slsContext *self, double dt)
 {
   demoData *data = self->data;
 
+  slsIPoint mm = data->mouse_motion;
+  if (mm.x != 0 && mm.y != 0) {
+
+    double speed = 50;
+
+    int window_y_direction = -1;
+
+    kmVec2 mouse_v = {(float)mm.x, (float)-mm.y};
+    kmVec2Scale(&mouse_v, &mouse_v, dt);
+    sls_log_info("%f %f", mouse_v.x, mouse_v.y);
+  }
+
 
 }
 
@@ -146,8 +192,7 @@ void demo_context_display(slsContext *self, double dt)
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
-  kmMat4 view;
-  kmMat4Identity(&view);
+
 
   sls_msg(data->mesh, pre_draw, data->program, dt);
 
@@ -155,10 +200,7 @@ void demo_context_display(slsContext *self, double dt)
     slsModel *model = data->models[i];
     if (!model) { continue; }
 
-    kmMat4 model_view;
-    kmMat4Multiply(&model_view, &view, &model->transform);
-
-    glUniformMatrix4fv(data->uniforms.model_view, 1, GL_FALSE, model_view.mat);
+    demo_update_modelview(self, &model->transform);
 
     sls_msg(model->mesh, draw, dt);
   }
@@ -196,11 +238,20 @@ void demo_context_resize(slsContext *self, int x, int y)
   sls_context_class()->resize(self, x, y);
   demoData *data = self->data;
 
-  float aspect = x / (float) y;
 
   if (x != 0 && y!= 0) {
     kmMat4 projection;
-    kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
+
+    if (x > y) {
+      float aspect = x / (float) y;
+
+      kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
+    } else {
+      float aspect = y / (float) x;
+      kmMat4OrthographicProjection(&projection, -1, 1, -aspect, aspect, -10.0f, 10.0f);
+
+    }
+
     glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
   }
 }
@@ -220,6 +271,7 @@ int render_demo_main(int *argc, char **argv)
   c->display = demo_context_display;
   c->teardown = demo_context_teardown;
   c->resize = demo_context_resize;
+  c->handle_event = demo_handle_event;
 
 
   assert(c);
@@ -230,4 +282,17 @@ int render_demo_main(int *argc, char **argv)
 
 
   return 0;
+}
+
+void demo_update_modelview(slsContext *self,
+                           kmMat4 const *model)
+{
+
+  demoData *data = self->data;
+  assert(data);
+  kmMat4 model_view;
+  kmMat4Multiply(&model_view, model, &data->view_matrix);
+
+
+  glUniformMatrix4fv(data->uniforms.model_view, 1, GL_FALSE, model_view.mat);
 }

@@ -7,90 +7,90 @@
        objects = {
 
 /* Begin PBXAggregateTarget section */
-              3A7CECFD17FA4C14B790A7EE /* install */ = {
-                     isa = PBXAggregateTarget;
-                     buildConfigurationList = 786DF1C0A9584E5D9FD81025 /* Build configuration list for PBXAggregateTarget "install" */;
-                     buildPhases = (
-                            ABC646AFB224460293E7A814 /* CMake PostBuild Rules */,
-                     );
-                     dependencies = (
-                            6730044CA9124268A8E865F6 /* PBXTargetDependency */,
-                     );
-                     name = install;
-                     productName = install;
-              };
               EE3D65C400274C4383506A9C /* ALL_BUILD */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 055220D331D24614875D8934 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildConfigurationList = 2305C37D0154475AB8F5483B /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
                      buildPhases = (
-                            294151F374394061A63EFA21 /* CMake Rules */,
+                            2A5C4CD9B5954875A5809805 /* CMake Rules */,
                      );
                      dependencies = (
-                            8226582750A14056B4D16ED2 /* PBXTargetDependency */,
-                            5515E30FC5DE40438327B78E /* PBXTargetDependency */,
-                            4ABFB7E167944106AFA9424B /* PBXTargetDependency */,
+                            C409FB209E2D4C4D83FC7919 /* PBXTargetDependency */,
+                            6D7EB1C34E0D4228B0331BB9 /* PBXTargetDependency */,
+                            E8D5DF9C616A49B08A8D40CD /* PBXTargetDependency */,
                      );
                      name = ALL_BUILD;
                      productName = ALL_BUILD;
               };
-              8EC61593B4AC492E8BC6AC2B /* package */ = {
-                     isa = PBXAggregateTarget;
-                     buildConfigurationList = 048B14FA86F54CF68535F0B9 /* Build configuration list for PBXAggregateTarget "package" */;
-                     buildPhases = (
-                            4EE76A9B0BC1488985E2D873 /* CMake PostBuild Rules */,
-                     );
-                     dependencies = (
-                            B134294E0D654234898EC52E /* PBXTargetDependency */,
-                     );
-                     name = package;
-                     productName = package;
-              };
               FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 1E7CA5DD404C4C4EBF95C679 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildConfigurationList = 9B8D57C120AA4579B921A19E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
                      buildPhases = (
-                            443F91AED88842FAB0C30657 /* CMake Rules */,
+                            16A61604A07C4391AF06F0F4 /* CMake Rules */,
                      );
                      dependencies = (
                      );
                      name = ZERO_CHECK;
                      productName = ZERO_CHECK;
               };
+              3A7CECFD17FA4C14B790A7EE /* install */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = FC47892CBE8A4366AB43999F /* Build configuration list for PBXAggregateTarget "install" */;
+                     buildPhases = (
+                            348C0BA3317F4DA9B532C371 /* CMake PostBuild Rules */,
+                     );
+                     dependencies = (
+                            C24030EB3E4E475FBD5B9259 /* PBXTargetDependency */,
+                     );
+                     name = install;
+                     productName = install;
+              };
+              8EC61593B4AC492E8BC6AC2B /* package */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = B023D44C1D4046079EF2F298 /* Build configuration list for PBXAggregateTarget "package" */;
+                     buildPhases = (
+                            91602571C1AF4B0D9708631B /* CMake PostBuild Rules */,
+                     );
+                     dependencies = (
+                            25B291D8AB8F449AB7A86017 /* PBXTargetDependency */,
+                     );
+                     name = package;
+                     productName = package;
+              };
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-4095045FFF07445DA7CBD08A /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = F28E2F4F71A4414C87D0C322 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-52447CBB7A5B4BD2ACC46B59 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest-all.cc */ = {isa = PBXBuildFile; fileRef = 79DEA155ABA7414499B6DB88 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest-all.cc */; settings = { COMPILER_FLAGS = ""; }; };
-ABEAD18E9BA24C96B385DB82 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 0A5F2E7B048540F789CE2BF9 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-BC554EE0AA3C4D3EA9962D9D /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest_main.cc */ = {isa = PBXBuildFile; fileRef = 87B742F609D44A2B891AF6B4 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest_main.cc */; settings = { COMPILER_FLAGS = ""; }; };
+7AE55004A9A74364BB700AD8 /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 8843B2440AF94970A04C6FBD /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+BCAA558331FD4E2398643F2A /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest-all.cc */ = {isa = PBXBuildFile; fileRef = 5F0DD55583EE404DBCF952F4 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest-all.cc */; settings = { COMPILER_FLAGS = ""; }; };
+C66D3FEB92D34191A8352D1C /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 03D4260B55794D0EBCEC46E6 /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+8199DB00F8A34BF1B18607BE /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest_main.cc */ = {isa = PBXBuildFile; fileRef = EF8FE49141734E699AEA0924 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest_main.cc */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-              9F4B0FD7564D4E59BBD4B2B8 /*  */ = {
+              A2A000CDD9524724857A95D8 /*  */ = {
                      isa = PBXBuildStyle;
               };
-              43F9B2CDA69E451F90A4BB86 /* Debug */ = {
+              BDF619E59A0A4719B7B13C33 /* Debug */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Debug;
               };
-              14102F0A3BE74414BF3503A5 /* Release */ = {
+              5A0A1E47C1D94E49853368D6 /* Release */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Release;
               };
-              6B0E0A4B366A41ABBC58BBE9 /* MinSizeRel */ = {
+              113F9CB570D34D0D9A6C7B11 /* MinSizeRel */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = MinSizeRel;
               };
-              FF38DC4FC4F14942823892FD /* RelWithDebInfo */ = {
+              72B87B6703D94BD086364295 /* RelWithDebInfo */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
@@ -100,174 +100,174 @@ BC554EE0AA3C4D3EA9962D9D /* /Users/Shea/Documents/projects/dangerengine/extern/g
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-              625B217121F2474E9B1209C8 /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 081648533F694447A24CEECA /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
-                     remoteInfo = ALL_BUILD;
-              };
-              0CCAA263697F46D4B59CFCEA /* PBXContainerItemProxy */ = {
+              18AED02049764621BF62730E /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 081648533F694447A24CEECA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = FCE1E37C8D164876B5F2A1E2;
                      remoteInfo = ZERO_CHECK;
               };
-              DE8482EDF1F24E2FAB91020C /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 081648533F694447A24CEECA /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = FCE1E37C8D164876B5F2A1E2;
-                     remoteInfo = ZERO_CHECK;
-              };
-              DF1AE5F748744A9D86764B7B /* PBXContainerItemProxy */ = {
+              4FE7A69D6677487C89FFF60F /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 081648533F694447A24CEECA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = 27ED40C5623A43C7A353112E;
                      remoteInfo = gtest;
               };
-              44FB921683DD44E4B4AF92EB /* PBXContainerItemProxy */ = {
+              3612D674DD7645E0909FD723 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 081648533F694447A24CEECA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = 72A384D46298413AAD4928E2;
                      remoteInfo = gtest_main;
               };
-              9A9392729B6741E897F398D9 /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 081648533F694447A24CEECA /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
-                     remoteInfo = ALL_BUILD;
-              };
-              049EC135039A45FF9925EC34 /* PBXContainerItemProxy */ = {
+              990CFD8D2A754DAFBE1BEC6A /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 081648533F694447A24CEECA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = FCE1E37C8D164876B5F2A1E2;
                      remoteInfo = ZERO_CHECK;
               };
-              0F2BAE0383BA490ABC76E531 /* PBXContainerItemProxy */ = {
+              ED56A21CF581448D88A48D9E /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 081648533F694447A24CEECA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = FCE1E37C8D164876B5F2A1E2;
+                     remoteInfo = ZERO_CHECK;
+              };
+              13A6A416B56D46D39682AA49 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 081648533F694447A24CEECA /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = 27ED40C5623A43C7A353112E;
                      remoteInfo = gtest;
               };
+              F9E5D1CE58484FC78E587856 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 081648533F694447A24CEECA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
+                     remoteInfo = ALL_BUILD;
+              };
+              D53AF717598B405DA32D32BF /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 081648533F694447A24CEECA /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
+                     remoteInfo = ALL_BUILD;
+              };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-F28E2F4F71A4414C87D0C322 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-79DEA155ABA7414499B6DB88 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest-all.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest-all.cc"; path = "src/gtest-all.cc"; sourceTree = SOURCE_ROOT; };
-F732804D61B54D4682F8F792 /* gtest */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
-DC4B8A9E737B44AC91E19917 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-0A5F2E7B048540F789CE2BF9 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-87B742F609D44A2B891AF6B4 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest_main.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest_main.cc"; path = "src/gtest_main.cc"; sourceTree = SOURCE_ROOT; };
-F61E0DD757E74F3283333D54 /* gtest_main */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest_main.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
-3ABDCAD8588340539539D8F0 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+63A5DD68D88B42E7B3C4B6FA /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+C7E47F9DE9FF44418045710C /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+8843B2440AF94970A04C6FBD /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+5F0DD55583EE404DBCF952F4 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest-all.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest-all.cc"; path = "src/gtest-all.cc"; sourceTree = SOURCE_ROOT; };
+9FE206763055427B90FEAC1A /* gtest */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+03D4260B55794D0EBCEC46E6 /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+EF8FE49141734E699AEA0924 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest_main.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest_main.cc"; path = "src/gtest_main.cc"; sourceTree = SOURCE_ROOT; };
+0125BCD78AC940F29F3B309A /* gtest_main */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest_main.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              416EF87EBAA540DFBD252F3C  = {
+              6011037C320E4FC9AA090E4A  = {
                      isa = PBXGroup;
                      children = (
-                            759C1F09002449468324E00F /* Sources */,
-                            39C1AF93B8A94C6493E833AE /* Resources */,
-                            33B433B8F951441392BC6885 /* Products */,
+                            70C5895A6253489382DDF97B /* Sources */,
+                            2879D228F73440AE9A431B76 /* Resources */,
+                            FC252F1471CD4143B610DD1F /* Products */,
                      );
                      sourceTree = "<group>";
               };
-              759C1F09002449468324E00F /* Sources */ = {
+              70C5895A6253489382DDF97B /* Sources */ = {
                      isa = PBXGroup;
                      children = (
-                            97BD99CAF24246F1A085850C /* gtest */,
-                            54CA7072FF0943D79D4BC9E5 /* ALL_BUILD */,
-                            46F012DC131044509463BB02 /* gtest_main */,
-                            4328CC6AFE224E2BB0FC1BC9 /* ZERO_CHECK */,
+                            5852AF0A871748AC9929E5B2 /* gtest */,
+                            928AE0E37D144E15BC5A52AD /* ALL_BUILD */,
+                            81E5AFB618B143DEAD080BC2 /* gtest_main */,
+                            A2BC0875E141449AB78027B3 /* ZERO_CHECK */,
                      );
                      name = Sources;
                      sourceTree = "<group>";
               };
-              39C1AF93B8A94C6493E833AE /* Resources */ = {
+              2879D228F73440AE9A431B76 /* Resources */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = Resources;
                      sourceTree = "<group>";
               };
-              97BD99CAF24246F1A085850C /* gtest */ = {
+              5852AF0A871748AC9929E5B2 /* gtest */ = {
                      isa = PBXGroup;
                      children = (
-                            3784E4BFB06E4624B45284A2 /* Source Files */,
-                            F28E2F4F71A4414C87D0C322 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */,
+                            52377E0008214446997D6F23 /* Source Files */,
+                            8843B2440AF94970A04C6FBD /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */,
                      );
                      name = gtest;
                      sourceTree = "<group>";
               };
-              3784E4BFB06E4624B45284A2 /* Source Files */ = {
+              52377E0008214446997D6F23 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            79DEA155ABA7414499B6DB88 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest-all.cc */,
+                            5F0DD55583EE404DBCF952F4 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest-all.cc */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              54CA7072FF0943D79D4BC9E5 /* ALL_BUILD */ = {
+              928AE0E37D144E15BC5A52AD /* ALL_BUILD */ = {
                      isa = PBXGroup;
                      children = (
-                            D446E8B31B4441CDB8E6A80F /* CMake Rules */,
-                            DC4B8A9E737B44AC91E19917 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */,
+                            7857B346E909452999D6F067 /* CMake Rules */,
+                            63A5DD68D88B42E7B3C4B6FA /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */,
                      );
                      name = ALL_BUILD;
                      sourceTree = "<group>";
               };
-              D446E8B31B4441CDB8E6A80F /* CMake Rules */ = {
+              7857B346E909452999D6F067 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              46F012DC131044509463BB02 /* gtest_main */ = {
+              81E5AFB618B143DEAD080BC2 /* gtest_main */ = {
                      isa = PBXGroup;
                      children = (
-                            D3ECAB72B589414E9E372122 /* Source Files */,
-                            0A5F2E7B048540F789CE2BF9 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */,
+                            4E2F4B020F76450E8654134E /* Source Files */,
+                            03D4260B55794D0EBCEC46E6 /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */,
                      );
                      name = gtest_main;
                      sourceTree = "<group>";
               };
-              D3ECAB72B589414E9E372122 /* Source Files */ = {
+              4E2F4B020F76450E8654134E /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            87B742F609D44A2B891AF6B4 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest_main.cc */,
+                            EF8FE49141734E699AEA0924 /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest_main.cc */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              4328CC6AFE224E2BB0FC1BC9 /* ZERO_CHECK */ = {
+              A2BC0875E141449AB78027B3 /* ZERO_CHECK */ = {
                      isa = PBXGroup;
                      children = (
-                            009773C494D94B4CA630B60C /* CMake Rules */,
-                            3ABDCAD8588340539539D8F0 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/CMakeLists.txt */,
+                            78B749C4A30842F7A38531B4 /* CMake Rules */,
+                            C7E47F9DE9FF44418045710C /* /Users/Shea/Projects/dangerengine/extern/gtest/CMakeLists.txt */,
                      );
                      name = ZERO_CHECK;
                      sourceTree = "<group>";
               };
-              009773C494D94B4CA630B60C /* CMake Rules */ = {
+              78B749C4A30842F7A38531B4 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              33B433B8F951441392BC6885 /* Products */ = {
+              FC252F1471CD4143B610DD1F /* Products */ = {
                      isa = PBXGroup;
                      children = (
-                            F732804D61B54D4682F8F792 /* gtest */,
-                            F61E0DD757E74F3283333D54 /* gtest_main */,
+                            9FE206763055427B90FEAC1A /* gtest */,
+                            0125BCD78AC940F29F3B309A /* gtest_main */,
                      );
                      name = Products;
                      sourceTree = "<group>";
@@ -277,35 +277,35 @@ F61E0DD757E74F3283333D54 /* gtest_main */ = {isa = PBXFileReference; explicitFil
 /* Begin PBXNativeTarget section */
               27ED40C5623A43C7A353112E /* gtest */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 5A33E500BAC441778172A4D7 /* Build configuration list for PBXNativeTarget "gtest" */;
+                     buildConfigurationList = E9C378A62B4B40E6A50862C2 /* Build configuration list for PBXNativeTarget "gtest" */;
                      buildPhases = (
-                            E2FBE40D1921424A97AD9F60 /* Sources */,
+                            ED1C74F7764641AC93C76968 /* Sources */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            0B0D49DBF6A04079B01B1768 /* PBXTargetDependency */,
+                            3546C89F61E441BDB9F75A30 /* PBXTargetDependency */,
                      );
                      name = gtest;
                      productName = gtest;
-                     productReference = F732804D61B54D4682F8F792 /* gtest */;
+                     productReference = 9FE206763055427B90FEAC1A /* gtest */;
                      productType = "com.apple.product-type.library.static";
               };
               72A384D46298413AAD4928E2 /* gtest_main */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 5BCDDE584053470F92E86C57 /* Build configuration list for PBXNativeTarget "gtest_main" */;
+                     buildConfigurationList = C7451732CFD04B6C96195FE1 /* Build configuration list for PBXNativeTarget "gtest_main" */;
                      buildPhases = (
-                            933FFD33582543C29B9F1FB5 /* Sources */,
+                            C439B26E0E17460CADD5AEE8 /* Sources */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            8C41907A82214600BBB00E6D /* PBXTargetDependency */,
-                            FA389AAE5CCE45F5B47D9BBF /* PBXTargetDependency */,
+                            1573690EB2CB44DAB42ABC6D /* PBXTargetDependency */,
+                            E1D831139A3B434CA9F892F6 /* PBXTargetDependency */,
                      );
                      name = gtest_main;
                      productName = gtest_main;
-                     productReference = F61E0DD757E74F3283333D54 /* gtest_main */;
+                     productReference = 0125BCD78AC940F29F3B309A /* gtest_main */;
                      productType = "com.apple.product-type.library.static";
               };
 /* End PBXNativeTarget section */
@@ -316,33 +316,33 @@ F61E0DD757E74F3283333D54 /* gtest_main */ = {isa = PBXFileReference; explicitFil
                      attributes = {
                             BuildIndependentTargetsInParallel = YES;
                      };
-                     buildConfigurationList = A7C5D06CE9CF4D81A5F19521 /* Build configuration list for PBXProject  "gtest" */;
+                     buildConfigurationList = 42D96AE882BF457D96A3E325 /* Build configuration list for PBXProject  "gtest" */;
                      buildSettings = {
                      };
                      buildStyles = (
-                            43F9B2CDA69E451F90A4BB86 /* Debug */,
-                            14102F0A3BE74414BF3503A5 /* Release */,
-                            6B0E0A4B366A41ABBC58BBE9 /* MinSizeRel */,
-                            FF38DC4FC4F14942823892FD /* RelWithDebInfo */,
+                            BDF619E59A0A4719B7B13C33 /* Debug */,
+                            5A0A1E47C1D94E49853368D6 /* Release */,
+                            113F9CB570D34D0D9A6C7B11 /* MinSizeRel */,
+                            72B87B6703D94BD086364295 /* RelWithDebInfo */,
                      );
                      compatibilityVersion = "Xcode 3.2";
                      hasScannedForEncodings = 0;
-                     mainGroup = 416EF87EBAA540DFBD252F3C;
+                     mainGroup = 6011037C320E4FC9AA090E4A;
                      projectDirPath = "../../../../extern/gtest";
                      projectRoot = "";
                      targets = (
-                            3A7CECFD17FA4C14B790A7EE /* install */,
-                            27ED40C5623A43C7A353112E /* gtest */,
                             EE3D65C400274C4383506A9C /* ALL_BUILD */,
-                            8EC61593B4AC492E8BC6AC2B /* package */,
-                            72A384D46298413AAD4928E2 /* gtest_main */,
                             FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */,
+                            27ED40C5623A43C7A353112E /* gtest */,
+                            72A384D46298413AAD4928E2 /* gtest_main */,
+                            3A7CECFD17FA4C14B790A7EE /* install */,
+                            8EC61593B4AC492E8BC6AC2B /* package */,
                      );
               };
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-              4785F5BE8D074DC1B028C687 /*  */ = {
+              009C6250BBFE4F73A17B5CC9 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -357,33 +357,7 @@ F61E0DD757E74F3283333D54 /* gtest_main */ = {isa = PBXFileReference; explicitFil
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              ABC646AFB224460293E7A814 /* CMake PostBuild Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake PostBuild Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
-                     showEnvVarsInLog = 0;
-              };
-              F52C5BA9F04643879A80EA88 /*  */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     inputPaths = (
-                     );
-                     outputPaths = (
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "# shell script goes here
-exit 0";
-                     showEnvVarsInLog = 0;
-              };
-              294151F374394061A63EFA21 /* CMake Rules */ = {
+              2A5C4CD9B5954875A5809805 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -391,10 +365,10 @@ exit 0";
                      name = "CMake Rules";
                      runOnlyForDeploymentPostprocessing = 0;
                      shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              B4FAAD7C28E54BC194AF3984 /*  */ = {
+              27229BEDAF1043F9AE1B6B63 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -409,33 +383,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              4EE76A9B0BC1488985E2D873 /* CMake PostBuild Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake PostBuild Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/package_postBuildPhase.make$CONFIGURATION all";
-                     showEnvVarsInLog = 0;
-              };
-              D66B2DCED53E4F4798EA51F2 /*  */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     inputPaths = (
-                     );
-                     outputPaths = (
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "# shell script goes here
-exit 0";
-                     showEnvVarsInLog = 0;
-              };
-              443F91AED88842FAB0C30657 /* CMake Rules */ = {
+              16A61604A07C4391AF06F0F4 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -443,115 +391,167 @@ exit 0";
                      name = "CMake Rules";
                      runOnlyForDeploymentPostprocessing = 0;
                      shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              292503AEA783465D8C10C261 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              348C0BA3317F4DA9B532C371 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              FDF26E3943284063A3BCFEEC /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              91602571C1AF4B0D9708631B /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest -f /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/CMakeScripts/package_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-              E2FBE40D1921424A97AD9F60 /* Sources */ = {
+              ED1C74F7764641AC93C76968 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            52447CBB7A5B4BD2ACC46B59 /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest-all.cc */,
+                            BCAA558331FD4E2398643F2A /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest-all.cc */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
-              933FFD33582543C29B9F1FB5 /* Sources */ = {
+              C439B26E0E17460CADD5AEE8 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            BC554EE0AA3C4D3EA9962D9D /* /Users/Shea/Documents/projects/dangerengine/extern/gtest/src/gtest_main.cc */,
+                            8199DB00F8A34BF1B18607BE /* /Users/Shea/Projects/dangerengine/extern/gtest/src/gtest_main.cc */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-              6730044CA9124268A8E865F6 /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
-                     targetProxy = 625B217121F2474E9B1209C8 /* PBXContainerItemProxy */;
-              };
-              0B0D49DBF6A04079B01B1768 /* PBXTargetDependency */ = {
+              C409FB209E2D4C4D83FC7919 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
-                     targetProxy = 0CCAA263697F46D4B59CFCEA /* PBXContainerItemProxy */;
+                     targetProxy = 18AED02049764621BF62730E /* PBXContainerItemProxy */;
               };
-              8226582750A14056B4D16ED2 /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
-                     targetProxy = DE8482EDF1F24E2FAB91020C /* PBXContainerItemProxy */;
-              };
-              5515E30FC5DE40438327B78E /* PBXTargetDependency */ = {
+              6D7EB1C34E0D4228B0331BB9 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 27ED40C5623A43C7A353112E /* gtest */;
-                     targetProxy = DF1AE5F748744A9D86764B7B /* PBXContainerItemProxy */;
+                     targetProxy = 4FE7A69D6677487C89FFF60F /* PBXContainerItemProxy */;
               };
-              4ABFB7E167944106AFA9424B /* PBXTargetDependency */ = {
+              E8D5DF9C616A49B08A8D40CD /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 72A384D46298413AAD4928E2 /* gtest_main */;
-                     targetProxy = 44FB921683DD44E4B4AF92EB /* PBXContainerItemProxy */;
+                     targetProxy = 3612D674DD7645E0909FD723 /* PBXContainerItemProxy */;
               };
-              B134294E0D654234898EC52E /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
-                     targetProxy = 9A9392729B6741E897F398D9 /* PBXContainerItemProxy */;
-              };
-              8C41907A82214600BBB00E6D /* PBXTargetDependency */ = {
+              3546C89F61E441BDB9F75A30 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
-                     targetProxy = 049EC135039A45FF9925EC34 /* PBXContainerItemProxy */;
+                     targetProxy = 990CFD8D2A754DAFBE1BEC6A /* PBXContainerItemProxy */;
               };
-              FA389AAE5CCE45F5B47D9BBF /* PBXTargetDependency */ = {
+              1573690EB2CB44DAB42ABC6D /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
+                     targetProxy = ED56A21CF581448D88A48D9E /* PBXContainerItemProxy */;
+              };
+              E1D831139A3B434CA9F892F6 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 27ED40C5623A43C7A353112E /* gtest */;
-                     targetProxy = 0F2BAE0383BA490ABC76E531 /* PBXContainerItemProxy */;
+                     targetProxy = 13A6A416B56D46D39682AA49 /* PBXContainerItemProxy */;
+              };
+              C24030EB3E4E475FBD5B9259 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
+                     targetProxy = F9E5D1CE58484FC78E587856 /* PBXContainerItemProxy */;
+              };
+              25B291D8AB8F449AB7A86017 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
+                     targetProxy = D53AF717598B405DA32D32BF /* PBXContainerItemProxy */;
               };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-              606A244F5A714B4DA8FA8F6F /* Debug */ = {
+              590B6CBACEFA4E63B2CA9E79 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
                             ONLY_ACTIVE_ARCH = YES;
                             SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/build;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/build;
                      };
                      name = Debug;
               };
-              50E410E3EA4146E8B4C92B2E /* Release */ = {
+              CDA26B0737984D25A9695F6B /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
                             ONLY_ACTIVE_ARCH = YES;
                             SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/build;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/build;
                      };
                      name = Release;
               };
-              FAC13693704347DA8641CA50 /* MinSizeRel */ = {
+              04F485DCDFE742BCB23F7AF5 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
                             ONLY_ACTIVE_ARCH = YES;
                             SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/build;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/build;
                      };
                      name = MinSizeRel;
               };
-              E781EF3E6119478C9CFA471F /* RelWithDebInfo */ = {
+              F70F28EEC4C845C9B0704CEC /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
                             ONLY_ACTIVE_ARCH = YES;
                             SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest/build;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest/build;
                      };
                      name = RelWithDebInfo;
               };
-              729FCF2463364060A2635516 /* Debug */ = {
+              44D87880DBEE4D9A9345E15E /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -560,20 +560,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = install;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Debug;
               };
-              92633CEC6FA4409CA0A4A262 /* Release */ = {
+              487E72455D6C4B959398CAE2 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -582,20 +582,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = install;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Release;
               };
-              AA626D8AD3EC46CB9B707128 /* MinSizeRel */ = {
+              0BEABD632FA144C7A03B2B8D /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -604,20 +604,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = install;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = MinSizeRel;
               };
-              F39FC8AEA3164E25A9CB04E6 /* RelWithDebInfo */ = {
+              56BB699F0AD344B39958CC1D /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -626,20 +626,108 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = install;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = RelWithDebInfo;
               };
-              1E509691967B4248B21BB4D8 /* Debug */ = {
+              A4A338A1C2F4483A8681F57D /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Debug;
+              };
+              439F78E86CA2403E83219805 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Release;
+              };
+              6E2ECFDC135C487888670C85 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = MinSizeRel;
+              };
+              56086D6754124DE289FE3BF0 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              EFABC17C478045E497AB3205 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -650,7 +738,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -659,13 +747,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Debug;
               };
-              FDA55EAF02C3428B81C4D7BE /* Release */ = {
+              1D6BC7FC19294028B5F40ED5 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -676,7 +764,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 3;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -685,13 +773,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Release;
               };
-              3D197507902E44CBA7E931A6 /* MinSizeRel */ = {
+              541589035ACC41F0A27D9448 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -702,7 +790,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = s;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -711,13 +799,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = MinSizeRel;
               };
-              4C3C69FAF0C147F78FB52C4D /* RelWithDebInfo */ = {
+              77940C535C914034AF3BD43E /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -728,7 +816,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 2;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11        -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -737,189 +825,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = RelWithDebInfo;
               };
-              692FE6057D704E84B5E7033A /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Debug;
-              };
-              EF474AEEE43848B08DBA2430 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Release;
-              };
-              3C6D0161A09748BDAA153FEC /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = MinSizeRel;
-              };
-              F8CB8E034CC5407FACB91F52 /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = RelWithDebInfo;
-              };
-              17F83E212EB344F6970D5CF1 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Debug;
-              };
-              60269028CE46441B83D21436 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = Release;
-              };
-              C772AB81967E4F7AB391D75B /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = MinSizeRel;
-              };
-              3D9132B02416428DB89CECC5 /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "  ";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
-                     };
-                     name = RelWithDebInfo;
-              };
-              EA5B2BE2483043DFBF7FA14A /* Debug */ = {
+              8DA9E0CF0734460D95D87E41 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -930,7 +842,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -939,13 +851,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Debug;
               };
-              455F524AE751417BB5A4441F /* Release */ = {
+              8B2B6D0621FD4E50B15FB0DD /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -956,7 +868,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 3;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -965,13 +877,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Release;
               };
-              DDA65664B20A4C2281117A67 /* MinSizeRel */ = {
+              03AA160A9B714F9F930004E2 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -982,7 +894,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = s;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11     -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -991,13 +903,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = MinSizeRel;
               };
-              8517A1C1DC9B41EEB28A264A /* RelWithDebInfo */ = {
+              CCC8D8E3D3ED4FDFAA8DB01A /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -1008,7 +920,7 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 2;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
                             OTHER_CFLAGS = " -std=gnu11        -DNDEBUG  -std=gnu++1y  -DGTEST_HAS_PTHREAD=1    ";
@@ -1017,13 +929,13 @@ exit 0";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = RelWithDebInfo;
               };
-              0542E10F21D7428CA7BB640B /* Debug */ = {
+              C2CE90B9247B4082A689F216 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -1032,20 +944,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
+                            PRODUCT_NAME = install;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Debug;
               };
-              F618412F0E204B72B76570E8 /* Release */ = {
+              C0522461715E4EC4AAEE043B /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -1054,20 +966,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
+                            PRODUCT_NAME = install;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = Release;
               };
-              900777F8C9D5403883ED0D99 /* MinSizeRel */ = {
+              0A4479827A4E4D0BB911E1A8 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -1076,20 +988,20 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
+                            PRODUCT_NAME = install;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = MinSizeRel;
               };
-              174D2C5C2095427C8841C7B4 /* RelWithDebInfo */ = {
+              F2F8D8EBCE26410DB1456B0B /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -1098,95 +1010,183 @@ exit 0";
                             GCC_OPTIMIZATION_LEVEL = 0;
                             GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            HEADER_SEARCH_PATHS = (/Users/Shea/Documents/projects/dangerengine/src, /Users/Shea/Documents/projects/dangerengine/extern/kazmath, /Users/Shea/Documents/projects/dangerengine/extern/glfw/include, /Users/Shea/Documents/projects/dangerengine/extern/googlemock/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest/include, /Users/Shea/Documents/projects/dangerengine/extern/gtest, );
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
                             INSTALL_PATH = "";
                             OTHER_CFLAGS = "  ";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
+                            PRODUCT_NAME = install;
                             SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Documents/projects/dangerengine/xcode/extern/googlemock/gtest;
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              060E0F1B43EC43209F8D885F /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Debug;
+              };
+              74AF28A4C0094F439F2C9164 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Release;
+              };
+              E38DDFF61CA144D4A1FF440A /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = MinSizeRel;
+              };
+              55900E5F94FA4998BF80B784 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/Users/Shea/Projects/dangerengine/src, /Users/Shea/Projects/dangerengine/extern/kazmath, /Users/Shea/Projects/dangerengine/extern/glfw/include, /Users/Shea/Projects/dangerengine/extern/googlemock/include, /Users/Shea/Projects/dangerengine/extern/gtest/include, /Users/Shea/Projects/dangerengine/extern/gtest, );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/googlemock/gtest;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
                      };
                      name = RelWithDebInfo;
               };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              A7C5D06CE9CF4D81A5F19521 /* Build configuration list for PBXProject  "gtest" */ = {
+              42D96AE882BF457D96A3E325 /* Build configuration list for PBXProject  "gtest" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            606A244F5A714B4DA8FA8F6F /* Debug */,
-                            50E410E3EA4146E8B4C92B2E /* Release */,
-                            FAC13693704347DA8641CA50 /* MinSizeRel */,
-                            E781EF3E6119478C9CFA471F /* RelWithDebInfo */,
+                            590B6CBACEFA4E63B2CA9E79 /* Debug */,
+                            CDA26B0737984D25A9695F6B /* Release */,
+                            04F485DCDFE742BCB23F7AF5 /* MinSizeRel */,
+                            F70F28EEC4C845C9B0704CEC /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              786DF1C0A9584E5D9FD81025 /* Build configuration list for PBXAggregateTarget "install" */ = {
+              2305C37D0154475AB8F5483B /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            729FCF2463364060A2635516 /* Debug */,
-                            92633CEC6FA4409CA0A4A262 /* Release */,
-                            AA626D8AD3EC46CB9B707128 /* MinSizeRel */,
-                            F39FC8AEA3164E25A9CB04E6 /* RelWithDebInfo */,
+                            44D87880DBEE4D9A9345E15E /* Debug */,
+                            487E72455D6C4B959398CAE2 /* Release */,
+                            0BEABD632FA144C7A03B2B8D /* MinSizeRel */,
+                            56BB699F0AD344B39958CC1D /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              5A33E500BAC441778172A4D7 /* Build configuration list for PBXNativeTarget "gtest" */ = {
+              9B8D57C120AA4579B921A19E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            1E509691967B4248B21BB4D8 /* Debug */,
-                            FDA55EAF02C3428B81C4D7BE /* Release */,
-                            3D197507902E44CBA7E931A6 /* MinSizeRel */,
-                            4C3C69FAF0C147F78FB52C4D /* RelWithDebInfo */,
+                            A4A338A1C2F4483A8681F57D /* Debug */,
+                            439F78E86CA2403E83219805 /* Release */,
+                            6E2ECFDC135C487888670C85 /* MinSizeRel */,
+                            56086D6754124DE289FE3BF0 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              055220D331D24614875D8934 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+              E9C378A62B4B40E6A50862C2 /* Build configuration list for PBXNativeTarget "gtest" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            692FE6057D704E84B5E7033A /* Debug */,
-                            EF474AEEE43848B08DBA2430 /* Release */,
-                            3C6D0161A09748BDAA153FEC /* MinSizeRel */,
-                            F8CB8E034CC5407FACB91F52 /* RelWithDebInfo */,
+                            EFABC17C478045E497AB3205 /* Debug */,
+                            1D6BC7FC19294028B5F40ED5 /* Release */,
+                            541589035ACC41F0A27D9448 /* MinSizeRel */,
+                            77940C535C914034AF3BD43E /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              048B14FA86F54CF68535F0B9 /* Build configuration list for PBXAggregateTarget "package" */ = {
+              C7451732CFD04B6C96195FE1 /* Build configuration list for PBXNativeTarget "gtest_main" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            17F83E212EB344F6970D5CF1 /* Debug */,
-                            60269028CE46441B83D21436 /* Release */,
-                            C772AB81967E4F7AB391D75B /* MinSizeRel */,
-                            3D9132B02416428DB89CECC5 /* RelWithDebInfo */,
+                            8DA9E0CF0734460D95D87E41 /* Debug */,
+                            8B2B6D0621FD4E50B15FB0DD /* Release */,
+                            03AA160A9B714F9F930004E2 /* MinSizeRel */,
+                            CCC8D8E3D3ED4FDFAA8DB01A /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              5BCDDE584053470F92E86C57 /* Build configuration list for PBXNativeTarget "gtest_main" */ = {
+              FC47892CBE8A4366AB43999F /* Build configuration list for PBXAggregateTarget "install" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            EA5B2BE2483043DFBF7FA14A /* Debug */,
-                            455F524AE751417BB5A4441F /* Release */,
-                            DDA65664B20A4C2281117A67 /* MinSizeRel */,
-                            8517A1C1DC9B41EEB28A264A /* RelWithDebInfo */,
+                            C2CE90B9247B4082A689F216 /* Debug */,
+                            C0522461715E4EC4AAEE043B /* Release */,
+                            0A4479827A4E4D0BB911E1A8 /* MinSizeRel */,
+                            F2F8D8EBCE26410DB1456B0B /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              1E7CA5DD404C4C4EBF95C679 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+              B023D44C1D4046079EF2F298 /* Build configuration list for PBXAggregateTarget "package" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            0542E10F21D7428CA7BB640B /* Debug */,
-                            F618412F0E204B72B76570E8 /* Release */,
-                            900777F8C9D5403883ED0D99 /* MinSizeRel */,
-                            174D2C5C2095427C8841C7B4 /* RelWithDebInfo */,
+                            060E0F1B43EC43209F8D885F /* Debug */,
+                            74AF28A4C0094F439F2C9164 /* Release */,
+                            E38DDFF61CA144D4A1FF440A /* MinSizeRel */,
+                            55900E5F94FA4998BF80B784 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;

@@ -74,7 +74,6 @@ typedef void (*slsFreeFn)(void *data);
  */
 typedef int (*slsCmpFn)(void const *lhs, void const *rhs);
 
-typedef uint32_t (*slsHashFn)(void const *key);
 
 struct slsCallbackTable {
   slsFreeFn free_fn;
@@ -114,6 +113,8 @@ int sls_cmp_intptr(void const *a, void const *b);
  * @brief compares two pointers to unsigned integers passed as a void pointer
  */
 int sls_cmp_uintptr(void const *a, void const *b);
+
+int sls_cmp_voidptr(void const *a, void const *b);
 
 
 #endif //DANGERENGINE_CALLBACKS_H

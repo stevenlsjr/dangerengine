@@ -1,4 +1,3 @@
-
 /**
  * //
  * // Created by Steven on 4/25/15.
@@ -96,7 +95,7 @@
  * @detail takes a condition, if the condition fails, it calls a 'goto' to
  * the `error:` label, which must exist in the function
  */
-#define sls_check(cond, msg,  ...) do { \
+#define sls_check(cond, msg, ...) do { \
   if (!(cond)) { \
     sls_log_err((msg), ##__VA_ARGS__);    \
     goto error;                         \
@@ -124,8 +123,8 @@
 #define sls_msg(obj, method, ...) obj->method(obj, ##__VA_ARGS__)
 
 typedef enum slsBool {
-    SLS_TRUE=true,
-    SLS_FALSE=false
+  SLS_TRUE = true,
+  SLS_FALSE = false
 } slsBool;
 
 /**
@@ -147,6 +146,24 @@ void *sls_objalloc(void const *prototype, size_t size);
  */
 void sls_sleep(clock_t ticks);
 
-#define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
+/**
+ * @brief attribute wrappers for GCC & clang
+ */
+#ifndef _MSC_VER
+/**
+ * @brief Tags a function as non-null
+ * @param (param, ...)
+ */
+#   define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
+#   define SLS_DEPRECIATED __attribute__((depreciated))
+#   define SLS_PURE __attribute__((pure))
+#   define SLS_CONSTFN __attribute__((const))
+
+#else
+#   define SLS_NONNULL(param, ...)
+#   define SLS_DEPRECIATED
+#   define SLS_PURE
+#   define SLS_CONSTFN
+#endif //!_MSC_VER
 
 #endif //DANGERENGINE_SLSUTILS_H
