@@ -129,8 +129,9 @@ slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1,
 kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
 
 // TODO(Steven): c11 overloading functions
+
 #if 1
-#   define sls_vadd(res, aptr, bptr) _Generic((res)  \
+#   define sls_add(res, aptr, bptr) _Generic((res)  \
       kmVec2*:  kmVec2Add((res), (aptr), (bprt)),    \
       kmVec3*:  kmVec3Add((res), (aptr), (bprt)),    \
       kmVec4*:  kmVec4Add((res), (aptr), (bprt)),    \
@@ -139,7 +140,7 @@ kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
       slsVec4*: kmVec4Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
     )
 
-#   define sls_vsub(res, aptr, bptr) _Generic((res)  \
+#   define sls_sub(res, aptr, bptr) _Generic((res)  \
       kmVec2*:  kmVec2Sub((res), (aptr), (bprt)),    \
       kmVec3*:  kmVec3Sub((res), (aptr), (bprt)),    \
       kmVec4*:  kmVec4Sub((res), (aptr), (bprt)),    \
@@ -147,7 +148,7 @@ kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
       slsVec3*: kmVec3Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
       slsVec4*: kmVec4Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
     )
-#   define sls_vmul(res, aptr, bptr) _Generic((res)  \
+#   define sls_mul(res, aptr, bptr) _Generic((res)  \
       kmVec2*:  kmVec2Mul((res), (aptr), (bprt)),    \
       kmVec3*:  kmVec3Mul((res), (aptr), (bprt)),    \
       kmVec4*:  kmVec4Mul((res), (aptr), (bprt)),    \
@@ -155,7 +156,7 @@ kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
       slsVec3*: kmVec3Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
       slsVec4*: kmVec4Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
     )
-#   define sls_vdiv(res, aptr, bptr) _Generic((res)  \
+#   define sls_div(res, aptr, bptr) _Generic((res)  \
       kmVec2*:  kmVec2Div((res), (aptr), (bprt)),    \
       kmVec3*:  kmVec3Div((res), (aptr), (bprt)),    \
       kmVec4*:  kmVec4Div((res), (aptr), (bprt)),    \
@@ -164,7 +165,7 @@ kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
       slsVec4*: kmVec4Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
     )
 
-#   define sls_vdot(a, b) _Generic((res)  \
+#   define sls_dot(a, b) _Generic((res)  \
       kmVec2*:  kmVec2Dot((a), (b)),    \
       kmVec3*:  kmVec3Dot((a), (b)),    \
       kmVec4*:  kmVec4Dot((a), (b)),    \

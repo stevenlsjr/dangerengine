@@ -58,3 +58,20 @@ TEST_F(IPointTests, IDiv)
   // zero / a == zero
   EXPECT_EQ(zero, sls_ipoint_idiv(&zero, &a));
 }
+
+class MatStackTest : public ::testing::Test {
+
+protected:
+
+
+  virtual void TearDown()
+  {
+
+  }
+
+  virtual void SetUp()
+  {
+
+  }
+
+};

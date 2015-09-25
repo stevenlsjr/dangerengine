@@ -3,6 +3,7 @@
 //
 
 #include "render_demo.h"
+#include <assert.h>
 #include "../src/dangerengine.h"
 
 void demo_setup_textures(slsContext *pContext);
@@ -32,9 +33,8 @@ void demo_handle_event(slsContext *self, const SDL_Event *e)
     case (SDL_MOUSEMOTION): {
       SDL_MouseMotionEvent me = e->motion;
       if (me.state & SDL_MOUSEBUTTONDOWN) { // mouse button is down
-        data->mouse_motion = (slsIPoint) {me.xrel, -me.yrel};
-      } else {
-        data->mouse_motion = (slsIPoint) {0, 0};
+        data->mouse_motion.x += me.xrel;
+        data->mouse_motion.y -= me.yrel;
       }
 
       break;
@@ -101,6 +101,17 @@ void demo_context_setup(slsContext *self)
 
   self->data = calloc(sizeof(demoData), 1);
 
+  sls_checkmem(self->data);
+
+  demoData *data = self->data;
+  {
+    const size_t initial_size = 16;
+    data->model_view = *sls_matrix_stack_init(&data->model_view,
+                                              initial_size);
+  }
+
+  sls_checkmem(data->model_view.matrices);
+
 
   demo_setup_shaders(self);
 
@@ -115,6 +126,8 @@ void demo_context_setup(slsContext *self)
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
+  error:
+  exit(EXIT_FAILURE);
 
 }
 
@@ -167,18 +180,20 @@ void demo_context_update(slsContext *self, double dt)
   slsIPoint zero = {0, 0};
   kmVec2 translate = {0.0, 0.0};
   kmVec2 mouse_v = {0.0, 0.0};
-  double move_speed = 10.0;
+  double move_speed = 100.0;
   bool moving = false;
 
 
-
   if (!sls_ipoint_eq(&mm, &zero)) {
-    translate = (kmVec2){mm.x, mm.y};
 
-    translate.x *= dt * move_speed;
-    translate.y *= dt * move_speed;
+    double angle = atan2(mm.y, mm.x);
+    translate = (kmVec2) {mm.x, mm.y};
+    kmVec2Normalize(&translate, &translate);
 
-    sls_log_info("%f moving %i %i %f %f", dt, mm.x, mm.y, translate.x, translate.y);
+
+    double full_speed = dt * move_speed;
+    translate.x *= full_speed;
+    translate.y *= full_speed;
 
 
     moving = true;
@@ -193,12 +208,13 @@ void demo_context_update(slsContext *self, double dt)
     kmMat4Multiply(&data->view_matrix, &trans, &tmp);
 
     kmMat4Identity(&tmp);
-    sls_log_info("moving %f %f", translate.x, translate.y);
 
     demo_update_modelview(self, &tmp);
 
 
   }
+
+  data->mouse_motion = (slsIPoint) {0, 0};
 
 
 }
@@ -263,7 +279,7 @@ void demo_context_resize(slsContext *self, int x, int y)
 {
   sls_context_class()->resize(self, x, y);
   demoData *data = self->data;
-  glViewport(0, 0, x*2, y*2);
+  glViewport(0, 0, x * 2, y * 2);
 
   sls_log_info("%i %i", x, y);
   if (x != 0 && y != 0) {

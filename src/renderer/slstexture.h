@@ -115,6 +115,9 @@ slsTexture *sls_texture_new(char const *diffuse_path,
                             char const *specular_path,
                             char const *normal_path);
 
+
+GLuint sls_gltex_from_surface(SDL_Surface *surface);
+
 /**
  * @brief generates a openGL texture handle from given path.
  *

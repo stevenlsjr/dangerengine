@@ -143,6 +143,7 @@ typedef enum slsBool {
   SLS_FALSE = false
 } slsBool;
 
+
 /**
  * @brief allocates 'size' bytes on the heap, and copies contents to
  * pointer
@@ -167,8 +168,6 @@ void sls_sleep(clock_t ticks);
  * @detail Calls either win32 or possix chdir function
  * and returns value as specified by given function
  */
-
-
 
 int sls_chdir(char const *path) SLS_NONNULL(1);
 

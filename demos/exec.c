@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 {
   
 
-
   return render_demo_main(&argc, argv);
 
 }

@@ -243,20 +243,43 @@ GLuint sls_gltex_from_file(char const *path,
                            int width_opt,
                            int height_opt)
 {
-
   GLuint tex = 0;
 
   int depth, n_colors;
   GLenum gl_format, gl_type;
 
   SDL_Surface *img = NULL;
-  glGenTextures(1, &tex);
 
 
   img = IMG_Load(path);
   sls_checkmem(img);
 
-  n_colors = img->format->BytesPerPixel;
+  tex = sls_gltex_from_surface(img);
+
+  return tex;
+  error:
+
+  sls_log_err("IMG: %s", IMG_GetError());
+
+  if (img) {
+    SDL_FreeSurface(img);
+  }
+  glBindTexture(GL_TEXTURE_2D, 0);
+  return 0;
+}
+
+
+GLuint sls_gltex_from_surface(SDL_Surface *surface)
+{
+
+  GLuint tex = 0;
+
+  int n_colors;
+  GLenum gl_format, gl_type;
+
+  glGenTextures(1, &tex);
+
+  n_colors = surface->format->BytesPerPixel;
 
 
   if (n_colors == 4) { // RGB
@@ -268,7 +291,7 @@ GLuint sls_gltex_from_file(char const *path,
 
   } else {
     sls_log_err("texture %p is not truecolor bytes per pixel == %i",
-                img,
+                surface,
                 n_colors);
     sls_fail();
   }
@@ -279,8 +302,8 @@ GLuint sls_gltex_from_file(char const *path,
   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-  sls_check(img->pixels, "no pixel vertex");
-  sls_check(img->w > 0 && img->h > 0, "size %i %i invalid", img->w, img->h);
+  sls_check(surface->pixels, "no pixel vertex");
+  sls_check(surface->w > 0 && surface->h > 0, "size %i %i invalid", surface->w, surface->h);
 
 
   glBindTexture(GL_TEXTURE_2D, tex);
@@ -289,16 +312,15 @@ GLuint sls_gltex_from_file(char const *path,
   glTexImage2D(GL_TEXTURE_2D, // enum
                0,             // level
                gl_format,     // internalformat
-               img->w,        // width
-               img->h,        // height
+               surface->w,        // width
+               surface->h,        // height
                0,             // border = 0
                gl_format,     // format
                gl_type,       // data type
-               img->pixels);  // data
+               surface->pixels);  // data
 
   glGenerateMipmap(GL_TEXTURE_2D);
 
-  SDL_FreeSurface(img);
   glBindTexture(GL_TEXTURE_2D, 0);
 
 
@@ -307,13 +329,9 @@ GLuint sls_gltex_from_file(char const *path,
 
   sls_log_err("IMG: %s", IMG_GetError());
 
-  if (img) {
-    SDL_FreeSurface(img);
+  if (surface) {
     glDeleteTextures(1, &tex);
   }
   glBindTexture(GL_TEXTURE_2D, 0);
   return 0;
 }
-
-
-

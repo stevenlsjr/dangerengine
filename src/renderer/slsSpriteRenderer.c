@@ -51,7 +51,7 @@ static void sls_sprite_freefn(void *sprite)
 slsSpriteBatch *sls_spritebatch_init(slsSpriteBatch *self)
 {
 
-  if (!self) { return NULL; }
+  //if (!self) { return NULL; }
 
   self->sprites = *sls_ptrarray_init(&self->sprites, ((void *[]){}), 0, sls_sprite_freefn);
 

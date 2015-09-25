@@ -5,6 +5,7 @@
 #ifndef DANGERENGINE_RENDER_DEMO_H
 #define DANGERENGINE_RENDER_DEMO_H
 
+#include <math/slsMatrixStack.h>
 #include "../src/dangerengine.h"
 
 #define DEMO_MAX_MODELS 20
@@ -25,6 +26,8 @@ typedef struct demoData {
   slsSprite *sprite;
 
   kmMat4 view_matrix;
+
+  slsMatrixStack model_view;
 
 
   slsIPoint mouse_motion;

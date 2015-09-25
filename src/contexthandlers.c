@@ -46,17 +46,6 @@ static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static slsBool sls_active_flag = SLS_FALSE;
 
 
-bool sls_il_init()
-{
-
-#ifndef __EMSCRIPTEN__
-  ilInit();
-  //iluInit();
-  //ilutInit();
-
-#endif
-  return true;
-}
 
 static inline bool sls_init_sdl(uint32_t sdl_flags)
 {
@@ -87,7 +76,6 @@ bool sls_init(void)
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
 
 
-  sls_check(sls_il_init(), "devIL failed");
 
 
   sls_active_flag = SLS_TRUE;

@@ -54,6 +54,7 @@ extern "C" {
 #include "math/mathmacs.h"
 #include "math/math-types.h"
 #include "math/slsTransform2D.h"
+#include "math/slsMatrixStack.h"
 
 
 #include "renderer/shaderutils.h"
