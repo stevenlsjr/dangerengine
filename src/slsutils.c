@@ -39,6 +39,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef WIN32
+#   include <windows.h>
+#else
+#   include <unistd.h>
+#endif
+
+
 void *sls_objalloc(void const *prototype, size_t size)
 {
   void *obj = NULL;
@@ -55,4 +62,18 @@ void sls_sleep(clock_t ticks)
 {
   clock_t init_time = clock();
   while (clock() - init_time < ticks) { }
+}
+
+int sls_chdir(char const *path)
+{
+
+  int res = 0;
+
+#ifdef WIN32
+  res = _chdir(path);
+#else
+  res = chdir(path);
+#endif // WIN32
+
+  return res;
 }

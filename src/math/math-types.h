@@ -8,7 +8,7 @@
 #ifndef DANGERENGINE_MATH_TYPES_H
 #define DANGERENGINE_MATH_TYPES_H
 
-#include <kazmath/vec2.h>
+#include <kazmath/kazmath.h>
 #include "../slsutils.h"
 
 /**
@@ -18,16 +18,169 @@ typedef struct slsIPoint {
   int x, y;
 } slsIPoint;
 
+
+typedef union slsIRect {
+  struct {
+    slsIPoint position;
+    slsIPoint size;
+  };
+  struct {
+    int x;
+    int y;
+    int width;
+    int height;
+  };
+} slsIRect;
+
+typedef union slsVec2 {
+  struct {
+    float x;
+    float y;
+  };
+  struct {
+    float u;
+    float v;
+  };
+  struct {
+    float r;
+    float g;
+  };
+  struct kmVec2 kvec;
+} slsVec2;
+
+
+typedef union slsVec3 {
+  struct {
+    float x;
+    float y;
+    float z;
+  };
+  struct {
+    float u;
+    float v;
+    float s;
+
+  };
+  struct {
+    float r;
+    float g;
+    float b;
+
+  };
+  slsVec2 xy;
+  kmVec3 kvec;
+} slsVec3;
+
+typedef union slsVec4 {
+  struct {
+    float x;
+    float y;
+    float z;
+    float w;
+  };
+  struct {
+    float u;
+    float v;
+    float s;
+    float t;
+  };
+
+  struct {
+    float r;
+    float g;
+    float b;
+    float a;
+  };
+
+  slsVec2 xy;
+  slsVec3 xyz;
+
+  kmVec3 kvec;
+} slsVec4;
+
+static inline slsVec2 sls_make_vec2(float x, float y)
+{
+  return (slsVec2) {.x=x, .y=y};
+}
+
+static inline slsVec3 sls_make_vec3(float x, float y, float z)
+{
+  return (slsVec3) {.x=x, .y=y, .z=z};
+}
+
+static inline slsVec4 sls_make_vec4(float x, float y, float z, float w)
+{
+  return (slsVec4) {.x=x, .y=y, .z=z, .w=2};
+}
+
 /*---------------------------------------*
  * slsIPoint operations
  *---------------------------------------*/
-slsBool  sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+slsBool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+
 slsIPoint sls_ipoint_add(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+
 slsIPoint sls_ipoint_sub(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+
 slsIPoint sls_ipoint_mul(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+
 slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
 
 kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
+
+// TODO(Steven): c11 overloading functions
+#if 1
+#   define sls_vadd(res, aptr, bptr) _Generic((res)  \
+      kmVec2*:  kmVec2Add((res), (aptr), (bprt)),    \
+      kmVec3*:  kmVec3Add((res), (aptr), (bprt)),    \
+      kmVec4*:  kmVec4Add((res), (aptr), (bprt)),    \
+      slsVec2*: kmVec2Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec3*: kmVec3Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec4*: kmVec4Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+    )
+
+#   define sls_vsub(res, aptr, bptr) _Generic((res)  \
+      kmVec2*:  kmVec2Sub((res), (aptr), (bprt)),    \
+      kmVec3*:  kmVec3Sub((res), (aptr), (bprt)),    \
+      kmVec4*:  kmVec4Sub((res), (aptr), (bprt)),    \
+      slsVec2*: kmVec2Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec3*: kmVec3Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec4*: kmVec4Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+    )
+#   define sls_vmul(res, aptr, bptr) _Generic((res)  \
+      kmVec2*:  kmVec2Mul((res), (aptr), (bprt)),    \
+      kmVec3*:  kmVec3Mul((res), (aptr), (bprt)),    \
+      kmVec4*:  kmVec4Mul((res), (aptr), (bprt)),    \
+      slsVec2*: kmVec2Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec3*: kmVec3Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec4*: kmVec4Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+    )
+#   define sls_vdiv(res, aptr, bptr) _Generic((res)  \
+      kmVec2*:  kmVec2Div((res), (aptr), (bprt)),    \
+      kmVec3*:  kmVec3Div((res), (aptr), (bprt)),    \
+      kmVec4*:  kmVec4Div((res), (aptr), (bprt)),    \
+      slsVec2*: kmVec2Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec3*: kmVec3Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+      slsVec4*: kmVec4Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
+    )
+
+#   define sls_vdot(a, b) _Generic((res)  \
+      kmVec2*:  kmVec2Dot((a), (b)),    \
+      kmVec3*:  kmVec3Dot((a), (b)),    \
+      kmVec4*:  kmVec4Dot((a), (b)),    \
+      slsVec2*: kmVec2Dot((a->kvec), (b->kvec)),    \
+      slsVec3*: kmVec3Dot((a->kvec), (b->kvec))),    \
+      slsVec4*: kmVec4Dot((a->kvec), (b->kvec))),    \
+      const kmVec2*:  kmVec2Dot((a), (b)),    \
+      const kmVec3*:  kmVec3Dot((a), (b)),    \
+      const kmVec4*:  kmVec4Dot((a), (b)),    \
+      const slsVec2*: kmVec2Dot((a->kvec), (b->kvec)),    \
+      const slsVec3*: kmVec3Dot((a->kvec), (b->kvec))),    \
+      const slsVec4*: kmVec4Dot((a->kvec), (b->kvec))),    \
+    )
+
+
+#endif
 
 
 #endif //DANGERENGINE_MATH_TYPES_H

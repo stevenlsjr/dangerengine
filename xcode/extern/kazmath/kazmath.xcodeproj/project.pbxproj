@@ -7,100 +7,100 @@
        objects = {
 
 /* Begin PBXAggregateTarget section */
-              EE3D65C400274C4383506A9C /* ALL_BUILD */ = {
+              3A7CECFD17FA4C14B790A7EE /* install */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = FE0FF870EB2E48D1818F73F6 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildConfigurationList = 0550E7AD944348A79FAF1FEC /* Build configuration list for PBXAggregateTarget "install" */;
                      buildPhases = (
-                            542C937A1B654EF6B93D1B78 /* CMake Rules */,
+                            229202BE520A4963A5FDA27E /* CMake PostBuild Rules */,
                      );
                      dependencies = (
-                            DFA4ED9220EF4FF796F58323 /* PBXTargetDependency */,
-                            6577A6583B08499ABD11A384 /* PBXTargetDependency */,
+                            B06DCC6AA3B346B7AD6F2569 /* PBXTargetDependency */,
+                     );
+                     name = install;
+                     productName = install;
+              };
+              EE3D65C400274C4383506A9C /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = A488BEE7ACB2401DBA1BF7B1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            BD6BB75AE1C6489AA68CD66D /* CMake Rules */,
+                     );
+                     dependencies = (
+                            FBB0172CDF924354A9418605 /* PBXTargetDependency */,
+                            BE5112D332304040A784F24F /* PBXTargetDependency */,
                      );
                      name = ALL_BUILD;
                      productName = ALL_BUILD;
               };
+              8EC61593B4AC492E8BC6AC2B /* package */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 782E813E75FA4EA08E1C2CC1 /* Build configuration list for PBXAggregateTarget "package" */;
+                     buildPhases = (
+                            4DA3B9B0A5C1433E9FC3A7C9 /* CMake PostBuild Rules */,
+                     );
+                     dependencies = (
+                            50C9D088A31A47DF83E18E23 /* PBXTargetDependency */,
+                     );
+                     name = package;
+                     productName = package;
+              };
               FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = ABE11965DA084F63BE73A6D6 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildConfigurationList = A169E77BF40D4BCEB954144F /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
                      buildPhases = (
-                            7840ABBD7D5E444081E97992 /* CMake Rules */,
+                            2AAF933633424B5D893C18B0 /* CMake Rules */,
                      );
                      dependencies = (
                      );
                      name = ZERO_CHECK;
                      productName = ZERO_CHECK;
               };
-              3A7CECFD17FA4C14B790A7EE /* install */ = {
-                     isa = PBXAggregateTarget;
-                     buildConfigurationList = 5A0E60B0FF3F48C79B3B5F8F /* Build configuration list for PBXAggregateTarget "install" */;
-                     buildPhases = (
-                            AD2DF82C135B46E787787378 /* CMake PostBuild Rules */,
-                     );
-                     dependencies = (
-                            8F975E28DA4E46789F925545 /* PBXTargetDependency */,
-                     );
-                     name = install;
-                     productName = install;
-              };
-              8EC61593B4AC492E8BC6AC2B /* package */ = {
-                     isa = PBXAggregateTarget;
-                     buildConfigurationList = 9E36E616A1074A43AC85A7A6 /* Build configuration list for PBXAggregateTarget "package" */;
-                     buildPhases = (
-                            26644EB5C8D14B6AB13E6AB4 /* CMake PostBuild Rules */,
-                     );
-                     dependencies = (
-                            7E33463D68B64C359EF29C44 /* PBXTargetDependency */,
-                     );
-                     name = package;
-                     productName = package;
-              };
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-3E15E8FD47CE430797A3910A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 1F642BC9AD2D4BFB8F5085B4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-E5EB160356B3468EB82D19B3 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */ = {isa = PBXBuildFile; fileRef = F76B409124224417BCD05AB8 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */; settings = { COMPILER_FLAGS = ""; }; };
-179160EA2DC94B419CE6548E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */ = {isa = PBXBuildFile; fileRef = 004EDCBA90D048C0A10EDE87 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */; settings = { COMPILER_FLAGS = ""; }; };
-238C5AE48C754CAEA2E1F47C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */ = {isa = PBXBuildFile; fileRef = E8307EE6F6D84E4390EE2391 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */; settings = { COMPILER_FLAGS = ""; }; };
-F3C9B9B61BDC471CAB6AB741 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */ = {isa = PBXBuildFile; fileRef = 3EAB17E28F6B4FB5A388DDF9 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */; settings = { COMPILER_FLAGS = ""; }; };
-2CFB6216423F403D814CB213 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */ = {isa = PBXBuildFile; fileRef = E790B12F5B634A8180BA2805 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */; settings = { COMPILER_FLAGS = ""; }; };
-D897E24CEBF948699463666E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */ = {isa = PBXBuildFile; fileRef = 84491DB8B668450B91FB3011 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */; settings = { COMPILER_FLAGS = ""; }; };
-0DDD74CA973F4454B879915C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */ = {isa = PBXBuildFile; fileRef = B5C2071183C34FCB9F3B614C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */; settings = { COMPILER_FLAGS = ""; }; };
-F3F1134F6D0A4C7CB9F1502C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */ = {isa = PBXBuildFile; fileRef = D998509934CD421290EAEF90 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */; settings = { COMPILER_FLAGS = ""; }; };
-54C8FCD1AFDC49D9BE68B89F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */ = {isa = PBXBuildFile; fileRef = 587B697BECDE4F67A5EB2FF1 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */; settings = { COMPILER_FLAGS = ""; }; };
-5DB36D87BE304CFB885D4C04 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */ = {isa = PBXBuildFile; fileRef = 203D209CEABE40FAAC984DA0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */; settings = { COMPILER_FLAGS = ""; }; };
-8D06E3AA511042428AE561E1 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */ = {isa = PBXBuildFile; fileRef = FAA8709332144C8E84D0BEF6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */; settings = { COMPILER_FLAGS = ""; }; };
-D4563DC9A12A4EF798D2606E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */ = {isa = PBXBuildFile; fileRef = E4F457279C684F0B8C85374C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */; settings = { COMPILER_FLAGS = ""; }; };
-14AB0A9938154EA980FA358E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */ = {isa = PBXBuildFile; fileRef = C590E685075C4D7D8F87A598 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */; settings = { COMPILER_FLAGS = ""; }; };
-1A80888B6A234C84A80B02A4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */ = {isa = PBXBuildFile; fileRef = 34A2DA37996E4A6DA3D7EF5E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */; settings = { COMPILER_FLAGS = ""; }; };
+A16A43067AA54F239BAFF50F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 66319821978C400EBCCCC50A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+637A9488FD38478392017562 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */ = {isa = PBXBuildFile; fileRef = 1977823271904CFAA7CCBA9A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */; settings = { COMPILER_FLAGS = ""; }; };
+8315B6212CEF493C8E8547A3 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */ = {isa = PBXBuildFile; fileRef = 1A768776AEA64D0BB4B511FC /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */; settings = { COMPILER_FLAGS = ""; }; };
+81045E94A0994C19A946A4A4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */ = {isa = PBXBuildFile; fileRef = 68CED28B6CF34E79AEA7E57A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */; settings = { COMPILER_FLAGS = ""; }; };
+7E15F209B1494C7D9CFF7661 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */ = {isa = PBXBuildFile; fileRef = E8372B30064D48E2B8C246DD /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */; settings = { COMPILER_FLAGS = ""; }; };
+545FFFDF9E0F40348B28AD79 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */ = {isa = PBXBuildFile; fileRef = C7829C3A05E14A069477248F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */; settings = { COMPILER_FLAGS = ""; }; };
+16F8308B74FC45628D165F0A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */ = {isa = PBXBuildFile; fileRef = 73678BDA1F1D425ABBF48DC0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */; settings = { COMPILER_FLAGS = ""; }; };
+FBD1B3ECD8504B958D27110A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */ = {isa = PBXBuildFile; fileRef = 3DF6CF604B7F431C800B17C4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */; settings = { COMPILER_FLAGS = ""; }; };
+E6069406C627445E97FDE3EB /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */ = {isa = PBXBuildFile; fileRef = C83A2146BBB14853A6382F2F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */; settings = { COMPILER_FLAGS = ""; }; };
+BED79C4FE79A443C9ACC5F30 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */ = {isa = PBXBuildFile; fileRef = 3F62D041F48B4255A592FCE7 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */; settings = { COMPILER_FLAGS = ""; }; };
+B35CCBF7AE6C4AEA8D0B45ED /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */ = {isa = PBXBuildFile; fileRef = 36445BA122644870A0229F97 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */; settings = { COMPILER_FLAGS = ""; }; };
+850F17125CAC431DB9F5BDB6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */ = {isa = PBXBuildFile; fileRef = 1B784AB96E63458E97EA11C6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */; settings = { COMPILER_FLAGS = ""; }; };
+838E6A447BE741FA96E1331E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */ = {isa = PBXBuildFile; fileRef = E16AF90EFD784F598483D42B /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */; settings = { COMPILER_FLAGS = ""; }; };
+7D6BBD770546458482836062 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */ = {isa = PBXBuildFile; fileRef = 46E74E4F9CF04E849EB74BCE /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */; settings = { COMPILER_FLAGS = ""; }; };
+9C495C8580B943E982339A2D /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */ = {isa = PBXBuildFile; fileRef = AFA520E63B9046A7A917B7CA /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-              2676766DFD32448884A9CB5F /*  */ = {
+              1E0D70B8B7AF47058F9EF617 /*  */ = {
                      isa = PBXBuildStyle;
               };
-              98961E8FE57F4DB1B4117F07 /* Debug */ = {
+              76EC6934F67849B0BE94E97A /* Debug */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Debug;
               };
-              7CCD7A31E235456395696FCD /* Release */ = {
+              9A7489F496B449E88FF3746F /* Release */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Release;
               };
-              8092BEF72A504DD299473978 /* MinSizeRel */ = {
+              2DA5BE57800447648C83A274 /* MinSizeRel */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = MinSizeRel;
               };
-              B483DD9D30BD4D6B986CC8E7 /* RelWithDebInfo */ = {
+              72A2C70FC16644AABAC4EBC6 /* RelWithDebInfo */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
@@ -110,35 +110,35 @@ D4563DC9A12A4EF798D2606E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kaz
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-              062E604F6A8E407CA79FE645 /* PBXContainerItemProxy */ = {
+              1FE93DE17EED41BC9ADC39B7 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 9C32146A399748F5BA19D777;
-                     remoteInfo = kazmath;
+                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
+                     remoteInfo = ALL_BUILD;
               };
-              FE58DCFFBB1C48A0982F6F2F /* PBXContainerItemProxy */ = {
+              DD23D47346B84A0D8B606762 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = FCE1E37C8D164876B5F2A1E2;
                      remoteInfo = ZERO_CHECK;
               };
-              D5CE33D793234E8E90623990 /* PBXContainerItemProxy */ = {
+              A03318E09C8849868A9E1433 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 9C32146A399748F5BA19D777;
+                     remoteInfo = kazmath;
+              };
+              447DBF7173D646A18A396F86 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
                      proxyType = 1;
                      remoteGlobalIDString = EE3D65C400274C4383506A9C;
                      remoteInfo = ALL_BUILD;
               };
-              13AB88381AF3486DB2CF6544 /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = EE3D65C400274C4383506A9C;
-                     remoteInfo = ALL_BUILD;
-              };
-              71419D89914943F795B840B3 /* PBXContainerItemProxy */ = {
+              B8A48611597C49EAB26DB011 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
                      containerPortal = 47BEA8DB86DD40E687E60766 /* Project object */;
                      proxyType = 1;
@@ -148,119 +148,119 @@ D4563DC9A12A4EF798D2606E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kaz
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-042CF229B00640A3B106B40B /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-CEE2C83F91D84DF8BE24152A /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-1F642BC9AD2D4BFB8F5085B4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "kazmath/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-F76B409124224417BCD05AB8 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat4stack.c"; path = "kazmath/GL/mat4stack.c"; sourceTree = SOURCE_ROOT; };
-004EDCBA90D048C0A10EDE87 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "matrix.c"; path = "kazmath/GL/matrix.c"; sourceTree = SOURCE_ROOT; };
-E8307EE6F6D84E4390EE2391 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "aabb2.c"; path = "kazmath/aabb2.c"; sourceTree = SOURCE_ROOT; };
-3EAB17E28F6B4FB5A388DDF9 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "aabb3.c"; path = "kazmath/aabb3.c"; sourceTree = SOURCE_ROOT; };
-E790B12F5B634A8180BA2805 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat3.c"; path = "kazmath/mat3.c"; sourceTree = SOURCE_ROOT; };
-84491DB8B668450B91FB3011 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat4.c"; path = "kazmath/mat4.c"; sourceTree = SOURCE_ROOT; };
-B5C2071183C34FCB9F3B614C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "plane.c"; path = "kazmath/plane.c"; sourceTree = SOURCE_ROOT; };
-D998509934CD421290EAEF90 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "quaternion.c"; path = "kazmath/quaternion.c"; sourceTree = SOURCE_ROOT; };
-587B697BECDE4F67A5EB2FF1 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "ray2.c"; path = "kazmath/ray2.c"; sourceTree = SOURCE_ROOT; };
-203D209CEABE40FAAC984DA0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "ray3.c"; path = "kazmath/ray3.c"; sourceTree = SOURCE_ROOT; };
-FAA8709332144C8E84D0BEF6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "utility.c"; path = "kazmath/utility.c"; sourceTree = SOURCE_ROOT; };
-E4F457279C684F0B8C85374C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec2.c"; path = "kazmath/vec2.c"; sourceTree = SOURCE_ROOT; };
-C590E685075C4D7D8F87A598 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec3.c"; path = "kazmath/vec3.c"; sourceTree = SOURCE_ROOT; };
-34A2DA37996E4A6DA3D7EF5E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec4.c"; path = "kazmath/vec4.c"; sourceTree = SOURCE_ROOT; };
-AC6D023A6A55455D98E3E2B7 /* kazmath */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libkazmath.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+4A748BA9964A41AFAD97769C /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+13C9B52E6A274AE0955AF682 /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+66319821978C400EBCCCC50A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "kazmath/CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+1977823271904CFAA7CCBA9A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat4stack.c"; path = "kazmath/GL/mat4stack.c"; sourceTree = SOURCE_ROOT; };
+1A768776AEA64D0BB4B511FC /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "matrix.c"; path = "kazmath/GL/matrix.c"; sourceTree = SOURCE_ROOT; };
+68CED28B6CF34E79AEA7E57A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "aabb2.c"; path = "kazmath/aabb2.c"; sourceTree = SOURCE_ROOT; };
+E8372B30064D48E2B8C246DD /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "aabb3.c"; path = "kazmath/aabb3.c"; sourceTree = SOURCE_ROOT; };
+C7829C3A05E14A069477248F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat3.c"; path = "kazmath/mat3.c"; sourceTree = SOURCE_ROOT; };
+73678BDA1F1D425ABBF48DC0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "mat4.c"; path = "kazmath/mat4.c"; sourceTree = SOURCE_ROOT; };
+3DF6CF604B7F431C800B17C4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "plane.c"; path = "kazmath/plane.c"; sourceTree = SOURCE_ROOT; };
+C83A2146BBB14853A6382F2F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "quaternion.c"; path = "kazmath/quaternion.c"; sourceTree = SOURCE_ROOT; };
+3F62D041F48B4255A592FCE7 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "ray2.c"; path = "kazmath/ray2.c"; sourceTree = SOURCE_ROOT; };
+36445BA122644870A0229F97 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "ray3.c"; path = "kazmath/ray3.c"; sourceTree = SOURCE_ROOT; };
+1B784AB96E63458E97EA11C6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "utility.c"; path = "kazmath/utility.c"; sourceTree = SOURCE_ROOT; };
+E16AF90EFD784F598483D42B /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec2.c"; path = "kazmath/vec2.c"; sourceTree = SOURCE_ROOT; };
+46E74E4F9CF04E849EB74BCE /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec3.c"; path = "kazmath/vec3.c"; sourceTree = SOURCE_ROOT; };
+AFA520E63B9046A7A917B7CA /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.c"; fileEncoding = 4; name = "vec4.c"; path = "kazmath/vec4.c"; sourceTree = SOURCE_ROOT; };
+EDC7F2E8FAEF46F18DFA8F94 /* kazmath */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libkazmath.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              A7E0B2411EB44694AE262BC3  = {
+              03E9163D48A64186B3CB33FA  = {
                      isa = PBXGroup;
                      children = (
-                            D5F2E97AF7F1427DBD01DF78 /* Sources */,
-                            7E2D7BDB01084189A03966B9 /* Resources */,
-                            9574CAAAC488487790CFE8D2 /* Products */,
+                            6F2D65C7BB6E46268859BB6F /* Sources */,
+                            B896FD0164604532930BFE74 /* Resources */,
+                            ED4A2F4CD4CA42348F10B77F /* Products */,
                      );
                      sourceTree = "<group>";
               };
-              D5F2E97AF7F1427DBD01DF78 /* Sources */ = {
+              6F2D65C7BB6E46268859BB6F /* Sources */ = {
                      isa = PBXGroup;
                      children = (
-                            38B14D2ACFDB4474B0D67D8E /* ALL_BUILD */,
-                            28ECE9F1A37F44929DFE0E4B /* ZERO_CHECK */,
-                            3D4648E209B34C988B1089AD /* kazmath */,
+                            A52B2E33C36F429D896B7725 /* ALL_BUILD */,
+                            F8BAA3C8CA804E40BE38792B /* ZERO_CHECK */,
+                            C5F8FF34A2BF41A8BC3B255C /* kazmath */,
                      );
                      name = Sources;
                      sourceTree = "<group>";
               };
-              7E2D7BDB01084189A03966B9 /* Resources */ = {
+              B896FD0164604532930BFE74 /* Resources */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = Resources;
                      sourceTree = "<group>";
               };
-              38B14D2ACFDB4474B0D67D8E /* ALL_BUILD */ = {
+              A52B2E33C36F429D896B7725 /* ALL_BUILD */ = {
                      isa = PBXGroup;
                      children = (
-                            503C82CD0AB8475FA66C07D0 /* CMake Rules */,
-                            042CF229B00640A3B106B40B /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */,
+                            2BA1C780021F4C719FA709D2 /* CMake Rules */,
+                            4A748BA9964A41AFAD97769C /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */,
                      );
                      name = ALL_BUILD;
                      sourceTree = "<group>";
               };
-              503C82CD0AB8475FA66C07D0 /* CMake Rules */ = {
+              2BA1C780021F4C719FA709D2 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              28ECE9F1A37F44929DFE0E4B /* ZERO_CHECK */ = {
+              F8BAA3C8CA804E40BE38792B /* ZERO_CHECK */ = {
                      isa = PBXGroup;
                      children = (
-                            DDC1C653ED20446392CD63A3 /* CMake Rules */,
-                            CEE2C83F91D84DF8BE24152A /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */,
+                            19AA4FBD4DBF4EF1B9DEE833 /* CMake Rules */,
+                            13C9B52E6A274AE0955AF682 /* /Users/Shea/Projects/dangerengine/extern/kazmath/CMakeLists.txt */,
                      );
                      name = ZERO_CHECK;
                      sourceTree = "<group>";
               };
-              DDC1C653ED20446392CD63A3 /* CMake Rules */ = {
+              19AA4FBD4DBF4EF1B9DEE833 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              3D4648E209B34C988B1089AD /* kazmath */ = {
+              C5F8FF34A2BF41A8BC3B255C /* kazmath */ = {
                      isa = PBXGroup;
                      children = (
-                            193DAE59239747599B6F1549 /* Source Files */,
-                            1F642BC9AD2D4BFB8F5085B4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */,
+                            0878A0D034074F85A1844425 /* Source Files */,
+                            66319821978C400EBCCCC50A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/CMakeLists.txt */,
                      );
                      name = kazmath;
                      sourceTree = "<group>";
               };
-              193DAE59239747599B6F1549 /* Source Files */ = {
+              0878A0D034074F85A1844425 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            F76B409124224417BCD05AB8 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */,
-                            004EDCBA90D048C0A10EDE87 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */,
-                            E8307EE6F6D84E4390EE2391 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */,
-                            3EAB17E28F6B4FB5A388DDF9 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */,
-                            E790B12F5B634A8180BA2805 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */,
-                            84491DB8B668450B91FB3011 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */,
-                            B5C2071183C34FCB9F3B614C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */,
-                            D998509934CD421290EAEF90 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */,
-                            587B697BECDE4F67A5EB2FF1 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */,
-                            203D209CEABE40FAAC984DA0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */,
-                            FAA8709332144C8E84D0BEF6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */,
-                            E4F457279C684F0B8C85374C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */,
-                            C590E685075C4D7D8F87A598 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */,
-                            34A2DA37996E4A6DA3D7EF5E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */,
+                            1977823271904CFAA7CCBA9A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */,
+                            1A768776AEA64D0BB4B511FC /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */,
+                            68CED28B6CF34E79AEA7E57A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */,
+                            E8372B30064D48E2B8C246DD /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */,
+                            C7829C3A05E14A069477248F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */,
+                            73678BDA1F1D425ABBF48DC0 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */,
+                            3DF6CF604B7F431C800B17C4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */,
+                            C83A2146BBB14853A6382F2F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */,
+                            3F62D041F48B4255A592FCE7 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */,
+                            36445BA122644870A0229F97 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */,
+                            1B784AB96E63458E97EA11C6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */,
+                            E16AF90EFD784F598483D42B /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */,
+                            46E74E4F9CF04E849EB74BCE /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */,
+                            AFA520E63B9046A7A917B7CA /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              9574CAAAC488487790CFE8D2 /* Products */ = {
+              ED4A2F4CD4CA42348F10B77F /* Products */ = {
                      isa = PBXGroup;
                      children = (
-                            AC6D023A6A55455D98E3E2B7 /* kazmath */,
+                            EDC7F2E8FAEF46F18DFA8F94 /* kazmath */,
                      );
                      name = Products;
                      sourceTree = "<group>";
@@ -270,18 +270,18 @@ AC6D023A6A55455D98E3E2B7 /* kazmath */ = {isa = PBXFileReference; explicitFileTy
 /* Begin PBXNativeTarget section */
               9C32146A399748F5BA19D777 /* kazmath */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = B049DBA6E0134B90B7EFDE65 /* Build configuration list for PBXNativeTarget "kazmath" */;
+                     buildConfigurationList = ED0B15D46FA34F3783A58BB3 /* Build configuration list for PBXNativeTarget "kazmath" */;
                      buildPhases = (
-                            2F5F04BE011B4C6F984DF444 /* Sources */,
+                            3A3BC3923CD0455A9DD184E4 /* Sources */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            499015D36C964D608FFF52A3 /* PBXTargetDependency */,
+                            CDC8CB1198974F9CACAC6933 /* PBXTargetDependency */,
                      );
                      name = kazmath;
                      productName = kazmath;
-                     productReference = AC6D023A6A55455D98E3E2B7 /* kazmath */;
+                     productReference = EDC7F2E8FAEF46F18DFA8F94 /* kazmath */;
                      productType = "com.apple.product-type.library.static";
               };
 /* End PBXNativeTarget section */
@@ -292,32 +292,32 @@ AC6D023A6A55455D98E3E2B7 /* kazmath */ = {isa = PBXFileReference; explicitFileTy
                      attributes = {
                             BuildIndependentTargetsInParallel = YES;
                      };
-                     buildConfigurationList = 29B9357633E242D2A1CB2187 /* Build configuration list for PBXProject  "kazmath" */;
+                     buildConfigurationList = 9441F8B8C67A43E088595EE7 /* Build configuration list for PBXProject  "kazmath" */;
                      buildSettings = {
                      };
                      buildStyles = (
-                            98961E8FE57F4DB1B4117F07 /* Debug */,
-                            7CCD7A31E235456395696FCD /* Release */,
-                            8092BEF72A504DD299473978 /* MinSizeRel */,
-                            B483DD9D30BD4D6B986CC8E7 /* RelWithDebInfo */,
+                            76EC6934F67849B0BE94E97A /* Debug */,
+                            9A7489F496B449E88FF3746F /* Release */,
+                            2DA5BE57800447648C83A274 /* MinSizeRel */,
+                            72A2C70FC16644AABAC4EBC6 /* RelWithDebInfo */,
                      );
                      compatibilityVersion = "Xcode 3.2";
                      hasScannedForEncodings = 0;
-                     mainGroup = A7E0B2411EB44694AE262BC3;
+                     mainGroup = 03E9163D48A64186B3CB33FA;
                      projectDirPath = "../../../extern/kazmath";
                      projectRoot = "";
                      targets = (
-                            EE3D65C400274C4383506A9C /* ALL_BUILD */,
-                            FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */,
                             3A7CECFD17FA4C14B790A7EE /* install */,
+                            EE3D65C400274C4383506A9C /* ALL_BUILD */,
                             8EC61593B4AC492E8BC6AC2B /* package */,
+                            FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */,
                             9C32146A399748F5BA19D777 /* kazmath */,
                      );
               };
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-              941B673FFDD349E7A5010FCA /*  */ = {
+              326366D6346545BC8D048CB9 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -332,59 +332,7 @@ AC6D023A6A55455D98E3E2B7 /* kazmath */ = {isa = PBXFileReference; explicitFileTy
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              542C937A1B654EF6B93D1B78 /* CMake Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
-                     showEnvVarsInLog = 0;
-              };
-              13C2FBBB9F444CD6B1BB7226 /*  */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     inputPaths = (
-                     );
-                     outputPaths = (
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "# shell script goes here
-exit 0";
-                     showEnvVarsInLog = 0;
-              };
-              7840ABBD7D5E444081E97992 /* CMake Rules */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     name = "CMake Rules";
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
-                     showEnvVarsInLog = 0;
-              };
-              5A12530F9CA146D5B8AD7F61 /*  */ = {
-                     isa = PBXShellScriptBuildPhase;
-                     buildActionMask = 2147483647;
-                     files = (
-                     );
-                     inputPaths = (
-                     );
-                     outputPaths = (
-                     );
-                     runOnlyForDeploymentPostprocessing = 0;
-                     shellPath = /bin/sh;
-                     shellScript = "# shell script goes here
-exit 0";
-                     showEnvVarsInLog = 0;
-              };
-              AD2DF82C135B46E787787378 /* CMake PostBuild Rules */ = {
+              229202BE520A4963A5FDA27E /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -395,7 +343,7 @@ exit 0";
                      shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              FD1217AA88D54A45B5A8CB96 /*  */ = {
+              9000B55CA13A4BBBB3F9DE18 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -410,7 +358,33 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              26644EB5C8D14B6AB13E6AB4 /* CMake PostBuild Rules */ = {
+              BD6BB75AE1C6489AA68CD66D /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              2CA15C779A1340FF82AF89F0 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              4DA3B9B0A5C1433E9FC3A7C9 /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -421,62 +395,88 @@ exit 0";
                      shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/package_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
+              B07132FA2E4F47C191C7B7EE /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              2AAF933633424B5D893C18B0 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/Shea/Projects/dangerengine/xcode/extern/kazmath -f /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-              2F5F04BE011B4C6F984DF444 /* Sources */ = {
+              3A3BC3923CD0455A9DD184E4 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            E5EB160356B3468EB82D19B3 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */,
-                            179160EA2DC94B419CE6548E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */,
-                            238C5AE48C754CAEA2E1F47C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */,
-                            F3C9B9B61BDC471CAB6AB741 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */,
-                            2CFB6216423F403D814CB213 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */,
-                            D897E24CEBF948699463666E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */,
-                            0DDD74CA973F4454B879915C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */,
-                            F3F1134F6D0A4C7CB9F1502C /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */,
-                            54C8FCD1AFDC49D9BE68B89F /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */,
-                            5DB36D87BE304CFB885D4C04 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */,
-                            8D06E3AA511042428AE561E1 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */,
-                            D4563DC9A12A4EF798D2606E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */,
-                            14AB0A9938154EA980FA358E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */,
-                            1A80888B6A234C84A80B02A4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */,
+                            637A9488FD38478392017562 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/mat4stack.c */,
+                            8315B6212CEF493C8E8547A3 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/GL/matrix.c */,
+                            81045E94A0994C19A946A4A4 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb2.c */,
+                            7E15F209B1494C7D9CFF7661 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/aabb3.c */,
+                            545FFFDF9E0F40348B28AD79 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat3.c */,
+                            16F8308B74FC45628D165F0A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/mat4.c */,
+                            FBD1B3ECD8504B958D27110A /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/plane.c */,
+                            E6069406C627445E97FDE3EB /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/quaternion.c */,
+                            BED79C4FE79A443C9ACC5F30 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray2.c */,
+                            B35CCBF7AE6C4AEA8D0B45ED /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/ray3.c */,
+                            850F17125CAC431DB9F5BDB6 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/utility.c */,
+                            838E6A447BE741FA96E1331E /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec2.c */,
+                            7D6BBD770546458482836062 /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec3.c */,
+                            9C495C8580B943E982339A2D /* /Users/Shea/Projects/dangerengine/extern/kazmath/kazmath/vec4.c */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-              DFA4ED9220EF4FF796F58323 /* PBXTargetDependency */ = {
+              B06DCC6AA3B346B7AD6F2569 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
+                     targetProxy = 1FE93DE17EED41BC9ADC39B7 /* PBXContainerItemProxy */;
+              };
+              FBB0172CDF924354A9418605 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
+                     targetProxy = DD23D47346B84A0D8B606762 /* PBXContainerItemProxy */;
+              };
+              BE5112D332304040A784F24F /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = 9C32146A399748F5BA19D777 /* kazmath */;
-                     targetProxy = 062E604F6A8E407CA79FE645 /* PBXContainerItemProxy */;
+                     targetProxy = A03318E09C8849868A9E1433 /* PBXContainerItemProxy */;
               };
-              6577A6583B08499ABD11A384 /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
-                     targetProxy = FE58DCFFBB1C48A0982F6F2F /* PBXContainerItemProxy */;
-              };
-              8F975E28DA4E46789F925545 /* PBXTargetDependency */ = {
+              50C9D088A31A47DF83E18E23 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
-                     targetProxy = D5CE33D793234E8E90623990 /* PBXContainerItemProxy */;
+                     targetProxy = 447DBF7173D646A18A396F86 /* PBXContainerItemProxy */;
               };
-              7E33463D68B64C359EF29C44 /* PBXTargetDependency */ = {
-                     isa = PBXTargetDependency;
-                     target = EE3D65C400274C4383506A9C /* ALL_BUILD */;
-                     targetProxy = 13AB88381AF3486DB2CF6544 /* PBXContainerItemProxy */;
-              };
-              499015D36C964D608FFF52A3 /* PBXTargetDependency */ = {
+              CDC8CB1198974F9CACAC6933 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
                      target = FCE1E37C8D164876B5F2A1E2 /* ZERO_CHECK */;
-                     targetProxy = 71419D89914943F795B840B3 /* PBXContainerItemProxy */;
+                     targetProxy = B8A48611597C49EAB26DB011 /* PBXContainerItemProxy */;
               };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-              ABFE36F957D549AE9FC29D55 /* Debug */ = {
+              FDCEF1C2DF67419B9BDDC40E /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -486,7 +486,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              5B1B8A2B60594C57B66F1794 /* Release */ = {
+              58847C55C451430DA056489B /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -496,7 +496,7 @@ exit 0";
                      };
                      name = Release;
               };
-              73199724543F41EEAB958783 /* MinSizeRel */ = {
+              4F8C12DC30EF4CD88F205502 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -506,7 +506,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              7AB944DDBF6A4FEB8A6EB962 /* RelWithDebInfo */ = {
+              5DAFE65D98EB42C68858E01C /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -516,175 +516,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              7B82371CBDC34B9AA47FAF22 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = Debug;
-              };
-              6E4F0539E4EE4C2490B722C4 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = Release;
-              };
-              C975B7E982E14E7CA32A7965 /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = MinSizeRel;
-              };
-              DEF6BFE1C7574B198982EB4B /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ALL_BUILD;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = RelWithDebInfo;
-              };
-              5F877332BBD442A89F0D3912 /* Debug */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = Debug;
-              };
-              084CEA8ACC764BE29E07F415 /* Release */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = Release;
-              };
-              DAFE9797C2CD44CCA32395AF /* MinSizeRel */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = MinSizeRel;
-              };
-              5B29CDC33A834A25B599825C /* RelWithDebInfo */ = {
-                     isa = XCBuildConfiguration;
-                     buildSettings = {
-                            COMBINE_HIDPI_IMAGES = YES;
-                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-                            INSTALL_PATH = "";
-                            OTHER_CFLAGS = "   -Wall -g";
-                            OTHER_LDFLAGS = " ";
-                            OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = ZERO_CHECK;
-                            SECTORDER_FLAGS = "";
-                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
-                            USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-                     };
-                     name = RelWithDebInfo;
-              };
-              1F507D3CC70B49E5BDC777B3 /* Debug */ = {
+              F981082EC84144868EC2C55F /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -701,11 +533,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Debug;
               };
-              C287D5D7C9DC41FDB9D53F68 /* Release */ = {
+              FA90966B33EF46CDAB00D1D6 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -722,11 +554,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Release;
               };
-              90CB9D7605984888AB624636 /* MinSizeRel */ = {
+              CCDC18853F4740A4AE047EA0 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -743,11 +575,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = MinSizeRel;
               };
-              A456295D428E4673A424E5DF /* RelWithDebInfo */ = {
+              F57736B99CAD41AFB8392A31 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -764,11 +596,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = RelWithDebInfo;
               };
-              62168B94049A434C8C27A8E0 /* Debug */ = {
+              75864C13A54C4FE3B9A4EBA8 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -781,15 +613,15 @@ exit 0";
                             OTHER_CFLAGS = "   -Wall -g";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Debug;
               };
-              670247C9A09144988486AD56 /* Release */ = {
+              EF9E177C38E54479A146EBBA /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -802,15 +634,15 @@ exit 0";
                             OTHER_CFLAGS = "   -Wall -g";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Release;
               };
-              2647E4EC5AD44B8C89A1D3EE /* MinSizeRel */ = {
+              5291BD6B83B84A63B75F736F /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -823,15 +655,36 @@ exit 0";
                             OTHER_CFLAGS = "   -Wall -g";
                             OTHER_LDFLAGS = " ";
                             OTHER_REZFLAGS = "";
-                            PRODUCT_NAME = package;
+                            PRODUCT_NAME = ALL_BUILD;
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = MinSizeRel;
               };
-              65BB48D4AE0E4E7C9936912E /* RelWithDebInfo */ = {
+              4D7A493AEABC49E0A31768A6 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              EB646DBB2F644975A586B88F /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -848,11 +701,158 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              D0E7235A11804D7B83DB7D23 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              85676E29E6FF46C89CA43E80 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              4699490B3965447ABCC08525 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = package;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = RelWithDebInfo;
               };
-              102EFD6D0ED0449080B1400D /* Debug */ = {
+              D88292FF315943C89E55DFA6 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              DAF521697E884CF1A0B06862 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              91C5EE85B0BD48658228953D /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              2A1B4BD5F22841D582F0CD7A /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Wall -g";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              CF11B77017DE4A91A4182C30 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -872,11 +872,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Debug;
               };
-              360C02DCA96248D1A1D427A8 /* Release */ = {
+              117E66209FCC4F59A57B1CE3 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -896,11 +896,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = Release;
               };
-              4B86C370E69A40BE836FDC8C /* MinSizeRel */ = {
+              0D3BCAB1148C45C7B47F7DF5 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -920,11 +920,11 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = MinSizeRel;
               };
-              5C5E1BD6C85B4A2693D1155B /* RelWithDebInfo */ = {
+              97D02A1D6E2946B0AD211F59 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -944,75 +944,75 @@ exit 0";
                             SECTORDER_FLAGS = "";
                             SYMROOT = /Users/Shea/Projects/dangerengine/xcode/extern/kazmath/kazmath;
                             USE_HEADERMAP = NO;
-                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
                      };
                      name = RelWithDebInfo;
               };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              29B9357633E242D2A1CB2187 /* Build configuration list for PBXProject  "kazmath" */ = {
+              9441F8B8C67A43E088595EE7 /* Build configuration list for PBXProject  "kazmath" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            ABFE36F957D549AE9FC29D55 /* Debug */,
-                            5B1B8A2B60594C57B66F1794 /* Release */,
-                            73199724543F41EEAB958783 /* MinSizeRel */,
-                            7AB944DDBF6A4FEB8A6EB962 /* RelWithDebInfo */,
+                            FDCEF1C2DF67419B9BDDC40E /* Debug */,
+                            58847C55C451430DA056489B /* Release */,
+                            4F8C12DC30EF4CD88F205502 /* MinSizeRel */,
+                            5DAFE65D98EB42C68858E01C /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              FE0FF870EB2E48D1818F73F6 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+              0550E7AD944348A79FAF1FEC /* Build configuration list for PBXAggregateTarget "install" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            7B82371CBDC34B9AA47FAF22 /* Debug */,
-                            6E4F0539E4EE4C2490B722C4 /* Release */,
-                            C975B7E982E14E7CA32A7965 /* MinSizeRel */,
-                            DEF6BFE1C7574B198982EB4B /* RelWithDebInfo */,
+                            F981082EC84144868EC2C55F /* Debug */,
+                            FA90966B33EF46CDAB00D1D6 /* Release */,
+                            CCDC18853F4740A4AE047EA0 /* MinSizeRel */,
+                            F57736B99CAD41AFB8392A31 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              ABE11965DA084F63BE73A6D6 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+              A488BEE7ACB2401DBA1BF7B1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            5F877332BBD442A89F0D3912 /* Debug */,
-                            084CEA8ACC764BE29E07F415 /* Release */,
-                            DAFE9797C2CD44CCA32395AF /* MinSizeRel */,
-                            5B29CDC33A834A25B599825C /* RelWithDebInfo */,
+                            75864C13A54C4FE3B9A4EBA8 /* Debug */,
+                            EF9E177C38E54479A146EBBA /* Release */,
+                            5291BD6B83B84A63B75F736F /* MinSizeRel */,
+                            4D7A493AEABC49E0A31768A6 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              5A0E60B0FF3F48C79B3B5F8F /* Build configuration list for PBXAggregateTarget "install" */ = {
+              782E813E75FA4EA08E1C2CC1 /* Build configuration list for PBXAggregateTarget "package" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            1F507D3CC70B49E5BDC777B3 /* Debug */,
-                            C287D5D7C9DC41FDB9D53F68 /* Release */,
-                            90CB9D7605984888AB624636 /* MinSizeRel */,
-                            A456295D428E4673A424E5DF /* RelWithDebInfo */,
+                            EB646DBB2F644975A586B88F /* Debug */,
+                            D0E7235A11804D7B83DB7D23 /* Release */,
+                            85676E29E6FF46C89CA43E80 /* MinSizeRel */,
+                            4699490B3965447ABCC08525 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              9E36E616A1074A43AC85A7A6 /* Build configuration list for PBXAggregateTarget "package" */ = {
+              A169E77BF40D4BCEB954144F /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            62168B94049A434C8C27A8E0 /* Debug */,
-                            670247C9A09144988486AD56 /* Release */,
-                            2647E4EC5AD44B8C89A1D3EE /* MinSizeRel */,
-                            65BB48D4AE0E4E7C9936912E /* RelWithDebInfo */,
+                            D88292FF315943C89E55DFA6 /* Debug */,
+                            DAF521697E884CF1A0B06862 /* Release */,
+                            91C5EE85B0BD48658228953D /* MinSizeRel */,
+                            2A1B4BD5F22841D582F0CD7A /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              B049DBA6E0134B90B7EFDE65 /* Build configuration list for PBXNativeTarget "kazmath" */ = {
+              ED0B15D46FA34F3783A58BB3 /* Build configuration list for PBXNativeTarget "kazmath" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            102EFD6D0ED0449080B1400D /* Debug */,
-                            360C02DCA96248D1A1D427A8 /* Release */,
-                            4B86C370E69A40BE836FDC8C /* MinSizeRel */,
-                            5C5E1BD6C85B4A2693D1155B /* RelWithDebInfo */,
+                            CF11B77017DE4A91A4182C30 /* Debug */,
+                            117E66209FCC4F59A57B1CE3 /* Release */,
+                            0D3BCAB1148C45C7B47F7DF5 /* MinSizeRel */,
+                            97D02A1D6E2946B0AD211F59 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;

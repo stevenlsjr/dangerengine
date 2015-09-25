@@ -6,4 +6,4 @@ all: \
 
 
 package_buildpart_0: 
-	cd /Users/Shea/Projects/dangerengine/xcode && /usr/local/Cellar/cmake/3.2.2/bin/cpack -C $(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) --config ./CPackConfig.cmake
+	cd /Users/Shea/Projects/dangerengine/xcode && /Applications/CMake.app/Contents/bin/cpack -C $(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME) --config ./CPackConfig.cmake

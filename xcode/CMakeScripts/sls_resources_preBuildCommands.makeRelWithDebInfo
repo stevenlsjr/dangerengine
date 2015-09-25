@@ -7,4 +7,4 @@ all: \
 
 sls_resources_buildpart_0: 
 	echo ""
-	/usr/local/Cellar/cmake/3.2.2/bin/cmake -E copy_directory /Users/Shea/Projects/dangerengine/resources /Users/Shea/Projects/dangerengine/xcode/ && /usr/local/Cellar/cmake/3.2.2/bin/cmake -E cmake_echo_color --green --\ \ \ \ copying\ resources/\ to\ /Users/Shea/Projects/dangerengine/xcode
+	/Applications/CMake.app/Contents/bin/cmake -E copy_directory /Users/Shea/Projects/dangerengine/resources /Users/Shea/Projects/dangerengine/xcode/ && /Applications/CMake.app/Contents/bin/cmake -E cmake_echo_color --green --\ \ \ \ copying\ resources/\ to\ /Users/Shea/Projects/dangerengine/xcode

@@ -30,6 +30,8 @@ typedef struct demoData {
   slsIPoint mouse_motion;
   slsIPoint mouse_p;
 
+  slsIPoint camera_move_input;
+
 
   struct {
     GLint time_;

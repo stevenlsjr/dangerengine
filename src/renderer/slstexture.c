@@ -38,6 +38,7 @@
 #include "slstexture.h"
 
 #include <assert.h>
+#include <SDL_image.h>
 
 /*----------------------------*
  * prototypes
@@ -136,7 +137,7 @@ slsTexture *sls_texture_init(slsTexture *self,
     if (tup.path) {
       tup.pair->unit = sls_gltex_from_file(tup.path,
                                            width,
-                                            height);
+                                           height);
 
       tup.pair->is_active = SLS_TRUE;
 
@@ -238,118 +239,81 @@ void sls_texture_bind(slsTexture *self)
  * utility functions
  *----------------------------*/
 
-#ifndef __EMSCRIPTEN__
 GLuint sls_gltex_from_file(char const *path,
                            int width_opt,
                            int height_opt)
 {
 
-  ILuint img;
-  GLuint tex;
-  int width, height, depth, bpp;
-  ILenum il_format, il_type;
+  GLuint tex = 0;
+
+  int depth, n_colors;
   GLenum gl_format, gl_type;
 
-
-  gl_format = GL_RGB;
-
-  il_type = IL_UNSIGNED_BYTE;
-  gl_type = GL_UNSIGNED_BYTE;
-
-
-  ilGenImages(1, &img);
+  SDL_Surface *img = NULL;
   glGenTextures(1, &tex);
 
 
-  ilBindImage(img); // bind handler to il
+  img = IMG_Load(path);
+  sls_checkmem(img);
 
-  sls_il_get_errors(); // pop errors
+  n_colors = img->format->BytesPerPixel;
 
-  if (!ilLoadImage(path)) {
-    sls_il_get_errors();
-    sls_log_err("image load failed!");
-    return tex;
+
+  if (n_colors == 4) { // RGB
+
+    gl_format = GL_RGBA;
+
+  } else if (n_colors == 3) {
+    gl_format = GL_RGB;
+
+  } else {
+    sls_log_err("texture %p is not truecolor bytes per pixel == %i",
+                img,
+                n_colors);
+    sls_fail();
   }
 
+  gl_type = GL_UNSIGNED_BYTE;
 
-  depth = ilGetInteger(IL_IMAGE_DEPTH);
-  bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
-  il_format = ilGetInteger(IL_IMAGE_FORMAT);
-
-  if (il_format != IL_RGBA && il_format != IL_RGB) {
-    sls_log_warn("il format unexpected");
-  }
-
-  gl_format = (il_format == IL_RGBA) ? GL_RGBA : GL_RGB;
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-  width = (width_opt > 0) ?
-          width_opt :
-          ilGetInteger(IL_IMAGE_WIDTH);
-  height = (height_opt > 0) ?
-           height_opt :
-           ilGetInteger(IL_IMAGE_HEIGHT);
-
-
-  // format image to specifications
-  ilTexImage(width, height, depth, bpp, il_format, il_type, NULL);
+  sls_check(img->pixels, "no pixel vertex");
+  sls_check(img->w > 0 && img->h > 0, "size %i %i invalid", img->w, img->h);
 
 
   glBindTexture(GL_TEXTURE_2D, tex);
 
-  glTexImage2D(GL_TEXTURE_2D,
-               0, /* level */
-               gl_format, /* internalformat */
-               width, height,
-               0, /* border=0 */
-               gl_format, gl_type, /* format, type */
-               ilGetData() /* data */);
+
+  glTexImage2D(GL_TEXTURE_2D, // enum
+               0,             // level
+               gl_format,     // internalformat
+               img->w,        // width
+               img->h,        // height
+               0,             // border = 0
+               gl_format,     // format
+               gl_type,       // data type
+               img->pixels);  // data
 
   glGenerateMipmap(GL_TEXTURE_2D);
 
+  SDL_FreeSurface(img);
   glBindTexture(GL_TEXTURE_2D, 0);
-  ilDeleteImage(img);
+
 
   return tex;
-}
+  error:
 
-#else
-GLuint sls_gltex_from_file(char const *path,
-                           int width_opt,
-                           int height_opt)
-{
+  sls_log_err("IMG: %s", IMG_GetError());
+
+  if (img) {
+    SDL_FreeSurface(img);
+    glDeleteTextures(1, &tex);
+  }
+  glBindTexture(GL_TEXTURE_2D, 0);
   return 0;
 }
-#endif
 
-#ifndef __EMSCRIPTEN__
 
-ILenum sls_il_get_errors()
-{
-  ILenum last;
-  last = IL_NO_ERROR;
-  for (ILenum err = ilGetError();
-       err != IL_NO_ERROR;
-       err = ilGetError()) {
-    
-    size_t max_cmp_size = 1000;
-    char const *err_str =ilGetString(err);
-    if (!err_str || strncasecmp(err_str, "(null)", max_cmp_size) == 0) {
-      break;
-    }
-    
-    
-    sls_log_warn("devIL: %s", err_str);
-    if (err == IL_OUT_OF_MEMORY) {
-      sls_log_fatal("out of memory error!");
-    }
 
-    if (last == IL_NO_ERROR) {
-      last = err;
-    }
-  }
-
-  return last;
-}
-
-#endif

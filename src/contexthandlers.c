@@ -30,15 +30,17 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include "contexthandlers.h"
-#include "slsutils.h"
+#include <pthread.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "sls-imagelib.h"
-
 #include <SDL2/SDL.h>
-#include <pthread.h>
+#include <SDL_image.h>
+#include <signal.h>
+
+#include "contexthandlers.h"
+#include "slsutils.h"
+#include "sls-imagelib.h"
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static slsBool sls_active_flag = SLS_FALSE;
@@ -56,19 +58,34 @@ bool sls_il_init()
   return true;
 }
 
+static inline bool sls_init_sdl(uint32_t sdl_flags)
+{
+  int sdl = SDL_Init(sdl_flags);
+  sls_log_info("sdl created: %i", sdl);
+  return sdl == 0;
+}
 
-bool sls_init()
+static inline bool sls_init_img(int32_t img_flags)
+{
+  int32_t img = IMG_Init(img_flags);
+  return (img&img_flags) == img_flags;
+}
+
+
+bool sls_init(void)
 {
 
   sls_check(!sls_active_flag, "runtime is already active!");
 
 
   uint32_t sdl_flags = SDL_INIT_EVERYTHING;
-  uint32_t img_flags;
+  int32_t img_flags = IMG_INIT_JPG |
+                       IMG_INIT_PNG |
+                       IMG_INIT_TIF;
 
-  int sdl = SDL_Init(sdl_flags);
-  sls_check(sdl == 0, "sdl creation failed");
-  sls_log_info("sdl created: %i", sdl);
+  sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
+  sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
+
 
   sls_check(sls_il_init(), "devIL failed");
 
@@ -83,6 +100,9 @@ bool sls_init()
   error:
   {
     sls_active_flag = SLS_FALSE;
+    signal(SIGSTOP, SIG_DFL);
+    raise(SIGSTOP);
+    exit(EXIT_FAILURE);
     return false;
   }
 
@@ -95,6 +115,7 @@ void sls_terminate(void)
   }
 
   SDL_Quit();
+  IMG_Quit();
 
   sls_teardown_errstack();
 

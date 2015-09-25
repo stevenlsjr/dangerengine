@@ -18,15 +18,31 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include <stdbool.h>
+#include <time.h>
+
 #include "slserrcode.h"
 
 
-#ifdef WIN32
-#undef __func__
-#define __func__ __FUNCTION__  
-#endif
+/**
+ * @brief attribute wrappers for GCC & clang
+ */
+#ifndef _MSC_VER
+/**
+ * @brief Tags a function as non-null
+ * @param (param, ...)
+ */
+#   define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
+#   define SLS_DEPRECIATED __attribute__((depreciated))
+#   define SLS_PURE __attribute__((pure))
+#   define SLS_CONSTFN __attribute__((const))
+
+#else
+#   define SLS_NONNULL(param, ...)
+#   define SLS_DEPRECIATED
+#   define SLS_PURE
+#   define SLS_CONSTFN
+#endif //!_MSC_VER
 
 
 #ifdef SLS_USE_COLORS
@@ -147,23 +163,14 @@ void *sls_objalloc(void const *prototype, size_t size);
 void sls_sleep(clock_t ticks);
 
 /**
- * @brief attribute wrappers for GCC & clang
+ * @brief cross-platform chdir function.
+ * @detail Calls either win32 or possix chdir function
+ * and returns value as specified by given function
  */
-#ifndef _MSC_VER
-/**
- * @brief Tags a function as non-null
- * @param (param, ...)
- */
-#   define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
-#   define SLS_DEPRECIATED __attribute__((depreciated))
-#   define SLS_PURE __attribute__((pure))
-#   define SLS_CONSTFN __attribute__((const))
 
-#else
-#   define SLS_NONNULL(param, ...)
-#   define SLS_DEPRECIATED
-#   define SLS_PURE
-#   define SLS_CONSTFN
-#endif //!_MSC_VER
+
+
+int sls_chdir(char const *path) SLS_NONNULL(1);
+
 
 #endif //DANGERENGINE_SLSUTILS_H

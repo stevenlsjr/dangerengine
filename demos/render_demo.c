@@ -12,7 +12,6 @@ void demo_setup_shaders(slsContext *self);
 void demo_setup_scene(slsContext *self);
 
 
-
 void demo_update_modelview(slsContext *self,
                            kmMat4 const *model) SLS_NONNULL(1, 2);
 
@@ -20,24 +19,27 @@ void demo_update_modelview(slsContext *self,
 void demo_handle_event(slsContext *self, const SDL_Event *e) SLS_NONNULL(1);
 
 
-
 void demo_handle_event(slsContext *self, const SDL_Event *e)
 {
+
   sls_context_class()->handle_event(self, e);
-  demoData* data =self->data;
+  demoData *data = self->data;
+
+  data->mouse_motion = (slsIPoint) {0, 0};
+  data->camera_move_input = (slsIPoint) {0, 0};
+
   switch (e->type) {
     case (SDL_MOUSEMOTION): {
       SDL_MouseMotionEvent me = e->motion;
       if (me.state & SDL_MOUSEBUTTONDOWN) { // mouse button is down
-        data->mouse_motion = (slsIPoint){me.xrel, me.yrel};
+        data->mouse_motion = (slsIPoint) {me.xrel, -me.yrel};
       } else {
-        data->mouse_motion = (slsIPoint){0, 0};
+        data->mouse_motion = (slsIPoint) {0, 0};
       }
 
-      data->mouse_p = (slsIPoint) {me.x, me.y};
-
-    }
       break;
+    }
+
     default:
       break;
   }
@@ -138,7 +140,7 @@ void demo_setup_scene(slsContext *self)
   demo_add_model(data, -1.0f, 0.30f);
 
   return;
-error:
+  error:
   getchar();
   exit(EXIT_FAILURE);
 }
@@ -148,28 +150,54 @@ void demo_setup_textures(slsContext *self)
 
   demoData *data = self->data;
 
-  char const *img_path = "resources/free-textures/151.jpg";
-  char const *norm_path = "resources/free-textures/151.jpg";
+  char const *img_path = "resources/free-textures/176.jpg";
+  char const *norm_path = "resources/free-textures/176_norm.jpg";
 
   data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
 
   data->tex = sls_gltex_from_file(img_path, -1, -1);
 }
 
+
 void demo_context_update(slsContext *self, double dt)
 {
   demoData *data = self->data;
 
   slsIPoint mm = data->mouse_motion;
-  if (mm.x != 0 && mm.y != 0) {
+  slsIPoint zero = {0, 0};
+  kmVec2 translate = {0.0, 0.0};
+  kmVec2 mouse_v = {0.0, 0.0};
+  double move_speed = 10.0;
+  bool moving = false;
 
-    double speed = 50;
 
-    int window_y_direction = -1;
 
-    kmVec2 mouse_v = {(float)mm.x, (float)-mm.y};
-    kmVec2Scale(&mouse_v, &mouse_v, dt);
-    sls_log_info("%f %f", mouse_v.x, mouse_v.y);
+  if (!sls_ipoint_eq(&mm, &zero)) {
+    translate = (kmVec2){mm.x, mm.y};
+
+    translate.x *= dt * move_speed;
+    translate.y *= dt * move_speed;
+
+    sls_log_info("%f moving %i %i %f %f", dt, mm.x, mm.y, translate.x, translate.y);
+
+
+    moving = true;
+  }
+
+  if (moving) {
+
+    kmMat4 tmp, trans;
+    kmMat4Translation(&trans, translate.x, translate.y, 0);
+    tmp = data->view_matrix;
+
+    kmMat4Multiply(&data->view_matrix, &trans, &tmp);
+
+    kmMat4Identity(&tmp);
+    sls_log_info("moving %f %f", translate.x, translate.y);
+
+    demo_update_modelview(self, &tmp);
+
+
   }
 
 
@@ -185,13 +213,11 @@ void demo_context_display(slsContext *self, double dt)
   GLint time = glGetUniformLocation(data->program, "time");
 
 
-
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, data->tex);
 
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
-
 
 
   sls_msg(data->mesh, pre_draw, data->program, dt);
@@ -237,9 +263,10 @@ void demo_context_resize(slsContext *self, int x, int y)
 {
   sls_context_class()->resize(self, x, y);
   demoData *data = self->data;
+  glViewport(0, 0, x*2, y*2);
 
-
-  if (x != 0 && y!= 0) {
+  sls_log_info("%i %i", x, y);
+  if (x != 0 && y != 0) {
     kmMat4 projection;
 
     if (x > y) {
@@ -255,7 +282,6 @@ void demo_context_resize(slsContext *self, int x, int y)
     glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
   }
 }
-
 
 
 int render_demo_main(int *argc, char **argv)
