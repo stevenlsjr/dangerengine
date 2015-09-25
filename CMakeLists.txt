@@ -58,7 +58,7 @@ set(DANGER_SRC
 #entity component system
     src/ecs/slsEntity.h
 #resource types
-)
+  src/math/slsMatrixStack.c src/math/slsMatrixStack.h)
 
 
 # tests compiled in c
