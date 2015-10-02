@@ -6,11 +6,6 @@
 #include <assert.h>
 #include "../src/dangerengine.h"
 
-void demo_setup_textures(slsContext *pContext);
-
-void demo_setup_shaders(slsContext *self);
-
-void demo_setup_scene(slsContext *self);
 
 
 void demo_update_modelview(slsContext *self,
@@ -144,8 +139,7 @@ void demo_setup_scene(slsContext *self)
 
   demo_uniform_locations(data);
 
-  kmMat4Identity(&data->view_matrix);
-
+  data->camera = (slsTransform2D){.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
 
   sls_msg(data->tex_obj, set_program, data->program);
 
@@ -201,16 +195,8 @@ void demo_context_update(slsContext *self, double dt)
 
   if (moving) {
 
-    kmMat4 tmp, trans;
-    kmMat4Translation(&trans, translate.x, translate.y, 0);
-    tmp = data->view_matrix;
-
-    kmMat4Multiply(&data->view_matrix, &trans, &tmp);
-
-    kmMat4Identity(&tmp);
-
-    demo_update_modelview(self, &tmp);
-
+    data->camera.pos.x += translate.x;
+    data->camera.pos.y += translate.y;
 
   }
 
@@ -237,6 +223,18 @@ void demo_context_display(slsContext *self, double dt)
 
 
   sls_msg(data->mesh, pre_draw, data->program, dt);
+
+  // set base view
+  do {
+    slsTransform2D const *cam = &data->camera;
+    slsMatrixStack *mv = &data->model_view;
+    sls_glmat_reset(mv);
+
+    sls_glmat_scale(mv, (kmVec3){cam->scale.x, cam->scale.y, 1.0});
+    sls_glmat_translate(mv, (kmVec3){cam->pos.x, cam->pos.y, 0.0});
+  } while (0);
+
+
 
   for (int i = 0; i < data->n_models; ++i) {
     slsModel *model = data->models[i];
@@ -332,8 +330,11 @@ void demo_update_modelview(slsContext *self,
 
   demoData *data = self->data;
   assert(data);
+  kmMat4 view = *data->model_view.matrices;
   kmMat4 model_view;
-  kmMat4Multiply(&model_view, model, &data->view_matrix);
+
+
+  kmMat4Multiply(&model_view, model, &view);
 
 
   glUniformMatrix4fv(data->uniforms.model_view, 1, GL_FALSE, model_view.mat);

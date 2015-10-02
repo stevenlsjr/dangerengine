@@ -70,7 +70,7 @@ kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self, kmMat4 *out)SLS_NONNULL(1, 2)
 void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in) SLS_NONNULL(1, 2);
 
 
-const kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self) SLS_NONNULL(1);
+kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self) SLS_NONNULL(1);
 
 kmMat4 *sls_matrix_stack_mutpeek(slsMatrixStack *self) SLS_NONNULL(1);
 
@@ -98,5 +98,7 @@ void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling);
 void sls_glmat_push(slsMatrixStack *self);
 
 void sls_glmat_bind_top(slsMatrixStack *self, GLuint program, GLuint uniform);
+
+void sls_glmat_reset(slsMatrixStack *self);
 
 #endif //DANGERENGINE_SLSMATRIXSTACK_H

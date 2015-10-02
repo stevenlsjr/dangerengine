@@ -1,19 +1,19 @@
 /**
- * @file dangerengine.h
- * @brief
+ * @file ${FILE}
+ * @brief 
  *
- * Copyright (c) 2015, Steven Shea
+ * Copyright (c) 10/1/15, Steven
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright notice, this
  *    list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,54 +24,33 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * 
  * The views and conclusions contained in the software and documentation are those
  * of the authors and should not be interpreted as representing official policies,
- * either expressed or implied, of Steven Shea.
-**/
+ * either expressed or implied, of ${ORGANIZATION_NAME}. **/
+#include "slsAppState.h"
 
-#ifndef DANGERENGINE_DANGERENGINE_H
-#define DANGERENGINE_DANGERENGINE_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "sls-gl.h"
-#include "sls-imagelib.h"
-
-#include "slscontext.h"
-#include "slsutils.h"
-#include "slserrcode.h"
-
-#include "contexthandlers.h"
-
-#include "data-types/callbacks.h"
-#include "data-types/array.h"
-#include "data-types/ptrarray.h"
-#include "data-types/linkedlist.h"
-
-#include "math/mathmacs.h"
-#include "math/math-types.h"
-#include "math/slsTransform2D.h"
-#include "math/slsMatrixStack.h"
+slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
+{
+  sls_check(apr_pool_create(&self->pool, parent_pool) == APR_SUCCESS,
+            "pool creation failed");
 
 
-#include "renderer/shaderutils.h"
-#include "renderer/slsmesh.h"
-#include "renderer/slsmodel.h"
-#include "renderer/slstexture.h"
-#include "renderer/slsshader.h"
-#include "renderer/slsSprite.h"
-#include "renderer/slsSpriteRenderer.h"
+  self->images = apr_hash_make(self->pool);
+  sls_checkmem(self->images);
 
-#include "state/slsEntity.h"
-#include "state/slsAppState.h"
+  self->shaders = apr_hash_make(self->pool);
 
-#include "objc/DangerengineFW.h"
+  return self;
 
-#ifdef __cplusplus
+  error:
+    return NULL;
 }
-#endif
 
-#endif //DANGERENGINE_DANGERENGINE_H
+slsAppState *sls_appstate_dtor(slsAppState *self)
+{
+  if (self->pool) {
+    apr_pool_destroy(self->pool);
+  }
+  return self;
+}

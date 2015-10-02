@@ -56,9 +56,9 @@ set(DANGER_SRC
     src/renderer/slsSprite.h
 
 #entity component system
-    src/ecs/slsEntity.h
+  src/state/slsEntity.h
 #resource types
-  src/math/slsMatrixStack.c src/math/slsMatrixStack.h)
+  src/math/slsMatrixStack.c src/math/slsMatrixStack.h src/state/slsAppState.c src/state/slsAppState.h)
 
 
 # tests compiled in c
@@ -157,7 +157,7 @@ add_subdirectory(extern/googlemock)
 
 find_package(DevIL)
 
-
+set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS} ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
     ${DANGER_DEPS}
     ${IL_LIBRARIES}

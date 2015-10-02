@@ -32,6 +32,7 @@
 #include "slsMatrixStack.h"
 
 #define SLS_MATRIXSTACK_RESIZE_MULTIPLYER 1.5
+#define SLS_MATRIXSTACK_DEFAULTSIZE 16
 
 
 slsMatrixStack *sls_matrix_stack_init(slsMatrixStack *self,
@@ -39,7 +40,7 @@ slsMatrixStack *sls_matrix_stack_init(slsMatrixStack *self,
 {
 
   if (initial_size < 2) {
-    initial_size = 8;
+    initial_size = SLS_MATRIXSTACK_DEFAULTSIZE;
   }
   if (self->matrices) {
     sls_matrix_stack_dtor(self);
@@ -107,18 +108,27 @@ void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
 
 void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size)
 {
-  if (size <= self->n_matrices) { return; }
-  self->matrices = realloc(self->matrices, size * sizeof(kmMat4));
-  sls_checkmem(self->matrices);
+  // don't resize to less than number of items
+  if (size <= self->n_matrices) {return;}
+
+  // only resize if desired size is bigger or significantly smaller than
+  // current allocated size
+  if (size > self->n_alloced || size < (self->n_alloced/2)) {
+    self->matrices = realloc(self->matrices, size * sizeof(kmMat4));
+
+    sls_checkmem(self->matrices);
+    self->n_alloced = size;
+  }
+
   return;
   error:
   return;
 
 }
 
-const kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self)
+kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self)
 {
-  return self->matrices + self->n_matrices;
+  return self->matrices + self->n_matrices - 1;
 }
 
 
@@ -141,22 +151,24 @@ slsMatrixStack *sls_glmat_defaultinit(slsMatrixStack *self)
 
 void sls_glmat_translate(slsMatrixStack *self, kmVec3 translation)
 {
-  kmMat4 *top = self->matrices + self->n_matrices;
+  kmMat4 *top = sls_matrix_stack_peek(self);
 
-  kmMat4 m;
+  kmMat4 m, tmp;
+  tmp = *top;
   kmMat4Translation(&m, translation.x, translation.y, translation.z);
 
-  kmMat4Multiply(top, &m, top);
+  kmMat4Multiply(top, &m, &tmp);
 
 }
 
 void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling)
 {
-  kmMat4 *top = self->matrices + self->n_matrices;
+  kmMat4 *top = sls_matrix_stack_peek(self);
+  kmMat4 tmp = *top;
   kmMat4 m;
   kmMat4Scaling(&m, scaling.x, scaling.y, scaling.z);
 
-  kmMat4Multiply(top, &m, top);
+  kmMat4Multiply(top, &m, &tmp);
 }
 
 void sls_glmat_push(slsMatrixStack *self)
@@ -184,4 +196,12 @@ void sls_glmat_bind_top(slsMatrixStack *self,
 
 
   glUseProgram(0);
+}
+
+void sls_glmat_reset(slsMatrixStack *self)
+{
+  self->n_matrices = 1;
+  kmMat4Identity(self->matrices);
+
+  sls_matrix_stack_reserve(self, SLS_MATRIXSTACK_DEFAULTSIZE);
 }
