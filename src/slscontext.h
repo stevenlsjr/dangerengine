@@ -37,6 +37,7 @@
 #include "sls-gl.h"
 #include <SDL2/SDL.h>
 #include <state/slsAppState.h>
+#include <apr-1/apr_pools.h>
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
@@ -117,6 +118,8 @@ struct slsContext {
   slsBool is_running;
   clock_t interval;
   slsContext_p *priv;
+
+  apr_pool_t *pool;
 
   slsAppState *state;
 

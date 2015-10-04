@@ -82,6 +82,8 @@ void sls_context_dtor(slsContext *self) SLS_NONNULL(1);
 
 void sls_context_handle_event(slsContext *self, SDL_Event const *e);
 
+void sls_context_setupstate(slsContext *pContext) SLS_NONNULL(1);
+
 /*----------------------------------------*
  * slsContext static prototype
  *----------------------------------------*/
@@ -104,7 +106,9 @@ static const slsContext sls_context_proto = {
     .is_running = SLS_FALSE,
     .interval = 50,
     .priv = NULL,
-    .window = NULL
+    .window = NULL,
+    .state = NULL,
+    .data = NULL
 };
 
 
@@ -138,6 +142,8 @@ slsContext *sls_context_init(slsContext *self,
 {
 
   *self = *sls_context_class();
+  uint32_t window_flags;
+  GLenum glew;
 
   // initialize libraries if not active
   if (!sls_is_active()) {
@@ -145,15 +151,12 @@ slsContext *sls_context_init(slsContext *self,
     sls_check(res, "initialization failed!");
   }
 
-  // GLFW hints
+  sls_check(apr_pool_create(&self->pool, NULL) == APR_SUCCESS,
+            "pool creation failed");
 
+  // create sdl window
 
-
-
-
-  // create glfw window
-
-  uint32_t window_flags =
+  window_flags =
       SDL_WINDOW_ALLOW_HIGHDPI |
       SDL_WINDOW_RESIZABLE;
   self->window = SDL_CreateWindow(caption,
@@ -173,7 +176,7 @@ slsContext *sls_context_init(slsContext *self,
 
 
   glewExperimental = GL_TRUE;
-  GLenum glew = glewInit();
+  glew = glewInit();
   if (glew != GLEW_OK) {
     sls_log_err("glew error: %s", glewGetErrorString(glew));
     self->is_running = SLS_FALSE;
@@ -187,6 +190,7 @@ slsContext *sls_context_init(slsContext *self,
   // allocate and initialize private members
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
+
 
 
   return self;
@@ -206,6 +210,9 @@ void sls_context_dtor(slsContext *self)
 {
   if (self->priv) {
     free(self->priv);
+  }
+  if (self->pool) {
+    apr_pool_destroy(self->pool);
   }
   free(self);
 }
@@ -304,6 +311,8 @@ void sls_context_setup(slsContext *self)
   slsContext_p *priv = self->priv;
 
 
+  sls_context_setupstate(self);
+
 
 
 
@@ -318,6 +327,11 @@ void sls_context_setup(slsContext *self)
 
   //glEnable(GL_SCISSOR_TEST);
 
+
+}
+
+void sls_context_setupstate(slsContext *pContext)
+{
 
 }
 
