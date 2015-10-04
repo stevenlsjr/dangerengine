@@ -6,7 +6,6 @@
 #include "../src/dangerengine.h"
 #include <string>
 #include <tuple>
-#include <IL/il.h>
 
 using namespace std;
 using namespace testing;
@@ -53,22 +52,6 @@ TEST_F(ImageTests, ValidTextureInstance) {
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-TEST_F(ImageTests, ImageCreation) {
-  ILuint img;
-  ilGenImages(1, &img);
-  ilBindImage(img);
-
-  EXPECT_TRUE(ilLoadImage(path.c_str()))
-      << "image failed to load";
-
-  tuple<int, int> i_size = make_tuple(ilGetInteger(IL_IMAGE_WIDTH),
-                                      ilGetInteger(IL_IMAGE_HEIGHT));
-
-  EXPECT_EQ(size, i_size)
-       << "retrieved image size is not equal to actual size";
-
-  ilDeleteImage(img);
-}
 
 TEST_F(ImageTests, TexCreation) {
   // push away gl errors

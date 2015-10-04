@@ -34,7 +34,7 @@
 // emscripten does not support devIL
 #ifndef __EMSCRIPTEN__
 
-#   include <SDL_image.h>
+#   include <SDL2/SDL_image.h>
 #else
 //
 #endif

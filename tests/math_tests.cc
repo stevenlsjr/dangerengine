@@ -59,19 +59,23 @@ TEST_F(IPointTests, IDiv)
   EXPECT_EQ(zero, sls_ipoint_idiv(&zero, &a));
 }
 
+//---------------------------------matrix stack tests---------------------------------------
+
+#include <kazmath/kazmath.h>
 class MatStackTest : public ::testing::Test {
 
 protected:
 
+  slsMatrixStack *mat = nullptr;
 
-  virtual void TearDown()
-  {
-
-  }
 
   virtual void SetUp()
   {
-
+    mat = sls_glmat_defaultinit(new slsMatrixStack);
+    ASSERT_TRUE(mat);
   }
-
+  virtual void TearDown()
+  {
+    delete sls_matrix_stack_dtor(mat);
+  }
 };

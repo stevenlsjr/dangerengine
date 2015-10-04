@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(dangerengine)
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module path")
+
 #--------------------------------------------
 #-------------source lists-------------------
 #--------------------------------------------
@@ -144,8 +146,10 @@ find_package(Doxygen)
 
 find_package(PkgConfig REQUIRED)
 
-pkg_search_module(SDL2 REQUIRED sdl2)
-pkg_search_module(SDL2IMG REQUIRED SDL2_image)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+
+pkg_check_modules(APR apr-1)
 
 set(CMAKE_LIBRARY_PATH 
   "${CMAKE_LIBRARY_PATH} ${SDL2_LIBRARY_DIRS} ${SDL2IMG_LIBRARY_DIRS}"
@@ -160,18 +164,20 @@ find_package(DevIL)
 set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS} ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
     ${DANGER_DEPS}
-    ${IL_LIBRARIES}
-    ${ILU_LIBRARIES}
-    ${GLFW_LIBRARIES}
+    ${GLEW_LIBRARY}
+    ${SDL2_LIBRARY}
+    ${SDL2_IMAGE_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
-    ${GLEW_LIBRARIES}
-    ${SDL2_LIBRARIES}
-    ${SDL2IMG_LIBRARIES})
+    ${APR_LIBRARIES})
+
+
+message("${DANGER_DEPS}")
+message("${SDL2_IMAGE_LIBRARIES}")
 
 include_directories(
     ${GLEW_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
-    ${SDL2_INCLUDE_DIRS})
+    ${SDL2_INCLUDE_DIR})
 
 
 

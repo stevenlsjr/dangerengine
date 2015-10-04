@@ -35,7 +35,7 @@
 #include <stdbool.h>
 
 #include <SDL2/SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <signal.h>
 
 #include "contexthandlers.h"
@@ -74,7 +74,7 @@ bool sls_init(void)
 
   sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
-
+  sls_check(apr_initialize() == APR_SUCCESS, "apr failed to init");
 
 
 
@@ -104,6 +104,8 @@ void sls_terminate(void)
 
   SDL_Quit();
   IMG_Quit();
+
+  apr_terminate();
 
   sls_teardown_errstack();
 

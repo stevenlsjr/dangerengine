@@ -41,6 +41,7 @@
 #include <assert.h>
 
 #include "contexthandlers.h"
+#include <apr-1/apr_errno.h>
 
 
 #ifdef EMSCRIPTEN
@@ -108,7 +109,7 @@ static const slsContext sls_context_proto = {
     .priv = NULL,
     .window = NULL,
     .state = NULL,
-    .data = NULL
+    .data = NULL,
 };
 
 
@@ -150,9 +151,10 @@ slsContext *sls_context_init(slsContext *self,
     bool res = sls_init();
     sls_check(res, "initialization failed!");
   }
-
-  sls_check(apr_pool_create(&self->pool, NULL) == APR_SUCCESS,
-            "pool creation failed");
+  apr_status_t res = apr_pool_create(&self->pool, NULL);
+  char buffer[20];
+  sls_check(res == APR_SUCCESS,
+            "pool creation failed: %s", apr_strerror(res, buffer, 20));
 
   // create sdl window
 
@@ -188,7 +190,8 @@ slsContext *sls_context_init(slsContext *self,
 
 
   // allocate and initialize private members
-  self->priv = calloc(1, sizeof(slsContext_p));
+
+  self->priv = apr_pcalloc(self->pool, sizeof(slsContext_p));
   sls_checkmem(self->priv);
 
 
@@ -208,9 +211,6 @@ slsContext *sls_context_init(slsContext *self,
 
 void sls_context_dtor(slsContext *self)
 {
-  if (self->priv) {
-    free(self->priv);
-  }
   if (self->pool) {
     apr_pool_destroy(self->pool);
   }
@@ -330,9 +330,12 @@ void sls_context_setup(slsContext *self)
 
 }
 
-void sls_context_setupstate(slsContext *pContext)
+void sls_context_setupstate(slsContext *self)
 {
-
+  if (!self->state) {
+    self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
+  }
+  self->state = sls_appstate_init(self->state, self->pool);
 }
 
 void sls_context_pollevents(slsContext *self)
@@ -374,6 +377,7 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e)
 
 void sls_context_teardown(slsContext *self)
 {
+  self->state = sls_appstate_dtor(self->state);
 }
 
 #ifndef __EMSCRIPTEN__
