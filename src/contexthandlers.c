@@ -112,6 +112,7 @@ void sls_terminate(void)
   sls_active_flag = SLS_FALSE;
 }
 
+
 void sls_error_cback(int i, char const *string)
 {
   sls_log_err("glfw error: %s", string);

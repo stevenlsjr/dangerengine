@@ -30,6 +30,16 @@
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include "slsAppState.h"
 
+void sls_appstate_keyevent(slsAppState *self,
+                           SDL_KeyboardEvent const *pEvent,
+                           SDL_EventType type);
+
+void sls_appstate_mousemotion(slsAppState *self,
+                              SDL_MouseMotionEvent const *pEvent);
+
+void sls_appstate_mousebutton(slsAppState *self,
+                              SDL_MouseButtonEvent const *pEvent);
+
 slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 {
   sls_check(apr_pool_create(&self->pool, parent_pool) == APR_SUCCESS,
@@ -39,12 +49,16 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
   self->images = apr_hash_make(self->pool);
   sls_checkmem(self->images);
 
+
   self->shaders = apr_hash_make(self->pool);
+
+  SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
+
 
   return self;
 
   error:
-    return NULL;
+  return NULL;
 }
 
 slsAppState *sls_appstate_dtor(slsAppState *self)
@@ -54,3 +68,77 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
   }
   return self;
 }
+
+
+void sls_appstate_mousebutton(slsAppState *self,
+                              SDL_MouseButtonEvent const *event)
+{
+
+}
+
+void sls_appstate_mousemotion(slsAppState *self,
+                              SDL_MouseMotionEvent const *me)
+{
+  slsPlayerInput *inp = &self->input;
+  inp->mouse_pos = (slsIPoint) {me->x, me->y};
+  inp->mouse_relative.x += me->xrel;
+  inp->mouse_relative.y += me->yrel;
+
+
+}
+
+void sls_appstate_keyevent(slsAppState *self,
+                           SDL_KeyboardEvent const *ke,
+                           SDL_EventType type)
+{
+  bool is_down = (ke->state == SDL_PRESSED);
+
+  slsPlayerInput *inp = &self->input;
+  uint8_t const *state =SDL_GetKeyboardState(NULL);
+  inp->key_up = state[SDL_SCANCODE_W];
+  inp->key_down = state[SDL_SCANCODE_S];
+  inp->key_right = state[SDL_SCANCODE_D];
+  inp->key_left = state[SDL_SCANCODE_A];
+
+
+}
+
+
+void sls_appstate_handle_input(slsAppState *self, SDL_Event const *event)
+{
+  switch (event->type) {
+    case SDL_KEYDOWN: {
+      sls_appstate_keyevent(self, &event->key, (SDL_KEYDOWN));
+      break;
+    }
+    case SDL_KEYUP: {
+      sls_appstate_keyevent(self, &event->key, (SDL_KEYUP));
+      break;
+    }
+    case SDL_MOUSEMOTION: {
+      sls_appstate_mousemotion(self, &event->motion);
+      break;
+    }
+    case SDL_MOUSEBUTTONDOWN: {
+      sls_appstate_mousebutton(self, &event->button);
+      break;
+    }
+    case SDL_MOUSEBUTTONUP: {
+      sls_appstate_mousebutton(self, &event->button);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+void sls_appstate_clearinput(slsAppState *self)
+{
+  self->input = (slsPlayerInput) {
+      .last_pos = self->input.mouse_pos,
+      .mouse_vel = sls_ipoint_sub(&self->input.mouse_pos, &self->input.last_pos)
+  };
+
+}
+
+

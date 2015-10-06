@@ -9,6 +9,7 @@
 #define DANGERENGINE_MATH_TYPES_H
 
 #include <kazmath/kazmath.h>
+#include <kazmath/vec4.h>
 #include "../slsutils.h"
 
 /**
@@ -95,22 +96,29 @@ typedef union slsVec4 {
   slsVec2 xy;
   slsVec3 xyz;
 
-  kmVec3 kvec;
+  kmVec4 kvec;
 } slsVec4;
 
 static inline slsVec2 sls_make_vec2(float x, float y)
 {
-  return (slsVec2) {.x=x, .y=y};
+  slsVec2 v;
+  v.kvec = (kmVec2){x, y};
+  return v;
 }
 
 static inline slsVec3 sls_make_vec3(float x, float y, float z)
 {
-  return (slsVec3) {.x=x, .y=y, .z=z};
+
+  slsVec3 v;
+  v.kvec = (kmVec3){x, y, z};
+  return v;
 }
 
 static inline slsVec4 sls_make_vec4(float x, float y, float z, float w)
 {
-  return (slsVec4) {.x=x, .y=y, .z=z, .w=2};
+  slsVec4 v;
+  v.kvec = (kmVec4){x, y, z, w};
+  return v;
 }
 
 /*---------------------------------------*

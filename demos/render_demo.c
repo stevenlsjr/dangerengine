@@ -4,8 +4,6 @@
 
 #include "render_demo.h"
 #include <assert.h>
-#include "../src/dangerengine.h"
-
 
 
 void demo_update_modelview(slsContext *self,
@@ -14,6 +12,8 @@ void demo_update_modelview(slsContext *self,
 
 void demo_handle_event(slsContext *self, const SDL_Event *e) SLS_NONNULL(1);
 
+
+void demo_update_uniforms(slsContext *self, double dt);
 
 void demo_handle_event(slsContext *self, const SDL_Event *e)
 {
@@ -38,30 +38,6 @@ void demo_handle_event(slsContext *self, const SDL_Event *e)
     default:
       break;
   }
-}
-
-void demo_add_model(demoData *data, float x, float y)
-{
-  if (data->n_models >= DEMO_MAX_MODELS) { return; }
-  kmMat4 mat, scale;
-  kmMat4Translation(&mat, x, y, 0);
-
-  kmMat4Scaling(&scale, 0.25, 0.25, 1.0);
-  kmMat4Multiply(&mat, &mat, &scale);
-
-  slsModel *model = sls_model_new(data->mesh, data->program, &mat);
-  sls_checkmem(model);
-
-  data->models[data->n_models++] = model;
-
-
-  return;
-
-  error:
-  if (model && model->dtor) {
-    sls_msg(model, dtor);
-  }
-
 }
 
 void demo_uniform_locations(demoData *data)
@@ -130,26 +106,22 @@ void demo_setup_scene(slsContext *self)
 {
   demoData *data = self->data;
 
-  data->mesh = sls_mesh_create_shape("square");
-  sls_checkmem(data->mesh);
-
-  sls_msg(data->mesh, bind, data->program);
 
   glUseProgram(data->program);
 
   demo_uniform_locations(data);
 
-  data->camera = (slsTransform2D){.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
+  data->camera = (slsTransform2D) {.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
 
   sls_msg(data->tex_obj, set_program, data->program);
 
-  demo_add_model(data, 0.0f, 0.0f);
-  demo_add_model(data, -1.0f, 0.30f);
 
   return;
+#if 0
   error:
   getchar();
   exit(EXIT_FAILURE);
+#endif
 }
 
 void demo_setup_textures(slsContext *self)
@@ -166,7 +138,7 @@ void demo_setup_textures(slsContext *self)
 }
 
 
-void demo_context_update(slsContext *self, double dt)
+void demo_camera_drag(slsContext *self, double dt)
 {
   demoData *data = self->data;
 
@@ -174,14 +146,17 @@ void demo_context_update(slsContext *self, double dt)
   slsIPoint zero = {0, 0};
   kmVec2 translate = {0.0, 0.0};
   kmVec2 mouse_v = {0.0, 0.0};
-  double move_speed = 100.0;
+  double move_speed = 50.0;
   bool moving = false;
+
+  demo_update_uniforms(self, dt);
 
 
   if (!sls_ipoint_eq(&mm, &zero)) {
 
     double angle = atan2(mm.y, mm.x);
     translate = (kmVec2) {mm.x, mm.y};
+
     kmVec2Normalize(&translate, &translate);
 
 
@@ -201,8 +176,39 @@ void demo_context_update(slsContext *self, double dt)
   }
 
   data->mouse_motion = (slsIPoint) {0, 0};
+}
 
 
+void demo_context_update(slsContext *self, double dt)
+{
+
+  demo_camera_drag(self, dt);
+
+#if 0
+  slsPlayerInput const *inp = &self->state->input;
+
+  if (inp->key_up || inp->key_down || inp->key_left || inp->key_right) {
+    sls_log_info(
+        "input:\n"
+            "directions: %s %s %s %s\n"
+            "mouse_pos: %d %d\nvelocity %d %d\n",
+        inp->key_up ? "up" : "",
+        inp->key_down ? "down" : "",
+        inp->key_left ? "left" : "",
+        inp->key_right ? "right" : "",
+        inp->mouse_pos.x, inp->mouse_pos.y,
+        inp->mouse_vel.x, inp->mouse_vel.y);
+  }
+#endif // 0
+
+}
+
+void demo_update_uniforms(slsContext *self, double dt)
+{
+  demoData *data = self->data;
+  if (data->uniforms.time_ >= 0) {
+    glUniform1f(data->uniforms.time_, clock() / (float) CLOCKS_PER_SEC);
+  }
 }
 
 
@@ -222,7 +228,6 @@ void demo_context_display(slsContext *self, double dt)
   glUniform1f(time, t);
 
 
-  sls_msg(data->mesh, pre_draw, data->program, dt);
 
   // set base view
   do {
@@ -230,22 +235,11 @@ void demo_context_display(slsContext *self, double dt)
     slsMatrixStack *mv = &data->model_view;
     sls_glmat_reset(mv);
 
-    sls_glmat_scale(mv, (kmVec3){cam->scale.x, cam->scale.y, 1.0});
-    sls_glmat_translate(mv, (kmVec3){cam->pos.x, cam->pos.y, 0.0});
+    sls_glmat_scale(mv, (kmVec3) {cam->scale.x, cam->scale.y, 1.0});
+    sls_glmat_translate(mv, (kmVec3) {cam->pos.x, cam->pos.y, 0.0});
   } while (0);
 
 
-
-  for (int i = 0; i < data->n_models; ++i) {
-    slsModel *model = data->models[i];
-    if (!model) { continue; }
-
-    demo_update_modelview(self, &model->transform);
-
-    sls_msg(model->mesh, draw, dt);
-  }
-
-  sls_msg(data->mesh, post_draw, data->program, dt);
 
 
   glBindTexture(GL_TEXTURE_2D, 0);
@@ -256,18 +250,11 @@ void demo_context_teardown(slsContext *self)
   demoData *data = self->data;
 
   if (data) {
-    if (data->mesh) {
-      sls_msg(data->mesh, dtor);
-    }
 
     glDeleteProgram(data->program);
     glDeleteTextures(1, &data->tex);
 
-    for (int i = 0; i < data->n_models; ++i) {
-      slsModel *model = data->models[i];
-      if (model) { sls_msg(model, dtor); }
 
-    }
 
     free(data);
   }

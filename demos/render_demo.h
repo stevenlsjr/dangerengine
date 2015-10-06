@@ -18,11 +18,6 @@ typedef struct demoData {
   GLuint tex;
 
 
-  slsMesh *mesh;
-
-  slsModel *models[DEMO_MAX_MODELS];
-  size_t n_models;
-
   slsTexture *tex_obj;
 
 

@@ -1,52 +1,95 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
+ * @license FreeBSD
  *
  * Copyright (c) 10/1/15, Steven
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted as representing official policies,
- * either expressed or implied, of ${ORGANIZATION_NAME}. **/
+ *
+ **/
+
 #ifndef DANGERENGINE_SLSAPPSTATE_H
 #define DANGERENGINE_SLSAPPSTATE_H
 
 #include <slsutils.h>
 #include <apr-1/apr_hash.h>
 #include <apr-1/apr_pools.h>
+#include <math/math-types.h>
+#include <SDL2/SDL.h>
+#include <GL/glew.h>
+#include "slsEntity.h"
 
-
+typedef struct slsEntity slsEntity;
 typedef struct slsAppState slsAppState;
+typedef struct slsPlayerInput slsPlayerInput;
 
+/**
+ * @brief bitmap for common key input modifiers
+ */
+typedef enum {
+  SLS_KEMODS_NONE = 0,
+  SLS_KEYMOD_CTRL = 1 << 0,
+  SLS_KEYMOD_CMD  = 1 << 1,
+  SLS_KEYMOD_ALT  = 1 << 2,
+  SLS_KEYMOD_FN   = 1 << 3
+} slsKeyMods;
+
+/**
+ * @brief simple structure for tracking user input
+ * in a consistent way.
+ * @detail Should not describe any behavior on its own.
+ * Acts as a intermediary between platform inpud API (SDL)
+ * and program logic
+ */
+struct slsPlayerInput {
+  bool key_up;
+  bool key_down;
+  bool key_right;
+  bool key_left;
+
+  bool key_space;
+
+
+  slsKeyMods key_mods;
+
+  slsIPoint mouse_pos;
+  slsIPoint last_pos;
+
+  slsIPoint mouse_vel;
+
+  slsIPoint mouse_relative;
+
+};
+
+/**
+ * @brief
+ */
 struct slsAppState {
 
   apr_hash_t *images;
   apr_hash_t *shaders;
 
+  slsPlayerInput input;
+
+  GLuint shader;
+
+  slsEntity *root;
+
   apr_pool_t *pool;
 };
 
+/**
+ * @brief clears input state. Use before repolling input.
+ */
+void sls_appstate_clearinput(slsAppState *state);
+
+void sls_appstate_handle_input(slsAppState *state, SDL_Event const *event);
+
 slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) SLS_NONNULL();
+
 slsAppState *sls_appstate_dtor(slsAppState *self);
+
+
+
 
 #endif //DANGERENGINE_SLSAPPSTATE_H

@@ -195,7 +195,6 @@ slsContext *sls_context_init(slsContext *self,
   sls_checkmem(self->priv);
 
 
-
   return self;
 
   /// exception
@@ -280,6 +279,10 @@ void sls_context_iter(slsContext *self)
     sls_msg(self, display, dt);
 
     SDL_GL_SwapWindow(self->window);
+
+    // reset input state after update interval
+    sls_appstate_clearinput(self->state);
+
   }
 
 
@@ -314,8 +317,6 @@ void sls_context_setup(slsContext *self)
   sls_context_setupstate(self);
 
 
-
-
   sls_log_info("openGL version %s", glGetString(GL_VERSION));
 
   // setup opengl pipeline
@@ -340,7 +341,9 @@ void sls_context_setupstate(slsContext *self)
 
 void sls_context_pollevents(slsContext *self)
 {
+
   SDL_Event e;
+
   if (self->handle_event) {
     while (SDL_PollEvent(&e)) {
       self->handle_event(self, &e);
@@ -363,6 +366,7 @@ static inline void _sls_context_windowevent(slsContext *self, SDL_WindowEvent co
 
 void sls_context_handle_event(slsContext *self, SDL_Event const *e)
 {
+
   switch (e->type) {
     case SDL_QUIT:
       self->is_running = SLS_FALSE;
@@ -372,6 +376,10 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e)
       break;
     default:
       break;
+  }
+  // pass event to
+  if (self->state) {
+    sls_appstate_handle_input(self->state, e);
   }
 }
 

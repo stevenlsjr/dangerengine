@@ -37,46 +37,20 @@
 #ifndef DANGERENGINE_SLSSPRITE_H
 #define DANGERENGINE_SLSSPRITE_H
 
-#include "slsshader.h"
-#include "slsmesh.h"
+#include <renderer/slsshader.h>
+#include <renderer/slsmesh.h>
 
-#include "slstexture.h"
+#include <renderer/slstexture.h>
 #include "../math/slsTransform2D.h"
+#include "slsEntity.h"
 
 
-typedef struct slsSprite slsSprite;
-typedef struct slsSprite_p slsSprite_p;
+typedef struct slsEntity slsSprite;
+typedef struct slsSprite_data slsSprite_data;
 
-struct slsSprite {
+slsSprite *sls_init_sprite(slsEntity *self,char const *name, slsTexture *tex);
 
-  slsSprite *(*init)(slsSprite *self,
-                     slsTexture *tex,
-                     float const uvs[8],
-                     slsTransform2D const *transform);
-
-  slsSprite *(*dtor)(slsSprite *self);
-
-  void (*draw)(slsSprite *self, slsMesh *mesh);
-
-  slsTransform2D const *(*get_transform)(slsSprite *self);
-
-  void (*set_transform)(slsSprite *self, slsTransform2D const *transform);
-
-  slsTexture *texture;
-  float sprite_uvs[8];
-
-
-  slsTransform2D transform2D;
-  kmMat4 transform;
-
-  slsSprite_p *priv;
-  void *data;
-};
-
-
-slsSprite *sls_sprite_new(slsTexture *tex,
-                          float const sprite_uvs[8],
-                          slsTransform2D const *transform);
+bool sls_is_spriteentity(slsEntity *entity);
 
 slsSprite const *sls_sprite_class();
 
