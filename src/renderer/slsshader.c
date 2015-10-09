@@ -34,4 +34,154 @@
  * either expressed or implied, of Steven Shea.
 **/
 
+#include <apr-1/apr_pools.h>
+#include <GL/glew.h>
+#include <assert.h>
 #include "slsshader.h"
+
+
+
+slsShader const *sls_shader_proto()
+{
+  static volatile slsShader proto = {
+      .dtor = sls_shader_dtor,
+      .init = sls_shader_init,
+  };
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-stack-address"
+  return &proto;
+#pragma clang diagnostic pop
+}
+
+
+slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool, GLuint program)
+{
+  *self = *sls_shader_proto();
+
+  apr_status_t res = apr_pool_create(&self->pool, parent_pool);
+  sls_checkmem(res == APR_SUCCESS);
+
+  sls_check(glIsProgram(program), "GLuint %u is not a program", program);
+
+  self->program = program;
+  sls_shader_bind_attrs(self);
+  sls_shader_bind_unifs(self);
+
+  return self;
+  error:
+  assert(0);
+  if (self) {
+    return sls_shader_dtor(self);
+  }
+}
+
+
+slsShader *sls_shader_dtor(slsShader *self)
+{
+
+  if (self->pool) {
+    apr_pool_destroy(self->pool);
+    self->pool = NULL;
+  }
+
+  return self;
+}
+
+
+
+void sls_shader_bind_unifs(slsShader *self)
+{
+  typeof(self->uniforms) *u = &self->uniforms;
+  struct unif_pair {
+    int u;
+    char *name;
+  };
+
+  struct unif_pair unif;
+
+  glUseProgram(self->program);
+  unif.name = "time";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->time = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "model_view";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->model_view = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "projection";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->projection = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "normal_mat";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->normal_map = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "diffuse_map";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->diffuse_map = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "specular_map";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->specular_map = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+  unif.name = "normal_map";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->normal_map = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
+}
+
+void sls_shader_bind_attrs(slsShader *self)
+{
+  typedef struct {
+    GLuint *a;
+    char *name;
+  } AttrPair;
+  typeof(self->attributes) *a = &self->attributes;
+  AttrPair attrs[] = {(AttrPair) {&a->position, "position"},
+                      (AttrPair) {&a->normal, "normal"},
+                      (AttrPair) {&a->uv, "uv"},
+                      (AttrPair) {&a->color, "color"}};
+
+
+  size_t len = sizeof(attrs) / sizeof(AttrPair);
+  for (uint32_t i = 0; i < len; ++i) {
+
+
+    AttrPair *p = attrs + i;
+    *p->a = i;
+    glBindAttribLocation(self->program, i, attrs[i].name);
+
+    sls_attr_check(p->name, self->program, *p->a);
+
+  }
+
+
+}
+
+
+
+void sls_uniform_check(char const *name, int val)
+{
+  if (val < 0) {
+    sls_log_warn("cannot bind uniform <%s>: %i", name, val);
+  }
+}
+
+
+void sls_attr_check(char *name, GLuint program, GLuint location)
+{
+  int actual_location = glGetAttribLocation(program, name);
+  if (actual_location != location) {
+    sls_log_warn("could not bind attribute <%s>: %i",
+                 name,
+                 actual_location);
+  }
+}

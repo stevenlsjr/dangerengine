@@ -36,3 +36,9 @@ slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
   error:
   return SLS_FALSE;
 }
+
+slsBool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, float epsilon)
+{
+  
+  return SLS_TRUE;
+}

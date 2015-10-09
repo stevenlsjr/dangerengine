@@ -68,7 +68,7 @@ protected:
 
 
     sls_msg(tex, set_program, program);
-    sls_msg(mesh, bind, program);
+    //sls_msg(mesh, bind, program);
 
 
   }

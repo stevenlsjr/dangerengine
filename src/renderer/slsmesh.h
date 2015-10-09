@@ -36,6 +36,7 @@
 #include "../data-types/array.h"
 #include "../sls-gl.h"
 #include "../slsutils.h"
+#include "slsshader.h"
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 
@@ -65,7 +66,7 @@ struct slsMesh {
 
   void (*dtor)(slsMesh *self);
 
-  void (*bind)(slsMesh *self, GLuint shader_program);
+  void (*bind)(slsMesh *self, slsShader *shader_program);
 
 
   /**
@@ -118,6 +119,9 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
 
 
 slsMesh *sls_mesh_create_shape(char const *name);
+
+slsMesh * sls_mesh_square();
+
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
 

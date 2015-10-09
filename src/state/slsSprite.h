@@ -48,7 +48,8 @@
 typedef struct slsEntity slsSprite;
 typedef struct slsSprite_data slsSprite_data;
 
-slsSprite *sls_init_sprite(slsEntity *self,char const *name, slsTexture *tex);
+slsSprite *sls_init_sprite(slsEntity *self, slsAppState *state, apr_pool_t *parent_pool, char const *name,
+                           slsTexture *tex, slsShader *shader);
 
 bool sls_is_spriteentity(slsEntity *entity);
 

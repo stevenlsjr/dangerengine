@@ -73,7 +73,7 @@ struct slsTexture {
    * @param normal_path path to normal map image
    * @return initilized `self`
    */
-  slsTexture *(*init)(slsTexture *self, 
+  slsTexture *(*init)(slsTexture *self,
                       char const *diffuse_path,
                       char const *specular_path,
                       char const *normal_path);
@@ -128,6 +128,11 @@ GLuint sls_gltex_from_surface(SDL_Surface *surface);
  */
 GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt);
 
+
+//---------------------------------image utils-------------------------------------
+
+GLenum sls_glformat_from_sdlformat(SDL_PixelFormat const *fmt)
+    SLS_NONNULL(1);
 
 
 #endif //DANGERENGINE_SLSTEXTURE_H

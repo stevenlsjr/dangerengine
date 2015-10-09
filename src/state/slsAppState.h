@@ -17,6 +17,7 @@
 #include <math/math-types.h>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
+#include <math/slsMatrixStack.h>
 #include "slsEntity.h"
 
 typedef struct slsEntity slsEntity;
@@ -73,6 +74,9 @@ struct slsAppState {
 
   GLuint shader;
 
+  slsMatrixStack model_view;
+  kmMat4 projection;
+
   slsEntity *root;
 
   apr_pool_t *pool;
@@ -89,6 +93,9 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) SLS_N
 
 slsAppState *sls_appstate_dtor(slsAppState *self);
 
+
+void sls_appstate_setup(slsAppState *self);
+void sls_appstate_teardown(slsAppState *self);
 
 
 

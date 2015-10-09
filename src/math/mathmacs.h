@@ -14,6 +14,12 @@
 #include <kazmath/vec4.h>
 #include <math.h>
 #include <stddef.h>
+#include <stdbool.h>
+
+
+#define sls_near(a, b, e) _Generic(a,   \
+    double: sls_neard(a, b, e),         \
+    float: sls_nearf(a, b, e))
 
 
 /**
@@ -31,9 +37,15 @@ kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b);
 size_t sls_nearest_squarelu(size_t x);
 
 
+static inline bool sls_neard(double a, double b, double epsilon)
+{
+  return fabs(a - b) < epsilon;
+}
 
-
-
+static inline bool sls_nearf(float a, float b, float epsilon)
+{
+  return fabs(a - b) < epsilon;
+}
 
 
 #endif //DANGERENGINE_MATHMACS_H

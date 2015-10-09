@@ -54,6 +54,9 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 
   SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
 
+  kmMat4Identity(&self->projection);
+  sls_glmat_defaultinit(&self->model_view);
+
 
   return self;
 
@@ -61,13 +64,22 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
   return NULL;
 }
 
+
+
 slsAppState *sls_appstate_dtor(slsAppState *self)
 {
   if (self->pool) {
     apr_pool_destroy(self->pool);
   }
+
+  if (self->root && self->root->dtor) {
+    sls_msg(self->root, dtor);
+  }
+
+  sls_matrix_stack_dtor(&self->model_view);
   return self;
 }
+
 
 
 void sls_appstate_mousebutton(slsAppState *self,
@@ -99,7 +111,6 @@ void sls_appstate_keyevent(slsAppState *self,
   inp->key_down = state[SDL_SCANCODE_S];
   inp->key_right = state[SDL_SCANCODE_D];
   inp->key_left = state[SDL_SCANCODE_A];
-
 
 }
 

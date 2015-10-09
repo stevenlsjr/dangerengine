@@ -119,6 +119,11 @@ struct slsContext {
   clock_t interval;
   slsContext_p *priv;
 
+  /**
+   * @brief Apr memory pool
+   * @detail If you wish for the memory lifetime to last only through
+   * one application run(), allocate to the self->state's pool.
+   */
   apr_pool_t *pool;
 
   slsAppState *state;

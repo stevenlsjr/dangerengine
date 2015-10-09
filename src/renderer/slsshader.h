@@ -38,19 +38,59 @@
 #define DANGERENGINE_SLSSHADER_H
 
 #include <sls-gl.h>
+#include <slsutils.h>
+#include <apr-1/apr_pools.h>
 
 typedef struct slsShader slsShader;
 
 
 struct slsShader {
-  slsShader *(*init)(slsShader *self, GLuint program);
+  slsShader *(*init)(slsShader *self,
+                     apr_pool_t *parent_pool,
+                     GLuint program) SLS_NONNULL(1, 2);
 
-  slsShader *(*dtor)(slsShader *self);
-  void (*use)(slsShader *self);
+  slsShader *(*dtor)(slsShader *self) SLS_NONNULL(1);
+
+  struct {
+    GLuint model_view;
+    GLuint normal_mat;
+    GLuint projection;
+
+    GLuint time;
+
+    GLuint diffuse_map;
+    GLuint specular_map;
+    GLuint normal_map;
+  } uniforms;
+
+  struct {
+    GLuint position;
+    GLuint normal;
+    GLuint uv;
+    GLuint color;
+  } attributes;
 
   GLuint program;
+
+  apr_pool_t *pool;
   void *data;
 };
+
+slsShader const *sls_shader_proto();
+
+slsShader *sls_shader_init(slsShader *self,
+                           apr_pool_t *parent_pool,
+                           GLuint program) SLS_NONNULL(1, 2);
+
+slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
+
+void sls_shader_bind_attrs(slsShader *self) SLS_NONNULL(1);
+
+void sls_shader_bind_unifs(slsShader *self) SLS_NONNULL(1);
+
+void sls_uniform_check(char const *name, int val);
+void sls_attr_check(char *name, GLuint program, GLuint location);
+
 
 
 #endif //DANGERENGINE_SLSSHADER_H

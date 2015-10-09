@@ -3,6 +3,7 @@
 //
 
 #include "slsEntity.h"
+#include "slsEntityDraw.h"
 #include <apr-1/apr_strings.h>
 #include <apr-1/apr_strmatch.h>
 
@@ -21,8 +22,8 @@ slsEntity const *sls_entity_class()
       .component_mask = SLS_COMPONENT_NONE,
       .name = NULL,
       .transform = (slsTransform2D) {},
-      .sprite = NULL
   };
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wreturn-stack-address"
   return &klass;
@@ -129,8 +130,82 @@ slsEntity *sls_entity_findchild_reference(slsEntity *self, slsEntity const *chil
 slsEntity *sls_entity_getroot(slsEntity *self)
 {
   slsEntity *itor = self;
-  while(itor->parent != NULL) {
+  while (itor->parent != NULL) {
     itor = itor->parent;
   }
   return itor;
+}
+
+void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
+{
+  apr_hash_index_t *itor;
+  apr_pool_t *pool;
+
+  sls_checkmem(apr_pool_create(&pool, self->pool) == APR_SUCCESS);
+
+
+  //printf("hello entity %s\n", self->name);
+
+  for (itor = apr_hash_first(pool, self->children);
+       itor;
+       itor = apr_hash_next(itor)) {
+
+    slsEntity *child;
+    apr_hash_this(itor, NULL, NULL, (void **) &child);
+    if (child) { sls_entity_update(child, state, dt); }
+
+  }
+
+  return;
+  error:
+  return;
+
+}
+
+void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
+{
+  apr_hash_index_t *itor;
+  apr_pool_t *pool;
+
+  slsComponentMask drawable = SLS_COMPONENT_MATERIAL |
+                              SLS_COMPONENT_TEXTURE |
+                              SLS_COMPONENT_MESH;
+  if ((self->component_mask & drawable) == drawable) {
+
+    sls_entity_draw(self, dt, state);
+    //sls_log_info("%s will draw", self->name);
+  }
+
+  slsMatrixStack *mv = &state->model_view;
+  sls_glmat_push(mv);
+
+  if (self == state->root) {
+    sls_glmat_identity(mv);
+  }
+
+  sls_glmat_scale(mv, (kmVec3){self->transform.scale.x, self->transform.scale.y, 1.0});
+
+  sls_glmat_translate(mv, (kmVec3){self->transform.pos.x,
+                                   self->transform.pos.y,
+                                   0.0});
+
+  sls_glmat_bind_top(mv, self->material->program, self->material->uniforms.model_view);
+  sls_checkmem(apr_pool_create(&pool, self->pool) == APR_SUCCESS);
+
+  for (itor = apr_hash_first(pool, self->children);
+       itor;
+       itor = apr_hash_next(itor)) {
+
+    slsEntity *child;
+    apr_hash_this(itor, NULL, NULL, (void **) &child);
+    if (child) { sls_entity_display(child, state, dt); }
+
+  }
+
+  sls_matrix_stack_pop(mv, NULL);
+
+  return;
+  error:
+  return;
+
 }

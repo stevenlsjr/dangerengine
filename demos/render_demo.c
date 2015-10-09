@@ -10,12 +10,12 @@ void demo_update_modelview(slsContext *self,
                            kmMat4 const *model) SLS_NONNULL(1, 2);
 
 
-void demo_handle_event(slsContext *self, const SDL_Event *e) SLS_NONNULL(1);
+void demo_handle_event(slsContext *self,
+                       const SDL_Event *e) SLS_NONNULL(1);
 
 
-void demo_update_uniforms(slsContext *self, double dt);
-
-void demo_handle_event(slsContext *self, const SDL_Event *e)
+void demo_handle_event(slsContext *self,
+                       const SDL_Event *e)
 {
 
   sls_context_class()->handle_event(self, e);
@@ -40,29 +40,6 @@ void demo_handle_event(slsContext *self, const SDL_Event *e)
   }
 }
 
-void demo_uniform_locations(demoData *data)
-{
-  assert(data);
-  data->uniforms.time_ = glGetUniformLocation(data->program, "time");
-  data->uniforms.model_view = glGetUniformLocation(data->program, "model_view");
-  data->uniforms.projection = glGetUniformLocation(data->program, "projection");
-  data->uniforms.normal_mat = glGetUniformLocation(data->program, "normal_mat");
-  data->uniforms.tex_sample = glGetUniformLocation(data->program, "diffuse_map");
-}
-
-
-void demo_setup_shaders(slsContext *self)
-{
-  if (!self || !self->data) { exit(EXIT_FAILURE); }
-  char const *fs_path = "resources/shaders/default.frag";
-  char const *vs_path = "resources/shaders/default.vert";
-
-  demoData *data = self->data;
-
-
-  data->program = sls_create_program(vs_path, fs_path);
-
-}
 
 void demo_context_setup(slsContext *self)
 {
@@ -102,27 +79,24 @@ void demo_context_setup(slsContext *self)
 
 }
 
-void demo_setup_scene(slsContext *self)
+void demo_setup_shaders(slsContext *self)
 {
+  if (!self || !self->data) { exit(EXIT_FAILURE); }
+  char const *fs_path = "resources/shaders/default.frag";
+  char const *vs_path = "resources/shaders/default.vert";
+
   demoData *data = self->data;
 
 
-  glUseProgram(data->program);
+  data->program = sls_create_program(vs_path, fs_path);
+  data->shader =
+      sls_shader_init(apr_pcalloc(self->state->pool,
+                                  sizeof(slsShader)),
+                      self->state->pool,
+                      data->program);
 
-  demo_uniform_locations(data);
-
-  data->camera = (slsTransform2D) {.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
-
-  sls_msg(data->tex_obj, set_program, data->program);
-
-
-  return;
-#if 0
-  error:
-  getchar();
-  exit(EXIT_FAILURE);
-#endif
 }
+
 
 void demo_setup_textures(slsContext *self)
 {
@@ -135,6 +109,43 @@ void demo_setup_textures(slsContext *self)
   data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
 
   data->tex = sls_gltex_from_file(img_path, -1, -1);
+}
+
+void demo_setup_scene(slsContext *self)
+{
+  demoData *data = self->data;
+
+
+  glUseProgram(data->program);
+
+
+  data->camera = (slsTransform2D) {.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
+
+  sls_msg(data->tex_obj, set_program, data->program);
+
+
+  self->state->root =
+      sls_entity_new(self->pool, SLS_COMPONENT_NONE, "root");
+  slsEntity *root = self->state->root;
+  sls_checkmem(root);
+
+  slsSprite *sprite = malloc(sizeof(slsSprite));
+  sprite = sls_init_sprite(sprite,
+                           self->state,
+                           self->pool, "sprite_a",
+                           data->tex_obj,
+                           data->shader);
+
+
+  sls_entity_addchild(root, sprite);
+
+
+  return;
+
+  error:
+  assert(0);
+  return;
+
 }
 
 
@@ -184,6 +195,8 @@ void demo_context_update(slsContext *self, double dt)
 
   demo_camera_drag(self, dt);
 
+  sls_entity_update(self->state->root, self->state, dt);
+
 #if 0
   slsPlayerInput const *inp = &self->state->input;
 
@@ -203,6 +216,7 @@ void demo_context_update(slsContext *self, double dt)
 
 }
 
+
 void demo_update_uniforms(slsContext *self, double dt)
 {
   demoData *data = self->data;
@@ -214,7 +228,7 @@ void demo_update_uniforms(slsContext *self, double dt)
 
 void demo_context_display(slsContext *self, double dt)
 {
-
+  sls_context_class()->display(self, dt);
 
   demoData *data = self->data;
 
@@ -227,20 +241,7 @@ void demo_context_display(slsContext *self, double dt)
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
-
-
-  // set base view
-  do {
-    slsTransform2D const *cam = &data->camera;
-    slsMatrixStack *mv = &data->model_view;
-    sls_glmat_reset(mv);
-
-    sls_glmat_scale(mv, (kmVec3) {cam->scale.x, cam->scale.y, 1.0});
-    sls_glmat_translate(mv, (kmVec3) {cam->pos.x, cam->pos.y, 0.0});
-  } while (0);
-
-
-
+  sls_entity_display(self->state->root, self->state, dt);
 
   glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -254,10 +255,10 @@ void demo_context_teardown(slsContext *self)
     glDeleteProgram(data->program);
     glDeleteTextures(1, &data->tex);
 
-
-
+    sls_shader_dtor(data->shader);
     free(data);
   }
+
 }
 
 void demo_context_resize(slsContext *self, int x, int y)
@@ -266,7 +267,6 @@ void demo_context_resize(slsContext *self, int x, int y)
   demoData *data = self->data;
   glViewport(0, 0, x * 2, y * 2);
 
-  sls_log_info("%i %i", x, y);
   if (x != 0 && y != 0) {
     kmMat4 projection;
 
@@ -280,7 +280,7 @@ void demo_context_resize(slsContext *self, int x, int y)
 
     }
 
-    glUniformMatrix4fv(data->uniforms.projection, 1, GL_FALSE, projection.mat);
+    glUniformMatrix4fv(data->shader->program, 1, GL_FALSE, projection.mat);
   }
 }
 

@@ -285,7 +285,6 @@ void sls_context_iter(slsContext *self)
 
   }
 
-
 }
 
 
@@ -301,7 +300,7 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
-
+  sls_glmat_reset(&self->state->model_view);
 }
 
 void sls_context_setup(slsContext *self)

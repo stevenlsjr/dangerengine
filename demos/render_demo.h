@@ -10,7 +10,6 @@
 #include "../src/dangerengine.h"
 
 #define DEMO_MAX_MODELS 20
-#define DEMO_MAX_MODELS 20
 
 typedef struct demoData {
   GLuint program;
@@ -19,6 +18,7 @@ typedef struct demoData {
 
 
   slsTexture *tex_obj;
+  slsShader *shader;
 
 
   kmMat4 view_matrix;
@@ -29,6 +29,7 @@ typedef struct demoData {
   slsIPoint mouse_p;
 
   slsIPoint camera_move_input;
+
 
   slsTransform2D camera;
   struct {
@@ -56,10 +57,10 @@ void demo_setup_textures(slsContext *pContext) SLS_NONNULL(1);
 
 void demo_setup_shaders(slsContext *self) SLS_NONNULL(1);
 
+void demo_update_uniforms(slsContext *self, double dt);
+
+
 void demo_setup_scene(slsContext *self) SLS_NONNULL(1);
-
-
-
 
 
 

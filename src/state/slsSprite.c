@@ -44,15 +44,43 @@
  * IMPLEMENTATIONS
  *================================*/
 
-
+static slsComponentMask sprite_mask =
+    SLS_COMPONENT_STATEACCESS |
+    SLS_COMPONENT_TEXTURE |
+    SLS_COMPONENT_KINETIC |
+    SLS_COMPONENT_BOUNDED |
+    SLS_COMPONENT_MATERIAL |
+    SLS_COMPONENT_MESH;
 
 bool sls_is_spriteentity(slsEntity *entity)
 {
   return false;
 }
 
-slsSprite *sls_init_sprite(slsEntity *self, char const *name, slsTexture *tex)
+slsSprite *sls_init_sprite(slsEntity *self,
+                           slsAppState *state, apr_pool_t *parent_pool, char const *name,
+                           slsTexture *tex,
+                           slsShader *shader)
 {
-  self =
-  return NULL;
+  self = sls_entity_init(self, parent_pool, sprite_mask, name);
+
+  sls_checkmem(self);
+
+  self->mesh = sls_mesh_square();
+  self->mesh_is_owned = true;
+
+  self->material = shader;
+  if (!shader) {
+    self->component_mask &= ~SLS_COMPONENT_MATERIAL;
+  }
+
+  sls_msg(self->mesh, bind, self->material);
+
+
+  return self;
+
+  error:
+  if (self) {
+    return sls_entity_class()->dtor(self);
+  } else { return NULL; }
 }

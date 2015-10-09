@@ -64,7 +64,7 @@ set(DANGER_SRC
   src/state/slsEntity.c
 
   src/state/slsAppState.c
-  src/state/slsAppState.h)
+  src/state/slsAppState.h src/state/slsEntityDraw.c src/state/slsEntityDraw.h)
 
 
 # tests compiled in c

@@ -15,8 +15,19 @@ struct slsTransform2D {
   float rot;
 };
 
+struct slsKinematic2D {
+  float mass;
+
+
+  float rotational_inertia;
+  float rotational_speed;
+};
+
 kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D const *in);
 
 slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b);
+slsBool sls_transform2D_near(slsTransform2D const *a,
+                             slsTransform2D const *b,
+                             float epsilon);
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

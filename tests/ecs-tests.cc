@@ -10,18 +10,39 @@ class EscTests : public ::testing::Test {
 protected:
 
   slsEntity *entity;
+  apr_pool_t *pool;
+
+  slsComponentMask mask =
+      static_cast<slsComponentMask>(
+          SLS_COMPONENT_BOUNDED |
+          SLS_COMPONENT_KINETIC);
+  std::string name = "myentity";
 
   virtual void SetUp()
   {
-    entity = new slsEntity();
-    sls_msg(entity, init);
+    apr_initialize();
+    apr_pool_create(&pool, nullptr);
+    entity = sls_entity_new(pool, mask, name.c_str());
+
   }
 
   virtual void TearDown()
   {
-    if (entity) {
-      delete(sls_msg(entity, dtor));
-    }
+    sls_msg(entity, dtor);
+    apr_terminate();
   }
 
 };
+
+TEST_F(EscTests, Mask)
+{
+  EXPECT_EQ(mask, entity->component_mask);
+  EXPECT_TRUE(entity->component_mask & SLS_COMPONENT_BOUNDED);
+  EXPECT_FALSE(entity->component_mask & SLS_COMPONENT_TEXTURE);
+}
+
+
+TEST_F(EscTests, Name)
+{
+  EXPECT_STREQ(name.c_str(), entity->name);
+}

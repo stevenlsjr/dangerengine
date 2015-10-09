@@ -273,28 +273,16 @@ GLuint sls_gltex_from_surface(SDL_Surface *surface)
 {
 
   GLuint tex = 0;
-
-  int n_colors;
   GLenum gl_format, gl_type;
 
   glGenTextures(1, &tex);
 
-  n_colors = surface->format->BytesPerPixel;
+
+  gl_format = sls_glformat_from_sdlformat(surface->format);
+
+  sls_check(gl_format != GL_FALSE, "invalid surface pixel format");
 
 
-  if (n_colors == 4) { // RGB
-
-    gl_format = GL_RGBA;
-
-  } else if (n_colors == 3) {
-    gl_format = GL_RGB;
-
-  } else {
-    sls_log_err("texture %p is not truecolor bytes per pixel == %i",
-                surface,
-                n_colors);
-    sls_fail();
-  }
 
   gl_type = GL_UNSIGNED_BYTE;
 
@@ -303,6 +291,7 @@ GLuint sls_gltex_from_surface(SDL_Surface *surface)
 
 
   sls_check(surface->pixels, "no pixel vertex");
+
   sls_check(surface->w > 0 && surface->h > 0, "size %i %i invalid", surface->w, surface->h);
 
 
@@ -326,12 +315,45 @@ GLuint sls_gltex_from_surface(SDL_Surface *surface)
 
   return tex;
   error:
+    assert(0);
 
   sls_log_err("IMG: %s", IMG_GetError());
 
-  if (surface) {
-    glDeleteTextures(1, &tex);
-  }
   glBindTexture(GL_TEXTURE_2D, 0);
   return 0;
 }
+
+
+GLenum sls_glformat_from_sdlformat(SDL_PixelFormat const *fmt)
+{
+  GLenum gl_format = GL_RGBA;
+
+  int bpp = fmt->BytesPerPixel,
+      rmask = fmt->Rmask;
+
+  switch (bpp) {
+    case 3: {
+      gl_format = (rmask == 0x000000ff) ?
+                  GL_BGR :
+                  GL_RGB;
+      break;
+    }
+    case 4: {
+      gl_format = (rmask == 0x000000ff) ?
+                  GL_BGRA :
+                  GL_RGBA;
+      break;
+    }
+    default:
+      sls_log_warn("unsupported bytes per pixel: %i", bpp);
+      _Static_assert(GL_FALSE != GL_RGBA ||
+                    GL_FALSE != GL_BGRA ||
+                    GL_FALSE != GL_RGB ||
+                    GL_FALSE != GL_BGR, "invalid error flag for sls_glformat_from_sdlformat");
+      gl_format = GL_FALSE;
+      break;
+  }
+
+  return gl_format;
+}
+

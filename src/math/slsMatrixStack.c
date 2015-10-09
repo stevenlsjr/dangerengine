@@ -173,7 +173,7 @@ void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling)
 
 void sls_glmat_push(slsMatrixStack *self)
 {
-  sls_matrix_stack_push(self, self->matrices + self->n_matrices);
+  sls_matrix_stack_push(self, sls_matrix_stack_peek(self));
 
 }
 
@@ -192,7 +192,8 @@ void sls_glmat_bind_top(slsMatrixStack *self,
   glUseProgram(program);
 
 
-  glUniformMatrix4fv(uniform, 1, GL_FALSE, sls_matrix_stack_peek(self)->mat);
+  kmMat4 *top = sls_matrix_stack_peek(self);
+  glUniformMatrix4fv(uniform, 1, GL_FALSE, top->mat);
 
 
   glUseProgram(0);
