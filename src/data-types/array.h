@@ -43,6 +43,7 @@
 #include <stddef.h>
 
 #include <stdlib.h>
+#include "callbacks.h"
 
 typedef struct slsArray slsArray;
 typedef struct slsArray_p slsArray_p;
@@ -60,7 +61,9 @@ struct slsArray {
                     size_t esize,
                     size_t n_elements);
 
-  void (*dtor)(slsArray *self);
+  slsArray *(*dtor)(slsArray *self);
+
+  slsCallbackTable table;
 
   slsArray_p *priv;
 };
@@ -76,7 +79,8 @@ size_t sls_array_length(slsArray const *self);
 
 size_t sls_array_element_size(slsArray const *self);
 
-void const *sls_array_get(slsArray const *self, size_t i);
+void *sls_array_get(slsArray *self, size_t i);
+void const *sls_array_cget(slsArray const *self, size_t i);
 
 /**
  * @brief sets the value of a current element
@@ -100,6 +104,9 @@ void sls_array_reserve(slsArray *self, size_t count);
  * @param value pointer to value
  */
 void sls_array_insert(slsArray *self, size_t i, void *value);
+void sls_array_insert_array(slsArray *self, size_t i, const void *data)
+
+void sls_array_append(slsArray *self, void *value);
 
 slsArray *sls_array_copy(slsArray const *self);
 
