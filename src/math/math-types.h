@@ -121,6 +121,16 @@ static inline slsVec4 sls_make_vec4(float x, float y, float z, float w)
   return v;
 }
 
+static inline void sls_log_mat4(kmMat4 const *mat)
+{
+  sls_log_info("mat4x4 [");
+  for (int j=0; j< 4; j++) {
+    float const *row = mat->mat + j * 4;
+    fprintf(stderr, "\t%f %f %f %f\n", row[0], row[1], row[2], row[3]);
+  }
+  fprintf(stderr, "]");
+}
+
 /*---------------------------------------*
  * slsIPoint operations
  *---------------------------------------*/

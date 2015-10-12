@@ -36,15 +36,17 @@
  *----------------------------*/
 
 struct Light {
-  vec4 translation;
-  vec3 rgb;
+  vec3 position;
+  vec4 color;
   float attenuation;
 };
+
 out vec4 color;
 
+in vec3 frag_pos;
 in vec4 frag_color;
 in vec2 frag_uv;
-
+in vec3 frag_normal;
 
 uniform mat4 model_view;
 uniform mat4 normal_mat;
@@ -55,13 +57,51 @@ uniform sampler2D diffuse_map;
 uniform sampler2D specular_map;
 uniform sampler2D normal_map;
 
+const float ambient_str = 0.25;
 
-uniform Light sources[12];
-uniform int active_sources;
+
+/**
+ * a stupid hack. Right now, loaded PNG
+ files have their color order as BGRA
+ TODO(Steven): make sure textures load with correct pixel format
+ */
+vec4 bgra_to_rgba(vec4 color);
+Light sample_source();
+
 
 void main()
 {
+  Light l = sample_source();
+  vec4 tex_color = bgra_to_rgba(texture(diffuse_map, frag_uv));
+  vec4 material_color = tex_color * frag_color;
 
-  color = texture(diffuse_map, frag_uv) * frag_color;
+  vec4 ambient = l.color * ambient_str;
+
+
+  vec4 norm = vec4(normalize(frag_normal * texture(normal_map, frag_uv).xyz), 0.0);
+  vec4 light_dir = vec4(normalize(l.position - frag_pos), 0.0);
+
+  float diff_value = max(dot(norm, light_dir), 0.0);
+
+  vec4 diffuse_color = l.color * diff_value;
+
+  color = (diffuse_color + ambient) * material_color;
 }
 
+
+Light sample_source()
+{
+  Light l;
+
+  l.position = vec3(2.0, 0.0, 1);
+  l.color = vec4(1.0, 0.5, 0.5, 1.0);
+  l.attenuation = 1.0;
+
+  return l;
+}
+
+
+vec4 bgra_to_rgba(vec4 color)
+{
+  return vec4(color.b, color.g, color.r, color.a);
+}

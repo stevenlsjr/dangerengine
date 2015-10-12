@@ -24,13 +24,13 @@ struct slsKinematic2D {
   float rotational_speed;
 };
 
-kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D const *in);
+kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D const *in) SLS_NONNULL(1, 2);
 
-slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b);
+slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b) SLS_NONNULL(1, 2);
 slsBool sls_transform2D_near(slsTransform2D const *a,
                              slsTransform2D const *b,
-                             float epsilon);
+                             float epsilon) SLS_NONNULL(1, 2);
 
-
+slsTransform2D *sls_transform2d_init(slsTransform2D *self) SLS_NONNULL(1);
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

@@ -12,6 +12,7 @@
 #include <apr-1/apr_hash.h>
 #include <renderer/slsmesh.h>
 #include <renderer/slsshader.h>
+#include <math/slsCamera.h>
 #include "slsAppState.h"
 
 typedef enum slsComponentMask {
@@ -21,7 +22,8 @@ typedef enum slsComponentMask {
   SLS_COMPONENT_MATERIAL = 1 << 2,
   SLS_COMPONENT_TEXTURE = 1 << 3,
   SLS_COMPONENT_BOUNDED = 1 << 4,
-  SLS_COMPONENT_KINETIC = 1 << 5
+  SLS_COMPONENT_KINETIC = 1 << 5,
+  SLS_COMPONENT_CAMERA = 1 << 6
 } slsComponentMask;
 
 
@@ -65,6 +67,8 @@ struct slsEntity {
   bool material_is_owned;
 
   slsTexture *texture;
+
+  slsCamera camera;
 
   apr_pool_t *pool;
 

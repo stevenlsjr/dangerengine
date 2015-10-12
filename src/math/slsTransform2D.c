@@ -42,3 +42,11 @@ slsBool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, f
   
   return SLS_TRUE;
 }
+
+slsTransform2D *sls_transform2d_init(slsTransform2D *self)
+{
+  self->pos = (kmVec2) {0, 0};
+  self->rot = 0;
+  self->scale = (kmVec2) {1, 1};
+  return self;
+}

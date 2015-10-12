@@ -7,8 +7,6 @@
 #include <renderer/slsshader.h>
 
 
-void demo_update_modelview(slsContext *self,
-                           kmMat4 const *model) SLS_NONNULL(1, 2);
 
 
 void demo_handle_event(slsContext *self,
@@ -69,9 +67,6 @@ void demo_context_setup(slsContext *self)
   demo_setup_scene(self);
 
 
-  int x, y;
-  SDL_GetWindowSize(self->window, &x, &y);
-  sls_msg(self, resize, x, y);
 
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
@@ -96,6 +91,8 @@ void demo_setup_shaders(slsContext *self)
                       self->state->pool,
                       data->program);
 
+  self->state->active_shader = data->shader;
+
 }
 
 
@@ -104,11 +101,8 @@ void demo_setup_textures(slsContext *self)
 
   demoData *data = self->data;
 
-  char const *img_path = "resources/free-textures/176.jpg";
-  char const *norm_path = "resources/free-textures/176_norm.jpg";
 
 
-  data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
 
   data->tank_tex = sls_texture_new("resources/art/tankBeige_outline.png",
                                    "resources/art/tankBeige_specular.png",
@@ -118,7 +112,6 @@ void demo_setup_textures(slsContext *self)
                                    "resources/art/barrelBeige_specular.png",
                                    "resources/art/barrelBeige_normal.png");
 
-  data->tex = sls_gltex_from_file(img_path, -1, -1);
 }
 
 void demo_setup_scene(slsContext *self)
@@ -128,16 +121,19 @@ void demo_setup_scene(slsContext *self)
 
   glUseProgram(data->program);
 
+  sls_camera_init(&data->camera);
 
-  data->camera = (slsTransform2D) {.pos={0.0, 0.0}, .scale={1.0, 1.0}, .rot=0.0};
+  self->state->active_camera = sls_camera_init(&data->camera);
 
-  sls_msg(data->tex_obj, set_program, data->program);
-
+  // setup scene graph and tank
 
   self->state->root =
       sls_entity_new(self->pool, SLS_COMPONENT_NONE, "root");
+
   slsEntity *root = self->state->root;
   sls_checkmem(root);
+
+  root->transform.scale = (kmVec2) {0.3, 0.3};
 
   slsSprite *sprite = malloc(sizeof(slsSprite));
   sprite = sls_init_sprite(sprite,
@@ -146,8 +142,12 @@ void demo_setup_scene(slsContext *self)
                            data->tank_tex,
                            data->shader);
 
+  data->tank = sprite;
 
   sls_entity_addchild(root, sprite);
+
+  // setup camera
+
 
 
   return;
@@ -159,55 +159,23 @@ void demo_setup_scene(slsContext *self)
 }
 
 
-void demo_camera_drag(slsContext *self, double dt)
-{
-  demoData *data = self->data;
-
-  slsIPoint mm = data->mouse_motion;
-  slsIPoint zero = {0, 0};
-  kmVec2 translate = {0.0, 0.0};
-  kmVec2 mouse_v = {0.0, 0.0};
-  double move_speed = 50.0;
-  bool moving = false;
-
-  demo_update_uniforms(self, dt);
-
-
-  if (!sls_ipoint_eq(&mm, &zero)) {
-
-    double angle = atan2(mm.y, mm.x);
-    translate = (kmVec2) {mm.x, mm.y};
-
-    kmVec2Normalize(&translate, &translate);
-
-
-    double full_speed = dt * move_speed;
-    translate.x *= full_speed;
-    translate.y *= full_speed;
-
-
-    moving = true;
-  }
-
-  if (moving) {
-
-    data->camera.pos.x += translate.x;
-    data->camera.pos.y += translate.y;
-
-  }
-
-  data->mouse_motion = (slsIPoint) {0, 0};
-}
 
 
 void demo_context_update(slsContext *self, double dt)
 {
 
-  demo_camera_drag(self, dt);
+
+  demoData *d = self->data;
+  d->tank->transform.pos.x += 10.0 * dt;
+
+  if (d->tank->transform.pos.x > 2.0) {
+    d->tank->transform.pos.x = -2.0;
+  }
 
   sls_entity_update(self->state->root, self->state, dt);
 
-#if 0
+
+#if 1
   slsPlayerInput const *inp = &self->state->input;
 
   if (inp->key_up || inp->key_down || inp->key_left || inp->key_right) {
@@ -230,9 +198,7 @@ void demo_context_update(slsContext *self, double dt)
 void demo_update_uniforms(slsContext *self, double dt)
 {
   demoData *data = self->data;
-  if (data->uniforms.time_ >= 0) {
-    glUniform1f(data->uniforms.time_, clock() / (float) CLOCKS_PER_SEC);
-  }
+  glUniform1f(data->shader->uniforms.time, clock() / (float) CLOCKS_PER_SEC);
 }
 
 
@@ -241,6 +207,8 @@ void demo_context_display(slsContext *self, double dt)
   sls_context_class()->display(self, dt);
 
   demoData *data = self->data;
+
+
 
   GLint time = glGetUniformLocation(data->program, "time");
 
@@ -258,9 +226,7 @@ void demo_context_teardown(slsContext *self)
   if (data) {
 
     glDeleteProgram(data->program);
-    glDeleteTextures(1, &data->tex);
 
-    sls_msg(data->tex_obj, dtor);
     sls_msg(data->tank_tex, dtor);
     sls_msg(data->barrel_tex, dtor);
 
@@ -272,25 +238,9 @@ void demo_context_teardown(slsContext *self)
 
 void demo_context_resize(slsContext *self, int x, int y)
 {
+
   sls_context_class()->resize(self, x, y);
-  demoData *data = self->data;
-  glViewport(0, 0, x * 2, y * 2);
 
-  if (x != 0 && y != 0) {
-    kmMat4 projection;
-
-    if (x > y) {
-      float aspect = x / (float) y;
-
-      kmMat4OrthographicProjection(&projection, -aspect, aspect, -1.0f, 1.0f, -10.0f, 10.0f);
-    } else {
-      float aspect = y / (float) x;
-      kmMat4OrthographicProjection(&projection, -1, 1, -aspect, aspect, -10.0f, 10.0f);
-
-    }
-
-    glUniformMatrix4fv(data->shader->uniforms.projection, 1, GL_FALSE, projection.mat);
-  }
 }
 
 
@@ -318,20 +268,4 @@ int render_demo_main(int *argc, char **argv)
 
 
   return 0;
-}
-
-void demo_update_modelview(slsContext *self,
-                           kmMat4 const *model)
-{
-
-  demoData *data = self->data;
-  assert(data);
-  kmMat4 view = *data->model_view.matrices;
-  kmMat4 model_view;
-
-
-  kmMat4Multiply(&model_view, model, &view);
-
-
-  glUniformMatrix4fv(data->uniforms.model_view, 1, GL_FALSE, model_view.mat);
 }

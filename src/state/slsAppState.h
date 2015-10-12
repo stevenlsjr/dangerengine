@@ -74,9 +74,12 @@ struct slsAppState {
 
   GLuint shader;
 
+  slsCamera *active_camera;
+  slsShader *active_shader;
+
   slsMatrixStack model_view;
   kmMat4 projection;
-  kmMat4 active_cameraview;
+
 
   slsEntity *root;
 
@@ -97,8 +100,7 @@ slsAppState *sls_appstate_dtor(slsAppState *self);
 void sls_appstate_update(slsAppState *self, double dt);
 void sls_appstate_display(slsAppState *self, double dt);
 
-
-
+void sls_appstate_resize(slsAppState *self, int x, int y);
 
 
 #endif //DANGERENGINE_SLSAPPSTATE_H

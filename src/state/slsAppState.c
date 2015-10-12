@@ -28,6 +28,7 @@
  * The views and conclusions contained in the software and documentation are those
  * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
+#include <renderer/slsshader.h>
 #include "slsAppState.h"
 
 void sls_appstate_keyevent(slsAppState *self,
@@ -163,3 +164,35 @@ void sls_appstate_display(slsAppState *self, double dt)
 
 }
 
+void sls_appstate_resize(slsAppState *self, int x, int y)
+{
+  slsCamera *cam;
+  kmMat4 frustrum;
+
+  float aspect = x/(float)y;
+  if (self->active_camera) {
+    cam = self->active_camera;
+    sls_camera_resize(cam, x, y);
+    frustrum = cam->frustrum;
+  } else {
+    kmMat4OrthographicProjection(&frustrum, -aspect, aspect, -1.0f, 1.0f, -1.0f, 1.0f);
+  }
+
+  if (self->active_shader) {
+    GLuint proj = self->active_shader->uniforms.projection;
+    sls_check(proj == glGetUniformLocation(self->active_shader->program,
+                                           "projection"),
+              "invalid projection location %u", proj);
+
+    glUseProgram(self->active_shader->program);
+
+    glUniformMatrix4fv(proj, 1, GL_FALSE, frustrum.mat);
+
+    if (0) {
+      error:
+      assert(0);
+
+    }
+
+  }
+}

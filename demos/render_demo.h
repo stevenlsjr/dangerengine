@@ -14,10 +14,8 @@
 typedef struct demoData {
   GLuint program;
 
-  GLuint tex;
 
 
-  slsTexture *tex_obj;
   slsShader *shader;
 
   slsTexture *tank_tex;
@@ -32,15 +30,10 @@ typedef struct demoData {
 
   slsIPoint camera_move_input;
 
+  slsEntity *tank;
 
-  slsTransform2D camera;
-  struct {
-    GLint time_;
-    GLint projection;
-    GLint model_view;
-    GLint normal_mat;
-    GLint tex_sample;
-  } uniforms;
+
+  slsCamera camera;
 
 } demoData;
 

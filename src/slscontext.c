@@ -234,7 +234,7 @@ void sls_context_run(slsContext *self)
 
     SDL_GetWindowSize(self->window, &w, &h);
 
-    sls_msg(self, resize, w, h);
+    sls_msg(self, resize, w * 2, h * 2);
   } while (0);
 
 
@@ -291,7 +291,13 @@ void sls_context_iter(slsContext *self)
 void sls_context_resize(slsContext *self, int x, int y)
 {
   glViewport(0, 0, (int) x, (int) y);
+
+  if (self->state){
+    sls_appstate_resize(self->state, x, y);
+  }
+
 }
+
 
 void sls_context_update(slsContext *self, double dt)
 {
@@ -325,6 +331,11 @@ void sls_context_setup(slsContext *self)
   glEnable(GL_POINT_SIZE);
   glEnable(GL_POINT_SPRITE);
 
+  int x, y;
+  SDL_GetWindowSize(self->window, &x, &y);
+
+  sls_msg(self, resize, x * 2, y * 2);
+
 
 
 
@@ -355,7 +366,7 @@ static inline void _sls_context_windowevent(slsContext *self, SDL_WindowEvent co
 {
   switch (we->event) {
     case SDL_WINDOWEVENT_RESIZED: {
-      int w = we->data1, h = we->data2;
+      int w = we->data1 * 2, h = we->data2 * 2;
       sls_msg(self, resize, w, h);
     }
       break;
