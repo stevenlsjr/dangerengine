@@ -96,6 +96,17 @@
 #define sls_log_warn(fmt, ...) sls_debug(stderr, "WARNING", fmt, ##__VA_ARGS__)
 #define sls_log_err(fmt, ...) sls_debug(stderr, "ERROR", fmt, ##__VA_ARGS__)
 
+
+#if defined(__cplusplus)
+#   define SLS_C_ASSERT(cond, msg) static_assert(cond, msg)
+#elif !(defined(__cplusplus)) && defined(__GNUC__)
+#   define SLS_C_ASSERT(cond, msg) _Static_assert(cond, msg)
+#else
+#   define SLS_C_ASSERT(cond, msg)  \
+      typedef char __sls_c_assert_##msg[(cond)?1:-1]
+#endif
+
+
 /**
  * @brief Logs a message, throws an assertion failure, and exits with a failure
  * @detail Used to specify a fatal error

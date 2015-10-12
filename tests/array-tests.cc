@@ -30,7 +30,7 @@ protected:
 
   virtual void TearDown()
   {
-    if (a) { sls_msg(a, dtor); }
+    if (a) { free(sls_msg(a, dtor)); }
   }
 };
 
@@ -124,4 +124,32 @@ TEST_F(ArrayTest, ResizeInsert)
 
   EXPECT_LE(sls_array_length(a) * sls_array_element_size(a), sls_array_alloc_size(a));
 
+}
+
+TEST_F(ArrayTest, Itor)
+{
+  slsArrayItor it;
+  for (slsArrayItor *ip = sls_arrayitor_begin(a, &it);
+       ip;
+       ip = sls_arrayitor_next(ip)) {
+    ASSERT_TRUE(ip && ip->array && ip->elt);
+    auto expect = nums[ip->index];
+    auto val = *static_cast<int*>(ip->elt);
+
+    EXPECT_EQ(expect, val);
+  }
+}
+
+TEST_F(ArrayTest, ForEach)
+{
+  slsArrayItor i;
+  auto ip = &i;
+  SLS_ARRAY_FOREACH(a, ip) {
+
+    ASSERT_TRUE(ip && ip->array && ip->elt);
+    auto expect = nums[ip->index];
+    auto val = *static_cast<int*>(ip->elt);
+
+    EXPECT_EQ(expect, val);
+  }
 }

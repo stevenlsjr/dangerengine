@@ -133,15 +133,17 @@ slsMesh *sls_mesh_init(slsMesh *self,
   self->indices = sls_array_new(indices, sizeof(unsigned), idx_count);
   self->vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
 
+
+
   self->priv = calloc(sizeof(slsMesh_p), 1);
   sls_checkmem(self->priv);
 
-#ifndef SLS_GLES
-  glGenVertexArrays(1, &self->vao);
-#endif
+
 
   glGenBuffers(1, &self->vbo);
   glGenBuffers(1, &self->ibo);
+
+  glGenVertexArrays(1, &self->vao);
 
   return self;
   error:
@@ -164,17 +166,34 @@ void sls_mesh_dtor(slsMesh *self)
   glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
 
 
-#ifndef SLS_GLES
   glDeleteVertexArrays(1, &(self->vao));
-#endif
   free(self);
 }
 
-void sls_mesh_bind(slsMesh *self, slsShader *program)
+
+
+slsVertex *sls_mesh_get_verts(slsMesh *self, size_t *len_out)
+{
+  if (len_out) {
+    *len_out = sls_array_length(self->vertices);
+  }
+  return (slsVertex*)sls_array_get(self->vertices, 0);
+}
+
+uint32_t *sls_mesh_get_indices(slsMesh *self, size_t *len_out)
+{
+  if (len_out) {
+    *len_out = sls_array_length(self->indices);
+  }
+  return (uint32_t *)sls_array_get(self->indices, 0);
+}
+
+
+void sls_mesh_bind(slsMesh *self, slsShader *shader)
 {
   if (!self) { return; }
   // bind gl objects
-  glUseProgram(program);
+  glUseProgram(shader->program);
 
 #ifndef SLS_GLES
   glBindVertexArray(self->vao);
@@ -183,9 +202,9 @@ void sls_mesh_bind(slsMesh *self, slsShader *program)
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  _sls_mesh_binddata(self, program);
+  _sls_mesh_binddata(self, shader->program);
 
-  _sls_mesh_bindattrs(self, program);
+  _sls_mesh_bindattrs(self, shader->program);
 
   // unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -268,6 +287,110 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
 
 }
 
+
+
+
+void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
+{
+
+  self->pre_draw(self, program, dt);
+  self->draw(self, dt);
+  self->post_draw(self, program, dt);
+
+}
+
+
+
+void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
+{
+  glUseProgram(program);
+
+
+  self->is_drawing = SLS_TRUE;
+  // setup vert position pointer
+
+  glBindVertexArray(self->vao);
+
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
+
+}
+
+void sls_mesh_draw(slsMesh *self, double dt)
+{
+
+  size_t elements = sls_array_length(self->indices);
+  glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
+
+}
+
+void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
+{
+  self->is_drawing = SLS_FALSE;
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+}
+
+//---------------------------------mesh generations---------------------------------------
+
+
+
+
+slsVertex *sls_sphere_vertices(size_t n_vertices,
+                               kmVec4 const *color)
+{
+  slsVertex *sphere = NULL;
+
+  size_t sphere_size = n_vertices + 1;
+  sphere = calloc(sphere_size, sizeof(slsVertex));
+
+  for (int i=0; i<n_vertices; ++i) {
+    double theta = (M_PI * 2.0 * (double) i) / (double)n_vertices;
+
+    float pos[3] = {(float)cos(theta), (float)sin(theta), 1.0f};
+
+    slsVertex v =  {.normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}};
+    memcpy(v.position, pos, sizeof(float[3]));
+    v.color[0] = color->x;
+    v.color[1] = color->y;
+    v.color[2] = color->z;
+    v.color[3] = color->w;
+
+
+
+  }
+
+  return sphere;
+}
+
+slsMesh *sls_sphere_mesh(size_t n_vertices,
+                         kmVec4 const *color)
+{
+  slsMesh *m = NULL;
+
+  size_t n_triangles = n_vertices - 2;
+  size_t n_elements = n_triangles * 3;
+  uint32_t *elements = calloc(n_elements + 1, sizeof(uint32_t));
+  slsVertex *verts = sls_sphere_vertices(n_vertices, color);
+
+
+  // naive fan sphere triangulation
+  int starting_pos = 1;
+  for (int i=starting_pos; i<n_triangles; ++i) {
+
+    assert(i + 2 < n_vertices);
+    uint32_t triangle[3] = {0, (uint32_t)i, (uint32_t)i+1};
+
+    memcpy(elements + i, triangle, sizeof(uint32_t[3]));
+  }
+
+  m = sls_mesh_new(verts, n_vertices, elements, n_elements);
+
+  free(elements);
+  free(verts);
+
+  return m;
+}
 
 slsMesh *sls_mesh_create_shape(char const *name)
 {
@@ -353,99 +476,52 @@ slsMesh *sls_mesh_square()
   return sls_mesh_new(verts, n_verts, idxs, n_idx);
 }
 
-void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
+slsMesh *sls_tile_mesh(size_t width, size_t height)
 {
+  size_t quads = width * height;
+  size_t n_verts = quads * 4;
+  size_t n_indices = quads * 6;
 
-  self->pre_draw(self, program, dt);
-  self->draw(self, dt);
-  self->post_draw(self, program, dt);
+  float unit_len = 1.0;
 
-}
+  slsArray *verts = sls_array_new((slsVertex[0]){}, sizeof(slsVertex), 0);
+  slsArray *idx = sls_array_new((uint32_t [0]){}, sizeof(uint32_t), 0);
 
+  for (int j=0; j<height; ++j) {
+    for (int i=0; i<width; ++i) {
+      slsVertex quad[] = {
+          (slsVertex){.position={0.0, 0.0, 0.0}, .uv={0.0, 0.0}},
+          (slsVertex){.position={0.0, 1.0, 0.0}, .uv={0.0, 1.0}},
+          (slsVertex){.position={1.0, 1.0, 0.0}, .uv={1.0, 1.0}},
+          (slsVertex){.position={1.0, 0.0, 0.0}, .uv={1.0, 0.0}},
+      };
 
-slsVertex *sls_sphere_vertices(size_t n_vertices,
-                               kmVec4 const *color)
-{
-  slsVertex *sphere = NULL;
+      uint32_t quad_elems[] = {
+          0, 1, 2,
+          3, 2, 0
+      };
+      for (int x=0; x< sizeof(quad)/ sizeof(slsVertex); ++x){
+        slsVertex *v = quad + x;
+        memcpy(v->normal, ((float[3]){0.0, 0.0, 1.0}), sizeof(float[3]));
+        memcpy(v->color, ((float[4]){1.0, 1.0, 1.0, 1.0}), sizeof(float[4]));
 
-  size_t sphere_size = n_vertices + 1;
-  sphere = calloc(sphere_size, sizeof(slsVertex));
+        v->position[0] *= (float)i * unit_len;
+        v->position[1] *= (float)j * unit_len;
+        sls_array_append(verts, v);
+      }
+      size_t current_idx_count = sls_array_length(idx);
 
-  for (int i=0; i<n_vertices; ++i) {
-    double theta = (M_PI * 2.0 * (double) i) / (double)n_vertices;
+      for (int x=0; i< sizeof(quad_elems)/sizeof(slsVertex); ++x) {
+        uint32_t *e = quad_elems + x;
+        *e += current_idx_count;
+        sls_array_append(idx, e);
 
-    float pos[3] = {(float)cos(theta), (float)sin(theta), 1.0f};
+      }
+    }
 
-    slsVertex v =  {.normal={0.0, 0.0, 1.0}, .uv={0.0, 0.0}};
-    memcpy(v.position, pos, sizeof(float[3]));
-    v.color[0] = color->x;
-    v.color[1] = color->y;
-    v.color[2] = color->z;
-    v.color[3] = color->w;
-
-
-
+    free(verts->dtor(verts));
+    free(idx->dtor(idx));
   }
 
-  return sphere;
-}
-
-slsMesh *sls_sphere_mesh(size_t n_vertices,
-                         kmVec4 const *color)
-{
-  slsMesh *m = NULL;
-
-  size_t n_triangles = n_vertices - 2;
-  size_t n_elements = n_triangles * 3;
-  uint32_t *elements = calloc(n_elements + 1, sizeof(uint32_t));
-  slsVertex *verts = sls_sphere_vertices(n_vertices, color);
-
-
-  // naive fan sphere triangulation
-  int starting_pos = 1;
-  for (int i=starting_pos; i<n_triangles; ++i) {
-
-    assert(i + 2 < n_vertices);
-    uint32_t triangle[3] = {0, (uint32_t)i, (uint32_t)i+1};
-
-    memcpy(elements + i, triangle, sizeof(uint32_t[3]));
-  }
-
-  m = sls_mesh_new(verts, n_vertices, elements, n_elements);
-
-  free(elements);
-  free(verts);
-
-  return m;
-}
-
-
-void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
-{
-  glUseProgram(program);
-
-
-  self->is_drawing = SLS_TRUE;
-  // setup vert position pointer
-
-  glBindVertexArray(self->vao);
-
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
-
-}
-
-void sls_mesh_draw(slsMesh *self, double dt)
-{
-
-  size_t elements = sls_array_length(self->indices);
-  glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
-
-}
-
-void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
-{
-  self->is_drawing = SLS_FALSE;
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+  return NULL;
 }

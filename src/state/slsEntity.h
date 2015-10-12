@@ -51,6 +51,7 @@ struct slsEntity {
   char *name;
   slsTransform2D transform;
 
+
   //---------------------------------polymorphic components---------------------------------
 
   slsComponentMask component_mask;
@@ -60,7 +61,7 @@ struct slsEntity {
   slsMesh *mesh;
   bool mesh_is_owned; // flags whether entity manages mesh memory
 
-  slsShader *material;
+  slsShader *shader;
   bool material_is_owned;
 
   slsTexture *texture;

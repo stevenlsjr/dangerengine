@@ -67,7 +67,7 @@ void main()
 {
   frag_color = color;
   frag_uv = uv;
-  gl_Position = vec4(position, 1.0f);
+  gl_Position = projection * model_view * vec4(position, 1.0f);
 }
 
 

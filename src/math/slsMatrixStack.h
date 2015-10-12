@@ -84,21 +84,30 @@ void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size);
 //------------------------------------------------------------------------
 
 
-slsMatrixStack *sls_glmat_defaultinit(slsMatrixStack *self)SLS_NONNULL(1);
+slsMatrixStack *sls_matrix_glinit(slsMatrixStack *self)SLS_NONNULL(1);
 
-void sls_glmat_identity(slsMatrixStack *self);
+void sls_matrix_glidentity(slsMatrixStack *self);
 
-void sls_glmat_translate(slsMatrixStack *self, kmVec3 translation);
+void sls_matrix_gltranslate(slsMatrixStack *self, kmVec3 translation);
 
-void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling);
+void sls_matrix_glscale(slsMatrixStack *self, kmVec3 scaling);
 
 /**
  * @brief pushes a copy of top to stack
  */
-void sls_glmat_push(slsMatrixStack *self);
+void sls_matrix_glpush(slsMatrixStack *self);
 
-void sls_glmat_bind_top(slsMatrixStack *self, GLuint program, GLuint uniform);
 
-void sls_glmat_reset(slsMatrixStack *self);
+/**
+ * @binds the top matrix to model view.
+ * @detail Also pushes transposed inverse model view as normal
+ * matrix.
+ */
+void sls_matrix_glbind(slsMatrixStack *self,
+                       GLuint program,
+                       GLuint model_view_u,
+                       GLuint normat_mat_u);
+
+void sls_matrix_glreset(slsMatrixStack *self);
 
 #endif //DANGERENGINE_SLSMATRIXSTACK_H

@@ -35,9 +35,17 @@
 #define SLS_MATRIXSTACK_DEFAULTSIZE 16
 
 
+static slsMatrixStack sls_matrix_stack_protoi = {
+    .matrices = 0,
+    .n_matrices = 0,
+    .n_alloced = 0
+};
+
 slsMatrixStack *sls_matrix_stack_init(slsMatrixStack *self,
                                       size_t initial_size)
 {
+
+  *self = sls_matrix_stack_protoi;
 
   if (initial_size < 2) {
     initial_size = SLS_MATRIXSTACK_DEFAULTSIZE;
@@ -74,7 +82,9 @@ kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self,
 {
   sls_check(self->matrices, "matrix array is NULL");
 
-  *out = self->matrices[self->n_matrices];
+  if (out) {
+    *out = self->matrices[self->n_matrices];
+  }
   --self->n_matrices;
 
   return out;
@@ -85,7 +95,6 @@ kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self,
 
 void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
 {
-
 
   if (self->n_matrices == self->n_alloced) {
     size_t new_size = (size_t) (self->n_alloced * SLS_MATRIXSTACK_RESIZE_MULTIPLYER);
@@ -109,11 +118,11 @@ void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
 void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size)
 {
   // don't resize to less than number of items
-  if (size <= self->n_matrices) {return;}
+  if (size <= self->n_matrices) { return; }
 
   // only resize if desired size is bigger or significantly smaller than
   // current allocated size
-  if (size > self->n_alloced || size < (self->n_alloced/2)) {
+  if (size > self->n_alloced || size < (self->n_alloced / 2)) {
     self->matrices = realloc(self->matrices, size * sizeof(kmMat4));
 
     sls_checkmem(self->matrices);
@@ -128,7 +137,10 @@ void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size)
 
 kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self)
 {
-  return self->matrices + self->n_matrices - 1;
+
+  return (self->n_matrices > 0 )?
+         self->matrices + self->n_matrices - 1:
+         NULL;
 }
 
 
@@ -137,7 +149,7 @@ kmMat4 *sls_matrix_stack_mutpeek(slsMatrixStack *self)
   return self->matrices + self->n_matrices;
 }
 
-slsMatrixStack *sls_glmat_defaultinit(slsMatrixStack *self)
+slsMatrixStack *sls_matrix_glinit(slsMatrixStack *self)
 {
   const size_t init_size = 8;
   self = sls_matrix_stack_init(self, init_size);
@@ -149,7 +161,7 @@ slsMatrixStack *sls_glmat_defaultinit(slsMatrixStack *self)
 }
 
 
-void sls_glmat_translate(slsMatrixStack *self, kmVec3 translation)
+void sls_matrix_gltranslate(slsMatrixStack *self, kmVec3 translation)
 {
   kmMat4 *top = sls_matrix_stack_peek(self);
 
@@ -161,7 +173,7 @@ void sls_glmat_translate(slsMatrixStack *self, kmVec3 translation)
 
 }
 
-void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling)
+void sls_matrix_glscale(slsMatrixStack *self, kmVec3 scaling)
 {
   kmMat4 *top = sls_matrix_stack_peek(self);
   kmMat4 tmp = *top;
@@ -171,35 +183,47 @@ void sls_glmat_scale(slsMatrixStack *self, kmVec3 scaling)
   kmMat4Multiply(top, &m, &tmp);
 }
 
-void sls_glmat_push(slsMatrixStack *self)
+void sls_matrix_glpush(slsMatrixStack *self)
 {
-  sls_matrix_stack_push(self, sls_matrix_stack_peek(self));
+  if (self->n_matrices > 0) {
+    sls_matrix_stack_push(self, sls_matrix_stack_peek(self));
+  } else {
+    kmMat4 m;
+    kmMat4Identity(&m);
+    sls_matrix_stack_push(self, &m);
+  }
 
 }
 
-void sls_glmat_identity(slsMatrixStack *self)
+void sls_matrix_glidentity(slsMatrixStack *self)
 {
   kmMat4 *top = self->matrices + self->n_matrices;
 
   kmMat4Identity(top);
 }
 
-void sls_glmat_bind_top(slsMatrixStack *self,
-                        GLuint program,
-                        GLuint uniform)
+
+void sls_matrix_glbind(slsMatrixStack *self,
+                       GLuint program,
+                       GLuint model_view_u,
+                       GLuint normat_mat_u)
 {
 
   glUseProgram(program);
 
+  kmMat4 tmp, normal;
 
   kmMat4 *top = sls_matrix_stack_peek(self);
-  glUniformMatrix4fv(uniform, 1, GL_FALSE, top->mat);
+  glUniformMatrix4fv(model_view_u, 1, GL_FALSE, top->mat);
 
+  kmMat4Inverse(&tmp, top);
+  kmMat4Transpose(&normal, &tmp);
+  glUniformMatrix4fv(normat_mat_u, 1, GL_FALSE, normal.mat);
 
   glUseProgram(0);
 }
 
-void sls_glmat_reset(slsMatrixStack *self)
+void sls_matrix_glreset(slsMatrixStack *self)
 {
   self->n_matrices = 1;
   kmMat4Identity(self->matrices);

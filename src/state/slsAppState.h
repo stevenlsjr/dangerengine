@@ -76,6 +76,7 @@ struct slsAppState {
 
   slsMatrixStack model_view;
   kmMat4 projection;
+  kmMat4 active_cameraview;
 
   slsEntity *root;
 
@@ -93,9 +94,10 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) SLS_N
 
 slsAppState *sls_appstate_dtor(slsAppState *self);
 
+void sls_appstate_update(slsAppState *self, double dt);
+void sls_appstate_display(slsAppState *self, double dt);
 
-void sls_appstate_setup(slsAppState *self);
-void sls_appstate_teardown(slsAppState *self);
+
 
 
 

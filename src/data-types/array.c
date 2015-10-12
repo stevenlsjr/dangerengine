@@ -46,7 +46,7 @@ slsArray *sls_array_init(slsArray *self,
                          size_t element_size,
                          size_t n_elements);
 
-slsArray * sls_array_dtor(slsArray *self);
+slsArray *sls_array_dtor(slsArray *self);
 
 
 struct slsArray_p {
@@ -130,7 +130,7 @@ size_t sls_array_length(slsArray const *self)
   return 0;
 }
 
-slsArray * sls_array_dtor(slsArray *self)
+slsArray *sls_array_dtor(slsArray *self)
 {
   if (!self) { return NULL; }
   if (self->priv) {
@@ -253,3 +253,26 @@ void sls_array_reserve(slsArray *self, size_t count)
 
 }
 
+slsArrayItor *sls_arrayitor_begin(slsArray *self, slsArrayItor *itor)
+{
+  *itor = (slsArrayItor) {
+      .array = self,
+      .index = 0,
+      .elt = sls_array_get(self, 0)};
+  return itor;
+}
+
+slsArrayItor *sls_arrayitor_next(slsArrayItor *self)
+{
+  size_t next = self->index + 1;
+  sls_checkmem(self->array && self->array->priv);
+  if (next >= self->array->priv->length) {
+    return NULL;
+  }
+  self->index = next;
+  self->elt = self->array->priv->array + (self->index * self->array->priv->element_size);
+  return self;
+
+  error:
+  return NULL;
+}

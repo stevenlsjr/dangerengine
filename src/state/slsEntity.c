@@ -10,6 +10,7 @@
 
 slsEntity *sls_entity_dtor(slsEntity *self) SLS_NONNULL(1);
 
+
 slsEntity const *sls_entity_class()
 {
   static slsEntity klass = {
@@ -49,6 +50,12 @@ slsEntity *sls_entity_init(slsEntity *self,
   self->name = apr_pstrdup(self->pool, name);
   sls_checkmem(self->name);
 
+
+  self->transform = (slsTransform2D) {
+      .pos = (kmVec2){0.0, 0.0},
+      .scale = (kmVec2){1.0, 1.0},
+      .rot = 0.0
+  };
 
   return self;
   error:
@@ -177,19 +184,11 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
   }
 
   slsMatrixStack *mv = &state->model_view;
-  sls_glmat_push(mv);
 
-  if (self == state->root) {
-    sls_glmat_identity(mv);
-  }
+  sls_drawable_transform(self, state, dt);
+  sls_matrix_glpush(mv);
 
-  sls_glmat_scale(mv, (kmVec3){self->transform.scale.x, self->transform.scale.y, 1.0});
 
-  sls_glmat_translate(mv, (kmVec3){self->transform.pos.x,
-                                   self->transform.pos.y,
-                                   0.0});
-
-  sls_glmat_bind_top(mv, self->material->program, self->material->uniforms.model_view);
   sls_checkmem(apr_pool_create(&pool, self->pool) == APR_SUCCESS);
 
   for (itor = apr_hash_first(pool, self->children);

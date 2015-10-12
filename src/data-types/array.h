@@ -43,11 +43,21 @@
 #include <stddef.h>
 
 #include <stdlib.h>
+#include <slsutils.h>
 #include "callbacks.h"
 
 typedef struct slsArray slsArray;
 typedef struct slsArray_p slsArray_p;
 
+
+typedef struct slsArrayItor slsArrayItor;
+
+struct slsArrayItor {
+  slsArray *array;
+
+  void *elt;
+  size_t index;
+};
 
 struct slsArray {
 
@@ -80,6 +90,10 @@ size_t sls_array_length(slsArray const *self);
 size_t sls_array_element_size(slsArray const *self);
 
 void *sls_array_get(slsArray *self, size_t i);
+
+/**
+ * @brief Const-correct variation of sls_array_get
+ */
 void const *sls_array_cget(slsArray const *self, size_t i);
 
 /**
@@ -94,6 +108,7 @@ void const *sls_array_cget(slsArray const *self, size_t i);
 void sls_array_set(slsArray *self, size_t i, void *value);
 
 size_t sls_array_alloc_size(slsArray *self);
+
 void sls_array_reserve(slsArray *self, size_t count);
 
 /**
@@ -104,11 +119,16 @@ void sls_array_reserve(slsArray *self, size_t count);
  * @param value pointer to value
  */
 void sls_array_insert(slsArray *self, size_t i, void *value);
-void sls_array_insert_array(slsArray *self, size_t i, const void *data)
+
+void sls_array_insert_array(slsArray *self, size_t i, const void *data);
 
 void sls_array_append(slsArray *self, void *value);
 
 slsArray *sls_array_copy(slsArray const *self);
+
+slsArrayItor *sls_arrayitor_begin(slsArray *self, slsArrayItor *itor) SLS_NONNULL(1, 2);
+
+slsArrayItor *sls_arrayitor_next(slsArrayItor *self) SLS_NONNULL(1);
 
 /**
  * @brief convenience method for retrieving index values.
@@ -118,5 +138,11 @@ slsArray *sls_array_copy(slsArray const *self);
 #define SLS_ARRAY_IDX(array, T, idx)  \
  (*((T*)(sls_array_get((array),       \
                        (idx)))))
+
+
+#define SLS_ARRAY_FOREACH(array, itor)                  \
+  for ((itor) = sls_arrayitor_begin((array), (itor));   \
+       (itor);                                          \
+       (itor) = sls_arrayitor_next((itor)))
 
 #endif //DANGERENGINE_ARRAY_H

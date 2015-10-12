@@ -69,13 +69,15 @@ slsSprite *sls_init_sprite(slsEntity *self,
   self->mesh = sls_mesh_square();
   self->mesh_is_owned = true;
 
-  self->material = shader;
+  self->shader = shader;
   if (!shader) {
     self->component_mask &= ~SLS_COMPONENT_MATERIAL;
   }
 
-  sls_msg(self->mesh, bind, self->material);
+  self->texture = tex;
 
+  sls_msg(self->mesh, bind, self->shader);
+  sls_msg(self->texture, set_program, self->shader->program);
 
   return self;
 

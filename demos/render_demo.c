@@ -4,6 +4,7 @@
 
 #include "render_demo.h"
 #include <assert.h>
+#include <renderer/slsshader.h>
 
 
 void demo_update_modelview(slsContext *self,
@@ -106,7 +107,16 @@ void demo_setup_textures(slsContext *self)
   char const *img_path = "resources/free-textures/176.jpg";
   char const *norm_path = "resources/free-textures/176_norm.jpg";
 
+
   data->tex_obj = sls_texture_new(img_path, NULL, norm_path);
+
+  data->tank_tex = sls_texture_new("resources/art/tankBeige_outline.png",
+                                   "resources/art/tankBeige_specular.png",
+                                   "resources/art/tankBeige_normal.png");
+
+  data->barrel_tex = sls_texture_new("resources/art/barrelBeige_outline.png",
+                                   "resources/art/barrelBeige_specular.png",
+                                   "resources/art/barrelBeige_normal.png");
 
   data->tex = sls_gltex_from_file(img_path, -1, -1);
 }
@@ -133,7 +143,7 @@ void demo_setup_scene(slsContext *self)
   sprite = sls_init_sprite(sprite,
                            self->state,
                            self->pool, "sprite_a",
-                           data->tex_obj,
+                           data->tank_tex,
                            data->shader);
 
 
@@ -234,16 +244,11 @@ void demo_context_display(slsContext *self, double dt)
 
   GLint time = glGetUniformLocation(data->program, "time");
 
-
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, data->tex);
-
   float t = clock() / (float) CLOCKS_PER_SEC;
   glUniform1f(time, t);
 
   sls_entity_display(self->state->root, self->state, dt);
 
-  glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void demo_context_teardown(slsContext *self)
@@ -254,6 +259,10 @@ void demo_context_teardown(slsContext *self)
 
     glDeleteProgram(data->program);
     glDeleteTextures(1, &data->tex);
+
+    sls_msg(data->tex_obj, dtor);
+    sls_msg(data->tank_tex, dtor);
+    sls_msg(data->barrel_tex, dtor);
 
     sls_shader_dtor(data->shader);
     free(data);
@@ -280,7 +289,7 @@ void demo_context_resize(slsContext *self, int x, int y)
 
     }
 
-    glUniformMatrix4fv(data->shader->program, 1, GL_FALSE, projection.mat);
+    glUniformMatrix4fv(data->shader->uniforms.projection, 1, GL_FALSE, projection.mat);
   }
 }
 

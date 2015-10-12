@@ -55,7 +55,7 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
   SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
 
   kmMat4Identity(&self->projection);
-  sls_glmat_defaultinit(&self->model_view);
+  sls_matrix_glinit(&self->model_view);
 
 
   return self;
@@ -152,4 +152,14 @@ void sls_appstate_clearinput(slsAppState *self)
 
 }
 
+
+void sls_appstate_update(slsAppState *self, double dt)
+{
+
+}
+
+void sls_appstate_display(slsAppState *self, double dt)
+{
+
+}
 

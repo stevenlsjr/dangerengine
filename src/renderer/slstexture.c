@@ -286,8 +286,8 @@ GLuint sls_gltex_from_surface(SDL_Surface *surface)
 
   gl_type = GL_UNSIGNED_BYTE;
 
-  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
   sls_check(surface->pixels, "no pixel vertex");

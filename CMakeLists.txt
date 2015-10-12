@@ -83,7 +83,7 @@ set(DANGER_TEST_SRC
   tests/image_tests.cc
   tests/hash-tests.cc
   tests/ptrarray-tests.cc
-  tests/array-tests.cc)
+  tests/array-tests.cc tests/list-tests.cc)
 
 
 set(DANGER_DEMO_SRC

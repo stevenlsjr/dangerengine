@@ -300,7 +300,7 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
-  sls_glmat_reset(&self->state->model_view);
+  sls_matrix_glreset(&self->state->model_view);
 }
 
 void sls_context_setup(slsContext *self)
@@ -325,7 +325,7 @@ void sls_context_setup(slsContext *self)
   glEnable(GL_POINT_SIZE);
   glEnable(GL_POINT_SPRITE);
 
-  //glEnable(GL_SCISSOR_TEST);
+
 
 
 }
@@ -336,6 +336,7 @@ void sls_context_setupstate(slsContext *self)
     self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
   }
   self->state = sls_appstate_init(self->state, self->pool);
+
 }
 
 void sls_context_pollevents(slsContext *self)

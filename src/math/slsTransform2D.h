@@ -17,6 +17,7 @@ struct slsTransform2D {
 
 struct slsKinematic2D {
   float mass;
+  kmVec2 velocity;
 
 
   float rotational_inertia;
@@ -29,5 +30,7 @@ slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b);
 slsBool sls_transform2D_near(slsTransform2D const *a,
                              slsTransform2D const *b,
                              float epsilon);
+
+
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

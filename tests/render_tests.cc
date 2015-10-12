@@ -51,8 +51,9 @@ protected:
   slsContext *ctx = nullptr;
   slsMesh *mesh = nullptr;
   slsTexture *tex = nullptr;
-
   GLuint program;
+
+  slsShader shader;
 
 
   virtual void SetUp()
@@ -62,20 +63,21 @@ protected:
     EXPECT_TRUE(ctx) << "ctx is null";
     sls_msg(ctx, setup);
 
-    mesh = sls_mesh_create_shape("square");
+    mesh = sls_mesh_square();
     tex = make_texture();
+
     program = make_program();
+    sls_shader_init(&shader, ctx->pool, program);
 
 
     sls_msg(tex, set_program, program);
-    //sls_msg(mesh, bind, program);
+    sls_msg(mesh, bind, &shader);
 
 
   }
 
   virtual void TearDown()
   {
-    sls_msg(ctx, dtor);
 
     if (mesh) {
       sls_msg(mesh, dtor);
@@ -84,8 +86,12 @@ protected:
       sls_msg(tex, dtor);
     }
 
+
+    shader.dtor(&shader);
     glDeleteProgram(program);
 
+
+    sls_msg(ctx, dtor);
     sls_terminate();
   }
 

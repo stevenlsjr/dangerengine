@@ -96,6 +96,7 @@ struct slsMesh {
    */
   slsArray *indices;
 
+
   GLuint vbo, ibo;
   GLuint vao;
 
@@ -118,7 +119,7 @@ slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t idx_count);
 
 
-slsMesh *sls_mesh_create_shape(char const *name);
+slsMesh *sls_mesh_create_shape(char const *name) __attribute__((deprecated));
 
 slsMesh * sls_mesh_square();
 
@@ -130,6 +131,11 @@ slsVertex *sls_sphere_vertices(size_t n_vertices,
 
 slsMesh *sls_sphere_mesh(size_t n_vertices,
                          kmVec4 const *color);
+
+slsMesh *sls_tile_mesh(size_t width, size_t height);
+
+slsVertex *sls_mesh_get_verts(slsMesh *self, size_t *len_out);
+uint32_t *sls_mesh_get_indices(slsMesh *self, size_t *len_out);
 
 #endif //DANGERENGINE_SLS_MESH_H
 
