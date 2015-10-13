@@ -57,6 +57,8 @@ out vec3 frag_pos;
 out vec3 frag_normal;
 out vec4 frag_color;
 out vec2 frag_uv;
+out vec3 frag_viewdir;
+
 
 
 void main()
@@ -66,11 +68,14 @@ void main()
 
   frag_color = color;
 
-  frag_normal = normal;
+  frag_normal  = normal;
+  frag_viewdir = (normal_mat * vec4(normal, 0.0)).xyz;
 
   frag_uv = uv;
 
   frag_pos = vec3(model_view * vec4(position, 1.0));
+  frag_pos.z = 0.0;
+
   gl_Position = projection * model_view * vec4(position, 1.0f);
 }
 

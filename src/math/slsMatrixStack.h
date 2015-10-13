@@ -65,14 +65,13 @@ slsMatrixStack *sls_matrix_stack_init(slsMatrixStack *self,
 
 slsMatrixStack *sls_matrix_stack_dtor(slsMatrixStack *self)SLS_NONNULL(1);
 
-kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self, kmMat4 *out)SLS_NONNULL(1, 2);
+kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self, kmMat4 *out)SLS_NONNULL(1);
 
 void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in) SLS_NONNULL(1, 2);
 
 
 kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self) SLS_NONNULL(1);
 
-kmMat4 *sls_matrix_stack_mutpeek(slsMatrixStack *self) SLS_NONNULL(1);
 
 void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size);
 
@@ -91,6 +90,10 @@ void sls_matrix_glidentity(slsMatrixStack *self);
 void sls_matrix_gltranslate(slsMatrixStack *self, kmVec3 translation);
 
 void sls_matrix_glscale(slsMatrixStack *self, kmVec3 scaling);
+
+void sls_matrix_glrotate(slsMatrixStack *self, kmQuaternion *rotation);
+
+void sls_matrix_glmultiply(slsMatrixStack *self, kmMat4 *mat);
 
 /**
  * @brief pushes a copy of top to stack

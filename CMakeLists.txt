@@ -68,7 +68,7 @@ set(DANGER_SRC
   src/state/slsEntityDraw.c
   src/state/slsEntityDraw.h
   src/math/slsCamera.c
-  src/math/slsCamera.h)
+  src/math/slsCamera.h src/state/slsBehavior.c src/state/slsBehavior.h src/state/resourceutils.c src/state/resourceutils.h)
 
 
 # tests compiled in c
@@ -93,7 +93,7 @@ set(DANGER_TEST_SRC
 set(DANGER_DEMO_SRC
   demos/exec.c
   demos/render_demo.c
-  demos/render_demo.h)
+  demos/render_demo.h demos/slsTank.c demos/slsTank.h)
 
 #--------------------------------------------
 #-------------project config-----------------

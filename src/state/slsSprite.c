@@ -45,7 +45,6 @@
  *================================*/
 
 static slsComponentMask sprite_mask =
-    SLS_COMPONENT_STATEACCESS |
     SLS_COMPONENT_TEXTURE |
     SLS_COMPONENT_KINETIC |
     SLS_COMPONENT_BOUNDED |
@@ -58,7 +57,8 @@ bool sls_is_spriteentity(slsEntity *entity)
 }
 
 slsSprite *sls_init_sprite(slsEntity *self,
-                           slsAppState *state, apr_pool_t *parent_pool, char const *name,
+                           slsAppState *state,
+                           apr_pool_t *parent_pool, char const *name,
                            slsTexture *tex,
                            slsShader *shader)
 {

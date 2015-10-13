@@ -123,7 +123,7 @@ function getWidthOrHeight( elem, name, extra ) {
 			val = elem.style[ name ];
 		}
 
-		// Computed unit is not pixels. Stop here and return.
+		// Computed gltex is not pixels. Stop here and return.
 		if ( rnumnonpx.test(val) ) {
 			return val;
 		}

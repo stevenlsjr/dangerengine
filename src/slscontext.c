@@ -229,16 +229,14 @@ void sls_context_run(slsContext *self)
 
 
   // setup render size
-  do {
-    int x, y, w, h;
+  int x, y, w, h;
 
-    SDL_GetWindowSize(self->window, &w, &h);
+  SDL_GetWindowSize(self->window, &w, &h);
 
-    sls_msg(self, resize, w * 2, h * 2);
-  } while (0);
+  sls_msg(self, resize, w * 2, h * 2);
 
 
-  // use a simple run loop (loop execution encapsulated in iter method)
+  sls_msg(self, display, 0.0);
   while (self->is_running) {
     sls_msg(self, iter);
   }
@@ -269,8 +267,11 @@ void sls_context_iter(slsContext *self)
 
   if (priv->dt_acc > self->interval) {
 
+
     double dt = priv->dt_acc / (double) CLOCKS_PER_SEC;
     priv->dt_acc = 0;
+
+
     sls_msg(self, update, dt);
 
     glClear(GL_COLOR_BUFFER_BIT |
@@ -292,7 +293,7 @@ void sls_context_resize(slsContext *self, int x, int y)
 {
   glViewport(0, 0, (int) x, (int) y);
 
-  if (self->state){
+  if (self->state) {
     sls_appstate_resize(self->state, x, y);
   }
 
@@ -331,12 +332,12 @@ void sls_context_setup(slsContext *self)
   glEnable(GL_POINT_SIZE);
   glEnable(GL_POINT_SPRITE);
 
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   int x, y;
   SDL_GetWindowSize(self->window, &x, &y);
 
   sls_msg(self, resize, x * 2, y * 2);
-
-
 
 
 }

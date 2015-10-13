@@ -8,17 +8,36 @@
 #include "../slsutils.h"
 #include <kazmath/kazmath.h>
 
+typedef  struct slsEntity slsEntity;
+
+
 typedef struct slsTransform2D slsTransform2D;
+typedef  struct slsKinematic2D slsKinematic2D;
+
+
 struct slsTransform2D {
   kmVec2 pos;
   kmVec2 scale;
   float rot;
+
+  int z_layer;
+
+  kmMat4 model_view;
 };
 
 struct slsKinematic2D {
   float mass;
   kmVec2 velocity;
 
+  /**
+   * @brief coefficient of friction for linear motion
+   */
+  float linear_drag;
+
+  /**
+   * @brief coefficient of friction for rotational motion
+   */
+  float rotational_drag;
 
   float rotational_inertia;
   float rotational_speed;
@@ -32,5 +51,9 @@ slsBool sls_transform2D_near(slsTransform2D const *a,
                              float epsilon) SLS_NONNULL(1, 2);
 
 slsTransform2D *sls_transform2d_init(slsTransform2D *self) SLS_NONNULL(1);
+
+slsTransform2D sls_transform2d_local2world(slsEntity *entity) SLS_NONNULL(1);
+
+
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

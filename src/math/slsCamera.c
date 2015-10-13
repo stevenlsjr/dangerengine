@@ -43,8 +43,8 @@ slsCamera *sls_camera_init(slsCamera *self)
   sls_transform2d_init(&self->transform);
 
 
-  self->ortho.far = -1.0;
-  self->ortho.near = 1.0;
+  self->ortho.far = (float)-50.0;
+  self->ortho.near = (float)50.0;
 
   return self;
 }

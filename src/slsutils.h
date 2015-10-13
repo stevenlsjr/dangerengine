@@ -30,7 +30,8 @@
 #ifndef _MSC_VER
 /**
  * @brief Tags a function as non-null
- * @param (param, ...)
+ * @param (param, ...) indices of non-null parameters. For some reason,
+ * gcc's nonnull extension uses 1-indexing, so that's that.
  */
 #   define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
 #   define SLS_DEPRECIATED __attribute__((depreciated))

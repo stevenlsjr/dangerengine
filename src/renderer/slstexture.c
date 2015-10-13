@@ -132,10 +132,9 @@ slsTexture *sls_texture_init(slsTexture *self,
        ++i) {
 
     struct tmp_tuple const tup = tups[i];
-    tup.pair->is_bound = SLS_FALSE;
 
     if (tup.path) {
-      tup.pair->unit = sls_gltex_from_file(tup.path,
+      tup.pair->gltex = sls_gltex_from_file(tup.path,
                                            width,
                                            height);
 
@@ -220,16 +219,20 @@ void sls_texture_bind(slsTexture *self)
   if (!self) { return; }
   glUseProgram(self->priv->program);
 
-  slsTexPair *pairs[] = {&self->diffuse,
-                         &self->specular,
-                         &self->normal};
+  slsTexPair pairs[] = {self->diffuse,
+                        self->specular,
+                        self->normal};
+
+  GLenum textures[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
 
   for (size_t i = 0; i < sizeof(pairs) / sizeof(slsTexPair); ++i) {
-    slsTexPair *p = pairs[i];
+    slsTexPair *p = pairs + i;
+
     if (p && p->is_active) {
+      glActiveTexture(textures[i]);
+
       glUniform1i(p->uniform, (GLint) i);
-      glBindTexture(GL_TEXTURE_2D, p->unit);
-      p->is_bound = SLS_TRUE;
+      glBindTexture(GL_TEXTURE_2D, p->gltex);
     }
   }
 }

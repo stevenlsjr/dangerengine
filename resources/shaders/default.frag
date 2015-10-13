@@ -36,8 +36,8 @@
  *----------------------------*/
 
 struct Light {
-  vec3 position;
-  vec4 color;
+  vec4 position;
+  vec3 color;
   float attenuation;
 };
 
@@ -48,6 +48,8 @@ in vec4 frag_color;
 in vec2 frag_uv;
 in vec3 frag_normal;
 
+in vec3 frag_transformed_normal;
+
 uniform mat4 model_view;
 uniform mat4 normal_mat;
 uniform mat4 projection;
@@ -57,7 +59,7 @@ uniform sampler2D diffuse_map;
 uniform sampler2D specular_map;
 uniform sampler2D normal_map;
 
-const float ambient_str = 0.25;
+const float ambient_str = 0.01;
 
 
 /**
@@ -72,20 +74,39 @@ Light sample_source();
 void main()
 {
   Light l = sample_source();
-  vec4 tex_color = bgra_to_rgba(texture(diffuse_map, frag_uv));
-  vec4 material_color = tex_color * frag_color;
+  vec4 texel_color = bgra_to_rgba(texture(diffuse_map, frag_uv));
+  vec3 texel_norm = bgra_to_rgba(texture(normal_map, frag_uv)).xyz;
+  vec3 texel_spec = bgra_to_rgba(texture(specular_map, frag_uv)).xyz;
+  float spec = (texel_spec.r + texel_spec.g + texel_spec.b) / 3.0;
 
-  vec4 ambient = l.color * ambient_str;
+
+  vec4 material_color = texel_color * frag_color;
+
+  if (material_color.a < 0.001) {discard;}
+
+  vec3 ambient = (l.color * ambient_str).xyz;
 
 
-  vec4 norm = vec4(normalize(frag_normal * texture(normal_map, frag_uv).xyz), 0.0);
-  vec4 light_dir = vec4(normalize(l.position - frag_pos), 0.0);
+  // diffuse light
+
+
+  vec4 norm = (vec4(normalize(texel_norm), 0.0));
+  vec4 light_dir =
+    vec4(normalize(l.position.xyz - frag_pos), clamp(l.position.w, 0.0, 1.0));
 
   float diff_value = max(dot(norm, light_dir), 0.0);
 
-  vec4 diffuse_color = l.color * diff_value;
+  vec3 diffuse_color = l.color * diff_value * material_color.xyz;
 
-  color = (diffuse_color + ambient) * material_color;
+  // specular light
+
+
+
+  vec3 specular_color = vec3(0.0, 0.0, 0.0);
+
+  color = vec4(diffuse_color + specular_color + ambient, material_color.a) ;
+
+  //color = norm;
 }
 
 
@@ -93,8 +114,8 @@ Light sample_source()
 {
   Light l;
 
-  l.position = vec3(2.0, 0.0, 1);
-  l.color = vec4(1.0, 0.5, 0.5, 1.0);
+  l.position = vec4(0.0, 0.5, 0.2, 1.0);
+  l.color = vec3(1.0, 1.0, 1.0);
   l.attenuation = 1.0;
 
   return l;

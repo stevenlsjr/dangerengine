@@ -198,7 +198,7 @@ var requirejs, require, define;
             checkLoadedTimeoutId,
             config = {
                 //Defaults. Do not set a default for map
-                //config to speed up normalize(), which
+                //config to max_speed up normalize(), which
                 //will run faster if there is no default.
                 waitSeconds: 7,
                 baseUrl: './',
@@ -209,7 +209,7 @@ var requirejs, require, define;
                 config: {}
             },
             registry = {},
-            //registry of just enabled modules, to speed
+            //registry of just enabled modules, to max_speed
             //cycle breaking code when lots of modules
             //are registered, but not activated.
             enabledRegistry = {},

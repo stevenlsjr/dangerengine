@@ -71,6 +71,7 @@ struct slsShader {
   } attributes;
 
   GLuint program;
+  bool owns_program;
 
   apr_pool_t *pool;
   void *data;

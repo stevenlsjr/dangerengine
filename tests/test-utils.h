@@ -13,7 +13,7 @@ namespace sls {
 
 /**
  * @brief executes a function with stderr redirected to dev/null
- * @detail used for unit testing to silence expected warning logs
+ * @detail used for gltex testing to silence expected warning logs
  * note: this is only intened for c stdio functions. I have not tested it
  * for silencing c++ std::cerr streams
  *

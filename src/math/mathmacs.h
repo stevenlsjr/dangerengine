@@ -47,5 +47,17 @@ static inline bool sls_nearf(float a, float b, float epsilon)
   return fabs(a - b) < epsilon;
 }
 
+#define SLS_MIN(a, b) ({ \
+  typeof(a) __a = (a); \
+  typeof(b) __b = (b); \
+  __a < __b? __a: __b; \
+})
+
+#define SLS_MAX(a, b) ({ \
+  typeof(a) __a = (a); \
+  typeof(b) __b = (b); \
+  __a > __b? __a: __b; \
+})
+
 
 #endif //DANGERENGINE_MATHMACS_H

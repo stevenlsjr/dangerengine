@@ -20,6 +20,7 @@ typedef struct demoData {
 
   slsTexture *tank_tex;
   slsTexture *barrel_tex;
+  slsTexture *grass_tex;
 
   kmMat4 view_matrix;
 
@@ -31,6 +32,7 @@ typedef struct demoData {
   slsIPoint camera_move_input;
 
   slsEntity *tank;
+  slsEntity *grass;
 
 
   slsCamera camera;

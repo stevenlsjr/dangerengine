@@ -14,16 +14,17 @@
 #include <renderer/slsshader.h>
 #include <math/slsCamera.h>
 #include "slsAppState.h"
+#include "slsBehavior.h"
 
 typedef enum slsComponentMask {
   SLS_COMPONENT_NONE = 0,
-  SLS_COMPONENT_STATEACCESS = 1 << 0,
-  SLS_COMPONENT_MESH = 1 << 1,
-  SLS_COMPONENT_MATERIAL = 1 << 2,
-  SLS_COMPONENT_TEXTURE = 1 << 3,
-  SLS_COMPONENT_BOUNDED = 1 << 4,
-  SLS_COMPONENT_KINETIC = 1 << 5,
-  SLS_COMPONENT_CAMERA = 1 << 6
+  SLS_COMPONENT_MESH = 1 << 0,
+  SLS_COMPONENT_MATERIAL = 1 << 1,
+  SLS_COMPONENT_TEXTURE = 1 << 2,
+  SLS_COMPONENT_BOUNDED = 1 << 3,
+  SLS_COMPONENT_KINETIC = 1 << 4,
+  SLS_COMPONENT_CAMERA = 1 << 5,
+  SLS_COMPONENT_BEHAVIOR = 1 << 6
 } slsComponentMask;
 
 
@@ -54,11 +55,11 @@ struct slsEntity {
   slsTransform2D transform;
 
 
+
+
   //---------------------------------polymorphic components---------------------------------
 
   slsComponentMask component_mask;
-
-  slsAppState *state;
 
   slsMesh *mesh;
   bool mesh_is_owned; // flags whether entity manages mesh memory
@@ -68,10 +69,15 @@ struct slsEntity {
 
   slsTexture *texture;
 
+  slsKinematic2D kinematic;
+
   slsCamera camera;
+
+  slsBehavior behavior;
 
   apr_pool_t *pool;
 
+  void *data;
 };
 
 
@@ -99,6 +105,11 @@ slsEntity *sls_entity_getroot(slsEntity *self) SLS_NONNULL(1);
 void sls_entity_update(slsEntity *self,
                        slsAppState *state,
                        double dt);
+
+void sls_entity_physicsupdate(slsEntity *self,
+                              slsAppState *state,
+                              double dt);
+
 
 void sls_entity_display(slsEntity *self,
                         slsAppState *state,

@@ -47,18 +47,20 @@ typedef struct slsTexture_p slsTexture_p;
 typedef struct slsTexPair slsTexPair;
 
 struct slsTexPair {
-  GLuint unit;
+  /**
+   * @brief texture object created by glGenTextures
+   */
+  GLuint gltex;
+
+  /**
+   * @brief uniform name of texture
+   */
   GLuint uniform;
   /**
    * @brief flags the texture's successful load in memory
    */
   slsBool is_active;
 
-  /**
-   * @brief flags that the texture is bound to a shader uniform.
-   * @detail Will be SLS_FALSE if associated variable is not in shader program, or texture has not yet been bound
-   */
-  slsBool is_bound;
 };
 
 struct slsTexture {

@@ -3,10 +3,9 @@
 //
 
 #include "render_demo.h"
+#include "slsTank.h"
 #include <assert.h>
 #include <renderer/slsshader.h>
-
-
 
 
 void demo_handle_event(slsContext *self,
@@ -67,7 +66,6 @@ void demo_context_setup(slsContext *self)
   demo_setup_scene(self);
 
 
-
   glClearColor(0.1f, 0.24f, 0.3f, 1.0f);
   return;
   error:
@@ -102,15 +100,17 @@ void demo_setup_textures(slsContext *self)
   demoData *data = self->data;
 
 
-
-
   data->tank_tex = sls_texture_new("resources/art/tankBeige_outline.png",
                                    "resources/art/tankBeige_specular.png",
                                    "resources/art/tankBeige_normal.png");
 
   data->barrel_tex = sls_texture_new("resources/art/barrelBeige_outline.png",
-                                   "resources/art/barrelBeige_specular.png",
-                                   "resources/art/barrelBeige_normal.png");
+                                     "resources/art/barrelBeige_specular.png",
+                                     "resources/art/barrelBeige_normal.png");
+
+  data->grass_tex = sls_texture_new("resources/art/sand.png",
+                                    "resources/art/sand_spec.png",
+                                    "resources/art/sand_normal.png");
 
 }
 
@@ -125,6 +125,7 @@ void demo_setup_scene(slsContext *self)
 
   self->state->active_camera = sls_camera_init(&data->camera);
 
+
   // setup scene graph and tank
 
   self->state->root =
@@ -133,12 +134,14 @@ void demo_setup_scene(slsContext *self)
   slsEntity *root = self->state->root;
   sls_checkmem(root);
 
-  root->transform.scale = (kmVec2) {0.3, 0.3};
+  root->transform.scale = (kmVec2) {0.1, 0.1};
 
   slsSprite *sprite = malloc(sizeof(slsSprite));
-  sprite = sls_init_sprite(sprite,
-                           self->state,
-                           self->pool, "sprite_a",
+
+  sprite = sls_create_tank(self->state, "player_tank",
+                           (kmVec2) {0.0, 0.0},
+                           0,
+                           true,
                            data->tank_tex,
                            data->shader);
 
@@ -146,8 +149,21 @@ void demo_setup_scene(slsContext *self)
 
   sls_entity_addchild(root, sprite);
 
-  // setup camera
+  data->grass = NULL;
+  data->grass = calloc(sizeof(slsEntity), 1);
 
+  sls_init_sprite(data->grass,
+                  self->state,
+                  self->state->pool,
+                  "grass",
+                  data->grass_tex,
+                  data->shader);
+
+  data->grass->transform.scale = (kmVec2) {10.0, 10.0};
+  data->grass->transform.z_layer = 1;
+  sls_entity_addchild(root, data->grass);
+
+  // setup camera
 
 
   return;
@@ -159,38 +175,14 @@ void demo_setup_scene(slsContext *self)
 }
 
 
-
-
 void demo_context_update(slsContext *self, double dt)
 {
 
 
-  demoData *d = self->data;
-  d->tank->transform.pos.x += 10.0 * dt;
-
-  if (d->tank->transform.pos.x > 2.0) {
-    d->tank->transform.pos.x = -2.0;
-  }
+  demoData *data = self->data;
 
   sls_entity_update(self->state->root, self->state, dt);
 
-
-#if 1
-  slsPlayerInput const *inp = &self->state->input;
-
-  if (inp->key_up || inp->key_down || inp->key_left || inp->key_right) {
-    sls_log_info(
-        "input:\n"
-            "directions: %s %s %s %s\n"
-            "mouse_pos: %d %d\nvelocity %d %d\n",
-        inp->key_up ? "up" : "",
-        inp->key_down ? "down" : "",
-        inp->key_left ? "left" : "",
-        inp->key_right ? "right" : "",
-        inp->mouse_pos.x, inp->mouse_pos.y,
-        inp->mouse_vel.x, inp->mouse_vel.y);
-  }
-#endif // 0
 
 }
 
@@ -207,7 +199,6 @@ void demo_context_display(slsContext *self, double dt)
   sls_context_class()->display(self, dt);
 
   demoData *data = self->data;
-
 
 
   GLint time = glGetUniformLocation(data->program, "time");
@@ -230,8 +221,12 @@ void demo_context_teardown(slsContext *self)
     sls_msg(data->tank_tex, dtor);
     sls_msg(data->barrel_tex, dtor);
 
-    sls_shader_dtor(data->shader);
-    free(data);
+    if (data->tank) {
+      sls_entity_delete(data->tank);
+    }
+    if (data->grass) {
+      sls_entity_delete(data->grass);
+    }
   }
 
 }

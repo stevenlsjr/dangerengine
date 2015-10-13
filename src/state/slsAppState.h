@@ -69,6 +69,7 @@ struct slsAppState {
 
   apr_hash_t *images;
   apr_hash_t *shaders;
+  apr_hash_t *textures;
 
   slsPlayerInput input;
 

@@ -68,6 +68,8 @@ slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool, GLuint prog
   sls_shader_bind_attrs(self);
   sls_shader_bind_unifs(self);
 
+  self->owns_program = false;
+
   return self;
   error:
   assert(0);
@@ -83,6 +85,10 @@ slsShader *sls_shader_dtor(slsShader *self)
   if (self->pool) {
     apr_pool_destroy(self->pool);
     self->pool = NULL;
+  }
+
+  if (self->owns_program) {
+    glDeleteProgram(self->program);
   }
 
   return self;
@@ -162,8 +168,6 @@ void sls_shader_bind_attrs(slsShader *self)
     sls_attr_check(p->name, self->program, *p->a);
 
   }
-
-
 }
 
 

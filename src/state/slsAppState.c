@@ -66,9 +66,36 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 }
 
 
-
 slsAppState *sls_appstate_dtor(slsAppState *self)
 {
+  apr_pool_t *tmp;
+  apr_pool_create(&tmp, self->pool);
+  if (self->textures) {
+
+    for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures);
+         itor;
+         itor = apr_hash_next(itor)) {
+      slsTexture *tex;
+      apr_hash_this(itor, NULL, NULL, (void**)&tex);
+      if (tex) {
+        sls_msg(tex, dtor);
+      }
+    }
+  }
+
+  if (self->shaders) {
+
+    for (apr_hash_index_t *itor = apr_hash_first(tmp, self->shaders);
+         itor;
+         itor = apr_hash_next(itor)) {
+      slsShader *shader;
+      apr_hash_this(itor, NULL, NULL, (void**)&shader);
+      if (shader) {
+        sls_msg(shader, dtor);
+      }
+    }
+  }
+
   if (self->pool) {
     apr_pool_destroy(self->pool);
   }
@@ -78,9 +105,11 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
   }
 
   sls_matrix_stack_dtor(&self->model_view);
+
+  apr_pool_destroy(tmp);
+
   return self;
 }
-
 
 
 void sls_appstate_mousebutton(slsAppState *self,
@@ -107,11 +136,12 @@ void sls_appstate_keyevent(slsAppState *self,
   bool is_down = (ke->state == SDL_PRESSED);
 
   slsPlayerInput *inp = &self->input;
-  uint8_t const *state =SDL_GetKeyboardState(NULL);
+  uint8_t const *state = SDL_GetKeyboardState(NULL);
   inp->key_up = state[SDL_SCANCODE_W];
   inp->key_down = state[SDL_SCANCODE_S];
   inp->key_right = state[SDL_SCANCODE_D];
   inp->key_left = state[SDL_SCANCODE_A];
+  inp->key_space = state[SDL_SCANCODE_SPACE];
 
 }
 
@@ -169,7 +199,7 @@ void sls_appstate_resize(slsAppState *self, int x, int y)
   slsCamera *cam;
   kmMat4 frustrum;
 
-  float aspect = x/(float)y;
+  float aspect = x / (float) y;
   if (self->active_camera) {
     cam = self->active_camera;
     sls_camera_resize(cam, x, y);

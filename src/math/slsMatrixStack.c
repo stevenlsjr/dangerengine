@@ -82,10 +82,11 @@ kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self,
 {
   sls_check(self->matrices, "matrix array is NULL");
 
+  --self->n_matrices;
+
   if (out) {
     *out = self->matrices[self->n_matrices];
   }
-  --self->n_matrices;
 
   return out;
 
@@ -104,6 +105,7 @@ void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
   } else if (self->n_matrices >= self->n_alloced) {
     sls_check(0, "number of matrices exceedes allocated size");
   }
+
 
   self->matrices[self->n_matrices] = *in;
   self->n_matrices++;
@@ -144,10 +146,6 @@ kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self)
 }
 
 
-kmMat4 *sls_matrix_stack_mutpeek(slsMatrixStack *self)
-{
-  return self->matrices + self->n_matrices;
-}
 
 slsMatrixStack *sls_matrix_glinit(slsMatrixStack *self)
 {
@@ -165,23 +163,54 @@ void sls_matrix_gltranslate(slsMatrixStack *self, kmVec3 translation)
 {
   kmMat4 *top = sls_matrix_stack_peek(self);
 
-  kmMat4 m, tmp;
-  tmp = *top;
-  kmMat4Translation(&m, translation.x, translation.y, translation.z);
+  if (top) {
+    kmMat4 m, tmp;
+    tmp = *top;
+    kmMat4Translation(&m, translation.x, translation.y, translation.z);
 
-  kmMat4Multiply(top, &m, &tmp);
-
+    kmMat4Multiply(top, &m, &tmp);
+  }
 }
 
 void sls_matrix_glscale(slsMatrixStack *self, kmVec3 scaling)
 {
   kmMat4 *top = sls_matrix_stack_peek(self);
-  kmMat4 tmp = *top;
-  kmMat4 m;
-  kmMat4Scaling(&m, scaling.x, scaling.y, scaling.z);
+  if (top) {
 
-  kmMat4Multiply(top, &m, &tmp);
+    kmMat4 tmp = *top;
+    kmMat4 m;
+    kmMat4Scaling(&m, scaling.x, scaling.y, scaling.z);
+
+    kmMat4Multiply(top, &m, &tmp);
+  }
+
 }
+
+void sls_matrix_glrotate(slsMatrixStack *self, kmQuaternion *rotation)
+{
+  kmMat4 *top = sls_matrix_stack_peek(self);
+  if (top) {
+
+    kmMat4 tmp = *top;
+    kmMat4 m;
+    kmMat4RotationQuaternion(top, rotation);
+
+    kmMat4Multiply(top, &m, &tmp);
+  }
+}
+
+void sls_matrix_glmultiply(slsMatrixStack *self, kmMat4 *mat)
+{
+  kmMat4 *top = sls_matrix_stack_peek(self);
+  if (top) {
+
+    kmMat4 tmp = *top;
+    kmMat4Multiply(top, mat, &tmp);
+
+  }
+}
+
+
 
 void sls_matrix_glpush(slsMatrixStack *self)
 {
@@ -198,8 +227,9 @@ void sls_matrix_glpush(slsMatrixStack *self)
 void sls_matrix_glidentity(slsMatrixStack *self)
 {
   kmMat4 *top = self->matrices + self->n_matrices;
-
-  kmMat4Identity(top);
+  if (top) {
+    kmMat4Identity(top);
+  }
 }
 
 
@@ -220,6 +250,8 @@ void sls_matrix_glbind(slsMatrixStack *self,
   kmMat4Transpose(&normal, &tmp);
   glUniformMatrix4fv(normat_mat_u, 1, GL_FALSE, normal.mat);
 
+
+
   glUseProgram(0);
 }
 
@@ -230,3 +262,4 @@ void sls_matrix_glreset(slsMatrixStack *self)
 
   sls_matrix_stack_reserve(self, SLS_MATRIXSTACK_DEFAULTSIZE);
 }
+
