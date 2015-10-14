@@ -167,8 +167,6 @@ set(CMAKE_LIBRARY_PATH
 #only compile gtest and glfw when not using emscripten
 add_subdirectory(extern/googlemock)
 
-find_package(DevIL)
-
 set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS} ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
   ${DANGER_DEPS}
