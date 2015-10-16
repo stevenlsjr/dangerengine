@@ -135,10 +135,6 @@ TEST_F(RenderTests, TextureComponents)
 
   sls_msg(tex, bind);
 
-  EXPECT_TRUE(tex->diffuse.is_bound);
-  EXPECT_FALSE(tex->normal.is_bound); // shader does not use normal_map variable
-  EXPECT_FALSE(tex->specular.is_bound);
-
 }
 
 TEST_F(RenderTests, TestGeometries)
