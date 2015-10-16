@@ -33,5 +33,6 @@ slsEntity *sls_create_tank(slsAppState *state,
 
 void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt) SLS_NONNULL(1, 2);
 
+void sls_tank_turret_update(slsEntity *self, slsAppState *state, double dt);
 
 #endif //DANGERENGINE_SLSTANK_H

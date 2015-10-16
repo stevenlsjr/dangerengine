@@ -178,11 +178,7 @@ void demo_setup_scene(slsContext *self)
 void demo_context_update(slsContext *self, double dt)
 {
 
-
-  demoData *data = self->data;
-
-  sls_entity_update(self->state->root, self->state, dt);
-
+  sls_context_class()->update(self, dt);
 
 }
 

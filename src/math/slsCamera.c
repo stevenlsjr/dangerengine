@@ -32,8 +32,6 @@ void sls_camera_resize(slsCamera *self, int x, int y)
     kmMat4OrthographicProjection(&self->frustrum, left, right, down, up, self->ortho.near, self->ortho.far);
   }
 
-
-
 }
 
 slsCamera *sls_camera_init(slsCamera *self)

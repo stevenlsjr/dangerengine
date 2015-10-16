@@ -80,3 +80,26 @@ slsTransform2D sls_transform2d_local2world(slsEntity *entity)
 
   return a;
 }
+
+kmVec2 sls_transform2d_local_to_world(slsTransform2D const *self, kmVec2 const *in)
+{
+  kmVec2 result = *in;
+
+  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
+    kmVec2Add(&result, &result, &e->transform.pos);
+  }
+
+  return result;
+}
+
+
+kmVec2 sls_transform2d_world_to_local(slsTransform2D const *self, kmVec2 const *in)
+{
+  kmVec2 result = *in;
+
+  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
+    kmVec2Subtract(&result, &result, &e->transform.pos);
+  }
+
+  return result;
+}

@@ -302,7 +302,7 @@ void sls_context_resize(slsContext *self, int x, int y)
 
 void sls_context_update(slsContext *self, double dt)
 {
-  sls_log_info("update dt: %f", dt);
+  sls_appstate_update(self->state, dt);
 }
 
 void sls_context_display(slsContext *self, double dt)

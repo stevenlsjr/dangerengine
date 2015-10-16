@@ -186,7 +186,9 @@ void sls_appstate_clearinput(slsAppState *self)
 
 void sls_appstate_update(slsAppState *self, double dt)
 {
-
+  if (self->root) {
+    sls_entity_update(self->root, self, dt);
+  }
 }
 
 void sls_appstate_display(slsAppState *self, double dt)

@@ -53,7 +53,6 @@ slsSprite *sls_init_sprite(slsEntity *self, slsAppState *state, apr_pool_t *pare
 
 bool sls_is_spriteentity(slsEntity *entity);
 
-slsSprite const *sls_sprite_class();
 
 
 #endif //DANGERENGINE_SLSSPRITE_H

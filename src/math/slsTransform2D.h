@@ -23,6 +23,8 @@ struct slsTransform2D {
   int z_layer;
 
   kmMat4 model_view;
+
+  slsEntity *entity;
 };
 
 struct slsKinematic2D {
@@ -52,8 +54,10 @@ slsBool sls_transform2D_near(slsTransform2D const *a,
 
 slsTransform2D *sls_transform2d_init(slsTransform2D *self) SLS_NONNULL(1);
 
-slsTransform2D sls_transform2d_local2world(slsEntity *entity) SLS_NONNULL(1);
-
+kmVec2 sls_transform2d_local_to_world(slsTransform2D const *self,
+                                      kmVec2 const *in) SLS_NONNULL(1, 2);
+kmVec2 sls_transform2d_world_to_local(slsTransform2D const *self,
+                                      kmVec2 const *in) SLS_NONNULL(1, 2);
 
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

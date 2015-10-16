@@ -10,6 +10,7 @@
 
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
+#include <string.h>
 #include "../slsutils.h"
 
 /**
@@ -145,6 +146,42 @@ slsIPoint sls_ipoint_mul(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 
 slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
 
 kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
+
+static inline kmVec2 sls_array_to_vec2(float const *arr) {
+  kmVec2 v = {};
+  const size_t size = 2;
+
+  if (arr) {
+    assert(memcpy(&v, arr, sizeof(float) * size));
+    assert(v.y == arr[1]);
+  }
+
+  return v;
+};
+
+static inline kmVec3 sls_array_to_vec3(float const *arr) {
+  kmVec3 v = {};
+  const size_t size = 3;
+
+  if (arr) {
+    assert(memcpy(&v, arr, sizeof(float) * size));
+    assert(v.z == arr[2]);
+  }
+
+  return v;
+};
+
+static inline kmVec4 sls_array_to_vec4(float const *arr) {
+  kmVec4 v = {};
+  const size_t size = 4;
+
+  if (arr) {
+    assert(memcpy(&v, arr, sizeof(float) * size));
+    assert(v.w == arr[3]);
+  }
+
+  return v;
+};
 
 // TODO(Steven): c11 overloading functions
 

@@ -55,7 +55,8 @@ slsEntity *sls_entity_init(slsEntity *self,
   self->transform = (slsTransform2D) {
       .pos = (kmVec2) {0.0, 0.0},
       .scale = (kmVec2) {1.0, 1.0},
-      .rot = 0.0
+      .rot = 0.0,
+      .entity = self
   };
 
   return self;
@@ -191,14 +192,17 @@ void sls_entity_physicsupdate(slsEntity *self,
   slsKinematic2D *km = &self->kinematic;
   kmVec2 drag_vec, motion;
 
-  float
+
+  float linear_drag = fminf(1.0, km->linear_drag);
+  linear_drag = fmaxf(0.0, linear_drag);
 
   // linear motion
-  kmVec2Normalize(&drag_vec, &km->velocity);
+  //kmVec2Normalize(&drag_vec, &km->velocity);
+  drag_vec = km->velocity;
 
   kmVec2Scale(&drag_vec,
               &drag_vec,
-              (float) (km->linear_drag));
+              (float) (linear_drag));
 
   drag_vec.x = fabsf(drag_vec.x) < fabsf(km->velocity.x)?
       drag_vec.x: km->velocity.x;

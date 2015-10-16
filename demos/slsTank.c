@@ -46,6 +46,8 @@ slsEntity *sls_create_tank(slsAppState *state,
 
   data->barrel.component_mask &= ~SLS_COMPONENT_KINETIC;
   data->turret.component_mask &= ~SLS_COMPONENT_KINETIC;
+  data->barrel.component_mask &= ~SLS_COMPONENT_BEHAVIOR;
+  data->turret.component_mask &= ~SLS_COMPONENT_BEHAVIOR;
 
   // set kinematic
   self->kinematic = (slsKinematic2D) {
@@ -65,8 +67,8 @@ slsEntity *sls_create_tank(slsAppState *state,
   assert(data->barrel.parent == &data->turret);
 
 
-  data->acceleration = 6.0;
-  data->max_speed = 20.0;
+  data->acceleration = 20.0;
+  data->max_speed = 10.0;
   data->rotational_speed = 70.0;
 
   return self;
@@ -100,10 +102,19 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
     kmVec2 accel;
     kmVec2Scale(&accel, &unit, (float) mag);
 
-    self->kinematic.velocity.x += accel.x;
-    self->kinematic.velocity.y += accel.y;
+    kmVec2 velocity = {self->kinematic.velocity.x + accel.x, self->kinematic.velocity.y + accel.y};
 
+    self->kinematic.velocity = velocity;
 
+    /*
+    float speed = kmVec2Length(&self->kinematic.velocity);
+    if (speed < data->max_speed) {
+      kmVec2Normalize(&self->kinematic.velocity, &self->kinematic.velocity);
+      kmVec2Scale(&self->kinematic.velocity, &self->kinematic.velocity, (float)data->max_speed);
+
+    }
+
+    */
   }
 
 
@@ -111,5 +122,28 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
     self->transform.rot -= ((float) control_axis.x * dt * data->rotational_speed);
   }
 
+  sls_tank_turret_update(&data->turret, state, dt * 10);
 
 }
+
+
+void sls_tank_turret_update(slsEntity *self, slsAppState *state, double dt)
+{
+  kmVec4 pos = {self->transform.pos.x, self->transform.pos.y, 0.0, 1.0};
+  kmVec4 world_pos;
+  kmVec4MultiplyMat4(&world_pos, &pos, &self->transform.model_view);
+
+  slsIPoint mouse = state->input.mouse_pos;
+
+  kmVec2 vmouse = sls_ipoint_to_vec2(&mouse);
+  kmVec4 v4mouse = {vmouse.x, vmouse.y, 0.0f, 1.0f};
+  kmVec4 vmouse_world;
+
+  kmMat4 inverse_proj;
+  kmMat4Inverse(&inverse_proj, &state->projection);
+  kmVec4MultiplyMat4(&vmouse_world, &v4mouse, &state->projection);
+
+
+
+}
+

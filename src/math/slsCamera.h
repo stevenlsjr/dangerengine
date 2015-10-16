@@ -29,11 +29,11 @@ struct slsCamera {
   kmMat4 frustrum;
 
   slsTransform2D transform;
+  slsEntity *e;
 };
 
 void sls_camera_resize(slsCamera *camera, int x, int y) SLS_NONNULL(1);
 slsCamera *sls_camera_init(slsCamera *camera) SLS_NONNULL(1);
-
 
 
 #endif //DANGERENGINE_SLSCAMERA_H

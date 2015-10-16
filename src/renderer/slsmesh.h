@@ -137,5 +137,17 @@ slsMesh *sls_tile_mesh(size_t width, size_t height);
 slsVertex *sls_mesh_get_verts(slsMesh *self, size_t *len_out);
 uint32_t *sls_mesh_get_indices(slsMesh *self, size_t *len_out);
 
+void sls_mesh_get_positions(slsMesh *self, kmVec3 *buffer_out, size_t buffer_len) SLS_NONNULL(1, 2);
+void sls_mesh_get_normals(slsMesh *self, kmVec3 *buffer_out, size_t buffer_len) SLS_NONNULL(1, 2);
+void sls_mesh_get_uvs(slsMesh *self, kmVec2 *buffer_out, size_t buffer_len) SLS_NONNULL(1, 2);
+void sls_mesh_get_colors(slsMesh *self, kmVec4 *buffer_out, size_t buffer_len) SLS_NONNULL(1, 2);
+
+void sls_mesh_set_positions(slsMesh *self, kmVec3 *buffer_in, size_t n_items) SLS_NONNULL(1, 2);
+void sls_mesh_set_normals(slsMesh *self, kmVec3 *buffer_in, size_t n_items) SLS_NONNULL(1, 2);
+void sls_mesh_set_uvs(slsMesh *self, kmVec2 *buffer_in, size_t n_items) SLS_NONNULL(1, 2);
+void sls_mesh_set_colors(slsMesh *self, kmVec4 *buffer_in, size_t n_items) SLS_NONNULL(1, 2);
+
+
+
 #endif //DANGERENGINE_SLS_MESH_H
 
