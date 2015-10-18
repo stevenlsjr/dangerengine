@@ -30,6 +30,7 @@
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include <renderer/slsshader.h>
 #include "slsAppState.h"
+#include "slsEntity.h"
 
 void sls_appstate_keyevent(slsAppState *self,
                            SDL_KeyboardEvent const *pEvent,
@@ -221,6 +222,13 @@ void sls_appstate_update(slsAppState *self, double dt)
 
   if (self->root) {
     sls_entity_update(self->root, self, dt);
+
+    for (slsEntity *e = self->root->il.next;
+         e != NULL && e != self->root;
+         e = e->il.next) {
+
+      sls_entity_update(e, self, dt);
+    }
   }
 }
 

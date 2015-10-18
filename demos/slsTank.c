@@ -15,6 +15,7 @@ slsEntity *sls_create_tank(slsAppState *state,
                            float direction,
                            bool player_controlled,
                            slsTexture *tex,
+                           slsTexture *barrel_tex,
                            slsShader *shader)
 {
   slsEntity *self = malloc(sizeof(slsEntity));
@@ -72,7 +73,7 @@ slsEntity *sls_create_tank(slsAppState *state,
 
   data->acceleration = 10.0;
   data->max_speed = 20.0;
-  data->rotational_speed = 30.0;
+  data->rotational_speed = 5.0;
 
   return self;
 }
@@ -119,14 +120,14 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
   }
 
   if (control_axis.x != 0) {
-    self->transform.rot -= ((float) control_axis.x  * data->rotational_speed) / 400.0;
+    self->transform.rot -= ((float) control_axis.x  * data->rotational_speed) * dt;
   }
 
   // braking
   if (in->key_brake) {
     self->kinematic.linear_drag = 0.6;
   } else {
-    self->kinematic.linear_drag = 0.005;
+    self->kinematic.linear_drag = 0.01;
   }
 
   // turret aim

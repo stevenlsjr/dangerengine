@@ -276,6 +276,7 @@ void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
     sls_entity_physicsupdate(self, state, dt);
   }
 
+  /*
   for (itor = apr_hash_first(pool, self->children);
        itor;
        itor = apr_hash_next(itor)) {
@@ -285,6 +286,7 @@ void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
     if (child) { sls_entity_update(child, state, dt); }
 
   }
+   */
 
 
   return;
@@ -326,20 +328,6 @@ void sls_entity_physicsupdate(slsEntity *self,
   kmVec2Scale(&motion, &km->velocity, (float) dt);
 
   kmVec2Add(&self->transform.pos, &self->transform.pos, &motion);
-
-  // rotational motion
-
-  //debugging
-  if (state->input.key_space) {
-    sls_log_info("entity %s\n"
-                     "linear drag %f\n"
-                     "drag vec %f %f\n"
-                     "velocity %f %f",
-                 self->name,
-                 dt * self->kinematic.linear_drag,
-                 drag_vec.x, drag_vec.y,
-                 self->kinematic.velocity.x, self->kinematic.velocity.y);
-  }
 
 }
 

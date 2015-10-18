@@ -142,12 +142,8 @@ void demo_setup_scene(slsContext *self)
 
   data->tank = malloc(sizeof(slsSprite));
 
-  data->tank  = sls_create_tank(self->state, "player_tank",
-                           (kmVec2) {0.0, 0.0},
-                           0,
-                           true,
-                           data->tank_tex,
-                           data->shader);
+  data->tank  = sls_create_tank(self->state, "player_tank", (kmVec2) {0.0, 0.0}, 0, true, data->tank_tex, data->barrel_tex,
+                                data->shader);
 
   data->grass = NULL;
 
@@ -182,8 +178,6 @@ void demo_setup_scene(slsContext *self)
   sls_entity_addchild(root, data->grass);
   sls_entity_addchild(root, data->tank );
 
-  assert(((slsTankData*)data->tank->behavior.data)->barrel.mesh != data->grass->mesh);
-
   //sls_sprite_set_color(data->tank, (kmVec4){0.0, 0.2, 0.1});
 
 
@@ -214,7 +208,7 @@ void demo_context_update(slsContext *self, double dt)
       sls_transform2d_local_to_world(&data->tank->transform,
                                      &self->state->work_stack, NULL);
 
-  data->camera.transform.rot;
+  //data->camera.transform.rot;
 
 }
 

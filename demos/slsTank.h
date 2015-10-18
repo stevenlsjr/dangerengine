@@ -29,7 +29,8 @@ slsEntity *sls_create_tank(slsAppState *state,
                            float direction,
                            bool player_controlled,
                            slsTexture *tex,
-                           slsShader *shader) SLS_NONNULL(1, 2, 6, 7);
+                           slsTexture *barrel_tex,
+                           slsShader *shader) SLS_NONNULL(1, 2, 6, 7, 8);
 
 void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt) SLS_NONNULL(1, 2);
 
