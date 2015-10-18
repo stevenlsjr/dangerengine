@@ -50,14 +50,15 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
   self->images = apr_hash_make(self->pool);
   sls_checkmem(self->images);
 
-
   self->shaders = apr_hash_make(self->pool);
 
   SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
 
   kmMat4Identity(&self->projection);
   sls_matrix_glinit(&self->model_view);
+  sls_matrix_glinit(&self->work_stack);
 
+  self->context = NULL;
 
   return self;
 
@@ -96,17 +97,20 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
     }
   }
 
-  if (self->pool) {
-    apr_pool_destroy(self->pool);
-  }
+
 
   if (self->root && self->root->dtor) {
     sls_msg(self->root, dtor);
   }
 
   sls_matrix_stack_dtor(&self->model_view);
+  sls_matrix_stack_dtor(&self->work_stack);
 
   apr_pool_destroy(tmp);
+
+  if (self->pool) {
+    apr_pool_destroy_debug(self->pool, __FILE__);
+  }
 
   return self;
 }
@@ -135,14 +139,36 @@ void sls_appstate_keyevent(slsAppState *self,
 {
   bool is_down = (ke->state == SDL_PRESSED);
 
+
   slsPlayerInput *inp = &self->input;
+
+  switch (ke->keysym.scancode) {
+    case SDL_SCANCODE_W: inp->key_up = is_down; break;
+    case SDL_SCANCODE_S: inp->key_down = is_down; break;
+    case SDL_SCANCODE_A: inp->key_left = is_down; break;
+    case SDL_SCANCODE_D: inp->key_right = is_down; break;
+    case SDL_SCANCODE_B: inp->key_brake = is_down; break;
+
+    case SDL_SCANCODE_UP: inp->aim_up = is_down; break;
+    case SDL_SCANCODE_DOWN: inp->aim_down = is_down; break;
+    case SDL_SCANCODE_LEFT: inp->aim_left = is_down; break;
+    case SDL_SCANCODE_RIGHT: inp->aim_right = is_down; break;
+
+    case SDL_SCANCODE_SPACE: inp->key_space = is_down; break;
+
+    default:
+      break;
+  }
+  /*
   uint8_t const *state = SDL_GetKeyboardState(NULL);
   inp->key_up = state[SDL_SCANCODE_W];
   inp->key_down = state[SDL_SCANCODE_S];
   inp->key_right = state[SDL_SCANCODE_D];
   inp->key_left = state[SDL_SCANCODE_A];
   inp->key_space = state[SDL_SCANCODE_SPACE];
+  inp->key_brake = state[SDL_SCANCODE_B];
 
+   */
 }
 
 
@@ -176,16 +202,23 @@ void sls_appstate_handle_input(slsAppState *self, SDL_Event const *event)
 
 void sls_appstate_clearinput(slsAppState *self)
 {
+#if 0
   self->input = (slsPlayerInput) {
       .last_pos = self->input.mouse_pos,
       .mouse_vel = sls_ipoint_sub(&self->input.mouse_pos, &self->input.last_pos)
   };
+
+#endif
 
 }
 
 
 void sls_appstate_update(slsAppState *self, double dt)
 {
+
+  slsPlayerInput *inp = &self->input;
+
+
   if (self->root) {
     sls_entity_update(self->root, self, dt);
   }
@@ -193,7 +226,22 @@ void sls_appstate_update(slsAppState *self, double dt)
 
 void sls_appstate_display(slsAppState *self, double dt)
 {
+  sls_matrix_glreset(&self->model_view);
+  kmMat4 *top = sls_matrix_stack_peek(&self->model_view);
+  // set camera view
+  if (top && self->active_camera) {
+    kmVec2 pos = self->active_camera->transform.pos;
+    kmMat4 inv;
 
+    sls_transform2D_to_matrix(&inv, &self->active_camera->transform);
+    kmMat4Inverse(top, &inv);
+
+    sls_matrix_glpush(&self->model_view);
+  }
+
+  if (self->root) {
+    sls_entity_display(self->root, self, dt);
+  }
 }
 
 void sls_appstate_resize(slsAppState *self, int x, int y)

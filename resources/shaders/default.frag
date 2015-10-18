@@ -59,7 +59,7 @@ uniform sampler2D diffuse_map;
 uniform sampler2D specular_map;
 uniform sampler2D normal_map;
 
-const float ambient_str = 0.01;
+const float ambient_str = 0.1;
 
 
 /**
@@ -114,7 +114,7 @@ Light sample_source()
 {
   Light l;
 
-  l.position = vec4(0.0, 0.5, 0.2, 1.0);
+  l.position = vec4(0.0, 0.5, 0.5, 0.0);
   l.color = vec3(1.0, 1.0, 1.0);
   l.attenuation = 1.0;
 

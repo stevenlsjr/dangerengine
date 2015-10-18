@@ -35,23 +35,94 @@
  * gl4.1 shader
  *----------------------------*/
 
-  out vec4 color;
+struct Light {
+  vec4 position;
+  vec3 color;
+  float attenuation;
+};
 
-  in vec4 frag_color;
-  in vec2 frag_uv;
+out vec4 color;
+
+in vec3 frag_pos;
+in vec4 frag_color;
+in vec2 frag_uv;
+in vec3 frag_normal;
+
+in vec3 frag_transformed_normal;
+
+uniform mat4 model_view;
+uniform mat4 normal_mat;
+uniform mat4 projection;
+
+uniform float time;
+uniform sampler2D diffuse_map;
+uniform sampler2D specular_map;
+uniform sampler2D normal_map;
+
+const float ambient_str = 0.01;
 
 
-  uniform mat4 model_view;
-  uniform mat4 normal_mat;
-  uniform mat4 projection;
+/**
+ * a stupid hack. Right now, loaded PNG
+ files have their color order as BGRA
+ TODO(Steven): make sure textures load with correct pixel format
+ */
+vec4 bgra_to_rgba(vec4 color);
+Light sample_source();
 
-  uniform float time;
-  uniform sampler2D diffuse_map;
-  uniform sampler2D specular_map;
-  uniform sampler2D normal_map;
 
-  void main()
-  {
-    color = texture(diffuse_map, frag_uv) * frag_color;
-  }
+void main()
+{
+  Light l = sample_source();
+  vec4 texel_color = bgra_to_rgba(texture(diffuse_map, frag_uv));
+  vec3 texel_norm = bgra_to_rgba(texture(normal_map, frag_uv)).xyz;
+  vec3 texel_spec = bgra_to_rgba(texture(specular_map, frag_uv)).xyz;
+  float spec = (texel_spec.r + texel_spec.g + texel_spec.b) / 3.0;
 
+
+  vec4 material_color = texel_color * frag_color;
+
+  if (material_color.a < 0.001) {discard;}
+
+  vec3 ambient = (l.color * ambient_str).xyz;
+
+
+  // diffuse light
+
+
+  vec4 norm = (vec4(normalize(texel_norm), 0.0));
+  vec4 light_dir =
+    vec4(normalize(l.position.xyz - frag_pos), clamp(l.position.w, 0.0, 1.0));
+
+  float diff_value = max(dot(norm, light_dir), 0.0);
+
+  vec3 diffuse_color = l.color * diff_value * material_color.xyz;
+
+  // specular light
+
+
+
+  vec3 specular_color = vec3(0.0, 0.0, 0.0);
+
+  color = vec4(diffuse_color + specular_color + ambient, material_color.a) ;
+
+  //color = norm;
+}
+
+
+Light sample_source()
+{
+  Light l;
+
+  l.position = vec4(0.0, 0.5, 3, 1.0);
+  l.color = vec3(1.0, 1.0, 1.0);
+  l.attenuation = 1.0;
+
+  return l;
+}
+
+
+vec4 bgra_to_rgba(vec4 color)
+{
+  return vec4(color.b, color.g, color.r, color.a);
+}

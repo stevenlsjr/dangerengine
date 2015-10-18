@@ -36,31 +36,49 @@
  * gl4.1 shader
  *----------------------------*/
 
-  layout (location=0) in vec3 position;
-  layout (location=1) in vec3 normal;
-  layout (location=2) in vec2 uv;
-  layout (location=3) in vec4 color;
+layout (location=0) in vec3 position;
+layout (location=1) in vec3 normal;
+layout (location=2) in vec2 uv;
+layout (location=3) in vec4 color;
 
-  uniform mat4 model_view;
-  uniform mat4 normal_mat;
-  uniform mat4 projection;
+uniform mat4 model_view;
+uniform mat4 normal_mat;
+uniform mat4 projection;
 
-  uniform float time;
+uniform float time;
 
-  uniform sampler2D diffuse_map;
-  uniform sampler2D specular_map;
-  uniform sampler2D normal_map;
+uniform sampler2D diffuse_map;
+uniform sampler2D specular_map;
+uniform sampler2D normal_map;
 
 
-  out vec4 frag_color;
-  out vec2 frag_uv;
 
-  void main()
-  {
-    frag_color = color;
-    frag_uv = uv;
-    gl_Position = projection * model_view * vec4(position, 1.0f);
-  }
+out vec3 frag_pos;
+out vec3 frag_normal;
+out vec4 frag_color;
+out vec2 frag_uv;
+out vec3 frag_viewdir;
+
+
+
+void main()
+{
+
+
+
+  frag_color = color;
+
+  frag_normal  = normal;
+  frag_viewdir = (normal_mat * vec4(normal, 0.0)).xyz;
+
+  frag_uv = uv;
+
+  frag_pos = vec3(model_view * vec4(position, 1.0));
+  frag_pos.z = 0.0;
+
+  gl_Position = projection * model_view * vec4(position, 1.0f);
+}
+
 
 
 

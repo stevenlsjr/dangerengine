@@ -4,6 +4,7 @@
 
 #include "render_demo.h"
 #include "slsTank.h"
+#include "tile_map.h"
 #include <assert.h>
 #include <renderer/slsshader.h>
 
@@ -112,6 +113,9 @@ void demo_setup_textures(slsContext *self)
                                     "resources/art/sand_spec.png",
                                     "resources/art/sand_normal.png");
 
+  data->block_tex = sls_texture_new("resources/art/treeLarge.png",
+                                    "resources/art/treeLarge_spec.png",
+                                    "resources/art/treeLarge_normal.png");
 }
 
 void demo_setup_scene(slsContext *self)
@@ -136,35 +140,57 @@ void demo_setup_scene(slsContext *self)
 
   root->transform.scale = (kmVec2) {0.1, 0.1};
 
-  slsSprite *sprite = malloc(sizeof(slsSprite));
+  data->tank = malloc(sizeof(slsSprite));
 
-  sprite = sls_create_tank(self->state, "player_tank",
+  data->tank  = sls_create_tank(self->state, "player_tank",
                            (kmVec2) {0.0, 0.0},
                            0,
                            true,
                            data->tank_tex,
                            data->shader);
 
-  data->tank = sprite;
-
-  sls_entity_addchild(root, sprite);
-
   data->grass = NULL;
-  data->grass = calloc(sizeof(slsEntity), 1);
 
-  sls_init_sprite(data->grass,
-                  self->state,
-                  self->state->pool,
-                  "grass",
-                  data->grass_tex,
-                  data->shader);
+  int map[]= {
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1,
+      1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1,
+      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1,
+      1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1,
+      1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
+      1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1,
+      1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1,
+      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+  };
+  slsTilemapData tilemap = {
+      .height = 12,
+      .width = 12,
+      .map = map,
+      .tile_shader = data->shader,
+      .tile_texture = data->grass_tex,
+      .block_texture = data->block_tex
+  };
+  data->grass = sls_create_tilemap(self->state, "grass", (kmVec2) {0.0, 0.0}, 0.0, &tilemap);
 
-  data->grass->transform.scale = (kmVec2) {10.0, 10.0};
   data->grass->transform.z_layer = 1;
+  data->grass->transform.scale = (kmVec2){2.0, 2.0};
+
+  data->grass->component_mask = data->grass->component_mask & ~SLS_COMPONENT_KINETIC;
   sls_entity_addchild(root, data->grass);
+  sls_entity_addchild(root, data->tank );
 
-  // setup camera
+  assert(((slsTankData*)data->tank->behavior.data)->barrel.mesh != data->grass->mesh);
 
+  //sls_sprite_set_color(data->tank, (kmVec4){0.0, 0.2, 0.1});
+
+
+  // turn sprite graphics on/off
+  //((slsTankData*)data->tank->behavior.data)->barrel.component_mask &= ~SLS_COMPONENT_MESH;
+  //data->tank->component_mask &= ~SLS_COMPONENT_MESH;
+  //data->grass->component_mask &= ~SLS_COMPONENT_MESH;
 
   return;
 
@@ -180,6 +206,16 @@ void demo_context_update(slsContext *self, double dt)
 
   sls_context_class()->update(self, dt);
 
+  demoData *data = self->data;
+
+  //sls_log_info("%f", dt);
+
+  data->camera.transform.pos =
+      sls_transform2d_local_to_world(&data->tank->transform,
+                                     &self->state->work_stack, NULL);
+
+  data->camera.transform.rot;
+
 }
 
 
@@ -193,17 +229,6 @@ void demo_update_uniforms(slsContext *self, double dt)
 void demo_context_display(slsContext *self, double dt)
 {
   sls_context_class()->display(self, dt);
-
-  demoData *data = self->data;
-
-
-  GLint time = glGetUniformLocation(data->program, "time");
-
-  float t = clock() / (float) CLOCKS_PER_SEC;
-  glUniform1f(time, t);
-
-  sls_entity_display(self->state->root, self->state, dt);
-
 }
 
 void demo_context_teardown(slsContext *self)
@@ -221,7 +246,7 @@ void demo_context_teardown(slsContext *self)
       sls_entity_delete(data->tank);
     }
     if (data->grass) {
-      sls_entity_delete(data->grass);
+      sls_msg(data->grass, dtor);
     }
   }
 

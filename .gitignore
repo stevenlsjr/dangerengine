@@ -307,3 +307,4 @@ resources/bower/
 # build directories
 build/
 jsbuild/
+xcode/

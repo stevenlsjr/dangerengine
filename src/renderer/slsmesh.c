@@ -38,27 +38,7 @@
 #include <assert.h>
 #include <math/math-types.h>
 
-slsMesh *sls_mesh_init(slsMesh *self,
-                       slsVertex const *vertices,
-                       size_t vert_count,
-                       unsigned const *indices,
-                       size_t idx_count);
 
-
-void sls_mesh_dtor(slsMesh *self);
-
-void sls_mesh_bind(slsMesh *self, slsShader *shader);
-
-void _sls_mesh_binddata(slsMesh *self, GLuint program);
-
-void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
-
-
-void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
-
-void sls_mesh_draw(slsMesh *self, double dt);
-
-void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
 
 
 struct slsMesh_p {
@@ -239,7 +219,7 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program)
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);
 
   // push vertex buffer data
-  glBufferData(GL_ARRAY_BUFFER, vbo_size, verts, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, vbo_size, verts, GL_DYNAMIC_DRAW);
 }
 
 void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
@@ -322,7 +302,9 @@ void sls_mesh_draw(slsMesh *self, double dt)
 void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
 {
   self->is_drawing = SLS_FALSE;
+  glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }
 

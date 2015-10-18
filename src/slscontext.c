@@ -56,6 +56,7 @@ struct slsContext_p {
 };
 
 
+
 /*----------------------------------------*
  * slsContext default method prototypes
  *----------------------------------------*/
@@ -110,6 +111,9 @@ static const slsContext sls_context_proto = {
     .window = NULL,
     .state = NULL,
     .data = NULL,
+
+    .pool = NULL,
+    .tmp_pool = NULL
 };
 
 
@@ -191,6 +195,8 @@ slsContext *sls_context_init(slsContext *self,
 
   // allocate and initialize private members
 
+  sls_checkmem(apr_pool_create(&self->tmp_pool, self->pool) == APR_SUCCESS);
+
   self->priv = apr_pcalloc(self->pool, sizeof(slsContext_p));
   sls_checkmem(self->priv);
 
@@ -211,7 +217,7 @@ slsContext *sls_context_init(slsContext *self,
 void sls_context_dtor(slsContext *self)
 {
   if (self->pool) {
-    apr_pool_destroy(self->pool);
+    apr_pool_destroy_debug(self->pool, __FILE__);
   }
   free(self);
 }
@@ -226,6 +232,8 @@ void sls_context_run(slsContext *self)
   self->is_running = SLS_TRUE;
 
   sls_msg(self, setup);
+
+  self->frame_n = 0;
 
 
   // setup render size
@@ -284,6 +292,13 @@ void sls_context_iter(slsContext *self)
     // reset input state after update interval
     sls_appstate_clearinput(self->state);
 
+    if (self->frame_n % 5 == 0) {
+      apr_pool_clear(self->tmp_pool);
+    }
+
+    self->frame_n++;
+
+
   }
 
 }
@@ -307,7 +322,7 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
-  sls_matrix_glreset(&self->state->model_view);
+  sls_appstate_display(self->state, dt);
 }
 
 void sls_context_setup(slsContext *self)
@@ -348,6 +363,7 @@ void sls_context_setupstate(slsContext *self)
     self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
   }
   self->state = sls_appstate_init(self->state, self->pool);
+  self->state->context = self;
 
 }
 

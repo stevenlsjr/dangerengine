@@ -13,6 +13,7 @@
 #include <renderer/slsmesh.h>
 #include <renderer/slsshader.h>
 #include <math/slsCamera.h>
+#include <data-types/intrusivelist.h>
 #include "slsAppState.h"
 #include "slsBehavior.h"
 
@@ -28,9 +29,16 @@ typedef enum slsComponentMask {
 } slsComponentMask;
 
 
+#define SLS_COMPONENT_DRAWABLE (SLS_COMPONENT_MESH |  \
+                                SLS_COMPONENT_MATERIAL | \
+                                SLS_COMPONENT_TEXTURE)
+
+
 typedef struct slsEntity slsEntity;
 typedef struct slsAppState slsAppState;
 
+
+typedef struct slsEntity_p slsEntity_p;
 
 struct slsEntity {
   //---------------------------------constructor and destructor--------------------------------
@@ -54,7 +62,8 @@ struct slsEntity {
   char *name;
   slsTransform2D transform;
 
-
+  // intrusive linked list field
+  SLS_INTRUSIVE_FIELDS(slsEntity, il);
 
 
   //---------------------------------polymorphic components---------------------------------
@@ -77,6 +86,8 @@ struct slsEntity {
 
   apr_pool_t *pool;
 
+  slsEntity_p *priv;
+
   void *data;
 };
 
@@ -98,7 +109,8 @@ slsEntity *sls_entity_removechild(slsEntity *self,
                                   slsEntity *child) SLS_NONNULL(1, 2);
 
 slsEntity *sls_entity_findchild_reference(slsEntity *self,
-                                          slsEntity const *child) SLS_NONNULL(1, 2);
+                                          slsEntity const *child,
+                                          apr_pool_t *pool) SLS_NONNULL(1, 2, 3);
 
 slsEntity *sls_entity_getroot(slsEntity *self) SLS_NONNULL(1);
 
@@ -131,5 +143,11 @@ static inline void sls_entity_delete(slsEntity *self)
   assert(self);
   free(self->dtor(self));
 }
+
+void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child);
+
+
+void sls_entity_unlink(slsEntity *self, apr_pool_t *p);
+
 
 #endif //DANGERENGINE_SLSENTITY_H

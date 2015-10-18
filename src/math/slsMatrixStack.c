@@ -97,6 +97,7 @@ kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self,
 void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
 {
 
+
   if (self->n_matrices == self->n_alloced) {
     size_t new_size = (size_t) (self->n_alloced * SLS_MATRIXSTACK_RESIZE_MULTIPLYER);
 
@@ -107,7 +108,9 @@ void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
   }
 
 
+
   self->matrices[self->n_matrices] = *in;
+
   self->n_matrices++;
 
   return;

@@ -72,6 +72,8 @@ bool sls_init(void)
                        IMG_INIT_PNG |
                        IMG_INIT_TIF;
 
+
+
   sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
   sls_check(apr_initialize() == APR_SUCCESS, "apr failed to init");
@@ -87,9 +89,7 @@ bool sls_init(void)
   return true;
   error:
   {
-    sls_active_flag = SLS_FALSE;
-    signal(SIGSTOP, SIG_DFL);
-    raise(SIGSTOP);
+    assert(0);
     exit(EXIT_FAILURE);
     return false;
   }

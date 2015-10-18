@@ -48,11 +48,15 @@
 typedef struct slsEntity slsSprite;
 typedef struct slsSprite_data slsSprite_data;
 
-slsSprite *sls_init_sprite(slsEntity *self, slsAppState *state, apr_pool_t *parent_pool, char const *name,
-                           slsTexture *tex, slsShader *shader);
+slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const *name, slsTexture *tex,
+                           slsShader *shader);
 
 bool sls_is_spriteentity(slsEntity *entity);
 
+void sls_sprite_set_color(slsEntity *self, kmVec4 color);
+void sls_sprite_get_color(slsEntity *self, kmVec4 *color_out);
 
+void sls_sprite_set_uvbox(slsEntity *self, slsVRect const *box);
+void sls_sprite_get_uvbox(slsEntity *self, slsVRect *box_out);
 
 #endif //DANGERENGINE_SLSSPRITE_H

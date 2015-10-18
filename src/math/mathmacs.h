@@ -42,6 +42,15 @@ static inline bool sls_neard(double a, double b, double epsilon)
   return fabs(a - b) < epsilon;
 }
 
+static inline kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
+{
+  if (out) {
+    out->x = cosf(rot);
+    out->y = sinf(rot);
+  }
+  return out;
+}
+
 static inline bool sls_nearf(float a, float b, float epsilon)
 {
   return fabs(a - b) < epsilon;

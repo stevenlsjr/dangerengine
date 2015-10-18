@@ -34,6 +34,11 @@ typedef union slsIRect {
   };
 } slsIRect;
 
+typedef struct slsVRect {
+  kmVec2 position;
+  kmVec2 size;
+} slsVRect;
+
 typedef union slsVec2 {
   struct {
     float x;

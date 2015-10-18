@@ -51,15 +51,14 @@ static slsComponentMask sprite_mask =
     SLS_COMPONENT_MATERIAL |
     SLS_COMPONENT_MESH;
 
-bool sls_is_spriteentity(slsEntity *entity)
+bool sls_is_spriteentity(slsEntity *self)
 {
-  return false;
+  return ((self->component_mask & sprite_mask) == sprite_mask) &&
+         self->mesh && self->mesh->vertices &&
+         sls_array_length(self->mesh->vertices) == 4;
 }
 
-slsSprite *sls_init_sprite(slsEntity *self,
-                           slsAppState *state,
-                           apr_pool_t *parent_pool, char const *name,
-                           slsTexture *tex,
+slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const *name, slsTexture *tex,
                            slsShader *shader)
 {
   self = sls_entity_init(self, parent_pool, sprite_mask, name);
@@ -85,4 +84,43 @@ slsSprite *sls_init_sprite(slsEntity *self,
   if (self) {
     return sls_entity_class()->dtor(self);
   } else { return NULL; }
+}
+
+void sls_sprite_set_color(slsEntity *self, kmVec4 color)
+{
+  if (!sls_is_spriteentity(self)) { return; }
+  if (self->mesh) {
+    size_t n_verts = sls_array_length(self->mesh->vertices);
+
+    for (int i=0; i<n_verts; ++i) {
+      slsVertex *v = sls_array_get(self->mesh->vertices, (size_t)i);
+      memcpy(v->color, &color, sizeof(float) * 4);
+    }
+
+    if (self->shader) {
+      sls_mesh_bind(self->mesh, self->shader);
+    }
+  }
+
+}
+
+void sls_sprite_get_color(slsEntity *self, kmVec4 *color_out)
+{
+  if (!sls_is_spriteentity(self)) { return; }
+  if (color_out) {
+    slsVertex *v = sls_array_get(self->mesh->vertices, 0);
+    memcpy(color_out, v->color, sizeof(float) * 4);
+  }
+}
+
+void sls_sprite_set_uvbox(slsEntity *self, slsVRect const *box)
+{
+  if (!sls_is_spriteentity(self)) { return; }
+
+}
+
+void sls_sprite_get_uvbox(slsEntity *self, slsVRect *box_out)
+{
+  if (!sls_is_spriteentity(self)) { return; }
+
 }

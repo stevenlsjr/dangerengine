@@ -2,12 +2,19 @@
 // Created by Steven on 8/6/15.
 //
 
+
 #include "slsEntity.h"
 #include "slsEntityDraw.h"
 #include <apr-1/apr_strings.h>
 #include <apr-1/apr_strmatch.h>
 #include <math/mathmacs.h>
+#include <data-types/intrusivelist.h>
+#include <slscontext.h>
 
+struct slsEntity_p {
+  SLS_INTRUSIVE_FIELDS(slsEntity, list_node);
+  bool skip_update;
+};
 
 slsEntity *sls_entity_dtor(slsEntity *self) SLS_NONNULL(1);
 
@@ -39,11 +46,8 @@ slsEntity *sls_entity_init(slsEntity *self,
 {
   *self = *sls_entity_class();
 
-  apr_status_t pool_s = apr_pool_create(&self->pool, parent_pool);
-
-  sls_check(pool_s == APR_SUCCESS, "pool creation failed");
+  sls_check(apr_pool_create(&self->pool, parent_pool) == APR_SUCCESS, "pool creation failed");
   self->component_mask |= mask;
-
 
   self->children = apr_hash_make(self->pool);
   sls_checkmem(self->children);
@@ -51,13 +55,20 @@ slsEntity *sls_entity_init(slsEntity *self,
   self->name = apr_pstrdup(self->pool, name);
   sls_checkmem(self->name);
 
-
   self->transform = (slsTransform2D) {
       .pos = (kmVec2) {0.0, 0.0},
       .scale = (kmVec2) {1.0, 1.0},
       .rot = 0.0,
       .entity = self
   };
+
+  self->priv = apr_pcalloc(self->pool, sizeof(slsEntity_p));
+
+  self->priv->list_node.next = self;
+  self->priv->list_node.prev = self;
+
+  sls_checkmem(self->priv);
+  self->priv->skip_update = false;
 
   return self;
   error:
@@ -75,7 +86,6 @@ slsEntity *sls_entity_dtor(slsEntity *self)
     sls_entity_removechild(self->parent, self);
   }
   if (self->children) {
-
     for (apr_hash_index_t *idx = apr_hash_first(self->pool, self->children);
          idx; idx = apr_hash_next(idx)) {
       slsEntity *child = NULL;
@@ -85,8 +95,9 @@ slsEntity *sls_entity_dtor(slsEntity *self)
       }
     }
   }
-
-  apr_pool_destroy(self->pool);
+  if (self->pool) {
+    apr_pool_destroy(self->pool);
+  }
 
   return self;
 
@@ -95,12 +106,85 @@ slsEntity *sls_entity_dtor(slsEntity *self)
   return NULL;
 }
 
+
+void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child)
+{
+  slsEntity *next = self->il.next;
+  child->il.next = next;
+  child->il.prev = self;
+  self->il.next = child;
+  if (next) {
+    next->il.prev = child;
+  }
+
+  if (child->children) {
+    for (apr_hash_index_t *itor = apr_hash_first(p, child->children);
+         itor != NULL;
+         itor = apr_hash_next(itor)) {
+
+      slsEntity *cc;
+      slsEntity *last = child;
+      apr_hash_this(itor, NULL, NULL, (void **) &cc);
+      if (cc) {
+        sls_entity_linkchild(last, p, cc);
+        last = cc;
+      }
+    }
+  }
+}
+void sls_entity_unlink(slsEntity *self, apr_pool_t *p)
+{
+  slsEntity *prev = self->il.prev;
+  slsEntity *next = self->il.next;
+  if (prev) {
+    prev->il.next = next;
+
+    if (next) {
+      next->il.prev = prev;
+    }
+
+  }
+  self->il.prev = NULL;
+  self->il.next = NULL;
+
+
+  if (self->children) {
+    for (apr_hash_index_t *itor = apr_hash_first(p, self->children);
+         itor != NULL;
+         itor = apr_hash_next(itor)) {
+
+      slsEntity *cc;
+      apr_hash_this(itor, NULL, NULL, (void **) &cc);
+      if (cc) {
+        sls_entity_unlink(cc, p);
+      }
+    }
+  }
+}
+
 void sls_entity_addchild(slsEntity *self, slsEntity *child)
 {
   sls_check(self->children, "self->children is NULL");
+  sls_check(child->name, "child must have name");
+  sls_check(self != child, "entity %s is adding itself as a child", self->name);
+
+  if (child->parent) {
+    sls_entity_removechild(child->parent, child);
+  }
   child->parent = self;
+  child->priv->skip_update = true;
 
   apr_hash_set(self->children, child->name, APR_HASH_KEY_STRING, child);
+
+
+  apr_pool_t *tmp;
+  slsEntity *last = child;
+  sls_checkmem(apr_pool_create(&tmp, NULL) == APR_SUCCESS);
+
+  sls_entity_linkchild(self, tmp, child);
+
+
+  apr_pool_destroy(tmp);
 
   return;
   error:
@@ -117,6 +201,8 @@ slsEntity *sls_entity_findchild_byname(slsEntity *self, char const *child_name)
 
 slsEntity *sls_entity_removechild(slsEntity *self, slsEntity *child)
 {
+  apr_pool_t *tmp = NULL;
+
   sls_check(self == child->parent, "self is not child's parent");
 
   sls_check(sls_entity_findchild_byname(self, child->name) == child,
@@ -124,16 +210,38 @@ slsEntity *sls_entity_removechild(slsEntity *self, slsEntity *child)
 
   apr_hash_set(self->children, child->name, APR_HASH_KEY_STRING, NULL);
 
+  apr_pool_create(&tmp, self->pool);
+  sls_entity_unlink(child, tmp);
+
+
+  apr_pool_destroy(tmp);
+
+
   return child;
   error:
   assert(0);
   return child;
 }
 
-slsEntity *sls_entity_findchild_reference(slsEntity *self, slsEntity const *child)
+slsEntity *sls_entity_findchild_reference(slsEntity *self,
+                                          slsEntity const *child, apr_pool_t *pool)
 {
   assert(child->name);
-  return sls_entity_findchild_byname(self, child->name);
+
+  slsEntity *result = NULL;
+
+  for (apr_hash_index_t *itor = apr_hash_first(pool, self->children);
+       itor != NULL;
+       itor = apr_hash_next(itor)) {
+    slsEntity *e;
+    apr_hash_this(itor, NULL, NULL, (void **) &e);
+    if (e == child) {
+      result = e;
+      break;
+    }
+  }
+
+  return result;
 }
 
 slsEntity *sls_entity_getroot(slsEntity *self)
@@ -147,10 +255,12 @@ slsEntity *sls_entity_getroot(slsEntity *self)
 
 void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
 {
+  if (self->priv && self->priv->skip_update) {
+    self->priv->skip_update = false;
+    return;
+  }
   apr_hash_index_t *itor;
-  apr_pool_t *pool;
-
-  sls_checkmem(apr_pool_create(&pool, self->pool) == APR_SUCCESS);
+  apr_pool_t *pool = state->context->tmp_pool;
 
 
   bool has_behavior =
@@ -162,8 +272,7 @@ void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
     self->behavior.update(&self->behavior, state, dt);
   }
 
-  if ((self->component_mask & SLS_COMPONENT_KINETIC) ==
-      SLS_COMPONENT_KINETIC) {
+  if ((self->component_mask & SLS_COMPONENT_KINETIC) == SLS_COMPONENT_KINETIC) {
     sls_entity_physicsupdate(self, state, dt);
   }
 
@@ -183,6 +292,7 @@ void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
   return;
 
 }
+
 
 void sls_entity_physicsupdate(slsEntity *self,
                               slsAppState *state,
@@ -204,14 +314,13 @@ void sls_entity_physicsupdate(slsEntity *self,
               &drag_vec,
               (float) (linear_drag));
 
-  drag_vec.x = fabsf(drag_vec.x) < fabsf(km->velocity.x)?
-      drag_vec.x: km->velocity.x;
+  drag_vec.x = fabsf(drag_vec.x) < fabsf(km->velocity.x) ?
+               drag_vec.x : km->velocity.x;
 
-  drag_vec.y = fabsf(drag_vec.y) < fabsf(km->velocity.y)?
-               drag_vec.y: km->velocity.y;
+  drag_vec.y = fabsf(drag_vec.y) < fabsf(km->velocity.y) ?
+               drag_vec.y : km->velocity.y;
 
   kmVec2Subtract(&km->velocity, &self->kinematic.velocity, &drag_vec);
-
 
 
   kmVec2Scale(&motion, &km->velocity, (float) dt);
@@ -234,23 +343,14 @@ void sls_entity_physicsupdate(slsEntity *self,
 
 }
 
+
 void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
 {
   apr_hash_index_t *itor;
-  apr_pool_t *pool;
+  apr_pool_t *pool = state->context->tmp_pool;
 
-  slsComponentMask drawable = SLS_COMPONENT_MATERIAL |
-                              SLS_COMPONENT_TEXTURE |
-                              SLS_COMPONENT_MESH;
 
   slsMatrixStack *mv = &state->model_view;
-
-
-  if (self == state->root) {
-    sls_matrix_glreset(mv);
-    sls_matrix_glidentity(mv);
-  }
-
 
   sls_matrix_glpush(mv);
   sls_matrix_glidentity(mv);
@@ -267,7 +367,7 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
   }
 
 
-  if ((self->component_mask & drawable) == drawable) {
+  if ((self->component_mask & SLS_COMPONENT_DRAWABLE) == SLS_COMPONENT_DRAWABLE) {
 
     sls_entity_draw(self, dt, state);
     sls_drawable_transform(self, state, dt);
@@ -275,14 +375,15 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
     //sls_log_info("%s will draw", self->name);
   }
 
-  sls_checkmem(apr_pool_create(&pool, self->pool) == APR_SUCCESS);
-
   for (itor = apr_hash_first(pool, self->children);
        itor;
        itor = apr_hash_next(itor)) {
 
     slsEntity *child;
+
     apr_hash_this(itor, NULL, NULL, (void **) &child);
+    assert(child != self);
+
     if (child) { sls_entity_display(child, state, dt); }
 
   }

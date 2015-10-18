@@ -59,7 +59,6 @@ extern "C" {
 
 #include "renderer/shaderutils.h"
 #include "renderer/slsmesh.h"
-#include "renderer/slsmodel.h"
 #include "renderer/slstexture.h"
 #include "renderer/slsshader.h"
 

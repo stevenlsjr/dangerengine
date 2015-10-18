@@ -19,7 +19,7 @@ slsEntity *sls_create_tank(slsAppState *state,
 {
   slsEntity *self = malloc(sizeof(slsEntity));
 
-  sls_init_sprite(self, state, state->pool, name, tex, shader);
+  sls_init_sprite(self, state->pool, name, tex, shader);
 
   self->component_mask |=
       SLS_COMPONENT_BEHAVIOR |
@@ -31,10 +31,8 @@ slsEntity *sls_create_tank(slsAppState *state,
 
   slsComponentMask barrel_mask = SLS_COMPONENT_NONE;
 
-  sls_entity_init(&data->turret, self->pool, barrel_mask, "barrel0");
-  sls_init_sprite(&data->barrel,
-                  state, self->pool,
-                  "turret0", tex, shader);
+  sls_entity_init(&data->turret, self->pool, barrel_mask, "turret0");
+  sls_init_sprite(&data->barrel, self->pool, "barrel0", tex, shader);
 
   // set transformation
   data->barrel.transform.pos = (kmVec2) {0, -0.5f};
@@ -44,11 +42,15 @@ slsEntity *sls_create_tank(slsAppState *state,
   data->turret.transform.pos = (kmVec2) {0.0, 0.0};
 
 
-  data->barrel.component_mask &= ~SLS_COMPONENT_KINETIC;
-  data->turret.component_mask &= ~SLS_COMPONENT_KINETIC;
-  data->barrel.component_mask &= ~SLS_COMPONENT_BEHAVIOR;
-  data->turret.component_mask &= ~SLS_COMPONENT_BEHAVIOR;
+  data->barrel.component_mask = data->barrel.component_mask &~SLS_COMPONENT_KINETIC;
+  data->turret.component_mask = data->turret.component_mask &~SLS_COMPONENT_KINETIC;
+  data->barrel.component_mask = data->barrel.component_mask &~SLS_COMPONENT_BEHAVIOR;
+  data->turret.component_mask = data->turret.component_mask &~SLS_COMPONENT_BEHAVIOR;
 
+
+  slsComponentMask m = data->turret.component_mask;
+  assert((m & SLS_COMPONENT_KINETIC) !=
+         SLS_COMPONENT_KINETIC);
   // set kinematic
   self->kinematic = (slsKinematic2D) {
       .mass = 1.0,
@@ -65,11 +67,12 @@ slsEntity *sls_create_tank(slsAppState *state,
 
   assert(data->turret.parent == self);
   assert(data->barrel.parent == &data->turret);
+  assert(data->barrel.parent->parent != &data->turret);
 
 
-  data->acceleration = 20.0;
-  data->max_speed = 10.0;
-  data->rotational_speed = 70.0;
+  data->acceleration = 10.0;
+  data->max_speed = 20.0;
+  data->rotational_speed = 30.0;
 
   return self;
 }
@@ -80,18 +83,20 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
   slsPlayerInput *in = &state->input;
   slsEntity *self = behavior->entity;
   slsIPoint control_axis = {0, 0};
-  if (in->key_down) {
-    control_axis.y -= 1;
-  }
-  if (in->key_up) {
-    control_axis.y += 1;
-  }
-  if (in->key_left) {
-    control_axis.x -= 1;
-  }
-  if (in->key_right) {
-    control_axis.x += 1;
-  }
+  slsIPoint aim_axis = {0, 0};
+
+
+  control_axis.y += (in->key_up)? 1: 0;
+  control_axis.y += (in->key_down)? -1: 0;
+
+  control_axis.x += (in->key_right)? 1: 0;
+  control_axis.x += (in->key_left)? -1: 0;
+
+  aim_axis.y += (in->aim_up)? 1: 0;
+  aim_axis.y += (in->aim_down)? -1: 0;
+
+  aim_axis.x += (in->aim_right)? 1: 0;
+  aim_axis.x += (in->aim_left)? -1: 0;
 
 
   if (control_axis.y != 0) {
@@ -104,23 +109,35 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
 
     kmVec2 velocity = {self->kinematic.velocity.x + accel.x, self->kinematic.velocity.y + accel.y};
 
-    self->kinematic.velocity = velocity;
-
-    /*
-    float speed = kmVec2Length(&self->kinematic.velocity);
-    if (speed < data->max_speed) {
-      kmVec2Normalize(&self->kinematic.velocity, &self->kinematic.velocity);
-      kmVec2Scale(&self->kinematic.velocity, &self->kinematic.velocity, (float)data->max_speed);
-
+    if (kmVec2Length(&velocity) <= data->max_speed) {
+      self->kinematic.velocity = velocity;
+    } else {
+      kmVec2Normalize(&velocity, &velocity);
+      kmVec2Scale(&self->kinematic.velocity, &velocity, (float)data->max_speed);
     }
 
-    */
   }
-
 
   if (control_axis.x != 0) {
-    self->transform.rot -= ((float) control_axis.x * dt * data->rotational_speed);
+    self->transform.rot -= ((float) control_axis.x  * data->rotational_speed) / 400.0;
   }
+
+  // braking
+  if (in->key_brake) {
+    self->kinematic.linear_drag = 0.6;
+  } else {
+    self->kinematic.linear_drag = 0.005;
+  }
+
+  // turret aim
+  if (aim_axis.x != 0 || aim_axis.y != 0) {
+    float world_rot = atan2f((float) aim_axis.x, -(float) aim_axis.y);
+    data->turret.transform.rot = sls_transform2d_world_to_local_angle(&self->transform, world_rot);
+
+  } else {
+    data->turret.transform.rot = 0;
+  }
+
 
   sls_tank_turret_update(&data->turret, state, dt * 10);
 
@@ -142,8 +159,6 @@ void sls_tank_turret_update(slsEntity *self, slsAppState *state, double dt)
   kmMat4 inverse_proj;
   kmMat4Inverse(&inverse_proj, &state->projection);
   kmVec4MultiplyMat4(&vmouse_world, &v4mouse, &state->projection);
-
-
 
 }
 

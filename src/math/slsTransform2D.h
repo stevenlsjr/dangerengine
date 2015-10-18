@@ -6,6 +6,7 @@
 #define DANGERENGINE_SLSTRANSFORM2D_H
 
 #include "../slsutils.h"
+#include "slsMatrixStack.h"
 #include <kazmath/kazmath.h>
 
 typedef  struct slsEntity slsEntity;
@@ -21,6 +22,8 @@ struct slsTransform2D {
   float rot;
 
   int z_layer;
+
+  kmMat4 local_matrix;
 
   kmMat4 model_view;
 
@@ -45,7 +48,7 @@ struct slsKinematic2D {
   float rotational_speed;
 };
 
-kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D const *in) SLS_NONNULL(1, 2);
+kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D *in) SLS_NONNULL(1, 2);
 
 slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b) SLS_NONNULL(1, 2);
 slsBool sls_transform2D_near(slsTransform2D const *a,
@@ -54,10 +57,21 @@ slsBool sls_transform2D_near(slsTransform2D const *a,
 
 slsTransform2D *sls_transform2d_init(slsTransform2D *self) SLS_NONNULL(1);
 
-kmVec2 sls_transform2d_local_to_world(slsTransform2D const *self,
-                                      kmVec2 const *in) SLS_NONNULL(1, 2);
-kmVec2 sls_transform2d_world_to_local(slsTransform2D const *self,
-                                      kmVec2 const *in) SLS_NONNULL(1, 2);
+kmMat4 *sls_transform2d_modelview(slsTransform2D *self, slsMatrixStack *mat_stack, kmMat4 *out) SLS_NONNULL(1, 2, 3);
+
+kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
+                                      slsMatrixStack *mat_stack,
+                                      kmVec2 const *in_opt) SLS_NONNULL(1, 2);
+
+
+
+kmVec2 sls_transform2d_world_to_local(slsTransform2D *self,
+                                      slsMatrixStack *mat_stack,
+                                      kmVec2 const *in_opt) SLS_NONNULL(1, 2);
+
+float sls_transform2d_local_to_world_angle(slsTransform2D *self, float angle);
+float sls_transform2d_world_to_local_angle(slsTransform2D *self, float angle);
+
 
 
 #endif //DANGERENGINE_SLSTRANSFORM2D_H

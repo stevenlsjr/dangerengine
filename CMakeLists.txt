@@ -46,8 +46,6 @@ set(DANGER_SRC
 #renderer types
   src/renderer/slsmesh.c
   src/renderer/slsmesh.h
-  src/renderer/slsmodel.c
-  src/renderer/slsmodel.h
   src/renderer/slstexture.c
   src/renderer/slstexture.h
   src/renderer/slsshader.c
@@ -68,7 +66,11 @@ set(DANGER_SRC
   src/state/slsEntityDraw.c
   src/state/slsEntityDraw.h
   src/math/slsCamera.c
-  src/math/slsCamera.h src/state/slsBehavior.c src/state/slsBehavior.h src/state/resourceutils.c src/state/resourceutils.h)
+  src/math/slsCamera.h
+  src/state/slsBehavior.c
+  src/state/slsBehavior.h
+  src/state/resourceutils.c
+  src/state/resourceutils.h src/data-types/intrusivelist.h)
 
 
 # tests compiled in c
@@ -93,7 +95,7 @@ set(DANGER_TEST_SRC
 set(DANGER_DEMO_SRC
   demos/exec.c
   demos/render_demo.c
-  demos/render_demo.h demos/slsTank.c demos/slsTank.h)
+  demos/render_demo.h demos/slsTank.c demos/slsTank.h demos/tile_map.c demos/tile_map.h)
 
 #--------------------------------------------
 #-------------project config-----------------
@@ -158,6 +160,7 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
 pkg_check_modules(APR apr-1)
+pkg_check_modules(APR_UTIL apr-util-1)
 
 set(CMAKE_LIBRARY_PATH
   "${CMAKE_LIBRARY_PATH} ${SDL2_LIBRARY_DIRS} ${SDL2IMG_LIBRARY_DIRS}"
@@ -176,11 +179,11 @@ set(DANGER_DEPS
   ${SDL2_LIBRARY}
   ${SDL2_IMAGE_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
-  ${APR_LIBRARIES})
+  ${APR_LIBRARIES}
+  ${APR_UTIL_LIBRARIES})
 
 
-message("${DANGER_DEPS}")
-message("${SDL2_IMAGE_LIBRARIES}")
+message("${APR_UTIL_LIBRARIES}")
 
 include_directories(
   ${GLEW_INCLUDE_DIR}

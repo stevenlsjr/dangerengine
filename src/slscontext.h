@@ -114,6 +114,8 @@ struct slsContext {
   SDL_Window *window;
   SDL_GLContext gl_context;
 
+  long frame_n;
+
 
   slsBool is_running;
   clock_t interval;
@@ -125,6 +127,8 @@ struct slsContext {
    * one application run(), allocate to the self->state's pool.
    */
   apr_pool_t *pool;
+
+  apr_pool_t *tmp_pool;
 
   slsAppState *state;
 

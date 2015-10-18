@@ -148,6 +148,27 @@ void sls_mesh_set_uvs(slsMesh *self, kmVec2 *buffer_in, size_t n_items) SLS_NONN
 void sls_mesh_set_colors(slsMesh *self, kmVec4 *buffer_in, size_t n_items) SLS_NONNULL(1, 2);
 
 
+slsMesh *sls_mesh_init(slsMesh *self,
+                       slsVertex const *vertices,
+                       size_t vert_count,
+                       unsigned const *indices,
+                       size_t idx_count);
+
+
+void sls_mesh_dtor(slsMesh *self);
+
+void sls_mesh_bind(slsMesh *self, slsShader *shader);
+
+void _sls_mesh_binddata(slsMesh *self, GLuint program);
+
+void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
+
+
+void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
+
+void sls_mesh_draw(slsMesh *self, double dt);
+
+void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
 
 #endif //DANGERENGINE_SLS_MESH_H
 

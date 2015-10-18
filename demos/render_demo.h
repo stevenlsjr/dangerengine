@@ -21,6 +21,7 @@ typedef struct demoData {
   slsTexture *tank_tex;
   slsTexture *barrel_tex;
   slsTexture *grass_tex;
+  slsTexture *block_tex;
 
   kmMat4 view_matrix;
 

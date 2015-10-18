@@ -48,7 +48,14 @@ struct slsPlayerInput {
   bool key_right;
   bool key_left;
 
+  bool aim_up;
+  bool aim_down;
+  bool aim_right;
+  bool aim_left;
+
   bool key_space;
+
+  bool key_brake;
 
 
   slsKeyMods key_mods;
@@ -62,6 +69,8 @@ struct slsPlayerInput {
 
 };
 
+
+typedef struct slsContext slsContext;
 /**
  * @brief
  */
@@ -79,10 +88,18 @@ struct slsAppState {
   slsShader *active_shader;
 
   slsMatrixStack model_view;
+  /**
+   * @brief matrix stack used for general
+   * math work
+   */
+  slsMatrixStack work_stack;
+
   kmMat4 projection;
 
 
   slsEntity *root;
+
+  slsContext *context;
 
   apr_pool_t *pool;
 };

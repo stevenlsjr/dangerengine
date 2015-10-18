@@ -6,13 +6,24 @@
  * 
  **/
 #include "slsEntityDraw.h"
+#include <apr-1/apr_strmatch.h>
+#include <apr-1/apr_strings.h>
 #include <state/slsEntity.h>
 #include <renderer/slsshader.h>
+#include <slscontext.h>
 
 
 void sls_entity_draw(slsEntity *self, double dt, slsAppState *state)
 {
-  if (self->mesh) {
+
+
+  apr_strmatch_pattern const *re = apr_strmatch_precompile(state->context->tmp_pool,
+                                                           "tile.*",
+                                                           0);
+  if (apr_strmatch(re, self->name, 10000)) {
+    sls_log_info("%s", self->name);
+  };
+  if (self->mesh && self->shader) {
 
     sls_msg(self->mesh, pre_draw, self->shader->program, dt);
     sls_msg(self->mesh, draw, dt);

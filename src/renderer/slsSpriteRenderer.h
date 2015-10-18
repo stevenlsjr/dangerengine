@@ -47,10 +47,11 @@ struct slsSpriteBatch {
   slsPtrArray sprites;
 };
 
-
-
 slsSpriteBatch *sls_spritebatch_init(slsSpriteBatch *self) SLS_NONNULL(1);
 slsSpriteBatch *sls_spritebatch_dtor(slsSpriteBatch *self) SLS_NONNULL(1);
+
+
+
 
 void sls_spritebatch_display(slsSpriteBatch *self, double dt)SLS_NONNULL(1);
 
