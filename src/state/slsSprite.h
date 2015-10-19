@@ -53,10 +53,10 @@ slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const 
 
 bool sls_is_spriteentity(slsEntity *entity);
 
-void sls_sprite_set_color(slsEntity *self, kmVec4 color);
+void sls_sprite_set_color(slsEntity *self, kmVec4 color, bool update_vbo);
 void sls_sprite_get_color(slsEntity *self, kmVec4 *color_out);
 
-void sls_sprite_set_uvbox(slsEntity *self, slsVRect const *box);
+void sls_sprite_set_uvbox(slsEntity *self, slsVRect const *box, bool update_vbo);
 void sls_sprite_get_uvbox(slsEntity *self, slsVRect *box_out);
 
 #endif //DANGERENGINE_SLSSPRITE_H

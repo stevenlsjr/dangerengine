@@ -7,6 +7,7 @@
  **/
 #include "tile_map.h"
 #include <apr-1/apr_strings.h>
+#include <state/slsEntity.h>
 
 
 void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool);
@@ -22,16 +23,14 @@ slsEntity *sls_create_tilemap(slsAppState *state,
 
   sls_checkmem(sls_entity_init(tilemap, state->context->pool, SLS_COMPONENT_NONE, name));
 
-  slsTilemapData *dup_data = apr_pcalloc(tilemap->pool, sizeof(slsTilemapData) );
-  tilemap->data = dup_data;
+  slsTilemapData *dup_data = apr_pcalloc(tilemap->pool, sizeof(slsTilemapData));
+  tilemap->behavior.data = dup_data;
 
   *dup_data = *data;
   sls_check(map_size > 0, "invalid map size %lu %lu", data->width, data->height);
 
   dup_data->map = apr_pcalloc(tilemap->pool, sizeof(slsTileVals) * map_size + 1);
   memcpy(dup_data->map, data->map, sizeof(slsTileVals) * map_size);
-
-
 
 
   assert(dup_data->tile_shader && dup_data->tile_texture);
@@ -56,10 +55,10 @@ slsEntity *sls_create_tilemap(slsAppState *state,
 
 void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
 {
-  slsTilemapData *data = self->data;
+  slsTilemapData *data = self->behavior.data;
   size_t n_children = data->width * data->height;
 
-  data->child_sprites = apr_pcalloc(pool, n_children * sizeof(slsEntity) * (1 + n_children * 2)) ;
+  data->child_sprites = apr_pcalloc(pool, n_children * sizeof(slsEntity) * (1 + n_children * 2));
   assert(data->tile_shader && data->tile_texture);
 
   kmVec2 tile_offset = {2.0, 2.0};
@@ -78,6 +77,8 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
       size_t map_size = data->height * data->width;
 
 
+      child->transform.scale = (kmVec2){0.5, 0.5};
+
       slsTexture *tex = data->tile_texture;
 
       char *_name = NULL;
@@ -89,8 +90,6 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
       child->transform.z_layer += 2;
 
       sls_entity_addchild(self, child);
-
-
 
 
       if (data->map[true_idx] == SLS_TILE_OBST) {
@@ -105,7 +104,7 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
 
       }
 
-      child->component_mask &= ~SLS_COMPONENT_KINETIC &~SLS_COMPONENT_BOUNDED;
+      child->component_mask &= ~SLS_COMPONENT_KINETIC & ~SLS_COMPONENT_BOUNDED;
 
 
       child->material_is_owned = false;

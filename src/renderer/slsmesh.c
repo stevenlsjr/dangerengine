@@ -111,8 +111,8 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        size_t idx_count)
 {
   if (!vertices || !indices || !self) { return NULL; }
-  self->indices = sls_array_new(indices, sizeof(unsigned), idx_count);
-  self->vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
+  self->_indices = sls_array_new(indices, sizeof(unsigned), idx_count);
+  self->_vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
 
 
   self->priv = calloc(sizeof(slsMesh_p), 1);
@@ -136,8 +136,8 @@ void sls_mesh_dtor(slsMesh *self)
 
   if (self->priv) { free(self->priv); }
 
-  sls_msg(self->indices, dtor);
-  sls_msg(self->vertices, dtor);
+  sls_msg(self->_indices, dtor);
+  sls_msg(self->_vertices, dtor);
 
   GLuint buffers[] = {self->vbo, self->ibo};
 
@@ -153,17 +153,17 @@ void sls_mesh_dtor(slsMesh *self)
 slsVertex *sls_mesh_get_verts(slsMesh *self, size_t *len_out)
 {
   if (len_out) {
-    *len_out = sls_array_length(self->vertices);
+    *len_out = sls_array_length(self->_vertices);
   }
-  return (slsVertex *) sls_array_get(self->vertices, 0);
+  return (slsVertex *) sls_array_get(self->_vertices, 0);
 }
 
 uint32_t *sls_mesh_get_indices(slsMesh *self, size_t *len_out)
 {
   if (len_out) {
-    *len_out = sls_array_length(self->indices);
+    *len_out = sls_array_length(self->_indices);
   }
-  return (uint32_t *) sls_array_get(self->indices, 0);
+  return (uint32_t *) sls_array_get(self->_indices, 0);
 }
 
 
@@ -208,12 +208,12 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program)
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  const size_t vbo_size = sls_array_length(self->vertices) * sls_array_element_size(self->vertices);
-  const size_t ibo_size = sls_array_length(self->indices) * sls_array_element_size(self->indices);
+  const size_t vbo_size = sls_array_length(self->_vertices) * sls_array_element_size(self->_vertices);
+  const size_t ibo_size = sls_array_length(self->_indices) * sls_array_element_size(self->_indices);
 
 
-  slsVertex const *verts = sls_array_get(self->vertices, 0);
-  unsigned int const *idxs = sls_array_get(self->indices, 0);
+  slsVertex const *verts = sls_array_get(self->_vertices, 0);
+  unsigned int const *idxs = sls_array_get(self->_indices, 0);
 
   // push index buffer data
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);
@@ -294,7 +294,7 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
 void sls_mesh_draw(slsMesh *self, double dt)
 {
 
-  size_t elements = sls_array_length(self->indices);
+  size_t elements = sls_array_length(self->_indices);
   glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
 
 }
@@ -307,6 +307,26 @@ void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }
+
+
+void sls_mesh_update_verts(slsMesh *self, slsShader *shader)
+{
+  glUseProgram(shader->program);
+  glBindVertexArray(self->vao);
+  glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
+
+  {
+    slsVertex *v = sls_array_get(self->_vertices, 0);
+
+    size_t size = sls_array_length(self->_vertices) * sls_array_element_size(self->_vertices);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, size, v);
+  }
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindVertexArray(0);
+  glUseProgram(0);
+}
+
 
 //---------------------------------mesh generations---------------------------------------
 

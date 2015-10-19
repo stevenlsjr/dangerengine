@@ -41,7 +41,7 @@ struct Light {
   float attenuation;
 };
 
-out vec4 color;
+out vec4 out_color;
 
 in vec3 frag_pos;
 in vec4 frag_color;
@@ -104,9 +104,7 @@ void main()
 
   vec3 specular_color = vec3(0.0, 0.0, 0.0);
 
-  color = vec4(diffuse_color + specular_color + ambient, material_color.a) ;
-
-  //color = norm;
+  out_color = vec4(diffuse_color + specular_color + ambient, material_color.a) ;
 }
 
 

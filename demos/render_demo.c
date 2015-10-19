@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <renderer/slsshader.h>
 
+void demo_setup_tilemap(slsContext *self);
 
 void demo_handle_event(slsContext *self,
                        const SDL_Event *e) SLS_NONNULL(1);
@@ -118,32 +119,11 @@ void demo_setup_textures(slsContext *self)
                                     "resources/art/treeLarge_normal.png");
 }
 
-void demo_setup_scene(slsContext *self)
+
+
+void demo_setup_tilemap(slsContext *self)
 {
   demoData *data = self->data;
-
-
-  glUseProgram(data->program);
-
-  sls_camera_init(&data->camera);
-
-  self->state->active_camera = sls_camera_init(&data->camera);
-
-
-  // setup scene graph and tank
-
-  self->state->root =
-      sls_entity_new(self->pool, SLS_COMPONENT_NONE, "root");
-
-  slsEntity *root = self->state->root;
-  sls_checkmem(root);
-
-  root->transform.scale = (kmVec2) {0.1, 0.1};
-
-  data->tank = malloc(sizeof(slsSprite));
-
-  data->tank  = sls_create_tank(self->state, "player_tank", (kmVec2) {0.0, 0.0}, 0, true, data->tank_tex, data->barrel_tex,
-                                data->shader);
 
   data->grass = NULL;
 
@@ -175,10 +155,45 @@ void demo_setup_scene(slsContext *self)
   data->grass->transform.scale = (kmVec2){2.0, 2.0};
 
   data->grass->component_mask = data->grass->component_mask & ~SLS_COMPONENT_KINETIC;
-  sls_entity_addchild(root, data->grass);
+  sls_entity_addchild(self->state->root, data->grass);
+
+}
+
+void demo_setup_scene(slsContext *self)
+{
+
+  demoData *data = self->data;
+
+  glUseProgram(data->program);
+
+  sls_camera_init(&data->camera);
+
+  self->state->active_camera = sls_camera_init(&data->camera);
+
+
+  // setup scene graph and tank
+
+  self->state->root =
+      sls_entity_new(self->pool, SLS_COMPONENT_NONE, "root");
+
+  slsEntity *root = self->state->root;
+  sls_checkmem(root);
+
+  root->transform.scale = (kmVec2) {0.1, 0.1};
+
+  data->tank = malloc(sizeof(slsSprite));
+
+  data->tank  = sls_create_tank(self->state, "player_tank",
+                                (kmVec2) {0.0, 0.0}, 0.0, true, data->tank_tex, data->barrel_tex,
+                                data->shader);
+
+  data->tank->transform.rot = M_PI;
+  data->tank->transform.pos = (kmVec2){3.0, 3.0};
+  demo_setup_tilemap(self);
+
   sls_entity_addchild(root, data->tank );
 
-  //sls_sprite_set_color(data->tank, (kmVec4){0.0, 0.2, 0.1});
+  sls_sprite_set_color(data->tank, (kmVec4){0.0, 0.2, 0.1}, true);
 
 
   // turn sprite graphics on/off

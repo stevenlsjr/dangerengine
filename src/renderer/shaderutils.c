@@ -223,7 +223,7 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile,
 }
 
 #else
-GLuint create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile, GLint input, GLint output, GLint vertices) {
+GLuint create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile, GLint input, GLint output, GLint _vertices) {
     fprintf(stderr, "Missing support for geometry shaders.\n");
     return 0;
 }

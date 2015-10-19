@@ -9,7 +9,7 @@ struct Light {
   float attenuation;
 };
 
-out vec4 color;
+out vec4 out_color;
 
 in vec3 frag_pos;
 in vec4 frag_color;
@@ -50,7 +50,7 @@ void main()
 
   if (material_color.a < 0.001) {discard;}
 
-  color = material_color;
+  out_color = material_color;
 
   //color = norm;
 }

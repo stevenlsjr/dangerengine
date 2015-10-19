@@ -99,6 +99,8 @@ slsEntity *sls_entity_init(slsEntity *self,
                            slsComponentMask mask,
                            char const *name) SLS_NONNULL(1, 2, 4);
 
+slsEntity *sls_entity_dtor(slsEntity *self) SLS_NONNULL(1);
+
 void sls_entity_addchild(slsEntity *self,
                          slsEntity *child) SLS_NONNULL(1, 2);
 
@@ -128,15 +130,7 @@ void sls_entity_display(slsEntity *self,
                         double dt);
 
 
-static inline slsEntity *sls_entity_new(
-    apr_pool_t *parent_pool,
-    slsComponentMask mask,
-    char const *name)
-{
-  assert(name && parent_pool);
-  return sls_entity_init((slsEntity *) calloc(1, sizeof(slsEntity)),
-                         parent_pool, mask, name);
-}
+
 
 static inline void sls_entity_delete(slsEntity *self)
 {
@@ -148,6 +142,24 @@ void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child);
 
 
 void sls_entity_unlink(slsEntity *self, apr_pool_t *p);
+
+
+/**
+ * @brief searches for a entity with given name in entity list
+ */
+slsEntity * sls_entity_findnamed(slsEntity *self, char const *name);
+
+
+static inline slsEntity *sls_entity_new(
+    apr_pool_t *parent_pool,
+    slsComponentMask mask,
+    char const *name)
+{
+  assert(name && parent_pool);
+  return sls_entity_init((slsEntity *) calloc(1, sizeof(slsEntity)),
+                         parent_pool, mask, name);
+}
+
 
 
 #endif //DANGERENGINE_SLSENTITY_H

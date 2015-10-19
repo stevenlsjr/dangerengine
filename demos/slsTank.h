@@ -21,6 +21,10 @@ typedef struct slsTankData {
   double max_speed;
   double rotational_speed;
 
+  slsEntity *tilemap;
+
+  slsMatrixStack work_stack;
+
 } slsTankData;
 
 slsEntity *sls_create_tank(slsAppState *state,
@@ -32,7 +36,7 @@ slsEntity *sls_create_tank(slsAppState *state,
                            slsTexture *barrel_tex,
                            slsShader *shader) SLS_NONNULL(1, 2, 6, 7, 8);
 
-void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt) SLS_NONNULL(1, 2);
+void sls_tankb_update(slsEntity *self, slsAppState *state, double dt) SLS_NONNULL(1, 2);
 
 void sls_tank_turret_update(slsEntity *self, slsAppState *state, double dt);
 

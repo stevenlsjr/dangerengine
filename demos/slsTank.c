@@ -6,8 +6,17 @@
  * 
  **/
 #include "slsTank.h"
+#include "tile_map.h"
 
 #include <state/slsSprite.h>
+
+slsEntity *sls_tank_dtor(slsEntity *self);
+
+
+void sls_tank_checkcollision(slsEntity *self,
+                             slsTankData *data,
+                             slsAppState *state,
+                             double dt) SLS_NONNULL(1, 2, 3);
 
 slsEntity *sls_create_tank(slsAppState *state,
                            char const *name,
@@ -43,10 +52,10 @@ slsEntity *sls_create_tank(slsAppState *state,
   data->turret.transform.pos = (kmVec2) {0.0, 0.0};
 
 
-  data->barrel.component_mask = data->barrel.component_mask &~SLS_COMPONENT_KINETIC;
-  data->turret.component_mask = data->turret.component_mask &~SLS_COMPONENT_KINETIC;
-  data->barrel.component_mask = data->barrel.component_mask &~SLS_COMPONENT_BEHAVIOR;
-  data->turret.component_mask = data->turret.component_mask &~SLS_COMPONENT_BEHAVIOR;
+  data->barrel.component_mask = data->barrel.component_mask & ~SLS_COMPONENT_KINETIC;
+  data->turret.component_mask = data->turret.component_mask & ~SLS_COMPONENT_KINETIC;
+  data->barrel.component_mask = data->barrel.component_mask & ~SLS_COMPONENT_BEHAVIOR;
+  data->turret.component_mask = data->turret.component_mask & ~SLS_COMPONENT_BEHAVIOR;
 
 
   slsComponentMask m = data->turret.component_mask;
@@ -70,34 +79,46 @@ slsEntity *sls_create_tank(slsAppState *state,
   assert(data->barrel.parent == &data->turret);
   assert(data->barrel.parent->parent != &data->turret);
 
+  data->tilemap = NULL;
+
 
   data->acceleration = 10.0;
   data->max_speed = 20.0;
   data->rotational_speed = 5.0;
 
+  sls_matrix_stack_init(&data->work_stack, 8);
+
+  self->dtor = sls_tank_dtor;
+
   return self;
 }
 
-void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
+void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
 {
-  slsTankData *data = behavior->data;
+
+
+  slsTankData *data = self->behavior.data;
   slsPlayerInput *in = &state->input;
-  slsEntity *self = behavior->entity;
   slsIPoint control_axis = {0, 0};
   slsIPoint aim_axis = {0, 0};
 
+  if (!data->tilemap) {
+    data->tilemap = sls_entity_findnamed(self, "grass");
+    if (!data->tilemap) { return; }
+  }
 
-  control_axis.y += (in->key_up)? 1: 0;
-  control_axis.y += (in->key_down)? -1: 0;
 
-  control_axis.x += (in->key_right)? 1: 0;
-  control_axis.x += (in->key_left)? -1: 0;
+  control_axis.y += (in->key_up) ? 1 : 0;
+  control_axis.y += (in->key_down) ? -1 : 0;
 
-  aim_axis.y += (in->aim_up)? 1: 0;
-  aim_axis.y += (in->aim_down)? -1: 0;
+  control_axis.x += (in->key_right) ? 1 : 0;
+  control_axis.x += (in->key_left) ? -1 : 0;
 
-  aim_axis.x += (in->aim_right)? 1: 0;
-  aim_axis.x += (in->aim_left)? -1: 0;
+  aim_axis.y += (in->aim_up) ? 1 : 0;
+  aim_axis.y += (in->aim_down) ? -1 : 0;
+
+  aim_axis.x += (in->aim_right) ? 1 : 0;
+  aim_axis.x += (in->aim_left) ? -1 : 0;
 
 
   if (control_axis.y != 0) {
@@ -114,13 +135,13 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
       self->kinematic.velocity = velocity;
     } else {
       kmVec2Normalize(&velocity, &velocity);
-      kmVec2Scale(&self->kinematic.velocity, &velocity, (float)data->max_speed);
+      kmVec2Scale(&self->kinematic.velocity, &velocity, (float) data->max_speed);
     }
 
   }
 
   if (control_axis.x != 0) {
-    self->transform.rot -= ((float) control_axis.x  * data->rotational_speed) * dt;
+    self->transform.rot -= ((float) control_axis.x * data->rotational_speed) * dt;
   }
 
   // braking
@@ -142,6 +163,20 @@ void sls_tankb_update(slsBehavior *behavior, slsAppState *state, double dt)
 
   sls_tank_turret_update(&data->turret, state, dt * 10);
 
+  sls_tank_checkcollision(self, data, state, dt);
+
+}
+
+
+slsEntity *sls_tank_dtor(slsEntity *self)
+{
+
+  slsTankData *data = self->behavior.data;
+  if (data) {
+    sls_matrix_stack_dtor(&data->work_stack);
+  }
+
+  sls_entity_dtor(self);
 }
 
 
@@ -163,3 +198,41 @@ void sls_tank_turret_update(slsEntity *self, slsAppState *state, double dt)
 
 }
 
+
+void sls_tank_checkcollision(slsEntity *self,
+                             slsTankData *data, slsAppState *state, double dt)
+{
+  if (!data->tilemap) { return; }
+  kmVec2 world_pos = sls_transform2d_local_to_world(&self->transform, &data->work_stack, NULL);
+
+
+  slsTilemapData *tm = data->tilemap->behavior.data;
+  assert(tm);
+
+  kmVec4 map_pos = {0.0, 0.0, 0.0, 1.0}, map_size = {0.0, 0.0, 0.0, 1.0}, tmp;
+  map_pos.x = data->tilemap->transform.pos.x;
+  map_pos.y = data->tilemap->transform.pos.y;
+
+  map_size.x = tm->width;
+  map_size.y = tm->height;
+
+  kmMat4 model_view, tmpmat;
+  sls_transform2d_modelview(&data->tilemap->transform, &data->work_stack, &model_view);
+
+  tmp = map_pos;
+  kmVec4MultiplyMat4(&map_pos, &tmp, &model_view);
+
+  tmp = map_size;
+  kmVec4MultiplyMat4(&map_size, &tmp, &model_view);
+
+
+  kmVec2 tile_coords = {(world_pos.x - map_pos.x) * tm->width,
+                        (world_pos.y - map_pos.y) * tm->height};
+
+  tile_coords.x = floorf(tile_coords.x / map_size.x);
+  tile_coords.y = floorf(tile_coords.y / map_size.y);
+
+  //sls_log_info("%f %f", tile_coords.x, tile_coords.y);
+
+
+}

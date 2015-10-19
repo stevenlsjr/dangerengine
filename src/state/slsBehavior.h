@@ -20,10 +20,10 @@ typedef struct slsAppState slsAppState;
 struct slsBehavior {
   slsEntity *entity;
 
-  void (*setup)(slsBehavior *self);
-  void (*teardown)(slsBehavior *self);
+  void (*setup)(slsEntity *self);
+  void (*teardown)(slsEntity *self);
 
-  void (*update)(slsBehavior *self, slsAppState *state, double dt);
+  void (*update)(slsEntity *self, slsAppState *state, double dt);
 
   void *data;
 };

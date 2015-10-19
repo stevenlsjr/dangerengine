@@ -23,7 +23,7 @@ kmMat4 *sls_transform2D_to_matrix(kmMat4 *out,
   tmp = *out;
   kmMat4Multiply(out, &scale, &rotate);
 
-  kmMat4Translation(&translate, in->pos.x, in->pos.y, (float)in->z_layer);
+  kmMat4Translation(&translate, in->pos.x, in->pos.y, (float) in->z_layer);
 
   tmp = *out;
   kmMat4Multiply(out, &translate, &tmp);
@@ -50,7 +50,7 @@ slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
 
 slsBool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, float epsilon)
 {
-  
+
   return SLS_TRUE;
 }
 
@@ -78,7 +78,6 @@ slsTransform2D sls_transform2d_local2world(slsEntity *entity)
   }
 
 
-
   return a;
 }
 
@@ -87,9 +86,9 @@ kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
                                       kmVec2 const *in_opt)
 {
 
-  kmVec4 result= (in_opt)?
-                 (kmVec4){in_opt->x, in_opt->y, 0.0, 1.0}:
-                 (kmVec4){0.0, 0.0, 0.0, 1.0};
+  kmVec4 result = (in_opt) ?
+                  (kmVec4) {in_opt->x, in_opt->y, 0.0, 1.0} :
+                  (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
   mat_stack->n_matrices = 0;
@@ -99,7 +98,7 @@ kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
 
   kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
 
-  return (kmVec2){result.x, result.y};
+  return (kmVec2) {result.x, result.y};
 }
 
 
@@ -107,9 +106,9 @@ kmVec2 sls_transform2d_world_to_local(slsTransform2D *self,
                                       slsMatrixStack *mat_stack,
                                       kmVec2 const *in_opt)
 {
-  kmVec4 result= (in_opt)?
-                 (kmVec4){in_opt->x, in_opt->y, 0.0, 1.0}:
-                 (kmVec4){0.0, 0.0, 0.0, 1.0};
+  kmVec4 result = (in_opt) ?
+                  (kmVec4) {in_opt->x, in_opt->y, 0.0, 1.0} :
+                  (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
   mat_stack->n_matrices = 0;
@@ -118,13 +117,12 @@ kmVec2 sls_transform2d_world_to_local(slsTransform2D *self,
   sls_transform2d_modelview(self, mat_stack, &tmpmat);
 
 
-
   tmpmat1 = tmpmat;
 
 
   kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
 
-  return (kmVec2){result.x, result.y};
+  return (kmVec2) {result.x, result.y};
 }
 
 kmMat4 *sls_transform2d_modelview(slsTransform2D *self, slsMatrixStack *mat_stack, kmMat4 *out)
@@ -138,11 +136,12 @@ kmMat4 *sls_transform2d_modelview(slsTransform2D *self, slsMatrixStack *mat_stac
   }
 
   kmMat4Identity(out);
-  while(mat_stack->n_matrices > 0) {
+  while (mat_stack->n_matrices > 0) {
     kmMat4 mul_in = *out;
     sls_matrix_stack_pop(mat_stack, &pushed_mat);
     kmMat4Multiply(out, &mul_in, &pushed_mat);
   }
+
 
   self->model_view = *out;
 

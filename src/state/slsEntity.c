@@ -16,7 +16,6 @@ struct slsEntity_p {
   bool skip_update;
 };
 
-slsEntity *sls_entity_dtor(slsEntity *self) SLS_NONNULL(1);
 
 
 slsEntity const *sls_entity_class()
@@ -109,6 +108,13 @@ slsEntity *sls_entity_dtor(slsEntity *self)
 
 void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child)
 {
+  // call setup behavior
+
+  if ((self->component_mask & SLS_COMPONENT_BEHAVIOR) == SLS_COMPONENT_BEHAVIOR &&
+      self->behavior.setup) {
+    self->behavior.setup(self);
+  }
+
   slsEntity *next = self->il.next;
   child->il.next = next;
   child->il.prev = self;
@@ -132,8 +138,17 @@ void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child)
     }
   }
 }
+
 void sls_entity_unlink(slsEntity *self, apr_pool_t *p)
 {
+
+  // call teardown behavior
+
+  if ((self->component_mask & SLS_COMPONENT_BEHAVIOR) == SLS_COMPONENT_BEHAVIOR &&
+      self->behavior.teardown) {
+    self->behavior.teardown(self);
+  }
+
   slsEntity *prev = self->il.prev;
   slsEntity *next = self->il.next;
   if (prev) {
@@ -269,7 +284,7 @@ void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
 
   if (has_behavior && self->behavior.update) {
     self->behavior.entity = self;
-    self->behavior.update(&self->behavior, state, dt);
+    self->behavior.update(self, state, dt);
   }
 
   if ((self->component_mask & SLS_COMPONENT_KINETIC) == SLS_COMPONENT_KINETIC) {
@@ -382,5 +397,23 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
   return;
   error:
   return;
+
+}
+
+
+slsEntity *sls_entity_findnamed(slsEntity *self, char const *name)
+{
+  size_t max_strlen = 10000;
+
+  for (slsEntity *itor = self->il.next;
+       itor != NULL && itor != self;
+       itor = itor->il.next) {
+    if (strncmp(itor->name, name, max_strlen) == 0) {
+      return itor;
+    }
+
+  }
+
+    return NULL;
 
 }
