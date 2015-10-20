@@ -50,14 +50,6 @@ in vec3 frag_normal;
 
 in vec3 frag_transformed_normal;
 
-uniform mat4 model_view;
-uniform mat4 normal_mat;
-uniform mat4 projection;
-
-uniform float time;
-uniform sampler2D diffuse_map;
-uniform sampler2D specular_map;
-uniform sampler2D normal_map;
 
 const float ambient_str = 0.1;
 
@@ -104,7 +96,10 @@ void main()
 
   vec3 specular_color = vec3(0.0, 0.0, 0.0);
 
-  out_color = vec4(diffuse_color + specular_color + ambient, material_color.a) ;
+
+  out_color = vec4(diffuse_color +
+                   specular_color + ambient,
+                   material_color.a);
 }
 
 

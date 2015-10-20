@@ -12,6 +12,25 @@
 
 #include "shaderutils.h"
 
+// TODO(Steve) implement a way to load this as a file
+static char const *uniforms =
+"/**\n"
+" * @file uniforms.glsl\n"
+" * @brief dives uniform values for all shaders\n"
+" * @license FreeBSD\n"
+" **/\n"
+"\n"
+"uniform mat4 model_view;\n"
+"uniform mat4 normal_mat;\n"
+"uniform mat4 projection;\n"
+"\n"
+"uniform float time;\n"
+"\n"
+"uniform sampler2D diffuse_map;\n"
+"uniform sampler2D specular_map;\n"
+"uniform sampler2D normal_map;\n"
+"uniform int z_layer;\n";
+
 
 int sls_get_glversion();
 
@@ -105,8 +124,8 @@ GLuint sls_create_shader(const char *filename, GLenum type)
   }
   GLuint res = glCreateShader(type);
 
-  char const *sources[] = {preamble, source};
-  const size_t n_sources = sizeof(sources)/ sizeof(char*);
+  char const *sources[] = {preamble, uniforms, source};
+  const size_t n_sources = sizeof(sources) / sizeof(char *);
 
   glShaderSource(res, n_sources, sources, NULL);
 
@@ -122,7 +141,6 @@ GLuint sls_create_shader(const char *filename, GLenum type)
     sls_print_log(res);
 
 
-
     glDeleteShader(res);
 
     return 0;
@@ -132,9 +150,9 @@ GLuint sls_create_shader(const char *filename, GLenum type)
 }
 
 
-
-
-GLuint sls_create_program(const char *vertexfile, const char *fragmentfile)
+GLuint sls_create_program(const char *vertexfile,
+                          const char *fragmentfile,
+                          char const *uniform_definitions)
 {
   GLuint
       program = glCreateProgram(),
@@ -177,9 +195,8 @@ GLuint sls_create_program(const char *vertexfile, const char *fragmentfile)
 
 #ifdef GL_GEOMETRY_SHADER
 
-GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile,
-                             const char *fragmentfile, GLint input,
-                             GLint output, GLint vertices)
+GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile,
+                             char const *uniform_definitions, GLint input, GLint output, GLint vertices)
 {
   GLuint program = glCreateProgram();
   GLuint shader;
