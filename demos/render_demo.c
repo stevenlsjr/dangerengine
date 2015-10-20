@@ -193,7 +193,7 @@ void demo_setup_scene(slsContext *self)
 
   sls_entity_addchild(root, data->tank );
 
-  sls_sprite_set_color(data->tank, (kmVec4){0.0, 0.2, 0.1}, true);
+  sls_sprite_set_color(data->tank, (kmVec4){0.0, 1.0, 0.1}, true);
 
 
   // turn sprite graphics on/off

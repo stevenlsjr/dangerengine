@@ -111,8 +111,16 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        size_t idx_count)
 {
   if (!vertices || !indices || !self) { return NULL; }
-  self->_indices = sls_array_new(indices, sizeof(unsigned), idx_count);
-  self->_vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
+  //self->_indices = sls_array_new(indices, sizeof(unsigned), idx_count);
+  //self->_vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
+
+  self->vertices.data = calloc((vert_count + 1), sizeof(slsVertex));
+  self->indices.data = calloc((idx_count + 1), sizeof(uint32_t));
+
+  memcpy(self->vertices.data, vertices, vert_count * sizeof(slsVertex));
+  memcpy(self->indices.data, indices, idx_count * sizeof(uint32_t));
+  self->vertices.length = vert_count;
+  self->indices.length = idx_count;
 
 
   self->priv = calloc(sizeof(slsMesh_p), 1);
@@ -136,10 +144,17 @@ void sls_mesh_dtor(slsMesh *self)
 
   if (self->priv) { free(self->priv); }
 
-  sls_msg(self->_indices, dtor);
-  sls_msg(self->_vertices, dtor);
+
 
   GLuint buffers[] = {self->vbo, self->ibo};
+
+  if (self->vertices.data) {
+    free(self->vertices.data);
+  }
+
+  if (self->indices.data) {
+    free(self->indices.data);
+  }
 
 
   glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
@@ -149,22 +164,6 @@ void sls_mesh_dtor(slsMesh *self)
   free(self);
 }
 
-
-slsVertex *sls_mesh_get_verts(slsMesh *self, size_t *len_out)
-{
-  if (len_out) {
-    *len_out = sls_array_length(self->_vertices);
-  }
-  return (slsVertex *) sls_array_get(self->_vertices, 0);
-}
-
-uint32_t *sls_mesh_get_indices(slsMesh *self, size_t *len_out)
-{
-  if (len_out) {
-    *len_out = sls_array_length(self->_indices);
-  }
-  return (uint32_t *) sls_array_get(self->_indices, 0);
-}
 
 
 void sls_mesh_bind(slsMesh *self, slsShader *shader)
@@ -208,12 +207,12 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program)
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  const size_t vbo_size = sls_array_length(self->_vertices) * sls_array_element_size(self->_vertices);
-  const size_t ibo_size = sls_array_length(self->_indices) * sls_array_element_size(self->_indices);
+  const size_t vbo_size = sizeof(slsVertex) * self->vertices.length;
+  const size_t ibo_size = sizeof(uint32_t) * self->indices.length;
 
 
-  slsVertex const *verts = sls_array_get(self->_vertices, 0);
-  unsigned int const *idxs = sls_array_get(self->_indices, 0);
+  slsVertex const *verts = self->vertices.data;
+  unsigned int const *idxs = self->indices.data;
 
   // push index buffer data
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibo_size, idxs, GL_STATIC_DRAW);
@@ -294,7 +293,7 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
 void sls_mesh_draw(slsMesh *self, double dt)
 {
 
-  size_t elements = sls_array_length(self->_indices);
+  size_t elements = self->indices.length;
   glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
 
 }
@@ -311,20 +310,14 @@ void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader)
 {
-  glUseProgram(shader->program);
-  glBindVertexArray(self->vao);
-  glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
+  glDeleteBuffers(2, (GLuint[]){self->ibo, self->vbo});
+  glDeleteVertexArrays(1, &self->vao);
 
-  {
-    slsVertex *v = sls_array_get(self->_vertices, 0);
+  glGenBuffers(1, &self->vbo);
+  glGenBuffers(1, &self->ibo);
+  glGenVertexArrays(1, &self->vao);
 
-    size_t size = sls_array_length(self->_vertices) * sls_array_element_size(self->_vertices);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, size, v);
-  }
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-  glUseProgram(0);
+  self->bind(self, shader);
 }
 
 
@@ -388,59 +381,6 @@ slsMesh *sls_sphere_mesh(size_t n_vertices,
   return m;
 }
 
-slsMesh *sls_mesh_create_shape(char const *name)
-{
-
-  if (!name) { return NULL; }
-
-  slsMesh *mesh = NULL;
-
-  size_t max_count = 50;
-
-  char const *cube = "cube";
-  char const *sphere = "sphere";
-  char const *square = "square";
-
-  if (strncmp(name, cube, max_count) == 0) {
-    sls_log_err("cube mesh not implemented");
-
-  } else if (strncmp(name, sphere, max_count) == 0) {
-    sls_log_err("sphere mesh not implemented");
-  } else if (strncmp(name, square, max_count) == 0) {
-    slsVertex verts[] = {
-        (slsVertex) {.position= {-1.0, -1.0, 0.0},
-            .normal={0.0, 0.0, 1.0},
-            .uv= {0.0, 0.0},
-            .color={1.0, 1.0, 1.0, 1.0}},
-        (slsVertex) {.position= {-1.0, 1.0, 0.0},
-            .normal={0.0, 0.0, 1.0},
-            .uv= {0.0, 1.0},
-            .color={1.0, 1.0, 1.0, 1.0}},
-        (slsVertex) {.position= {1.0, 1.0, 0.0},
-            .normal={0.0, 0.0, 1.0},
-            .uv= {1.0, 1.0},
-            .color={1.0, 1.0, 1.0, 1.0}},
-        (slsVertex) {.position= {1.0, -1.0, 0.0},
-            .normal={0.0, 0.0, 1.0},
-            .uv= {1.0, 0.0},
-            .color={1.0, 1.0, 1.0, 1.0}}
-    };
-
-
-    unsigned int idxs[] = {0, 1, 2, 3, 2, 0};
-
-    size_t n_verts = sizeof(verts) / sizeof(slsVertex);
-    size_t n_idx = sizeof(idxs) / sizeof(unsigned int);
-
-    mesh = sls_mesh_new(verts, n_verts, idxs, n_idx);
-
-  } else {
-    sls_log_err("invalid name given");
-  }
-
-  return mesh;
-
-}
 
 
 slsMesh *sls_mesh_square()
@@ -472,125 +412,3 @@ slsMesh *sls_mesh_square()
   return sls_mesh_new(verts, n_verts, idxs, n_idx);
 }
 
-slsMesh *sls_tile_mesh(size_t width, size_t height)
-{
-  size_t quads = width * height;
-  size_t n_verts = quads * 4;
-  size_t n_indices = quads * 6;
-
-  float unit_len = 1.0;
-
-  slsArray *verts = sls_array_new((slsVertex[0]) {}, sizeof(slsVertex), 0);
-  slsArray *idx = sls_array_new((uint32_t[0]) {}, sizeof(uint32_t), 0);
-
-  for (int j = 0; j < height; ++j) {
-    for (int i = 0; i < width; ++i) {
-      slsVertex quad[] = {
-          (slsVertex) {.position={0.0, 0.0, 0.0}, .uv={0.0, 0.0}},
-          (slsVertex) {.position={0.0, 1.0, 0.0}, .uv={0.0, 1.0}},
-          (slsVertex) {.position={1.0, 1.0, 0.0}, .uv={1.0, 1.0}},
-          (slsVertex) {.position={1.0, 0.0, 0.0}, .uv={1.0, 0.0}},
-      };
-
-      uint32_t quad_elems[] = {
-          0, 1, 2,
-          3, 2, 0
-      };
-      for (int x = 0; x < sizeof(quad) / sizeof(slsVertex); ++x) {
-        slsVertex *v = quad + x;
-        memcpy(v->normal, ((float[3]) {0.0, 0.0, 1.0}), sizeof(float[3]));
-        memcpy(v->color, ((float[4]) {1.0, 1.0, 1.0, 1.0}), sizeof(float[4]));
-
-        v->position[0] *= (float) i * unit_len;
-        v->position[1] *= (float) j * unit_len;
-        sls_array_append(verts, v);
-      }
-      size_t current_idx_count = sls_array_length(idx);
-
-      for (int x = 0; i < sizeof(quad_elems) / sizeof(slsVertex); ++x) {
-        uint32_t *e = quad_elems + x;
-        *e += current_idx_count;
-        sls_array_append(idx, e);
-
-      }
-    }
-
-    free(verts->dtor(verts));
-    free(idx->dtor(idx));
-  }
-
-  return NULL;
-}
-
-void sls_mesh_get_positions(slsMesh *self, kmVec3 *buffer_out, size_t buffer_len)
-{
-  size_t len = 0;
-  slsVertex const *verts = sls_mesh_get_verts(self, &len);
-
-  len = (len < buffer_len)? len: buffer_len;
-
-  for (size_t i = 0; i < len; ++i) {
-    slsVertex const *iter = verts + i;
-    buffer_out[i] = sls_array_to_vec3(iter->position);
-  }
-
-}
-
-void sls_mesh_get_normals(slsMesh *self, kmVec3 *buffer_out, size_t buffer_len)
-{
-  size_t len = 0;
-  slsVertex const *verts = sls_mesh_get_verts(self, &len);
-
-  len = (len < buffer_len)? len: buffer_len;
-
-  for (size_t i = 0; i < len; ++i) {
-    slsVertex const *iter = verts + i;
-    buffer_out[i] = sls_array_to_vec3(iter->normal);
-  }
-}
-
-void sls_mesh_get_uvs(slsMesh *self, kmVec2 *buffer_out, size_t buffer_len)
-{
-  size_t len = 0;
-  slsVertex const *verts = sls_mesh_get_verts(self, &len);
-
-  len = (len < buffer_len)? len: buffer_len;
-
-  for (size_t i = 0; i < len; ++i) {
-    slsVertex const *iter = verts + i;
-    buffer_out[i] = sls_array_to_vec2(iter->uv);
-  }
-}
-
-void sls_mesh_get_colors(slsMesh *self, kmVec4 *buffer_out, size_t buffer_len)
-{
-  size_t len = 0;
-  slsVertex const *verts = sls_mesh_get_verts(self, &len);
-
-  len = (len < buffer_len)? len: buffer_len;
-
-  for (size_t i = 0; i < len; ++i) {
-    slsVertex const *iter = verts + i;
-    buffer_out[i] = sls_array_to_vec4(iter->color);
-  }
-}
-
-void sls_mesh_set_positions(slsMesh *self, kmVec3 *buffer_in, size_t n_items)
-{
-
-}
-
-void sls_mesh_set_normals(slsMesh *self, kmVec3 *buffer_in, size_t n_items)
-{
-
-}
-
-void sls_mesh_set_uvs(slsMesh *self, kmVec2 *buffer_in, size_t n_items)
-{
-
-}
-
-void sls_mesh_set_colors(slsMesh *self, kmVec4 *buffer_in, size_t n_items)
-{
-
-}

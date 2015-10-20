@@ -158,6 +158,7 @@ find_package(PkgConfig REQUIRED)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 pkg_check_modules(APR apr-1)
 pkg_check_modules(APR_UTIL apr-util-1)
@@ -176,6 +177,7 @@ set(DANGER_DEPS
   ${GLEW_LIBRARY}
   ${SDL2_LIBRARY}
   ${SDL2_IMAGE_LIBRARIES}
+  ${SDL2_TTF_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
   ${APR_LIBRARIES}
   ${APR_UTIL_LIBRARIES})

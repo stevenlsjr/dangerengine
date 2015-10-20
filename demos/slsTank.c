@@ -96,7 +96,6 @@ slsEntity *sls_create_tank(slsAppState *state,
 void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
 {
 
-
   slsTankData *data = self->behavior.data;
   slsPlayerInput *in = &state->input;
   slsIPoint control_axis = {0, 0};
@@ -106,7 +105,6 @@ void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
     data->tilemap = sls_entity_findnamed(self, "grass");
     if (!data->tilemap) { return; }
   }
-
 
   control_axis.y += (in->key_up) ? 1 : 0;
   control_axis.y += (in->key_down) ? -1 : 0;

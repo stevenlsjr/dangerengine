@@ -38,6 +38,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <renderer/slsmesh.h>
 
 
 /*================================
@@ -54,8 +55,8 @@ static slsComponentMask sprite_mask =
 bool sls_is_spriteentity(slsEntity *self)
 {
   return ((self->component_mask & sprite_mask) == sprite_mask) &&
-         self->mesh && self->mesh->_vertices &&
-         sls_array_length(self->mesh->_vertices) == 4;
+         self->mesh && self->mesh->vertices.data &&
+         self->mesh->vertices.length == 4;
 }
 
 slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const *name, slsTexture *tex,
@@ -88,22 +89,24 @@ slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const 
 
 void sls_sprite_set_color(slsEntity *self, kmVec4 color, bool update_vbo)
 {
-  glBindBuffer(GL_ARRAY_BUFFER, self->mesh->vbo);
   if (!sls_is_spriteentity(self)) { return; }
+
   if (self->mesh) {
-    size_t n_verts = sls_array_length(self->mesh->_vertices);
+    size_t n_verts = self->mesh->vertices.length;
 
     for (int i=0; i<n_verts; ++i) {
-      slsVertex *v = sls_array_get(self->mesh->_vertices, (size_t)i);
+      slsVertex *v = self->mesh->vertices.data;
       size_t offset = i * sizeof(slsVertex) + offsetof(slsVertex, color);
+
+
       memcpy(v->color, &color, sizeof(float) * 4);
-
-      glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(float) * 4, v->color);
     }
-
   }
 
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  if (update_vbo) {
+    //sls_mesh_update_verts(self->mesh, self->shader);
+  }
+
 
 
 }
@@ -112,7 +115,7 @@ void sls_sprite_get_color(slsEntity *self, kmVec4 *color_out)
 {
   if (!sls_is_spriteentity(self)) { return; }
   if (color_out) {
-    slsVertex *v = sls_array_get(self->mesh->_vertices, 0);
+    slsVertex *v = self->mesh->vertices.data;
     memcpy(color_out, v->color, sizeof(float) * 4);
   }
 }
