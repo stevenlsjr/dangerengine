@@ -8,6 +8,8 @@
 #include <assert.h>
 #include <renderer/slsshader.h>
 
+
+#pragma mark - private declarations
 void demo_setup_tilemap(slsContext *self);
 
 void demo_handle_event(slsContext *self,
@@ -40,10 +42,12 @@ void demo_handle_event(slsContext *self,
   }
 }
 
-
+#pragma mark -demo setup
 void demo_context_setup(slsContext *self)
 {
+#ifndef SLS_GNU_EXT
   if (!self) { exit(EXIT_FAILURE); }
+#endif
 
   sls_context_class()->setup(self);
 
@@ -63,6 +67,8 @@ void demo_context_setup(slsContext *self)
 
   demo_setup_shaders(self);
 
+  demo_setup_text(self);
+
   demo_setup_textures(self);
 
   demo_setup_scene(self);
@@ -77,14 +83,17 @@ void demo_context_setup(slsContext *self)
 
 void demo_setup_shaders(slsContext *self)
 {
-  if (!self || !self->data) { exit(EXIT_FAILURE); }
+#ifndef SLS_GNU_EXT
+  if (!self) {exit(EXIT_FAILURE);}
+#endif
+  if (!self->data) { exit(EXIT_FAILURE); }
   char const *fs_path = "resources/shaders/default.frag";
   char const *vs_path = "resources/shaders/default.vert";
 
   demoData *data = self->data;
 
 
-  data->program = sls_create_program(vs_path, fs_path);
+  data->program = sls_create_program(vs_path, fs_path, NULL);
   data->shader =
       sls_shader_init(apr_pcalloc(self->state->pool,
                                   sizeof(slsShader)),
@@ -119,7 +128,10 @@ void demo_setup_textures(slsContext *self)
                                     "resources/art/treeLarge_normal.png");
 }
 
+void demo_setup_text(slsContext *self)
+{
 
+}
 
 void demo_setup_tilemap(slsContext *self)
 {
@@ -209,6 +221,7 @@ void demo_setup_scene(slsContext *self)
 
 }
 
+#pragma mark -context callbacks
 
 void demo_context_update(slsContext *self, double dt)
 {
@@ -294,3 +307,4 @@ int render_demo_main(int *argc, char **argv)
 
   return 0;
 }
+

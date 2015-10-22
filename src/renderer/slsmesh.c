@@ -39,8 +39,6 @@
 #include <math/math-types.h>
 
 
-
-
 struct slsMesh_p {
   int placeholder;
 };
@@ -127,11 +125,6 @@ slsMesh *sls_mesh_init(slsMesh *self,
   sls_checkmem(self->priv);
 
 
-  glGenBuffers(1, &self->vbo);
-  glGenBuffers(1, &self->ibo);
-
-  glGenVertexArrays(1, &self->vao);
-
   return self;
   error:
   if (self && self->dtor) { sls_msg(self, dtor); }
@@ -143,8 +136,6 @@ void sls_mesh_dtor(slsMesh *self)
   if (!self) { return; }
 
   if (self->priv) { free(self->priv); }
-
-
 
   GLuint buffers[] = {self->vbo, self->ibo};
 
@@ -165,16 +156,20 @@ void sls_mesh_dtor(slsMesh *self)
 }
 
 
-
 void sls_mesh_bind(slsMesh *self, slsShader *shader)
 {
+  glGenBuffers(1, &self->vbo);
+  glGenBuffers(1, &self->ibo);
+
+  glGenVertexArrays(1, &self->vao);
+
+#ifndef SLS_GNU_EXT
   if (!self) { return; }
+#endif
   // bind gl objects
   glUseProgram(shader->program);
 
-#ifndef SLS_GLES
   glBindVertexArray(self->vao);
-#endif
 
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
@@ -310,7 +305,7 @@ void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader)
 {
-  glDeleteBuffers(2, (GLuint[]){self->ibo, self->vbo});
+  glDeleteBuffers(2, (GLuint[]) {self->ibo, self->vbo});
   glDeleteVertexArrays(1, &self->vao);
 
   glGenBuffers(1, &self->vbo);
@@ -380,7 +375,6 @@ slsMesh *sls_sphere_mesh(size_t n_vertices,
 
   return m;
 }
-
 
 
 slsMesh *sls_mesh_square()

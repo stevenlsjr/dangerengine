@@ -70,7 +70,7 @@ set(DANGER_SRC
   src/state/slsBehavior.c
   src/state/slsBehavior.h
   src/state/resourceutils.c
-  src/state/resourceutils.h src/data-types/intrusivelist.h)
+  src/state/resourceutils.h src/data-types/intrusivelist.h src/renderer/slsTTFText.c src/renderer/slsTTFText.h src/sls-commonlibs.h src/state/slsEvent.c src/state/slsEvent.h)
 
 
 # tests compiled in c
@@ -89,13 +89,18 @@ set(DANGER_TEST_SRC
   tests/image_tests.cc
   tests/hash-tests.cc
   tests/ptrarray-tests.cc
-  tests/array-tests.cc tests/list-tests.cc)
+  tests/array-tests.cc
+  tests/list-tests.cc)
 
 
 set(DANGER_DEMO_SRC
   demos/exec.c
   demos/render_demo.c
-  demos/render_demo.h demos/slsTank.c demos/slsTank.h demos/tile_map.c demos/tile_map.h)
+  demos/render_demo.h
+  demos/slsTank.c
+  demos/slsTank.h
+  demos/tile_map.c
+  demos/tile_map.h)
 
 #--------------------------------------------
 #-------------project config-----------------
@@ -164,7 +169,9 @@ pkg_check_modules(APR apr-1)
 pkg_check_modules(APR_UTIL apr-util-1)
 
 set(CMAKE_LIBRARY_PATH
-  "${CMAKE_LIBRARY_PATH} ${SDL2_LIBRARY_DIRS} ${SDL2IMG_LIBRARY_DIRS}"
+  "${CMAKE_LIBRARY_PATH}  \
+  ${SDL2_LIBRARY_DIRS}  \
+  ${SDL2IMG_LIBRARY_DIRS}"
   CACHE STRING "library search path")
 
 
@@ -183,12 +190,14 @@ set(DANGER_DEPS
   ${APR_UTIL_LIBRARIES})
 
 
-message("${APR_UTIL_LIBRARIES}")
+message("${APR_INCLUDEDIR}")
 
 include_directories(
   ${GLEW_INCLUDE_DIR}
   ${OPENGL_INCLUDE_DIR}
-  ${SDL2_INCLUDE_DIR})
+  ${SDL2_INCLUDE_DIR}
+  ${APR_INCLUDEDIR}
+  ${APR_UTIL_INCLUDEDIR})
 
 
 

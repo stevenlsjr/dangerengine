@@ -61,6 +61,7 @@ extern "C" {
 #include "renderer/slsmesh.h"
 #include "renderer/slstexture.h"
 #include "renderer/slsshader.h"
+#include "renderer/slsTTFText.h"
 
 #include "state/slsSprite.h"
 

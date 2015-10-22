@@ -87,7 +87,7 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
 
       child->transform.pos.x = tile_offset.x * i;
       child->transform.pos.y = tile_offset.y * j;
-      child->transform.z_layer += 2;
+      child->transform.z_layer = 0;
 
       sls_entity_addchild(self, child);
 
@@ -98,7 +98,7 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
 
         sls_entity_addchild(child, sls_init_sprite(obstacle,
                                                    pool, o_name, data->block_texture, data->tile_shader));
-        obstacle->transform.z_layer = -5;
+        obstacle->transform.z_layer = -10;
 
         obstacle->component_mask &= ~SLS_COMPONENT_KINETIC;
 

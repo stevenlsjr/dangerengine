@@ -1,6 +1,0 @@
-/**
- * Created by Shea on 5/7/15.
- */
-
-define(function() {
-    return function (Module) {

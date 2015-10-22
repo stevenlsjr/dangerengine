@@ -7,3 +7,6 @@
 [submodule "extern/kazmath"]
 	path = extern/kazmath
 	url = https://github.com/Kazade/kazmath.git
+[submodule "extern/Chipmunk2D"]
+	path = extern/Chipmunk2D
+	url = https://github.com/slembcke/Chipmunk2D

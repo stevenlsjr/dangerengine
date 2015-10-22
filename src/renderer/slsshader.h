@@ -61,6 +61,8 @@ struct slsShader {
     GLuint diffuse_map;
     GLuint specular_map;
     GLuint normal_map;
+
+    GLuint z_layer;
   } uniforms;
 
   struct {
@@ -68,6 +70,7 @@ struct slsShader {
     GLuint normal;
     GLuint uv;
     GLuint color;
+    GLuint z_layer;
   } attributes;
 
   GLuint program;

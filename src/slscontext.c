@@ -56,7 +56,6 @@ struct slsContext_p {
 };
 
 
-
 /*----------------------------------------*
  * slsContext default method prototypes
  *----------------------------------------*/
@@ -106,7 +105,7 @@ static const slsContext sls_context_proto = {
     .handle_event = sls_context_handle_event,
 
     .is_running = SLS_FALSE,
-    .interval = 50,
+    .interval = 30,
     .priv = NULL,
     .window = NULL,
     .state = NULL,
@@ -269,18 +268,21 @@ void sls_context_iter(slsContext *self)
 
   clock_t now = clock();
   slsContext_p *priv = self->priv;
-  priv->dt_acc += now - priv->last;
+  clock_t interval = now - priv->last;
+
+  double true_dt = interval/ (double)CLOCKS_PER_SEC;
+
+  priv->dt_acc += interval;
   priv->last = now;
 
 
   if (priv->dt_acc > self->interval) {
-
-
     double dt = priv->dt_acc / (double) CLOCKS_PER_SEC;
     priv->dt_acc = 0;
 
-
     sls_msg(self, update, dt);
+
+
 
     glClear(GL_COLOR_BUFFER_BIT |
             GL_DEPTH_BUFFER_BIT);

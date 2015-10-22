@@ -100,6 +100,8 @@ void main()
   out_color = vec4(diffuse_color +
                    specular_color + ambient,
                    material_color.a);
+
+
 }
 
 

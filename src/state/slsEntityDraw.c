@@ -17,12 +17,6 @@ void sls_entity_draw(slsEntity *self, double dt, slsAppState *state)
 {
 
 
-  apr_strmatch_pattern const *re = apr_strmatch_precompile(state->context->tmp_pool,
-                                                           "tile.*",
-                                                           0);
-  if (apr_strmatch(re, self->name, 10000)) {
-    sls_log_info("%s", self->name);
-  };
   if (self->mesh && self->shader) {
 
     sls_msg(self->mesh, pre_draw, self->shader->program, dt);
@@ -41,6 +35,8 @@ void sls_drawable_transform(slsEntity *self, slsAppState *state, double dt)
   }
 
   if (self->shader) {
+    glUniform1i(self->shader->uniforms.z_layer, self->transform.z_layer);
+
     sls_matrix_glbind(&state->model_view,
                       self->shader->program,
                       self->shader->uniforms.model_view,

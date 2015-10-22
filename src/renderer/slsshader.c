@@ -142,6 +142,11 @@ void sls_shader_bind_unifs(slsShader *self)
   u->normal_map = (GLuint) unif.u;
   sls_uniform_check(unif.name, unif.u);
 
+  unif.name = "z_layer";
+  unif.u = glGetUniformLocation(self->program, unif.name);
+  u->normal_map = (GLuint) unif.u;
+  sls_uniform_check(unif.name, unif.u);
+
 }
 
 void sls_shader_bind_attrs(slsShader *self)

@@ -38,6 +38,12 @@
 #   define SLS_PURE __attribute__((pure))
 #   define SLS_CONSTFN __attribute__((const))
 
+/**
+ * @brief flags that GNU attribute extensions are availible, i.e.
+ * source can rely on SLS_NONNULL for nullability checks
+ **/
+#   define SLS_GNU_EXT 1
+
 #else
 #   define SLS_NONNULL(param, ...)
 #   define SLS_DEPRECIATED

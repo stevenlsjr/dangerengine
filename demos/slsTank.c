@@ -42,7 +42,7 @@ slsEntity *sls_create_tank(slsAppState *state,
   slsComponentMask barrel_mask = SLS_COMPONENT_NONE;
 
   sls_entity_init(&data->turret, self->pool, barrel_mask, "turret0");
-  sls_init_sprite(&data->barrel, self->pool, "barrel0", tex, shader);
+  sls_init_sprite(&data->barrel, self->pool, "barrel0", barrel_tex, shader);
 
   // set transformation
   data->barrel.transform.pos = (kmVec2) {0, -0.5f};
@@ -83,8 +83,8 @@ slsEntity *sls_create_tank(slsAppState *state,
 
 
   data->acceleration = 10.0;
-  data->max_speed = 20.0;
-  data->rotational_speed = 5.0;
+  data->max_speed = 40.0;
+  data->rotational_speed = 10.0;
 
   sls_matrix_stack_init(&data->work_stack, 8);
 
@@ -135,8 +135,8 @@ void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
       kmVec2Normalize(&velocity, &velocity);
       kmVec2Scale(&self->kinematic.velocity, &velocity, (float) data->max_speed);
     }
-
   }
+
 
   if (control_axis.x != 0) {
     self->transform.rot -= ((float) control_axis.x * data->rotational_speed) * dt;
@@ -157,6 +157,7 @@ void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
   } else {
     data->turret.transform.rot = 0;
   }
+
 
 
   sls_tank_turret_update(&data->turret, state, dt * 10);

@@ -35,6 +35,7 @@ typedef struct demoData {
   slsEntity *tank;
   slsEntity *grass;
 
+  slsTTFText *text;
 
   slsCamera camera;
 
@@ -54,6 +55,7 @@ void demo_context_update(slsContext *self, double dt);
 void demo_setup_textures(slsContext *pContext) SLS_NONNULL(1);
 
 void demo_setup_shaders(slsContext *self) SLS_NONNULL(1);
+void demo_setup_text(slsContext *self) SLS_NONNULL(1);
 
 void demo_update_uniforms(slsContext *self, double dt);
 

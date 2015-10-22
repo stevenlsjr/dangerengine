@@ -37,9 +37,9 @@ private:
     glGetIntegerv(GL_MINOR_VERSION, &minor);
 
     if (major < 3 || (major == 3 && minor < 2)) {
-      p = sls_create_program(vs_path_legacy, fs_path_legacy);
+      p = sls_create_program(vs_path_legacy, fs_path_legacy, NULL);
     } else {
-      p = sls_create_program(vs_path, fs_path);
+      p = sls_create_program(vs_path, fs_path, NULL);
     }
 
     return p;
