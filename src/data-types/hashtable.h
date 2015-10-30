@@ -56,20 +56,14 @@ typedef uint32_t (*slsHashFn)(void const *key);
  * value determining if the table location is filled (in the event
  * of a key-value pair being removed)
  */
-struct slsKeyEntry {
-  void *ptr;
-  /**
-   * @brief if false, the entry can be used to insert a new pair.
-   * @detail This functions as a sentinel flag which tells the probing algorithm
-   * to skip the index if a key-value had previously been inserted at this position
-   */
-  bool is_occupied;
-};
 
 struct slsHashTable {
-  slsKeyEntry *keys;
+  void **keys;
   void **vals;
 
+  /**
+   * @brief the size of the hash table array;
+   */
   size_t array_size;
   size_t n_entries;
 
@@ -98,6 +92,9 @@ void *sls_hashtable_find(slsHashTable *self, void const *key) SLS_NONNULL(1, 2);
 
 void *sls_hashtable_findval(slsHashTable *self, void const *val) SLS_NONNULL(1, 2);
 
+
+bool sls_is_hash_sentinel(void const *val);
+void const *sls_hash_sentinel();
 
 
 

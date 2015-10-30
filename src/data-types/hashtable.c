@@ -88,11 +88,11 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
     slsFreeFn free_fn = self->key_callbacks.free_fn;
     if (free_fn) {
       for (int i=0; i<self->array_size; ++i) {
-        void *key = self->keys[i].ptr;
+
+        void *key = self->keys[i];
         if (key) {free_fn(key);}
       }
     }
-
     free(self->keys);
   }
 
@@ -167,4 +167,14 @@ void *sls_hashtable_findval(slsHashTable *self, void const *val)
 }
 
 
+static int sls_hash_sentinel_value = 0;
 
+bool sls_is_hash_sentinel(void const *val)
+{
+  return val == sls_hash_sentinel();
+}
+
+void const *sls_hash_sentinel()
+{
+  return &sls_hash_sentinel_value;
+}
