@@ -23,6 +23,11 @@
 
 #include "slserrcode.h"
 
+/**
+ * @brief token concentrator macro
+ */
+#define SLS_CONCAT(x, y) x ## y
+
 
 /**
  * @brief attribute wrappers for GCC & clang
@@ -34,9 +39,10 @@
  * gcc's nonnull extension uses 1-indexing, so that's that.
  */
 #   define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
-#   define SLS_DEPRECIATED __attribute__((depreciated))
+#   define SLS_DEPRECIATED __attribute__((deprecated))
 #   define SLS_PURE __attribute__((pure))
 #   define SLS_CONSTFN __attribute__((const))
+#   define SLS_CLEANUP(cleanup_fn) __attribute__((cleanup_fn))
 
 /**
  * @brief flags that GNU attribute extensions are availible, i.e.
@@ -49,6 +55,7 @@
 #   define SLS_DEPRECIATED
 #   define SLS_PURE
 #   define SLS_CONSTFN
+#   define SLS_CLEANUP(cleanup_fn)
 #endif //!_MSC_VER
 
 
@@ -105,11 +112,11 @@
 
 
 #if defined(__cplusplus)
-#   define SLS_C_ASSERT(cond, msg) static_assert(cond, msg)
+#   define SLS_STATIC_ASSERT(cond, msg) static_assert(cond, msg)
 #elif !(defined(__cplusplus)) && defined(__GNUC__)
-#   define SLS_C_ASSERT(cond, msg) _Static_assert(cond, msg)
+#   define SLS_STATIC_ASSERT(cond, msg) _Static_assert(cond, msg)
 #else
-#   define SLS_C_ASSERT(cond, msg)  \
+#   define SLS_STATIC_ASSERT(cond, msg)  \
       typedef char __sls_c_assert_##msg[(cond)?1:-1]
 #endif
 
@@ -154,12 +161,30 @@
 
 #define sls_fail() sls_check(0, "reached fail location %s %d", __FILE__, __LINE__);
 
+#if 0
+
+// EXPERIMENTAL hygenic method call macro
+#define sls_msg_impl(obj,varl, method, ...) ({  \
+  __typeof__(obj) SLS_CONCAT(_obj_, varl) = (obj); \
+  SLS_CONCAT(_obj_, varl)->method(SLS_CONCAT(_obj_, varl), ##__VA_ARGS__);})
+
+#define sls_msg(obj, method, ...) sls_msg_impl(obj, __COUNTER__, method, ##__VA_ARGS__)
+
+#else
+/**
+ * @brief Macro for calling a function pointer field with the
+ * struct instance as the first argument
+ * @detail Because block expressions are non-standard, DO NOT
+ * use a function return value as the 'obj' argument
+ */
 #define sls_msg(obj, method, ...) obj->method(obj, ##__VA_ARGS__)
+
+#endif
 
 typedef enum slsBool {
   SLS_TRUE = true,
   SLS_FALSE = false
-} slsBool;
+} slsBool SLS_DEPRECIATED;
 
 
 /**
@@ -174,12 +199,6 @@ typedef enum slsBool {
  * @return [description]
  */
 void *sls_objalloc(void const *prototype, size_t size);
-
-/**
- * @brief stupid sleep function. Do not use if
- * more robust thread sleep exists
- */
-void sls_sleep(clock_t ticks);
 
 /**
  * @brief cross-platform chdir function.

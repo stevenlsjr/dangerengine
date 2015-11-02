@@ -7,6 +7,8 @@
 #include "tile_map.h"
 #include <assert.h>
 #include <renderer/slsshader.h>
+#include <math/slsCamera.h>
+#include <state/resourceutils.h>
 
 
 #pragma mark - private declarations
@@ -92,13 +94,7 @@ void demo_setup_shaders(slsContext *self)
 
   demoData *data = self->data;
 
-
-  data->program = sls_create_program(vs_path, fs_path, NULL);
-  data->shader =
-      sls_shader_init(apr_pcalloc(self->state->pool,
-                                  sizeof(slsShader)),
-                      self->state->pool,
-                      data->program);
+  data->shader = sls_load_shader(self->state, "default_shader", fs_path, vs_path, false);
 
   self->state->active_shader = data->shader;
 
@@ -191,7 +187,9 @@ void demo_setup_scene(slsContext *self)
   slsEntity *root = self->state->root;
   sls_checkmem(root);
 
-  root->transform.scale = (kmVec2) {0.1, 0.1};
+  root->transform.scale;
+  data->camera.ortho.width = 30;
+  data->camera.ortho.height = 30;
 
   data->tank = malloc(sizeof(slsSprite));
 
@@ -202,6 +200,7 @@ void demo_setup_scene(slsContext *self)
   data->tank->transform.rot = M_PI;
   data->tank->transform.pos = (kmVec2){3.0, 3.0};
   demo_setup_tilemap(self);
+
 
   sls_entity_addchild(root, data->tank );
 
@@ -233,8 +232,7 @@ void demo_context_update(slsContext *self, double dt)
   //sls_log_info("%f", dt);
 
   data->camera.transform.pos =
-      sls_transform2d_local_to_world(&data->tank->transform,
-                                     &self->state->work_stack, NULL);
+      sls_transform2d_local_to_world(&data->tank->transform, NULL);
 
   //data->camera.transform.rot;
 

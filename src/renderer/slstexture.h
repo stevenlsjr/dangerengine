@@ -41,6 +41,7 @@
 #include "../sls-imagelib.h"
 #include "../slsutils.h"
 #include <inttypes.h>
+#include <kazmath/vec3.h>
 
 typedef struct slsTexture slsTexture;
 typedef struct slsTexture_p slsTexture_p;
@@ -98,6 +99,13 @@ struct slsTexture {
   slsTexPair diffuse;
   slsTexPair specular;
   slsTexPair normal;
+
+  kmVec3 diffuse_color;
+  kmVec3 ambient_color;
+  kmVec3 specular_color;
+
+  float shininess;
+
 };
 
 slsTexture const *sls_texture_class();

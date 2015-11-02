@@ -22,6 +22,8 @@ struct slsCamera {
   } perspective;
 
   struct {
+    float width;
+    float height;
     float near;
     float far;
   } ortho;

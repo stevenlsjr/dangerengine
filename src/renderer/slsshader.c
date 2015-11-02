@@ -72,7 +72,6 @@ slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool, GLuint prog
 
   return self;
   error:
-  assert(0);
   if (self) {
     return sls_shader_dtor(self);
   }
@@ -124,7 +123,7 @@ void sls_shader_bind_unifs(slsShader *self)
 
   unif.name = "normal_mat";
   unif.u = glGetUniformLocation(self->program, unif.name);
-  u->normal_map = (GLuint) unif.u;
+  u->normal_mat = (GLuint) unif.u;
   sls_uniform_check(unif.name, unif.u);
 
   unif.name = "diffuse_map";
@@ -144,8 +143,58 @@ void sls_shader_bind_unifs(slsShader *self)
 
   unif.name = "z_layer";
   unif.u = glGetUniformLocation(self->program, unif.name);
-  u->normal_map = (GLuint) unif.u;
+  u->z_layer = (GLuint) unif.u;
   sls_uniform_check(unif.name, unif.u);
+
+
+  {
+    unif.name = "material.diffuse_color";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->material.diffuse_color = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "ambient_color";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->material.ambient_color = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "specular_color";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->material.specular_color = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "shininess";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->material.shininess = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+  }
+
+  {
+    unif.name = "lights.diffuse_products";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->lights.diffuse_products = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "lights.ambient_products";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->lights.ambient_products = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "lights.specular_products";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->lights.specular_products = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "lights.light_positions";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->lights.light_positions = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+
+    unif.name = "lights.active_lights";
+    unif.u = glGetUniformLocation(self->program, unif.name);
+    u->lights.active_lights = (GLuint) unif.u;
+    sls_uniform_check(unif.name, unif.u);
+  }
 
 }
 

@@ -159,6 +159,7 @@ void sls_tankb_update(slsEntity *self, slsAppState *state, double dt)
   }
 
 
+  kmVec2 world_pos = sls_transform2d_local_to_world(&self->transform, NULL);
 
   sls_tank_turret_update(&data->turret, state, dt * 10);
 
@@ -176,6 +177,8 @@ slsEntity *sls_tank_dtor(slsEntity *self)
   }
 
   sls_entity_dtor(self);
+
+  return self;
 }
 
 
@@ -202,36 +205,21 @@ void sls_tank_checkcollision(slsEntity *self,
                              slsTankData *data, slsAppState *state, double dt)
 {
   if (!data->tilemap) { return; }
-  kmVec2 world_pos = sls_transform2d_local_to_world(&self->transform, &data->work_stack, NULL);
+  slsTilemapData *tm_data = data->tilemap->behavior.data;
+  assert(tm_data && tm_data->child_sprites);
 
+  slsTransform2D *dest = &tm_data->child_sprites[0].transform;
 
-  slsTilemapData *tm = data->tilemap->behavior.data;
-  assert(tm);
+  kmVec2 world_pos = sls_transform2d_local_to_world(&self->transform, NULL);
 
-  kmVec4 map_pos = {0.0, 0.0, 0.0, 1.0}, map_size = {0.0, 0.0, 0.0, 1.0}, tmp;
-  map_pos.x = data->tilemap->transform.pos.x;
-  map_pos.y = data->tilemap->transform.pos.y;
+  kmVec2 tile_local = sls_transform2d_world_to_local(dest, &world_pos);
 
-  map_size.x = tm->width;
-  map_size.y = tm->height;
+  kmVec2 tile_coords;
 
-  kmMat4 model_view, tmpmat;
-  sls_transform2d_modelview(&data->tilemap->transform, &data->work_stack, &model_view);
+  tile_coords.x = 0.0;
+  tile_coords.y = 0.0;
 
-  tmp = map_pos;
-  kmVec4MultiplyMat4(&map_pos, &tmp, &model_view);
-
-  tmp = map_size;
-  kmVec4MultiplyMat4(&map_size, &tmp, &model_view);
-
-
-  kmVec2 tile_coords = {(world_pos.x - map_pos.x) * tm->width,
-                        (world_pos.y - map_pos.y) * tm->height};
-
-  tile_coords.x = floorf(tile_coords.x / map_size.x);
-  tile_coords.y = floorf(tile_coords.y / map_size.y);
-
-  //sls_log_info("%f %f", tile_coords.x, tile_coords.y);
+  //sls_log_info("%f %f", floor(tile_local.x  + 0.5), floor(tile_local.y + 0.5));
 
 
 }

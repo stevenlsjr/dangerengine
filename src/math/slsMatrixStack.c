@@ -253,8 +253,6 @@ void sls_matrix_glbind(slsMatrixStack *self,
   kmMat4Transpose(&normal, &tmp);
   glUniformMatrix4fv(normat_mat_u, 1, GL_FALSE, normal.mat);
 
-
-
   glUseProgram(0);
 }
 

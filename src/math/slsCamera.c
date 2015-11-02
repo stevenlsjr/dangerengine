@@ -6,10 +6,13 @@
  * 
  **/
 #include "slsCamera.h"
+#include <math.h>
 #include "math-types.h"
 
 void sls_camera_resize(slsCamera *self, int x, int y)
 {
+
+
   float aspect = x/(float) y;
   if (self->is_perspective) {
     kmMat4PerspectiveProjection(&self->frustrum,
@@ -29,7 +32,20 @@ void sls_camera_resize(slsCamera *self, int x, int y)
       up *= 1/aspect;
       down *= 1/aspect;
     }
-    kmMat4OrthographicProjection(&self->frustrum, left, right, down, up, self->ortho.near, self->ortho.far);
+    float h_width = !isnan(self->ortho.width) && self->ortho.width != 0?
+                    self->ortho.width/2.f:
+                    x/2.f;
+    float h_height = !isnan(self->ortho.height) && self->ortho.height != 0?
+                    self->ortho.height/2.f:
+                    x/2.f;
+
+    assert(h_height != NAN);
+    assert(h_width != NAN);
+
+    kmMat4OrthographicProjection(&self->frustrum,
+                                 left * h_width, right * h_width,
+                                 down * h_height, up * h_height,
+                                 self->ortho.near, self->ortho.far);
   }
 
 }

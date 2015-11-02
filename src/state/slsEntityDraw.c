@@ -40,7 +40,7 @@ void sls_drawable_transform(slsEntity *self, slsAppState *state, double dt)
     sls_matrix_glbind(&state->model_view,
                       self->shader->program,
                       self->shader->uniforms.model_view,
-                      self->shader->uniforms.normal_map);
+                      self->shader->uniforms.normal_mat);
   }
 
 }

@@ -308,3 +308,7 @@ resources/bower/
 build/
 jsbuild/
 xcode/
+
+# cmake generated sources
+
+src/sls-build-dir.c

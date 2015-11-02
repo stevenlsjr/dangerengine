@@ -35,7 +35,7 @@ kmMat4 *sls_transform2D_to_matrix(kmMat4 *out,
   return out;
 }
 
-slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
+bool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
 {
   sls_check(a, "a is NULL");
   sls_check(b, "b is NULL");
@@ -48,7 +48,7 @@ slsBool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
   return SLS_FALSE;
 }
 
-slsBool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, float epsilon)
+bool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, float epsilon)
 {
 
   return SLS_TRUE;
@@ -81,9 +81,7 @@ slsTransform2D sls_transform2d_local2world(slsEntity *entity)
   return a;
 }
 
-kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
-                                      slsMatrixStack *mat_stack,
-                                      kmVec2 const *in_opt)
+kmVec2 sls_transform2d_local_to_world(slsTransform2D *self, kmVec2 const *in_opt)
 {
 
   kmVec4 result = (in_opt) ?
@@ -91,10 +89,9 @@ kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
                   (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
-  mat_stack->n_matrices = 0;
   kmMat4 tmpmat;
 
-  sls_transform2d_modelview(self, mat_stack, &tmpmat);
+  sls_transform2d_modelview(self, &tmpmat);
 
   kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
 
@@ -102,22 +99,19 @@ kmVec2 sls_transform2d_local_to_world(slsTransform2D *self,
 }
 
 
-kmVec2 sls_transform2d_world_to_local(slsTransform2D *self,
-                                      slsMatrixStack *mat_stack,
-                                      kmVec2 const *in_opt)
+kmVec2 sls_transform2d_world_to_local(slsTransform2D *self, kmVec2 const *in_opt)
 {
   kmVec4 result = (in_opt) ?
                   (kmVec4) {in_opt->x, in_opt->y, 0.0, 1.0} :
                   (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
-  mat_stack->n_matrices = 0;
-  kmMat4 tmpmat, tmpmat1;
+  kmMat4 tmpmat, tmpmat_b;
 
-  sls_transform2d_modelview(self, mat_stack, &tmpmat);
+  sls_transform2d_modelview(self, &tmpmat_b);
 
 
-  tmpmat1 = tmpmat;
+  kmMat4Inverse(&tmpmat, &tmpmat_b);
 
 
   kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
@@ -125,22 +119,18 @@ kmVec2 sls_transform2d_world_to_local(slsTransform2D *self,
   return (kmVec2) {result.x, result.y};
 }
 
-kmMat4 *sls_transform2d_modelview(slsTransform2D *self, slsMatrixStack *mat_stack, kmMat4 *out)
+kmMat4 *sls_transform2d_modelview(slsTransform2D *self, kmMat4 *out)
 {
-  mat_stack->n_matrices = 0;
-  kmMat4 pushed_mat, tmpmat;
-
-
-  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
-    sls_matrix_stack_push(mat_stack, sls_transform2D_to_matrix(&tmpmat, &e->transform));
-  }
+  kmMat4 tmpmat;
 
   kmMat4Identity(out);
-  while (mat_stack->n_matrices > 0) {
+
+  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
     kmMat4 mul_in = *out;
-    sls_matrix_stack_pop(mat_stack, &pushed_mat);
-    kmMat4Multiply(out, &mul_in, &pushed_mat);
+    kmMat4Multiply(out, sls_transform2D_to_matrix(&tmpmat, &e->transform), &mul_in);
+
   }
+
 
 
   self->model_view = *out;

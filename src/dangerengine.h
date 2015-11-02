@@ -37,8 +37,11 @@
 extern "C" {
 #endif
 
+#include <sls-build-dir.h>
+
 #include "sls-gl.h"
 #include "sls-imagelib.h"
+#include <sls-build-dir.h>
 
 #include "slscontext.h"
 #include "slsutils.h"
@@ -50,6 +53,7 @@ extern "C" {
 #include "data-types/array.h"
 #include "data-types/ptrarray.h"
 #include "data-types/linkedlist.h"
+#include "data-types/hashtable.h"
 
 #include "math/mathmacs.h"
 #include "math/math-types.h"
@@ -67,6 +71,12 @@ extern "C" {
 
 #include "state/slsEntity.h"
 #include "state/slsAppState.h"
+#include "state/slsBehavior.h"
+#include "state/slsEntityDraw.h"
+#include "state/resourceutils.h"
+#include "state/slsEvent.h"
+#include "state/slsPhysics.h"
+#include "state/slsSprite.h"
 
 #include "objc/DangerengineFW.h"
 

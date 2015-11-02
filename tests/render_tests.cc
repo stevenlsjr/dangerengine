@@ -15,8 +15,8 @@ private:
 
   static slsTexture *make_texture()
   {
-    char const *img_path = "resources/free-textures/151.jpg";
-    char const *norm_path = "resources/free-textures/151.jpg";
+    char const *img_path = "resources/art/barrelBeige_outline.png";
+    char const *norm_path = "resources/art/barrelBeige_normal.png";
 
     return sls_texture_new(img_path,
                            nullptr,
@@ -30,17 +30,15 @@ private:
     char const *vs_path = "resources/shaders/default.vert";
     char const *fs_path = "resources/shaders/default.frag";
 
+    char const *uniform_path = "resources/shaders/uniforms.glsl";
+
     GLuint p = 0;
 
     int major, minor;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
 
-    if (major < 3 || (major == 3 && minor < 2)) {
-      p = sls_create_program(vs_path_legacy, fs_path_legacy, NULL);
-    } else {
-      p = sls_create_program(vs_path, fs_path, NULL);
-    }
+    p = sls_create_program(vs_path, fs_path, uniform_path);
 
     return p;
   }
@@ -60,7 +58,7 @@ protected:
   {
     sls_init();
     ctx = sls_context_new("title", 480, 480);
-    EXPECT_TRUE(ctx) << "ctx is null";
+    ASSERT_TRUE(ctx) << "ctx is null";
     sls_msg(ctx, setup);
 
     mesh = sls_mesh_square();

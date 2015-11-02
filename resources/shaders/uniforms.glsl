@@ -4,6 +4,8 @@
  * @license FreeBSD
  **/
 
+#define SLS_N_LIGHTS 8
+
 uniform mat4 model_view;
 uniform mat4 normal_mat;
 uniform mat4 projection;
@@ -15,3 +17,18 @@ uniform sampler2D specular_map;
 uniform sampler2D normal_map;
 uniform int z_layer;
 
+uniform Material {
+  vec3 specular_color;
+  vec3 diffuse_color;
+  vec3 ambient_color;
+
+  float shininess;
+} material;
+
+
+uniform Lights {
+  uniform vec3 ambient_products[SLS_N_LIGHTS];
+  uniform vec3 diffuse_products[SLS_N_LIGHTS];
+  uniform vec3 specular_products[SLS_N_LIGHTS];
+  uniform vec4 light_positions[SLS_N_LIGHTS];
+} lights;

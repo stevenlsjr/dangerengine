@@ -384,21 +384,21 @@ slsMesh *sls_mesh_square()
           .normal={0.0, 0.0, 1.0},
           .uv= {0.0, 0.0},
           .color={1.0, 1.0, 1.0, 1.0}},
-      (slsVertex) {.position= {-1.0, 1.0, 0.0},
+      (slsVertex) {.position= { 1.0, -1.0, 0.0},
           .normal={0.0, 0.0, 1.0},
-          .uv= {0.0, 1.0},
+          .uv= {1.0, 0.0},
           .color={1.0, 1.0, 1.0, 1.0}},
       (slsVertex) {.position= {1.0, 1.0, 0.0},
           .normal={0.0, 0.0, 1.0},
           .uv= {1.0, 1.0},
           .color={1.0, 1.0, 1.0, 1.0}},
-      (slsVertex) {.position= {1.0, -1.0, 0.0},
+      (slsVertex) {.position= {-1.0, 1.0, 0.0},
           .normal={0.0, 0.0, 1.0},
-          .uv= {1.0, 0.0},
+          .uv= {0.0, 1.0},
           .color={1.0, 1.0, 1.0, 1.0}}
   };
 
-  unsigned int idxs[] = {0, 1, 2, 3, 2, 0};
+  unsigned int idxs[] = {0, 1, 2, 3, 0, 2};
 
   size_t n_verts = sizeof(verts) / sizeof(slsVertex);
   size_t n_idx = sizeof(idxs) / sizeof(unsigned int);

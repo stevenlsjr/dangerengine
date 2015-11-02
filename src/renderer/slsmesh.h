@@ -104,7 +104,7 @@ struct slsMesh {
   * @brief true if pre_draw has been called
   * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up yet
   */
-  slsBool is_drawing;
+  bool is_drawing;
 
   slsMesh_p *priv;
 

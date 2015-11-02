@@ -1,0 +1,11 @@
+/**
+ * @file ${FILE}
+ * @brief 
+ * @license ${LICENSE}
+ * Copyright (c) 10/24/15, Steven
+ * 
+ **/
+#include "sls-build-dir.h"
+
+char const *dangerengine_build_dir = "@CMAKE_BINARY_DIR@";
+char const *dangerengine_src_dir = "@CMAKE_SOURCE_DIR@";

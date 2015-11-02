@@ -12,25 +12,6 @@
 
 #include "shaderutils.h"
 
-// TODO(Steve) implement a way to load this as a file
-static char const *uniforms =
-"/**\n"
-" * @file uniforms.glsl\n"
-" * @brief dives uniform values for all shaders\n"
-" * @license FreeBSD\n"
-" **/\n"
-"\n"
-"uniform mat4 model_view;\n"
-"uniform mat4 normal_mat;\n"
-"uniform mat4 projection;\n"
-"\n"
-"uniform float time;\n"
-"\n"
-"uniform sampler2D diffuse_map;\n"
-"uniform sampler2D specular_map;\n"
-"uniform sampler2D normal_map;\n"
-"uniform int z_layer;\n";
-
 
 int sls_get_glversion();
 
@@ -93,7 +74,8 @@ void sls_print_log(GLuint object)
 /**
  * Compile the shader from file 'filename', with error handling
  */
-GLuint sls_create_shader(const char *filename, GLenum type)
+GLuint sls_create_shader(const char *filename,
+                         char const *uniform_file_name, GLenum type)
 {
   GLchar const *modern_preamble =
       "#version 410\n#define SLS_MODERN_OPENGL 1\n";
@@ -117,6 +99,15 @@ GLuint sls_create_shader(const char *filename, GLenum type)
 #endif
 
   GLchar *source = sls_file_read(filename);
+  char *uniform_src = sls_file_read(uniform_file_name);
+
+  if (!uniform_src) {
+    sls_log_err("Error opening %s: ", uniform_file_name);
+    perror("");
+    return 0;
+  }
+
+
   if (!source) {
     sls_log_err("Error opening %s: ", filename);
     perror("");
@@ -124,13 +115,14 @@ GLuint sls_create_shader(const char *filename, GLenum type)
   }
   GLuint res = glCreateShader(type);
 
-  char const *sources[] = {preamble, uniforms, source};
+  char const *sources[] = {preamble, uniform_src, source};
   const size_t n_sources = sizeof(sources) / sizeof(char *);
 
   glShaderSource(res, n_sources, sources, NULL);
 
 
   free(source);
+  free(uniform_src);
 
   glCompileShader(res);
   GLint compile_ok = GL_FALSE;
@@ -159,21 +151,24 @@ GLuint sls_create_program(const char *vertexfile,
       vs = 0,
       fs = 0;
 
-  if (vertexfile) {
-    vs = sls_create_shader(vertexfile, GL_VERTEX_SHADER);
-    if (vs == 0) {
-      return 0;
-    }
-    glAttachShader(program, vs);
-  }
+  sls_checkmem(vertexfile && fragmentfile && uniform_definitions);
 
-  if (fragmentfile) {
-    fs = sls_create_shader(fragmentfile, GL_FRAGMENT_SHADER);
-    if (fs == 0) {
-      return 0;
-    }
-    glAttachShader(program, fs);
+  vs = sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
+  if (vs == 0) {
+    sls_log_err("vertex shader at path %s is invalid", vertexfile);
+    sls_checkmem(vs != 0);
+    return 0;
   }
+  glAttachShader(program, vs);
+
+  fs = sls_create_shader(fragmentfile, uniform_definitions, GL_FRAGMENT_SHADER);
+  if (fs == 0) {
+    sls_log_err("fragment shader at path %s is invalid", fragmentfile);
+    glDeleteShader(vs);
+    sls_checkmem(fs != 0);
+    return 0;
+  }
+  glAttachShader(program, fs);
 
   //
 
@@ -191,6 +186,10 @@ GLuint sls_create_program(const char *vertexfile,
   glDeleteShader(fs);
 
   return program;
+
+  error:
+  glDeleteProgram(program);
+  return 0;
 }
 
 #ifdef GL_GEOMETRY_SHADER
@@ -202,14 +201,14 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile, c
   GLuint shader;
 
   if (vertexfile) {
-    shader = sls_create_shader(vertexfile, GL_VERTEX_SHADER);
+    shader = sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
     if (!shader)
       return 0;
     glAttachShader(program, shader);
   }
 
   if (geometryfile) {
-    shader = sls_create_shader(geometryfile, GL_GEOMETRY_SHADER);
+    shader = sls_create_shader(geometryfile, uniform_definitions, GL_GEOMETRY_SHADER);
     if (!shader)
       return 0;
     glAttachShader(program, shader);
@@ -220,9 +219,10 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile, c
   }
 
   if (fragmentfile) {
-    shader = sls_create_shader(fragmentfile, GL_FRAGMENT_SHADER);
-    if (!shader)
+    shader = sls_create_shader(fragmentfile, uniform_definitions, GL_FRAGMENT_SHADER);
+    if (shader == 0) {
       return 0;
+    }
     glAttachShader(program, shader);
   }
 

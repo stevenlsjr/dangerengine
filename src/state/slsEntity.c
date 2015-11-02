@@ -11,11 +11,12 @@
 #include <data-types/intrusivelist.h>
 #include <slscontext.h>
 
+//---------------------------------constructor/destructor---------------------------------------
+
 struct slsEntity_p {
   SLS_INTRUSIVE_FIELDS(slsEntity, list_node);
   bool skip_update;
 };
-
 
 
 slsEntity const *sls_entity_class()
@@ -105,6 +106,7 @@ slsEntity *sls_entity_dtor(slsEntity *self)
   return NULL;
 }
 
+//-----------------------------entity heirarchy manipulation--------------------------------
 
 void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child)
 {
@@ -141,7 +143,6 @@ void sls_entity_linkchild(slsEntity *self, apr_pool_t *p, slsEntity *child)
 
 void sls_entity_unlink(slsEntity *self, apr_pool_t *p)
 {
-
   // call teardown behavior
 
   if ((self->component_mask & SLS_COMPONENT_BEHAVIOR) == SLS_COMPONENT_BEHAVIOR &&
@@ -183,6 +184,11 @@ void sls_entity_addchild(slsEntity *self, slsEntity *child)
   sls_check(child->name, "child must have name");
   sls_check(self != child, "entity %s is adding itself as a child", self->name);
 
+  for (slsEntity *e = self->parent; e != NULL; e = e->parent) {
+    sls_check(e != child, "adding one of %s's ancestors as a child", self->name);
+    sls_check(e != self, "found a cycle in %s's heirarchy tree!", self->name);
+  }
+
   if (child->parent) {
     sls_entity_removechild(child->parent, child);
   }
@@ -207,6 +213,7 @@ void sls_entity_addchild(slsEntity *self, slsEntity *child)
   return;
 
 }
+
 
 slsEntity *sls_entity_findchild_byname(slsEntity *self, char const *child_name)
 {
@@ -238,6 +245,8 @@ slsEntity *sls_entity_removechild(slsEntity *self, slsEntity *child)
   return child;
 }
 
+//---------------------------------entity child search---------------------------------------
+
 slsEntity *sls_entity_findchild_reference(slsEntity *self,
                                           slsEntity const *child, apr_pool_t *pool)
 {
@@ -259,6 +268,23 @@ slsEntity *sls_entity_findchild_reference(slsEntity *self,
   return result;
 }
 
+slsEntity *sls_entity_findnamed(slsEntity *self, char const *name)
+{
+  size_t max_strlen = 10000;
+
+  for (slsEntity *itor = self->il.next;
+       itor != NULL && itor != self;
+       itor = itor->il.next) {
+    if (strncmp(itor->name, name, max_strlen) == 0) {
+      return itor;
+    }
+
+  }
+
+  return NULL;
+
+}
+
 slsEntity *sls_entity_getroot(slsEntity *self)
 {
   slsEntity *itor = self;
@@ -268,6 +294,7 @@ slsEntity *sls_entity_getroot(slsEntity *self)
   return itor;
 }
 
+//---------------------------------game loop functions---------------------------------------
 void sls_entity_update(slsEntity *self, slsAppState *state, double dt)
 {
   if (self->priv && self->priv->skip_update) {
@@ -401,19 +428,3 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt)
 }
 
 
-slsEntity *sls_entity_findnamed(slsEntity *self, char const *name)
-{
-  size_t max_strlen = 10000;
-
-  for (slsEntity *itor = self->il.next;
-       itor != NULL && itor != self;
-       itor = itor->il.next) {
-    if (strncmp(itor->name, name, max_strlen) == 0) {
-      return itor;
-    }
-
-  }
-
-    return NULL;
-
-}

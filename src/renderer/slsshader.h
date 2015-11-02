@@ -63,6 +63,23 @@ struct slsShader {
     GLuint normal_map;
 
     GLuint z_layer;
+
+    struct {
+      GLuint diffuse_color;
+      GLuint ambient_color;
+      GLuint specular_color;
+
+      GLuint shininess;
+    } material;
+    struct {
+      GLuint ambient_products;
+      GLuint diffuse_products;
+      GLuint specular_products;
+      GLuint light_positions;
+
+      GLuint active_lights;
+    } lights;
+
   } uniforms;
 
   struct {

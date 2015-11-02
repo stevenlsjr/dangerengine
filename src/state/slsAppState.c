@@ -57,7 +57,6 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 
   kmMat4Identity(&self->projection);
   sls_matrix_glinit(&self->model_view);
-  sls_matrix_glinit(&self->work_stack);
 
   self->context = NULL;
 
@@ -72,8 +71,12 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
 {
   apr_pool_t *tmp;
   apr_pool_create(&tmp, self->pool);
-  if (self->textures) {
 
+  for (slsEntity *e = self->root->il.next; e != NULL && e != self->root; e = e->il.next) {
+    sls_msg(e, dtor);
+  }
+
+  if (self->textures) {
     for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures);
          itor;
          itor = apr_hash_next(itor)) {
@@ -98,14 +101,11 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
     }
   }
 
-
-
   if (self->root && self->root->dtor) {
     sls_msg(self->root, dtor);
   }
 
   sls_matrix_stack_dtor(&self->model_view);
-  sls_matrix_stack_dtor(&self->work_stack);
 
   apr_pool_destroy(tmp);
 

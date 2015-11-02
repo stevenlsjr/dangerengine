@@ -12,6 +12,15 @@
 #endif //__EMSCRIPTEN__
 
 #include "render_demo.h"
+#include <dangerengine.h>
+
+#ifdef _POSIX_VERSION
+
+/**/#include <unistd.h>
+
+#else
+#   include <windows.h>
+#endif
 
 static inline void setup()
 {
@@ -27,7 +36,6 @@ static inline void setup()
 
 int main(int argc, char *argv[])
 {
-  
 
   return render_demo_main(&argc, argv);
 

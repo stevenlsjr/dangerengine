@@ -6,16 +6,25 @@
 #define DANGERENGINE_SLSENTITY_H
 
 #include <renderer/slstexture.h>
-#include <data-types/ptrarray.h>
-#include <math/slsTransform2D.h>
+
 #include <apr-1/apr_tables.h>
 #include <apr-1/apr_hash.h>
+
+#include <data-types/intrusivelist.h>
+#include <data-types/ptrarray.h>
+
+
+#include <math/slsCamera.h>
+#include <math/slsTransform2D.h>
+
+
 #include <renderer/slsmesh.h>
 #include <renderer/slsshader.h>
-#include <math/slsCamera.h>
-#include <data-types/intrusivelist.h>
+
+
 #include "slsAppState.h"
 #include "slsBehavior.h"
+#include "slsPhysics.h"
 
 typedef enum slsComponentMask {
   SLS_COMPONENT_NONE = 0,
@@ -79,6 +88,8 @@ struct slsEntity {
   slsTexture *texture;
 
   slsKinematic2D kinematic;
+  cpShape *collision_shape;
+  cpBody *rigidbody;
 
   slsCamera camera;
 
@@ -128,9 +139,6 @@ void sls_entity_physicsupdate(slsEntity *self,
 void sls_entity_display(slsEntity *self,
                         slsAppState *state,
                         double dt);
-
-
-
 
 static inline void sls_entity_delete(slsEntity *self)
 {

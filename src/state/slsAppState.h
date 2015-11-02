@@ -14,10 +14,13 @@
 #include <slsutils.h>
 #include <apr-1/apr_hash.h>
 #include <apr-1/apr_pools.h>
+
 #include <math/math-types.h>
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
 #include <math/slsMatrixStack.h>
+
+#include <GL/glew.h>
+
+#include <SDL2/SDL.h>
 #include "slsEntity.h"
 
 typedef struct slsEntity slsEntity;
@@ -88,14 +91,8 @@ struct slsAppState {
   slsShader *active_shader;
 
   slsMatrixStack model_view;
-  /**
-   * @brief matrix stack used for general
-   * math work
-   */
-  slsMatrixStack work_stack;
 
   kmMat4 projection;
-
 
   slsEntity *root;
 

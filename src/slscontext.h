@@ -117,7 +117,7 @@ struct slsContext {
   long frame_n;
 
 
-  slsBool is_running;
+  bool is_running;
   clock_t interval;
   slsContext_p *priv;
 

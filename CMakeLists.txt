@@ -7,10 +7,14 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module pa
 #--------------------------------------------
 #-------------source lists-------------------
 #--------------------------------------------
+
+configure_file(${CMAKE_SOURCE_DIR}/src/sls-build-dir.c.in
+  ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c @ONLY)
+
 set(DANGER_SRC
   src/dangerengine.h
 
-# context handling and general utilities
+  # context handling and general utilities
   src/sls-gl.h
   src/sls-imagelib.h
   src/slscontext.h
@@ -31,7 +35,7 @@ set(DANGER_SRC
   src/math/slsMatrixStack.c
   src/math/slsMatrixStack.h
 
-#data types
+  #data types
   src/data-types/callbacks.h
   src/data-types/callbacks.c
   src/data-types/array.h
@@ -43,7 +47,7 @@ set(DANGER_SRC
   src/data-types/hashtable.c
   src/data-types/hashtable.h
 
-#renderer types
+  #renderer types
   src/renderer/slsmesh.c
   src/renderer/slsmesh.h
   src/renderer/slstexture.c
@@ -57,7 +61,7 @@ set(DANGER_SRC
   src/state/slsSprite.c
   src/state/slsSprite.h
 
-# game state machine
+  # game state machine
   src/state/slsEntity.h
   src/state/slsEntity.c
 
@@ -70,7 +74,19 @@ set(DANGER_SRC
   src/state/slsBehavior.c
   src/state/slsBehavior.h
   src/state/resourceutils.c
-  src/state/resourceutils.h src/data-types/intrusivelist.h src/renderer/slsTTFText.c src/renderer/slsTTFText.h src/sls-commonlibs.h src/state/slsEvent.c src/state/slsEvent.h)
+  src/state/resourceutils.h
+  src/data-types/intrusivelist.h
+  src/renderer/slsTTFText.c
+  src/renderer/slsTTFText.h
+  src/sls-commonlibs.h
+  src/state/slsEvent.c
+  src/state/slsEvent.h
+  src/state/slsPhysics.c
+  src/state/slsPhysics.h
+  src/math/slsTransform.c
+  src/math/slsTransform.h
+  src/sls-build-dir.c
+  src/sls-build-dir.h)
 
 
 # tests compiled in c
@@ -138,14 +154,17 @@ endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
 #kazmath
 add_subdirectory(extern/kazmath)
-set(KAZMATH_BUILD_TESTS OFF)
-set(KAZMATH_BUILD_JNI_WRAPPER OFF)
-set(KAZMATH_BUILD_GL_UTILS OFF)
+set(KAZMATH_BUILD_JNI_WRAPPER OFF FORCE)
+set(KAZMATH_BUILD_TESTS OFF FORCE)
 
+#chipmunk
+add_subdirectory(extern/Chipmunk2D)
 
 include_directories(
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/extern/kazmath
+
+  ${CMAKE_SOURCE_DIR}/extern/Chipmunk2D/include
 
   ${CMAKE_SOURCE_DIR}/extern/googlemock/include
   ${CMAKE_SOURCE_DIR}/extern/gtest/include)
@@ -153,7 +172,7 @@ include_directories(
 #objc bindings
 add_subdirectory(src/objc)
 
-set(DANGER_DEPS kazmath)
+set(DANGER_DEPS kazmath chipmunk_static)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
@@ -198,7 +217,6 @@ include_directories(
   ${SDL2_INCLUDE_DIR}
   ${APR_INCLUDEDIR}
   ${APR_UTIL_INCLUDEDIR})
-
 
 
 #---------------------------------------
@@ -247,8 +265,6 @@ add_dependencies(demo
 target_link_libraries(demo
   dangerengine
   ${DANGER_DEPS})
-
-
 
 
 # add a separate library for tests compiled in C. Used for supporting build

@@ -29,11 +29,13 @@ char *sls_file_read(const char *filename);
 
 void sls_print_log(GLuint object);
 
-GLuint sls_create_shader(const char *filename, GLenum type);
+GLuint sls_create_shader(const char *filename,
+                         char const *uniform_file_name,
+                         GLenum type) SLS_NONNULL(1, 2);
 
 GLuint sls_create_program(const char *vertexfile,
                           const char *fragmentfile,
-                          char const *uniform_definitions);
+                          char const *uniform_definitions) SLS_NONNULL(1, 2, 3);
 
 GLuint sls_create_gs_program(const char *vertexfile,
                              const char *geometryfile,

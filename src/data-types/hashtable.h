@@ -48,7 +48,14 @@
 typedef struct slsHashTable slsHashTable;
 typedef struct slsKeyEntry slsKeyEntry;
 
-typedef uint32_t (*slsHashFn)(void const *key);
+enum slsHashDataSize {
+  SLS_STRING_LENGTH = 0,
+  SLS_INT_LENGTH = sizeof(int),
+  SLS_LONG_LENGTH = sizeof(long),
+  SLS_PTR_LENGTH = sizeof(void*)
+};
+
+typedef uint64_t (*slsHashFn)(void const *key, size_t size);
 
 /**
  * @brief Entry for a hash table key.
@@ -58,6 +65,7 @@ typedef uint32_t (*slsHashFn)(void const *key);
  */
 
 struct slsHashTable {
+  uint64_t *hashes;
   void **keys;
   void **vals;
 
@@ -78,17 +86,16 @@ struct slsHashTable {
 slsHashTable *sls_hashtable_init(slsHashTable *self,
                                  size_t array_size,
                                  slsHashFn hash_fn,
-                                 slsCmpFn cmp_fn,
                                  slsCallbackTable const *key_cback,
-                                 slsCallbackTable const *val_cback) SLS_NONNULL(1, 3, 4);
+                                 slsCallbackTable const *val_cback) SLS_NONNULL(1);
 
 slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
 
 void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
 
-void sls_hashtable_insert(slsHashTable *self, void *key, void *val) SLS_NONNULL(1, 2, 3);
+void sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, void *val) SLS_NONNULL(1, 2, 4);
 
-void *sls_hashtable_find(slsHashTable *self, void const *key) SLS_NONNULL(1, 2);
+void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size) SLS_NONNULL(1, 2);
 
 void *sls_hashtable_findval(slsHashTable *self, void const *val) SLS_NONNULL(1, 2);
 
@@ -96,6 +103,8 @@ void *sls_hashtable_findval(slsHashTable *self, void const *val) SLS_NONNULL(1, 
 bool sls_is_hash_sentinel(void const *val);
 void const *sls_hash_sentinel();
 
+
+uint64_t sls_hash_fn_default(void const *val, size_t size);
 
 
 #endif //DANGERENGINE_HASHTABLE_H

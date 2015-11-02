@@ -58,12 +58,6 @@ void *sls_objalloc(void const *prototype, size_t size)
   return NULL;
 }
 
-void sls_sleep(clock_t ticks)
-{
-  clock_t init_time = clock();
-  while (clock() - init_time < ticks) { }
-}
-
 int sls_chdir(char const *path)
 {
 
