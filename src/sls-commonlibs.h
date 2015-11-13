@@ -26,10 +26,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include <apr-1/apr_strings.h>
-#include <apr-1/apr_pools.h>
-#include <apr-1/apr_hash.h>
-#include <apr-1/apr_tables.h>
+#include <apr_strings.h>
+#include <apr_pools.h>
+#include <apr_hash.h>
+#include <apr_tables.h>
 
 
 

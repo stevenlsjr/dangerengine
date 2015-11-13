@@ -30,6 +30,7 @@
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include <CoreGraphics/CoreGraphics.h>
 #include "slsMatrixStack.h"
+#include "math-types.h"
 
 #define SLS_MATRIXSTACK_RESIZE_MULTIPLYER 1.5
 #define SLS_MATRIXSTACK_DEFAULTSIZE 16
@@ -108,7 +109,6 @@ void sls_matrix_stack_push(slsMatrixStack *self, kmMat4 const *in)
   }
 
 
-
   self->matrices[self->n_matrices] = *in;
 
   self->n_matrices++;
@@ -143,11 +143,10 @@ void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size)
 kmMat4 *sls_matrix_stack_peek(slsMatrixStack *self)
 {
 
-  return (self->n_matrices > 0 )?
-         self->matrices + self->n_matrices - 1:
+  return (self->n_matrices > 0) ?
+         self->matrices + self->n_matrices - 1 :
          NULL;
 }
-
 
 
 slsMatrixStack *sls_matrix_glinit(slsMatrixStack *self)
@@ -214,7 +213,6 @@ void sls_matrix_glmultiply(slsMatrixStack *self, kmMat4 *mat)
 }
 
 
-
 void sls_matrix_glpush(slsMatrixStack *self)
 {
   if (self->n_matrices > 0) {
@@ -247,10 +245,13 @@ void sls_matrix_glbind(slsMatrixStack *self,
   kmMat4 tmp, normal;
 
   kmMat4 *top = sls_matrix_stack_peek(self);
+  if (!top) {
+    assert(0);
+    return;
+  }
   glUniformMatrix4fv(model_view_u, 1, GL_FALSE, top->mat);
 
-  kmMat4Inverse(&tmp, top);
-  kmMat4Transpose(&normal, &tmp);
+  sls_mat4_normalmat(&normal, top);
   glUniformMatrix4fv(normat_mat_u, 1, GL_FALSE, normal.mat);
 
   glUseProgram(0);

@@ -86,7 +86,7 @@ set(DANGER_SRC
   src/math/slsTransform.c
   src/math/slsTransform.h
   src/sls-build-dir.c
-  src/sls-build-dir.h)
+  src/sls-build-dir.h src/renderer/slsLight.c src/renderer/slsLight.h src/cppapi.h)
 
 
 # tests compiled in c
@@ -116,7 +116,8 @@ set(DANGER_DEMO_SRC
   demos/slsTank.c
   demos/slsTank.h
   demos/tile_map.c
-  demos/tile_map.h)
+  demos/tile_map.h
+  demos/earth.c demos/earth.h demos/sphere.c demos/sphere.h)
 
 #--------------------------------------------
 #-------------project config-----------------
@@ -145,7 +146,7 @@ add_custom_target(sls_resources
   SOURCES ${DANGER_RES})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -fblocks")
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fms-extensions -fblocks")
@@ -209,14 +210,22 @@ set(DANGER_DEPS
   ${APR_UTIL_LIBRARIES})
 
 
-message("${APR_INCLUDEDIR}")
+message("apr: ${APR_INCLUDE_DIRS}")
 
 include_directories(
   ${GLEW_INCLUDE_DIR}
   ${OPENGL_INCLUDE_DIR}
   ${SDL2_INCLUDE_DIR}
-  ${APR_INCLUDEDIR}
-  ${APR_UTIL_INCLUDEDIR})
+  ${APR_INCLUDE_DIRS}
+  ${APR_UTIL_INCLUDE_DIRS}
+  /usr/local/Cellar/apr/1.5.1/libexec/include/apr-1
+  /usr/local/Cellar/apr-util/1.5.4/include/apr-1)
+
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+
+foreach(dir ${dirs})
+  message(STATUS "dir='${dir}'")
+endforeach()
 
 
 #---------------------------------------

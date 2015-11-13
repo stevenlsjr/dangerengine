@@ -6,8 +6,8 @@
  * 
  **/
 #include "slsEntityDraw.h"
-#include <apr-1/apr_strmatch.h>
-#include <apr-1/apr_strings.h>
+#include <apr_strmatch.h>
+#include <apr_strings.h>
 #include <state/slsEntity.h>
 #include <renderer/slsshader.h>
 #include <slscontext.h>

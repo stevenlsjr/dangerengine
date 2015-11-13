@@ -11,12 +11,13 @@
 #include <emscripten.h>
 #endif //__EMSCRIPTEN__
 
-#include "render_demo.h"
-#include <dangerengine.h>
 
-#ifdef _POSIX_VERSION
+#if 1
 
-/**/#include <unistd.h>
+extern int earth_main(int *argcr, char **argv);
+
+extern int render_demo_main(int *argc, char **argv);
+
 
 #else
 #   include <windows.h>
@@ -37,9 +38,11 @@ static inline void setup()
 int main(int argc, char *argv[])
 {
 
-  return render_demo_main(&argc, argv);
+  return earth_main(&argc, argv);
 
 }
+
+
 
 
 

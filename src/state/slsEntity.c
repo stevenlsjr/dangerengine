@@ -5,8 +5,8 @@
 
 #include "slsEntity.h"
 #include "slsEntityDraw.h"
-#include <apr-1/apr_strings.h>
-#include <apr-1/apr_strmatch.h>
+#include <apr_strings.h>
+#include <apr_strmatch.h>
 #include <math/mathmacs.h>
 #include <data-types/intrusivelist.h>
 #include <slscontext.h>
@@ -18,25 +18,21 @@ struct slsEntity_p {
   bool skip_update;
 };
 
+static slsEntity sls_entity_klass = {
+    .dtor = sls_entity_dtor,
+    .init = sls_entity_init,
+
+    .parent = NULL,
+    .children = NULL,
+
+    .component_mask = SLS_COMPONENT_NONE,
+    .name = NULL,
+    .transform = (slsTransform2D) {},
+};
 
 slsEntity const *sls_entity_class()
 {
-  static slsEntity klass = {
-      .dtor = sls_entity_dtor,
-      .init = sls_entity_init,
-
-      .parent = NULL,
-      .children = NULL,
-
-      .component_mask = SLS_COMPONENT_NONE,
-      .name = NULL,
-      .transform = (slsTransform2D) {},
-  };
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreturn-stack-address"
-  return &klass;
-#pragma clang diagnostic pop
+  return &sls_entity_klass;
 }
 
 slsEntity *sls_entity_init(slsEntity *self,

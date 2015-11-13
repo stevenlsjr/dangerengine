@@ -45,9 +45,16 @@
 #include <tgmath.h>
 
 
-
-
 void sls_hashtable_insert_with_hash(slsHashTable *self, void *key, void *val, uint64_t hash);
+
+
+/**
+ * @brief hashes a null-terminated string
+ * @detail, to use as a hash parameter, cal sls_hash_fn_default
+ * with length of SLS_STRING_LEN (0)
+ *
+ */
+
 
 slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashFn hash_fn,
                                  slsCallbackTable const *key_cback, slsCallbackTable const *val_cback)
@@ -140,22 +147,22 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
   sls_checkmem(vals);
 
 
-  self->keys = calloc(n_items, sizeof(void**));
-  self->vals = calloc(n_items, sizeof(void**));
+  self->keys = calloc(n_items, sizeof(void **));
+  self->vals = calloc(n_items, sizeof(void **));
   self->hashes = calloc(n_items, sizeof(uint64_t));
 
   sls_checkmem(self->hashes);
   sls_checkmem(self->keys);
   sls_checkmem(self->vals);
 
-  for (int i=0; i<old_size; ++i) {
+  for (int i = 0; i < old_size; ++i) {
     if (keys[i] && vals[i] && !sls_is_hash_sentinel(keys[i]))
-    sls_hashtable_insert_with_hash(self, keys[i], vals[i], hashes[i]);
+      sls_hashtable_insert_with_hash(self, keys[i], vals[i], hashes[i]);
   }
   return;
 
   error:
-    return;
+  return;
 
 }
 
@@ -202,8 +209,8 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
       *k_itor = self->key_callbacks.copy_fn ?
                 self->key_callbacks.copy_fn(key) :
                 key;
-      *v_itor = self->val_callbacks.copy_fn?
-                self->val_callbacks.copy_fn(val):
+      *v_itor = self->val_callbacks.copy_fn ?
+                self->val_callbacks.copy_fn(val) :
                 val;
 
       inserted = true;
@@ -278,14 +285,129 @@ void const *sls_hash_sentinel()
   return &sls_hash_sentinel_value;
 }
 
-uint64_t sls_hash_fn_default(void const *val, size_t size)
+uint64_t sls_hash_fn_naive(void const *val, size_t size)
 {
-  char *buffer = malloc(size + 1);
-  memcpy(buffer, val, size);
-
+  char const *buffer = val;
   // TODO: implement hash algorithm
+  uint64_t checksum = 0;
+  size_t max_strlen = 1000; // only hash limited characters
+  bool is_cstr = (size == SLS_STRING_LENGTH);
 
-  free(buffer);
-  return 0;
+  for (int i = 0;
+       i < size / sizeof(char) || (is_cstr && buffer[i] != '\0');
+       ++i) {
+    checksum += buffer[i];
+  }
+
+  return checksum;
 }
 
+uint64_t sls_hash_fn_default(void const *val, size_t size)
+{
+  // TODO: implement hash algorithm
+
+  if (size == SLS_STRING_LENGTH) {
+    return sls_hash_cstr(val);
+  } else {
+
+    return sls_hash_sizeddata(val, size);
+
+  }
+}
+
+uint64_t sls_hash_sizeddata(void const *val, size_t size)
+{
+  char const *buffer = val;
+
+  // Jenkins Hash
+  uint64_t hash = 0;
+
+  for (int i = 0;
+       i < size / sizeof(char);
+       ++i) {
+    hash += buffer[i];
+    hash += (hash << 10);
+    hash ^= (hash >> 6);
+  }
+
+  hash += (hash << 3);
+  hash ^= (hash >> 11);
+  hash += (hash << 15);
+
+  return hash;
+}
+
+uint64_t sls_hash_cstr(char const *str)
+{
+
+  // K&R-style multiplicitive hash function
+  const uint64_t initial_hash = 0;
+  const int a = 31;
+  uint64_t hash = initial_hash;
+
+  size_t max_len = 1000;
+  for (int i = 0;
+       str[i] != '\0' && i < max_len;
+       ++i) {
+    hash = ((hash*a) + str[i]) % UINT64_MAX;
+  }
+
+  return hash;
+}
+
+void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size)
+{
+  void *val = sls_hashtable_find(self, key, key_size);
+  if (val && !sls_is_hash_sentinel(val)) {
+    if (self->val_callbacks.free_fn) {
+      self->val_callbacks.free_fn(val);
+    }
+
+  }
+
+}
+
+slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor)
+{
+  int first = -1;
+  itor->table = table;
+  for (int i=0; i<table->array_size; ++i) {
+    if (table->keys[i] && table->vals[i]) {
+      first = i;
+      itor->index = (size_t)i;
+      itor->key = table->keys + i;
+      itor->val = table->vals + i;
+      break;
+    }
+  }
+
+  return first > -1?
+      itor:
+      NULL;
+}
+
+slsHashItor *sls_hashitor_next(slsHashItor *itor)
+{
+  sls_checkmem(itor->key && itor->table && itor->val);
+  bool found_next = false;
+  slsHashTable *table = itor->table;
+
+  for (size_t i = itor->index; i<table->array_size; ++i) {
+    if (table->keys[i] && table->vals[i]) {
+      found_next = true;
+
+      itor->index = i;
+      itor->key = table->keys + i;
+      itor->val = table->vals + i;
+
+      break;
+    }
+  }
+
+  return found_next?
+      itor:
+      NULL;
+
+  error:
+  return  NULL;
+}

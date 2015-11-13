@@ -63,7 +63,7 @@ Light sample_source();
 void main()
 {
   Light l;
-  l.position = vec4(0.0, 0.0, 3.0, 1.0);
+  l.position = vec4(0.0, 0.0, 3.0, 0.0);
   l.color = vec3(1.0, 1.0, 1.0);
   l.attenuation = 1.0;
 
@@ -86,17 +86,18 @@ void main()
   vec3 norm = normalize(normal_mat * vec4(texel_norm, 0.0)).xyz;
   //vec3 norm = frag_normal;
   vec3 light_dir;
-  if (l.position.w == 0.0) {
+
+  if (l.position.w <= 0) {
     light_dir =
-      normalize(l.position.xyz - frag_pos);
+          normalize(l.position.xyz - frag_pos);
   } else {
     light_dir =
-      normalize((model_view * l.position).xyz - frag_pos);
+      normalize((model_view * vec4(frag_pos, 1.0)).xyz - frag_pos);
   }
 
   float k_d = max(abs(dot(norm, light_dir)), 0.0);
 
-  vec3 diffuse_color = k_d * l.color *  material_color.xyz;
+  vec3 diffuse_color = l.color *  material_color.xyz;
 
   // specular light
 

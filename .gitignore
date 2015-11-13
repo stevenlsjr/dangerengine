@@ -309,6 +309,9 @@ build/
 jsbuild/
 xcode/
 
+*.dmg
+*.iso
+
 # cmake generated sources
 
 src/sls-build-dir.c

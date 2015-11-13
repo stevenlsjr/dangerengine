@@ -67,6 +67,7 @@ typedef uint64_t (*slsHashFn)(void const *key, size_t size);
 struct slsHashTable {
   uint64_t *hashes;
   void **keys;
+  size_t *key_sizes;
   void **vals;
 
   /**
@@ -82,6 +83,15 @@ struct slsHashTable {
   slsHashFn hash;
   slsCmpFn cmp;
 };
+typedef struct slsHashItor slsHashItor;
+
+
+struct slsHashItor {
+  void **key;
+  void **val;
+  size_t index;
+  slsHashTable *table;
+};
 
 slsHashTable *sls_hashtable_init(slsHashTable *self,
                                  size_t array_size,
@@ -94,6 +104,7 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
 void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
 
 void sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, void *val) SLS_NONNULL(1, 2, 4);
+void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size) SLS_NONNULL(1);
 
 void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size) SLS_NONNULL(1, 2);
 
@@ -106,6 +117,13 @@ void const *sls_hash_sentinel();
 
 uint64_t sls_hash_fn_default(void const *val, size_t size);
 
+uint64_t sls_hash_cstr(char const *str);
+
+uint64_t sls_hash_sizeddata(void const *val, size_t size);
+
+
+slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor) SLS_NONNULL(1, 2);
+slsHashItor *sls_hashitor_next(slsHashItor *itor) SLS_NONNULL(1);
 
 #endif //DANGERENGINE_HASHTABLE_H
 

@@ -60,6 +60,7 @@ void main()
 
   vec4 texel = bgra_to_rgba(texture(diffuse_map, frag_uv));
   out_color = texel;
+  out_color.a = 0.5;
 
 }
 

@@ -9,7 +9,7 @@
 #define DANGERENGINE_SLSTTFTEXT_H
 
 #include <stdlib.h>
-#include <apr-1/apr_pools.h>
+#include <apr_pools.h>
 #include <slsutils.h>
 #include "slsshader.h"
 

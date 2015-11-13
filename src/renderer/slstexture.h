@@ -60,7 +60,7 @@ struct slsTexPair {
   /**
    * @brief flags the texture's successful load in memory
    */
-  slsBool is_active;
+  bool is_active;
 
 };
 

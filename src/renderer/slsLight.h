@@ -1,6 +1,12 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
+ * @detail This Header describes 3 types for defining lights in a scene:
+ * a simple "Light" struct for defining the components of a single light source,
+ * a "Light batch" structure organized as with *struct of arrays* design for efficiently
+ * light data to the GPU, and a "light view" for viewing modifying a single light source
+ * within a batch.
+ *
  * @license ${LICENSE}
  * Copyright (c) 11/11/15, Steven
  * 
@@ -13,6 +19,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <slsutils.h>
+
+
 
 typedef struct slsLight slsLight;
 

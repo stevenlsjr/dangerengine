@@ -7,8 +7,8 @@
 
 #include <renderer/slstexture.h>
 
-#include <apr-1/apr_tables.h>
-#include <apr-1/apr_hash.h>
+#include <apr_tables.h>
+#include <apr_hash.h>
 
 #include <data-types/intrusivelist.h>
 #include <data-types/ptrarray.h>

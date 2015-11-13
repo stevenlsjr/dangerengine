@@ -51,7 +51,8 @@ bool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
 bool sls_transform2D_near(slsTransform2D const *a, slsTransform2D const *b, float epsilon)
 {
 
-  return SLS_TRUE;
+  assert(0);
+  return false;
 }
 
 slsTransform2D *sls_transform2d_init(slsTransform2D *self)

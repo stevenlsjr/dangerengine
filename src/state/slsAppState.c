@@ -72,9 +72,14 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
   apr_pool_t *tmp;
   apr_pool_create(&tmp, self->pool);
 
-  for (slsEntity *e = self->root->il.next; e != NULL && e != self->root; e = e->il.next) {
-    sls_msg(e, dtor);
+  if (self->root) {
+    for (slsEntity *e = self->root->il.next; e != NULL && e != self->root; e = e->il.next) {
+      sls_msg(e, dtor);
+    }
+
+    sls_msg(self->root, dtor);
   }
+
 
   if (self->textures) {
     for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures);

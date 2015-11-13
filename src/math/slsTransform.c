@@ -10,6 +10,12 @@
 #include <kazmath/quaternion.h>
 #include "slsTransform.h"
 
+struct slsTransform_p {
+  kmVec3 position;
+  kmVec3 scale;
+  kmQuaternion rotation;
+};
+
 //---------------------------------constructors---------------------------------------
 slsTransform *sls_transform_init(slsTransform *self)
 {
@@ -35,40 +41,69 @@ slsTransform *sls_transform_dtor(slsTransform *self)
 
 slsTransform *sls_transform_set_position(slsTransform *self, kmVec3 const *position)
 {
-  return NULL;
+  sls_checkmem(self->priv);
+  self->priv->position = *position;
+  return self;
+
+  error:
+  return self;
 }
 
 slsTransform *sls_transform_set_scale(slsTransform *self, kmVec3 const *scale)
 {
-  return NULL;
+  sls_checkmem(self->priv);
+  self->priv->scale = *scale;
+
+  return self;
+
+  error:
+  return self;
 }
 
 slsTransform *sls_transform_set_rotation(slsTransform *self, kmQuaternion const *rotation)
 {
-  return NULL;
+  sls_checkmem(self->priv);
+  self->priv->rotation = *rotation;
+
+  return self;
+
+  error:
+  return self;
 }
 
 //---------------------------------getters---------------------------------------
 
 kmVec3 sls_transform_get_position(slsTransform *self)
 {
-  kmVec3 result;
-  return result;
+
+  return self->priv->position;
 }
 
 kmVec3 sls_transform_get_scale(slsTransform *self)
 {
-  kmVec3 result;
-  return result;
+  return self->priv->scale;
 }
 
 kmQuaternion sls_transform_get_rotation(slsTransform *self)
 {
-  kmQuaternion result;
-  return result;
+  return self->priv->rotation;
 }
 
 void sls_transform_build_matrix(slsTransform *self)
 {
 
+  slsTransform_p *p = self->priv;
+  kmMat4 out, a, b;
+
+
+  kmMat4RotationQuaternion(&a, &p->rotation);
+  kmMat4Scaling(&b, p->scale.x, p->scale.y, p->scale.z);
+
+  kmMat4Multiply(&out, &a, &b);
+  b = out;
+  kmMat4Translation(&a, p->position.x, p->position.y, p->position.z);
+
+
+  kmMat4Multiply(&out, &a, &b);
+  self->matrix = out;
 }

@@ -41,17 +41,18 @@
 #include <assert.h>
 
 #include "contexthandlers.h"
-#include <apr-1/apr_errno.h>
+#include <apr_errno.h>
 
 
 #ifdef EMSCRIPTEN
 #   include <emscripten.h>
 #endif //EMSCRIPTEN
 
+#define SLS_TICKS_PER_SEC 1000
 
 struct slsContext_p {
-  clock_t last;
-  clock_t dt_acc;
+  uint64_t last;
+  uint64_t ticks_since_draw;
   slsIPoint last_size;
 };
 
@@ -105,7 +106,7 @@ static const slsContext sls_context_proto = {
     .handle_event = sls_context_handle_event,
 
     .is_running = SLS_FALSE,
-    .interval = 30,
+    .interval = 1000/60,
     .priv = NULL,
     .window = NULL,
     .state = NULL,
@@ -225,10 +226,10 @@ void sls_context_dtor(slsContext *self)
 void sls_context_run(slsContext *self)
 {
   if (!self->priv) { return; }
-  self->priv->last = clock();
-  self->priv->dt_acc = 0;
+  self->priv->last = SDL_GetTicks();
+  self->priv->ticks_since_draw = 0;
 
-  self->is_running = SLS_TRUE;
+  self->is_running = true;
 
   sls_msg(self, setup);
 
@@ -266,19 +267,23 @@ void sls_context_iter(slsContext *self)
   }
 
 
-  clock_t now = clock();
+  uint64_t now = SDL_GetTicks();
   slsContext_p *priv = self->priv;
-  clock_t interval = now - priv->last;
+  uint64_t interval = now - priv->last;
 
-  double true_dt = interval/ (double)CLOCKS_PER_SEC;
+  //double true_dt = interval/ (double) SLS_TICKS_PER_SEC;
 
-  priv->dt_acc += interval;
+  priv->ticks_since_draw += interval;
   priv->last = now;
 
 
-  if (priv->dt_acc > self->interval) {
-    double dt = priv->dt_acc / (double) CLOCKS_PER_SEC;
-    priv->dt_acc = 0;
+
+
+  if (priv->ticks_since_draw > self->interval) {
+    double dt = priv->ticks_since_draw / (double) SLS_TICKS_PER_SEC;
+    //sls_log_info("dt=%f", dt);
+
+    priv->ticks_since_draw = 0;
 
     sls_msg(self, update, dt);
 

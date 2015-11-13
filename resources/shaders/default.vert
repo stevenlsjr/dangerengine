@@ -33,10 +33,8 @@ void main()
 
   frag_uv = uv;
 
-  //frag_pos = vec3(model_view * vec4(position, 1.0));
-  frag_pos.z = 0.0;
+  frag_pos = vec3(model_view * vec4(position, 1.0));
 
-  vec3 frag_pos = (model_view * vec4(position, 1.0)).xyz;
 
   gl_Position = projection * model_view * vec4(position, 1.0f);
 

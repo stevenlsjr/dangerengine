@@ -12,8 +12,8 @@
 #define DANGERENGINE_SLSAPPSTATE_H
 
 #include <slsutils.h>
-#include <apr-1/apr_hash.h>
-#include <apr-1/apr_pools.h>
+#include <apr_hash.h>
+#include <apr_pools.h>
 
 #include <math/math-types.h>
 #include <math/slsMatrixStack.h>

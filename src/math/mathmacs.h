@@ -17,11 +17,6 @@
 #include <stdbool.h>
 
 
-#define sls_near(a, b, e) _Generic(a,   \
-    double: sls_neard(a, b, e),         \
-    float: sls_nearf(a, b, e))
-
-
 /**
  * @brief convenience function for returning a
  * vec2 operation by value
@@ -35,7 +30,6 @@ kmVec3 sls_vec3_add(const kmVec3 *a, const kmVec3 *b);
 kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b);
 
 size_t sls_nearest_squarelu(size_t x);
-
 
 static inline bool sls_neard(double a, double b, double epsilon)
 {
@@ -56,17 +50,15 @@ static inline bool sls_nearf(float a, float b, float epsilon)
   return fabs(a - b) < epsilon;
 }
 
-#define SLS_MIN(a, b) ({ \
-  typeof(a) __a = (a); \
-  typeof(b) __b = (b); \
-  __a < __b? __a: __b; \
-})
+static inline double sls_to_radians(double degrees)
+{
+  return degrees * M_PI/180.0;
+}
 
-#define SLS_MAX(a, b) ({ \
-  typeof(a) __a = (a); \
-  typeof(b) __b = (b); \
-  __a > __b? __a: __b; \
-})
+static inline double sls_to_degrees(double radians)
+{
+  return radians * 180.0/M_PI;
+}
 
 
 #endif //DANGERENGINE_MATHMACS_H

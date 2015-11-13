@@ -15,11 +15,7 @@ typedef struct slsTransform slsTransform;
 
 typedef struct slsTransform_p slsTransform_p;
 
-struct slsTransform_p {
-  kmVec3 position;
-  kmVec3 scale;
-  kmQuaternion rotation;
-};
+
 
 struct slsTransform {
   kmMat4 matrix;

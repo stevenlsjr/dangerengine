@@ -34,7 +34,7 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include <apr-1/apr_pools.h>
+#include <apr_pools.h>
 #include <GL/glew.h>
 #include <assert.h>
 #include "slsshader.h"

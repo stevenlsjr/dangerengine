@@ -100,6 +100,8 @@ struct slsMesh {
   GLuint vbo, ibo;
   GLuint vao;
 
+  GLenum gl_draw_mode;
+
   /**
   * @brief true if pre_draw has been called
   * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up yet

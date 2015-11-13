@@ -82,9 +82,9 @@ slsEntity *sls_create_tank(slsAppState *state,
   data->tilemap = NULL;
 
 
-  data->acceleration = 10.0;
-  data->max_speed = 40.0;
-  data->rotational_speed = 10.0;
+  data->acceleration = 1.0;
+  data->max_speed = 20.0;
+  data->rotational_speed = 5.0;
 
   sls_matrix_stack_init(&data->work_stack, 8);
 

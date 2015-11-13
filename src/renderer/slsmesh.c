@@ -55,7 +55,8 @@ static const slsMesh sls_mesh_proto = {
     .vbo = 0,
     .ibo = 0,
     .vao = 0,
-    .is_drawing = SLS_FALSE
+    .is_drawing = false,
+    .gl_draw_mode = GL_TRIANGLES
 };
 
 /*================================
@@ -262,7 +263,6 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
 {
-
   self->pre_draw(self, program, dt);
   self->draw(self, dt);
   self->post_draw(self, program, dt);
@@ -289,7 +289,7 @@ void sls_mesh_draw(slsMesh *self, double dt)
 {
 
   size_t elements = self->indices.length;
-  glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
+  glDrawElements(self->gl_draw_mode, (int) elements, GL_UNSIGNED_INT, NULL);
 
 }
 
