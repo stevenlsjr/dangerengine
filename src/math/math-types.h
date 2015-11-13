@@ -140,7 +140,7 @@ static inline void sls_log_mat4(kmMat4 const *mat)
 /*---------------------------------------*
  * slsIPoint operations
  *---------------------------------------*/
-slsBool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+bool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
 
 slsIPoint sls_ipoint_add(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
 
@@ -187,6 +187,9 @@ static inline kmVec4 sls_array_to_vec4(float const *arr) {
 
   return v;
 };
+
+
+kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview);
 
 // TODO(Steven): c11 overloading functions
 

@@ -4,8 +4,8 @@
 
 #include "math-types.h"
 
-slsBool sls_ipoint_eq(slsIPoint const *a,
-                      slsIPoint const *b)
+bool sls_ipoint_eq(slsIPoint const *a,
+                   slsIPoint const *b)
 {
   return a->x == b->x && a->y == b->y;
 }
@@ -49,4 +49,14 @@ kmVec2 sls_ipoint_to_vec2(slsIPoint const *a)
 
 
   return result;
+}
+
+kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview)
+{
+  kmMat4 tmp;
+
+  kmMat4Inverse(&tmp, modelview);
+  kmMat4Transpose(out, &tmp);
+
+  return out;
 }
