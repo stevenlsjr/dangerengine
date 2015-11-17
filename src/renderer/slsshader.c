@@ -40,7 +40,6 @@
 #include "slsshader.h"
 
 
-
 slsShader const *sls_shader_proto()
 {
   static volatile slsShader proto = {
@@ -64,9 +63,17 @@ slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool, GLuint prog
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
 
-  self->program = program;
-  sls_shader_bind_attrs(self);
-  sls_shader_bind_unifs(self);
+  self->attr_table = apr_hash_make(self->pool);
+  sls_checkmem(self->attr_table);
+  self->unif_table = apr_hash_make(self->pool);
+  sls_checkmem(self->unif_table);
+
+  if (self->unif_table && self->attr_table) {
+    self->program = program;
+    sls_shader_bind_attrs(self);
+    sls_shader_bind_unifs(self);
+  }
+
 
   self->owns_program = false;
 
@@ -94,108 +101,47 @@ slsShader *sls_shader_dtor(slsShader *self)
 }
 
 
-
 void sls_shader_bind_unifs(slsShader *self)
 {
   typeof(self->uniforms) *u = &self->uniforms;
+
+
   struct unif_pair {
-    int u;
-    char *name;
+    GLuint *loc;
+    char const *name;
   };
 
-  struct unif_pair unif;
+  struct unif_pair pairs[] = {
+      {&u->time,                     "time"},
+      {&u->model_view,               "model_view"},
+      {&u->projection,               "projection"},
+      {&u->normal_mat,               "normal_mat"},
+      {&u->normal_tex,               "normal_tex"},
+      {&u->diffuse_tex,              "diffuse_tex"},
+      {&u->specular_tex,             "specular_tex"},
+      {&u->lights.diffuse_products,  "lights.diffuse_products"},
 
-  glUseProgram(self->program);
-  unif.name = "time";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->time = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+      {&u->lights.ambient_products,  "lights.ambient_products"},
 
-  unif.name = "model_view";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->model_view = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+      {&u->lights.specular_products, "lights.specular_products"},
 
-  unif.name = "projection";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->projection = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+      {&u->lights.light_positions,   "lights.light_positions"},
+      {&u->lights.light_modelview,   "lights.light_modelview"},
 
-  unif.name = "normal_mat";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->normal_mat = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+      {&u->lights.active_lights,     "lights.n_lights"}
 
-  unif.name = "diffuse_map";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->diffuse_map = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+  };
 
-  unif.name = "specular_map";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->specular_map = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+  for (int i=0; i< sizeof(pairs)/sizeof(struct unif_pair); ++i){
+    struct unif_pair *itor = pairs + i;
 
-  unif.name = "normal_map";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->normal_map = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+    if (itor->loc) {
+      bool res = false;
+      *itor->loc = sls_shader_get_unif(self, itor->name, &res);
 
-  unif.name = "z_layer";
-  unif.u = glGetUniformLocation(self->program, unif.name);
-  u->z_layer = (GLuint) unif.u;
-  sls_uniform_check(unif.name, unif.u);
+    }
 
-
-  {
-    unif.name = "material.diffuse_color";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->material.diffuse_color = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "ambient_color";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->material.ambient_color = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "specular_color";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->material.specular_color = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "shininess";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->material.shininess = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
   }
-
-  {
-    unif.name = "lights.diffuse_products";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->lights.diffuse_products = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "lights.ambient_products";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->lights.ambient_products = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "lights.specular_products";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->lights.specular_products = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "lights.light_positions";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->lights.light_positions = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-
-    unif.name = "lights.active_lights";
-    unif.u = glGetUniformLocation(self->program, unif.name);
-    u->lights.active_lights = (GLuint) unif.u;
-    sls_uniform_check(unif.name, unif.u);
-  }
-
 }
 
 void sls_shader_bind_attrs(slsShader *self)
@@ -225,7 +171,6 @@ void sls_shader_bind_attrs(slsShader *self)
 }
 
 
-
 void sls_uniform_check(char const *name, int val)
 {
   if (val < 0) {
@@ -242,4 +187,80 @@ void sls_attr_check(char *name, GLuint program, GLuint location)
                  name,
                  actual_location);
   }
+}
+
+
+GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out)
+{
+  glUseProgram(self->program);
+  GLuint r_value = 0;
+  bool success = false;
+
+  GLuint *val;
+
+  val = apr_hash_get(self->attr_table, variable, APR_HASH_KEY_STRING);
+
+  if (val) {
+    r_value = *val;
+    success = true;
+  }
+  else {
+    int location = glGetAttribLocation(self->program, variable);
+    if (location < 0) {
+      success = false;
+    } else {
+      val = apr_pcalloc(self->pool, sizeof(GLuint));
+      *val = (GLuint) location;
+      apr_hash_set(self->attr_table, variable, APR_HASH_KEY_STRING, val);
+
+      success = true;
+    }
+
+  }
+
+
+  if (result_out) {
+    *result_out = success;
+  }
+
+  return r_value;
+}
+
+GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out)
+{
+  glUseProgram(self->program);
+  GLuint r_value = 0;
+  bool success = false;
+
+  GLuint *val;
+
+  val = apr_hash_get(self->unif_table, variable, APR_HASH_KEY_STRING);
+
+  if (val) {
+    r_value = *val;
+    success = true;
+  }
+  else {
+    int location = glGetUniformLocation(self->program, variable);
+    if (location < 0) {
+      sls_uniform_check(variable, location);
+      success = false;
+    } else {
+      val = apr_pcalloc(self->pool, sizeof(GLuint));
+      *val = (GLuint) location;
+      apr_hash_set(self->unif_table, variable, APR_HASH_KEY_STRING, val);
+
+      r_value = *val;
+
+      success = true;
+    }
+
+  }
+
+
+  if (result_out) {
+    *result_out = success;
+  }
+
+  return r_value;
 }

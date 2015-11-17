@@ -177,24 +177,24 @@ void sls_texture_set_program(slsTexture *self, GLuint program)
   sls_check(glIsProgram(program), "object %ui is not a program handle", program);
 
   int diffuse, specular, normal;
-  diffuse = glGetUniformLocation(program, "diffuse_map");
-  specular = glGetUniformLocation(program, "specular_map");
-  normal = glGetUniformLocation(program, "normal_map");
+  diffuse = glGetUniformLocation(program, "diffuse_tex");
+  specular = glGetUniformLocation(program, "specular_tex");
+  normal = glGetUniformLocation(program, "normal_tex");
 
   if (diffuse < 0 && self->diffuse.is_active) {
-    sls_log_warn("could not find `diffuse_map` location in shader program");
+    sls_log_warn("could not find `diffuse_tex` location in shader program");
   } else {
     self->diffuse.uniform = (GLuint) diffuse;
   }
 
   if (specular < 0 && self->specular.is_active) {
-    sls_log_warn("could not find `specular_map` location in shader program");
+    sls_log_warn("could not find `specular_tex` location in shader program");
   } else {
     self->specular.uniform = (GLuint) specular;
   }
 
   if (normal < 0 && self->normal.is_active) {
-    sls_log_warn("could not find `normal_map` location in shader program");
+    sls_log_warn("could not find `normal_tex` location in shader program");
   } else {
     self->normal.uniform = (GLuint) normal;
   }
@@ -223,6 +223,7 @@ void sls_texture_bind(slsTexture *self)
                         self->specular,
                         self->normal};
 
+
   GLenum textures[] = {GL_TEXTURE0, GL_TEXTURE1, GL_TEXTURE2};
 
   for (size_t i = 0; i < sizeof(pairs) / sizeof(slsTexPair); ++i) {
@@ -231,7 +232,7 @@ void sls_texture_bind(slsTexture *self)
     if (p && p->is_active) {
       glActiveTexture(textures[i]);
 
-      glUniform1i(p->uniform, (GLint) i);
+      glUniform1i(p->uniform, (GLint) p->gltex);
       glBindTexture(GL_TEXTURE_2D, p->gltex);
     }
   }
@@ -349,10 +350,7 @@ GLenum sls_glformat_from_sdlformat(SDL_PixelFormat const *fmt)
     }
     default:
       sls_log_warn("unsupported bytes per pixel: %i", bpp);
-      _Static_assert(GL_FALSE != GL_RGBA ||
-                    GL_FALSE != GL_BGRA ||
-                    GL_FALSE != GL_RGB ||
-                    GL_FALSE != GL_BGR, "invalid error flag for sls_glformat_from_sdlformat");
+
       gl_format = GL_FALSE;
       break;
   }

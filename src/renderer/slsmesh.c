@@ -275,7 +275,7 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
   glUseProgram(program);
 
 
-  self->is_drawing = SLS_TRUE;
+  self->is_drawing = true;
   // setup vert position pointer
 
   glBindVertexArray(self->vao);
@@ -295,7 +295,7 @@ void sls_mesh_draw(slsMesh *self, double dt)
 
 void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt)
 {
-  self->is_drawing = SLS_FALSE;
+  self->is_drawing = false;
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);

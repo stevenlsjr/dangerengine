@@ -44,10 +44,7 @@ in vec4 frag_color;
 in vec2 frag_uv;
 in vec3 frag_normal;
 
-in float season_blend;
-
 const float ambient_str = 0.1;
-
 
 
 /**
@@ -60,12 +57,11 @@ vec4 bgra_to_rgba(vec4 color);
 
 void main()
 {
+
+
   int i=0;
 
-  vec4 s1_texel = bgra_to_rgba(texture(diffuse_tex, frag_uv));
-  vec4 s2_texel = bgra_to_rgba(texture(normal_tex, frag_uv));
-
-  vec4 texel = mix(s1_texel, s2_texel, 0.0);
+  vec4 texel = bgra_to_rgba(texture(diffuse_tex, frag_uv));
 
   vec4 a_product,
        d_product,
@@ -76,35 +72,31 @@ void main()
   vec4 ambient, diffuse;
   vec3 R,E;
 
-  vec4 light_pos = lights.light_positions[i];
-  light_pos = vec4(0.0, 1.0, 1.0, 0.0);
+  vec4 light_pos;
+  light_pos = lights.light_positions[i];
 
   a_product = vec4(lights.ambient_products[i], 1.0);
   d_product = texel * vec4(lights.diffuse_products[i], 0.0);
   s_product = vec4(lights.specular_products[i], 1.0);
 
   if (light_pos.w == 0.0) {
-    l = normalize(normalize(light_pos.xyz - frag_pos));
+    l = normalize(normalize(light_pos.xyz) - frag_pos);
   } else {
-    l = normalize((lights.light_modelview[i]*light_pos).xyz  - frag_pos);
+    l = normalize((lights.light_modelview[i]*light_pos).xyz - frag_pos);
   }
 
-  E = normalize(-frag_pos);
-  R = normalize(-reflect(l, frag_normal));
+  //E = normalize(-frag_pos);
+  //R = normalize(-reflect(l, frag_normal));
 
   // compute light terms
 
-  ambient = a_product * texel;
+  ambient = a_product;
 
-  float kd = max((dot(frag_normal, l)), 0.0);
-  diffuse = kd * d_product;
+  float kd = max(abs(dot(frag_normal, l)), 0.0);
+  diffuse = kd * texel;
 
-  out_color = diffuse;
+  out_color = vec4(frag_pos, 1.0);
   out_color.a = texel.a;
-
-  // specular
-
-
 
 }
 

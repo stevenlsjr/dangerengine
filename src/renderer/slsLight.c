@@ -34,6 +34,15 @@ slsLightBatch *sls_lightbatch_init(slsLightBatch *self, size_t max_lights, slsLi
 void sls_lightbatch_set_light(slsLightBatch *self, size_t idx, slsLight const *light, bool active)
 {
 
+  self->ambient_products[idx] = light->ambient_product;
+  self->specular_products[idx] = light->specular_product;
+  self->diffuse_products[idx] = light->diffuse_product;
+  self->light_positions[idx] = light->light_position;
+  self->light_modelviews[idx] = light->light_modelview;
+
+  if (self->n_lights <= idx) {
+    self->n_lights = idx +1;
+  }
 }
 
 slsLight *sls_lightbatch_get_light(slsLightBatch *self, size_t idx, slsLight *out)

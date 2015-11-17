@@ -40,6 +40,7 @@
 #include <sls-gl.h>
 #include <slsutils.h>
 #include <apr_pools.h>
+#include <apr_hash.h>
 
 typedef struct slsShader slsShader;
 
@@ -58,9 +59,9 @@ struct slsShader {
 
     GLuint time;
 
-    GLuint diffuse_map;
-    GLuint specular_map;
-    GLuint normal_map;
+    GLuint diffuse_tex;
+    GLuint specular_tex;
+    GLuint normal_tex;
 
     GLuint z_layer;
 
@@ -72,10 +73,13 @@ struct slsShader {
       GLuint shininess;
     } material;
     struct {
+
+      GLuint n_lights;
       GLuint ambient_products;
       GLuint diffuse_products;
       GLuint specular_products;
       GLuint light_positions;
+      GLuint light_modelview;
 
       GLuint active_lights;
     } lights;
@@ -89,6 +93,10 @@ struct slsShader {
     GLuint color;
     GLuint z_layer;
   } attributes;
+
+  apr_hash_t *attr_table;
+  apr_hash_t *unif_table;
+
 
   GLuint program;
   bool owns_program;
@@ -108,6 +116,10 @@ slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
 void sls_shader_bind_attrs(slsShader *self) SLS_NONNULL(1);
 
 void sls_shader_bind_unifs(slsShader *self) SLS_NONNULL(1);
+
+GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
+GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
+
 
 void sls_uniform_check(char const *name, int val);
 void sls_attr_check(char *name, GLuint program, GLuint location);

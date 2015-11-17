@@ -48,7 +48,7 @@ char *sls_file_read(const char *filename)
 /**
  * Display compilation errors from the OpenGL shader compiler
  */
-void sls_print_log(GLuint object)
+void sls_print_log(GLuint object, char const *shader_file)
 {
   GLint log_length = 0;
   if (glIsShader(object))
@@ -130,7 +130,7 @@ GLuint sls_create_shader(const char *filename,
 
   if (compile_ok == GL_FALSE) {
     fprintf(stderr, "%s:", filename);
-    sls_print_log(res);
+    sls_print_log(res, filename);
 
 
     glDeleteShader(res);
@@ -177,7 +177,7 @@ GLuint sls_create_program(const char *vertexfile,
   glGetProgramiv(program, GL_LINK_STATUS, &link_ok);
   if (!link_ok) {
     fprintf(stderr, "glLinkProgram:");
-    sls_print_log(program);
+    sls_print_log(program, "program");
     glDeleteProgram(program);
     return 0;
   }
@@ -194,8 +194,11 @@ GLuint sls_create_program(const char *vertexfile,
 
 #ifdef GL_GEOMETRY_SHADER
 
-GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile,
-                             char const *uniform_definitions, GLint input, GLint output, GLint vertices)
+GLuint sls_create_gs_program(const char *vertexfile,
+                             const char *geometryfile,
+                             const char *fragmentfile,
+                             char const *uniform_definitions,
+                             GLint input, GLint output, GLint vertices)
 {
   GLuint program = glCreateProgram();
   GLuint shader;
@@ -231,7 +234,7 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile, c
   glGetProgramiv(program, GL_LINK_STATUS, &link_ok);
   if (!link_ok) {
     fprintf(stderr, "glLinkProgram:");
-    sls_print_log(program);
+    sls_print_log(program, "program");
     glDeleteProgram(program);
     return 0;
   }

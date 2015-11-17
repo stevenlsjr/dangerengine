@@ -67,8 +67,8 @@ slsMesh *parametric_sphere_mesh(size_t n_steps)
                sls_nearf(position.y, 0.0, 0.01) &&
                sls_nearf(position.z, 0.0, 0.01)));
 
-      sls_log_info("#%i: %f %f %f", n_vertices,
-                   position.x, position.y, position.z);
+      //sls_log_info("#%i: %f %f %f", n_vertices,
+      //             position.x, position.y, position.z);
 
 
       memcpy(verts[n_vertices].position, &position, sizeof(float) * 3);
@@ -109,18 +109,18 @@ slsMesh *parametric_sphere_mesh(size_t n_steps)
 
       for (int i = 0; i < sizeof(quad) / sizeof(uint32_t); ++i) {
         if (quad[i] > n_vertices - 2) {
-          uint32_t qx = quad[i] % n_longitudes;
-          uint32_t qy = quad - qx % n_latitudes;
+          uint32_t qx = (uint32_t)(quad[i] % n_longitudes);
+          uint32_t qy = (uint32_t)(quad - qx % n_latitudes);
           qx = 0;
 
-          quad[i] = (qy * (n_longitudes) + qx);
+          quad[i] = (uint32_t)(qy * (n_longitudes) + qx);
 
         }
       }
 
 
-      sls_log_info("%u %u %u %u %u %u",
-                   quad[0], quad[1], quad[2], quad[3], quad[4], quad[5]);
+      //sls_log_info("%u %u %u %u %u %u",
+      //             quad[0], quad[1], quad[2], quad[3], quad[4], quad[5]);
 
       memcpy(index_itor, quad, sizeof(uint32_t) * 6);
 

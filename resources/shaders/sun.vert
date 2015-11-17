@@ -21,8 +21,6 @@ out vec3 frag_normal;
 out vec4 frag_color;
 out vec2 frag_uv;
 
-out float season_blend;
-
 
 void main()
 {
@@ -34,8 +32,6 @@ void main()
 
   vec3 nt = (normal_mat * vec4(normal, 0.0)).xyz;
   frag_normal = normalize(nt);
-
-  season_blend = mod(time, 365.25) / 91.31;
 
   frag_uv = uv;
 

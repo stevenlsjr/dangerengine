@@ -12,9 +12,9 @@ uniform mat4 projection;
 
 uniform float time;
 
-uniform sampler2D diffuse_map;
-uniform sampler2D specular_map;
-uniform sampler2D normal_map;
+uniform sampler2D diffuse_tex;
+uniform sampler2D specular_tex;
+uniform sampler2D normal_tex;
 
 uniform Material {
   vec3 specular_color;

@@ -12,8 +12,10 @@
 
 typedef struct EarthData {
   slsShader earth_shader;
+  slsShader sun_shader;
 
   slsMesh *earth_mesh;
+  slsMesh *sun_mesh;
 
   slsLightBatch lights;
 
@@ -27,6 +29,11 @@ typedef struct EarthData {
   kmMat4 sun_transform;
   kmMat4 projection;
   slsTexture *earth_tex;
+
+
+  slsTexture *earth_texb;
+  bool do_rotate;
+  bool do_orbit;
 } EarthData;
 
 
@@ -36,20 +43,26 @@ static EarthData data = {
         .perihelion=147095000.0, // km
         .semi_major_axis=149598023, // km
         .inclination=7.155 * M_PI / 180, // in radians
-        .period=365.256363 // days
+        .period=365.256363, // days
 
+        .radius=6371.0
 
     },
 
 
-    .days_per_second = 10.0,
-    .date = 0.0 // days
+    .days_per_second = 20.0,
+    .date = 0.0, // days
+
+    .do_rotate = true,
+    .do_orbit = false
 };
 
 static slsContext *single_ctx = NULL;
 
 
 void create_earth_mesh(slsMesh *self);
+
+void earth_bind_season(slsContext *pContext);
 
 void earth_del_ctx(slsContext *ctx)
 {
@@ -100,8 +113,6 @@ int earth_main(int *argcr, char **argv)
   if (ctx) {
     sls_msg(ctx, run);
   }
-
-
   return 0;
 }
 
@@ -113,21 +124,35 @@ void earth_ctx_setup(slsContext *self)
   sls_context_class()->setup(self);
 
 
-  glEnable(GL_CULL_FACE);
   sls_shader_init(&data.earth_shader, self->pool,
                   sls_create_program("resources/shaders/earth.vert",
                                      "resources/shaders/earth.frag",
                                      "resources/shaders/earth_uniforms.glsl"));
 
+  //sls_shader_init(&data.sun_shader, self->pool,
+  //                sls_create_program("resources/shaders/sun.vert",
+  //                                   "resources/shaders/sun.frag",
+  //                                   "resources/shaders/earth_uniforms.glsl"));
+
+  data.sun_shader.owns_program = true;
+  data.earth_shader.owns_program = true;
 
   data.earth_mesh = parametric_sphere_mesh(60);
   data.earth_mesh->gl_draw_mode = GL_TRIANGLES;
 
+  data.sun_mesh = parametric_sphere_mesh(10);
+  data.sun_mesh->gl_draw_mode = GL_TRIANGLES;
+
 
   data.earth_tex =
-      sls_texture_new("resources/art/bm_default.jpg",
-                      "resources/art/homer.jpg",
-                      "resources/art/homer.jpg");
+      sls_texture_new("resources/art/june_bath.png",
+                      "resources/art/dec_bath.png",
+                      "resources/art/dec_bath.png");
+
+
+  data.earth_texb = sls_texture_new("resources/art/june_bath.png",
+                                    "resources/art/dec_bath.png",
+                                    "resources/art/dec_bath.png");
 
   sls_msg(data.earth_tex, set_program, data.earth_shader.program);
   sls_msg(data.earth_tex, bind);
@@ -138,8 +163,8 @@ void earth_ctx_setup(slsContext *self)
 
 
   slsLight sun = {
-      .ambient_product = {0.01, 0.01, 0.01},
-      .diffuse_product = {0.9, 1.0, 0.8},
+      .ambient_product = {0.01, 0.05, 0.1},
+      .diffuse_product = {1.0, 1.0, 0.9},
       .specular_product = {1.f, 1.f, 1.f},
       .light_position = {0.f, 0.f, 0.f}
   };
@@ -149,7 +174,11 @@ void earth_ctx_setup(slsContext *self)
 
   glEnable(GL_PROGRAM_POINT_SIZE);
 
-  glEnable(GL_BLEND_COLOR);
+  glClearColor(0.1, 0.2, 0.4, 1.0);
+
+  //glEnable(GL_BLEND_COLOR);
+  //glEnable(GL_CULL_FACE);
+
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
 }
@@ -158,7 +187,12 @@ void earth_ctx_setup(slsContext *self)
 void earth_ctx_teardown(slsContext *self)
 {
   sls_shader_dtor(&data.earth_shader);
+
   sls_mesh_dtor(data.earth_mesh);
+  sls_mesh_dtor(data.sun_mesh);
+
+  sls_msg(data.earth_tex, dtor);
+  sls_msg(data.earth_texb, dtor);
 
   sls_lightbatch_dtor(&data.lights);
 
@@ -168,75 +202,130 @@ void earth_ctx_teardown(slsContext *self)
 
 void earth_ctx_update(slsContext *self, double dt)
 {
-  data.date += dt * data.days_per_second * 10;
+  data.date += dt * data.days_per_second;
 
   kmVec3 earth_pos = get_earth_position(data.date, &data.earth);
   //sls_log_info("earth at day %f: %f %f %f", data.date, earth_pos.x, earth_pos.y, earth_pos.z);
 
   kmVec3 sun_rel;
-  kmVec3Scale(&sun_rel, &earth_pos, -1.f);
+  if (data.do_orbit) {
+    double sun_theta = data.date / data.earth.period * 2 * M_PI;
+    sun_rel = (kmVec3) {1.0, cos(sun_theta), sin(sun_theta)};
+    kmVec3Scale(&sun_rel, &sun_rel, data.earth.semi_major_axis / data.earth.radius);
+  } else {
+    sun_rel = (kmVec3) {100.0, 100.0, -10000.0};
+  }
 
-  kmMat4Translation(&data.sun_transform,
-                    sun_rel.x,
-                    sun_rel.y,
-                    sun_rel.z);
+
+  kmMat4Identity(&data.sun_transform);
+
+  kmMat4Identity(&data.sun_transform);
   data.lights.light_modelviews[0] = data.sun_transform;
+  data.lights.light_positions[0] = (kmVec4) {sun_rel.x, sun_rel.y, sun_rel.z, 1.0};
   GLuint program = data.earth_shader.program;
 
-  GLuint ambient_products =
-      (GLuint) glGetUniformLocation(program, "ambient_products");
-  GLuint diffuse_products =
-      (GLuint) glGetUniformLocation(program, "diffuse_products");
-  GLuint specular_products =
-      (GLuint) glGetUniformLocation(program, "specular_products");
-  GLuint light_positions =
-      (GLuint) glGetUniformLocation(program, "light_positions");
-  GLuint light_modelviews =
-      (GLuint) glGetUniformLocation(program, "light_modelviews");
-  GLuint n_lights = (GLuint) glGetUniformLocation(program, "n_lights");
+  size_t n_lights = data.lights.n_lights;
 
-  glUniform3fv(ambient_products,
-               data.lights.max_lights,
+  slsShader *s = &data.earth_shader;
+
+  //earth_bind_season(self);
+
+  glUseProgram(s->program);
+
+  glUniform1f(s->uniforms.time, (float) data.date);
+
+  glUniform1i(s->uniforms.lights.n_lights, (GLint) data.lights.n_lights);
+
+  glUniform3fv(s->uniforms.lights.ambient_products,
+               n_lights,
                (GLfloat *) data.lights.ambient_products);
-  glUniform3fv(specular_products,
-               data.lights.max_lights,
+  glUniform3fv(s->uniforms.lights.specular_products,
+               n_lights,
                (GLfloat *) data.lights.specular_products);
-  glUniform3fv(diffuse_products,
-               data.lights.max_lights,
+
+  glUniform3fv(s->uniforms.lights.diffuse_products,
+               n_lights,
                (GLfloat *) data.lights.diffuse_products);
-  glUniform4fv(light_positions,
-               data.lights.max_lights,
+  glUniform4fv(s->uniforms.lights.light_positions,
+               n_lights,
                (GLfloat *) data.lights.light_positions);
 
-  glUniformMatrix4fv(light_modelviews,
-                     data.lights.max_lights,
+  glUniformMatrix4fv(s->uniforms.lights.light_modelview,
+                     n_lights,
                      GL_FALSE,
-                     (GLfloat *) data.lights.light_modelviews);
+                     (GLfloat *) data.lights.light_modelviews[0].mat);
 
-  glUniform1i(n_lights, (GLint) data.lights.n_lights);
 
+}
+
+void earth_bind_season(slsContext *pContext)
+{
+  int quarter = (int) (fmin(data.date / data.earth.period * 4.0, 4.0));
+
+  GLuint sample_a = data.earth_shader.uniforms.diffuse_tex;
+  GLuint sample_b = data.earth_shader.uniforms.specular_tex;
+
+  slsShader *shader = &data.earth_shader;
+
+  GLuint s1 = 0, s2 = 0;
+
+
+  switch (quarter) {
+    case 0: {
+      s1 = data.earth_texb->diffuse.gltex;
+      s2 = data.earth_texb->specular.gltex;
+    }
+      break;
+    case 1: {
+      s1 = data.earth_texb->specular.gltex;
+      s2 = data.earth_tex->diffuse.gltex;
+    }
+      break;
+    case 2: {
+      s1 = data.earth_tex->diffuse.gltex;
+      s2 = data.earth_tex->specular.gltex;
+    }
+      break;
+    case 3: {
+      s1 = data.earth_tex->specular.gltex;
+      s2 = data.earth_texb->diffuse.gltex;
+    }
+      break;
+
+    default:
+      break;
+  }
+
+  sls_log_info("q%i %u %u", quarter, s1, s2);
+
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, s1);
+
+  glUniform1i(sample_a, 0);
+
+
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, s2);
+
+  glUniform1i(sample_b, 1);
 
 }
 
 void earth_ctx_display(slsContext *self, double dt)
 {
 
-  static float x_rot = NAN;
-  if (isnan(x_rot)) {
-    x_rot = 0.f;
-  } else {
-    x_rot += 0.5 * dt;
-  }
+  float x_rot = data.date * 2 * M_PI;
+
   glUseProgram(data.earth_shader.program);
   kmMat4 ma, mb, mv;
 
 
-  bool do_rotate = true;
-  if (do_rotate ){
+  if (data.do_rotate) {
     kmQuaternion qa, qb, rot;
     kmVec3 axis = {0.f, 0.f, 1.f};
-    kmQuaternionRotationAxisAngle(&qa, &axis, (float)data.earth.inclination);
-    axis = (kmVec3){0.5f, -1.f, 0.f};
+    kmQuaternionRotationAxisAngle(&qa, &axis, (float) data.earth.inclination);
+    axis = (kmVec3) {0.f, 1.f, 0.f};
     kmQuaternionRotationAxisAngle(&qb, &axis, x_rot);
 
     kmQuaternionMultiply(&rot, &qa, &qb);
@@ -277,7 +366,7 @@ kmVec3 get_earth_position(double date/*days*/, EarthModel *model)
   double tau = 0.0; // time at pericenter
 
   double time = date;
-  double mean_anomaly = n * (time - tau);
+  double mean_anomaly = (time - tau) / n;
 
 
   //TODO: calculate position from true anomaly via kepler's equation
@@ -288,7 +377,7 @@ kmVec3 get_earth_position(double date/*days*/, EarthModel *model)
 
   kmMat4 inclination;
   kmVec3Scale(&result, &unit, model->semi_major_axis);
-
+//
   kmMat4RotationX(&inclination, model->inclination);
 
   unit = result;

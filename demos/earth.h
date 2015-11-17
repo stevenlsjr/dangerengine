@@ -28,6 +28,7 @@ struct EarthModel {
    */
   double period;
 
+  double radius;
 };
 
 slsContext * earth_shared_ctx();

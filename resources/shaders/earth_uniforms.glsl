@@ -11,10 +11,9 @@ uniform mat4 normal_mat;
 uniform mat4 projection;
 
 uniform float time;
-
-uniform sampler2D diffuse_map;
-uniform sampler2D specular_map;
-uniform sampler2D normal_map;
+uniform sampler2D diffuse_tex;
+uniform sampler2D specular_tex;
+uniform sampler2D normal_tex;
 uniform int z_layer;
 
 uniform Material {
@@ -25,11 +24,14 @@ uniform Material {
   float shininess;
 } material;
 
+struct Lights {
+  int n_lights;
+  vec3 ambient_products[SLS_N_LIGHTS];
+  vec3 diffuse_products[SLS_N_LIGHTS];
+  vec3 specular_products[SLS_N_LIGHTS];
+  vec4 light_positions[SLS_N_LIGHTS];
+  mat4 light_modelview[SLS_N_LIGHTS];
 
-uniform int n_lights;
-uniform vec3 ambient_products[SLS_N_LIGHTS];
-uniform vec3 diffuse_products[SLS_N_LIGHTS];
-uniform vec3 specular_products[SLS_N_LIGHTS];
-uniform vec4 light_positions[SLS_N_LIGHTS];
-uniform mat4 light_modelview[SLS_N_LIGHTS];
+};
 
+uniform Lights lights;

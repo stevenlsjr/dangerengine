@@ -27,7 +27,7 @@ typedef enum slsAttribIndex {
 
 char *sls_file_read(const char *filename);
 
-void sls_print_log(GLuint object);
+void sls_print_log(GLuint object, char const *shader_file);
 
 GLuint sls_create_shader(const char *filename,
                          char const *uniform_file_name,
