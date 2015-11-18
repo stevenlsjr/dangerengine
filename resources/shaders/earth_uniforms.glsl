@@ -11,6 +11,9 @@ uniform mat4 normal_mat;
 uniform mat4 projection;
 
 uniform float time;
+
+uniform float season_blend;
+
 uniform sampler2D diffuse_tex;
 uniform sampler2D specular_tex;
 uniform sampler2D normal_tex;

@@ -138,10 +138,10 @@ slsTexture *sls_texture_init(slsTexture *self,
                                            width,
                                            height);
 
-      tup.pair->is_active = SLS_TRUE;
+      tup.pair->is_active = true;
 
     } else {
-      tup.pair->is_active = SLS_FALSE;
+      tup.pair->is_active = false;
     }
 
     if (tup.path) {

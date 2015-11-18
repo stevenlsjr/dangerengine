@@ -44,11 +44,7 @@ in vec4 frag_color;
 in vec2 frag_uv;
 in vec3 frag_normal;
 
-in float season_blend;
-
-const float ambient_str = 0.1;
-
-
+in float cloud_x_offset;
 
 /**
  * a stupid hack. Right now, loaded PNG
@@ -56,6 +52,8 @@ const float ambient_str = 0.1;
  TODO(Steven): make sure textures load with correct pixel format
  */
 vec4 bgra_to_rgba(vec4 color);
+
+float cloud_value();
 
 
 void main()
@@ -65,23 +63,29 @@ void main()
   vec4 s1_texel = bgra_to_rgba(texture(diffuse_tex, frag_uv));
   vec4 s2_texel = bgra_to_rgba(texture(normal_tex, frag_uv));
 
-  vec4 texel = mix(s1_texel, s2_texel, 0.0);
+  vec4 texel = mix(s1_texel, s2_texel, season_blend);
 
   vec4 a_product,
        d_product,
        s_product;
 
+ float kd, ks, shininess;
+
 
   vec3 l;
-  vec4 ambient, diffuse;
+  vec4 ambient, diffuse, specular;
   vec3 R,E;
 
   vec4 light_pos = lights.light_positions[i];
-  light_pos = vec4(0.0, 1.0, 1.0, 0.0);
+  light_pos = vec4(-100.0, 0.0, -100.0, 0.0);
 
-  a_product = vec4(lights.ambient_products[i], 1.0);
-  d_product = texel * vec4(lights.diffuse_products[i], 0.0);
+  a_product = vec4(lights.ambient_products[i], 1.0)* texel;
+
+  vec4 d_material = mix(texel, vec4(1.0, 1.0, 1.0, 1.0), cloud_value());
+  d_product = d_material * vec4(lights.diffuse_products[i], 0.0);
+
   s_product = vec4(lights.specular_products[i], 1.0);
+  //s_product = vec4(0.1, 0.1, 0.1, 1.0);
 
   if (light_pos.w == 0.0) {
     l = normalize(normalize(light_pos.xyz - frag_pos));
@@ -89,23 +93,41 @@ void main()
     l = normalize((lights.light_modelview[i]*light_pos).xyz  - frag_pos);
   }
 
-  E = normalize(-frag_pos);
-  R = normalize(-reflect(l, frag_normal));
+  ambient = a_product ;
 
-  // compute light terms
+  // diffuse
 
-  ambient = a_product * texel;
-
-  float kd = max((dot(frag_normal, l)), 0.0);
+  kd = max((dot(frag_normal, l)), 0.0);
   diffuse = kd * d_product;
 
-  out_color = diffuse;
+    // specular
+
+
+  shininess = 2.0;
+  E = normalize(-frag_pos);
+  R = normalize(reflect(l, frag_normal));
+
+  ks = kd > 0.0?
+    pow(max(dot(R, E), 0.0), shininess):
+    0.0;
+  specular = ks * s_product;
+
+
+
+  out_color = ambient + diffuse + specular;
   out_color.a = texel.a;
 
-  // specular
+}
+float cloud_value()
+{
 
 
+  //vec4 tex = texture(specular_tex, vec2(mod(frag_uv.x, 1.0), frag_uv.y));
+  vec4 tex = texture(specular_tex, vec2(mod(cloud_x_offset, 1.0), frag_uv.y));
 
+  float albedo = clamp((tex.r + tex.g + tex.b) / 3.0, 0.0, 1.0);
+
+  return albedo;
 }
 
 

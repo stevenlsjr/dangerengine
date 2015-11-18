@@ -50,11 +50,11 @@ static EarthData data = {
     },
 
 
-    .days_per_second = 20.0,
+    .days_per_second = 0.5,
     .date = 0.0, // days
 
     .do_rotate = true,
-    .do_orbit = false
+    .do_orbit = true
 };
 
 static slsContext *single_ctx = NULL;
@@ -147,12 +147,12 @@ void earth_ctx_setup(slsContext *self)
   data.earth_tex =
       sls_texture_new("resources/art/june_bath.png",
                       "resources/art/dec_bath.png",
-                      "resources/art/dec_bath.png");
+                      "resources/art/clouds.png");
 
 
   data.earth_texb = sls_texture_new("resources/art/june_bath.png",
                                     "resources/art/dec_bath.png",
-                                    "resources/art/dec_bath.png");
+                                    "resources/art/clouds.png");
 
   sls_msg(data.earth_tex, set_program, data.earth_shader.program);
   sls_msg(data.earth_tex, bind);
@@ -163,9 +163,10 @@ void earth_ctx_setup(slsContext *self)
 
 
   slsLight sun = {
-      .ambient_product = {0.01, 0.05, 0.1},
+      .ambient_product = {0.2, 0.1
+          , 0.25},
       .diffuse_product = {1.0, 1.0, 0.9},
-      .specular_product = {1.f, 1.f, 1.f},
+      .specular_product = {0.1f, 0.1f, 0.1f},
       .light_position = {0.f, 0.f, 0.f}
   };
 
@@ -228,7 +229,7 @@ void earth_ctx_update(slsContext *self, double dt)
 
   slsShader *s = &data.earth_shader;
 
-  //earth_bind_season(self);
+  earth_bind_season(self);
 
   glUseProgram(s->program);
 
@@ -260,17 +261,26 @@ void earth_ctx_update(slsContext *self, double dt)
 
 void earth_bind_season(slsContext *pContext)
 {
-  int quarter = (int) (fmin(data.date / data.earth.period * 4.0, 4.0));
 
-  GLuint sample_a = data.earth_shader.uniforms.diffuse_tex;
-  GLuint sample_b = data.earth_shader.uniforms.specular_tex;
+  float date_ratio = data.date/ data.earth.period;
+
+  int season = (int)
+      fmin(date_ratio * 4.0, 4.0);
+
+
 
   slsShader *shader = &data.earth_shader;
+
+  GLuint sample_a = shader->uniforms.diffuse_tex;
+  GLuint sample_b = shader->uniforms.specular_tex;
+
+  GLuint season_blend = (GLuint)glGetUniformLocation(shader->program, "season_blend");
 
   GLuint s1 = 0, s2 = 0;
 
 
-  switch (quarter) {
+
+  switch (season) {
     case 0: {
       s1 = data.earth_texb->diffuse.gltex;
       s2 = data.earth_texb->specular.gltex;
@@ -296,8 +306,10 @@ void earth_bind_season(slsContext *pContext)
       break;
   }
 
-  sls_log_info("q%i %u %u", quarter, s1, s2);
 
+  glUniform1f(season_blend, date_ratio);
+
+#if 0
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, s1);
@@ -309,6 +321,8 @@ void earth_bind_season(slsContext *pContext)
   glBindTexture(GL_TEXTURE_2D, s2);
 
   glUniform1i(sample_b, 1);
+
+#endif
 
 }
 
@@ -395,7 +409,7 @@ void earth_ctx_resize(slsContext *self, int x, int y)
 
   sls_context_class()->resize;
 
-  const float fov = 60;
+  const float fov = 20;
   float aspect = x / (float) y;
   kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
