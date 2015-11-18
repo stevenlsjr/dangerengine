@@ -5,7 +5,6 @@
  * Copyright (c) 11/11/15, Steven
  * 
  **/
-#include <cppapi.h>
 #include "sphere.h"
 
 slsMesh *parametric_sphere_mesh(size_t n_steps)
