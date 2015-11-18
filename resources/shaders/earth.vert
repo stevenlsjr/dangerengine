@@ -37,7 +37,7 @@ void main()
 
   frag_uv = uv;
 
-  cloud_x_offset = frag_uv.s + time;
+  cloud_x_offset = frag_uv.s + time /2.0;
 
   frag_pos = vec3(model_view * vec4(position, 1.0));
 

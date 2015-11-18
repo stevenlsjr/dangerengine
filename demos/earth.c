@@ -329,7 +329,7 @@ void earth_bind_season(slsContext *pContext)
 void earth_ctx_display(slsContext *self, double dt)
 {
 
-  float x_rot = data.date * 2 * M_PI;
+  float x_rot = -data.date * 2 * M_PI;
 
   glUseProgram(data.earth_shader.program);
   kmMat4 ma, mb, mv;
