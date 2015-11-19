@@ -23,8 +23,8 @@ slsEntity *sls_create_tank(slsAppState *state,
                            kmVec2 position,
                            float direction,
                            bool player_controlled,
-                           slsTexture *tex,
-                           slsTexture *barrel_tex,
+                           slsMaterial *tex,
+                           slsMaterial *barrel_tex,
                            slsShader *shader)
 {
   slsEntity *self = malloc(sizeof(slsEntity));

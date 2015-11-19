@@ -12,14 +12,14 @@
 #include "slsAppState.h"
 #include "slsBehavior.h"
 
-slsTexture *sls_load_texture(slsAppState *state,
-                             char const *name,
-                             char const *diffuse_map,
-                             char const *spec_map,
-                             char const *norm_map,
-                             bool path_is_absolute)
+slsMaterial *sls_load_texture(slsAppState *state,
+                              char const *name,
+                              char const *diffuse_map,
+                              char const *spec_map,
+                              char const *norm_map,
+                              bool path_is_absolute)
 {
-  slsTexture *tex = NULL;
+  slsMaterial *tex = NULL;
   tex = sls_texture_new(diffuse_map, spec_map, norm_map);
   sls_checkmem(tex);
 
@@ -74,7 +74,7 @@ slsShader *sls_get_shader(slsAppState *state, char const *name)
   return NULL;
 }
 
-slsTexture *sls_get_texture(slsAppState *state, char const *name)
+slsMaterial *sls_get_texture(slsAppState *state, char const *name)
 {
   return NULL;
 }

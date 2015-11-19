@@ -18,10 +18,10 @@ typedef struct demoData {
 
   slsShader *shader;
 
-  slsTexture *tank_tex;
-  slsTexture *barrel_tex;
-  slsTexture *grass_tex;
-  slsTexture *block_tex;
+  slsMaterial *tank_tex;
+  slsMaterial *barrel_tex;
+  slsMaterial *grass_tex;
+  slsMaterial *block_tex;
 
   kmMat4 view_matrix;
 

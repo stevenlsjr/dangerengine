@@ -85,7 +85,7 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
     for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures);
          itor;
          itor = apr_hash_next(itor)) {
-      slsTexture *tex;
+      slsMaterial *tex;
       apr_hash_this(itor, NULL, NULL, (void**)&tex);
       if (tex) {
         sls_msg(tex, dtor);

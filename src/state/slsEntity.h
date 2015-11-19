@@ -85,7 +85,7 @@ struct slsEntity {
   slsShader *shader;
   bool material_is_owned;
 
-  slsTexture *texture;
+  slsMaterial *texture;
 
   slsKinematic2D kinematic;
   cpShape *collision_shape;

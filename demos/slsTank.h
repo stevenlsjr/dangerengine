@@ -32,8 +32,8 @@ slsEntity *sls_create_tank(slsAppState *state,
                            kmVec2 position,
                            float direction,
                            bool player_controlled,
-                           slsTexture *tex,
-                           slsTexture *barrel_tex,
+                           slsMaterial *tex,
+                           slsMaterial *barrel_tex,
                            slsShader *shader) SLS_NONNULL(1, 2, 6, 7, 8);
 
 void sls_tankb_update(slsEntity *self, slsAppState *state, double dt) SLS_NONNULL(1, 2);

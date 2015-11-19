@@ -25,8 +25,8 @@ typedef struct slsTilemapData {
   int *map;
   slsEntity *child_sprites;
 
-  slsTexture *tile_texture;
-  slsTexture *block_texture;
+  slsMaterial *tile_texture;
+  slsMaterial *block_texture;
   slsShader *tile_shader;
 
 } slsTilemapData;

@@ -13,14 +13,14 @@
 #include <slsutils.h>
 #include "slsshader.h"
 
-typedef struct slsTexture slsTexture;
+typedef struct slsMaterial slsMaterial;
 typedef struct slsMesh slsMesh;
 typedef struct slsTTFText slsTTFText;
 
 typedef struct slsTTFText_p slsTTFText_p;
 
 struct slsTTFText {
-  slsTexture *tex;
+  slsMaterial *tex;
   struct {
     slsMesh **data;
     size_t n_meshes;

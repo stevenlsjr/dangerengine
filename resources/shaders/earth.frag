@@ -55,6 +55,7 @@ vec4 bgra_to_rgba(vec4 color);
 
 float cloud_value();
 
+vec4 specular_value(vec3 l, vec4 s_product, float k_diffuse, float shininess);
 
 void main()
 {
@@ -77,7 +78,7 @@ void main()
   vec3 R,E;
 
   vec4 light_pos = lights.light_positions[i];
-  light_pos = vec4(-100.0, 0.0, -100.0, 0.0);
+  //light_pos = vec4(-100.0, 0.0, -100.0, 0.0);
 
   a_product = vec4(lights.ambient_products[i], 1.0)* texel;
 
@@ -100,18 +101,12 @@ void main()
   kd = max((dot(frag_normal, l)), 0.0);
   diffuse = kd * d_product;
 
-    // specular
-
+  // specular
 
   shininess = 2.0;
-  E = normalize(-frag_pos);
-  R = normalize(reflect(l, frag_normal));
 
-  ks = kd > 0.0?
-    pow(max(dot(R, E), 0.0), shininess):
-    0.0;
-  specular = ks * s_product;
 
+  specular = specular_value(l, s_product, kd, shininess);
 
 
   out_color = ambient + diffuse + specular;
@@ -135,4 +130,26 @@ float cloud_value()
 vec4 bgra_to_rgba(vec4 color)
 {
   return vec4(color.b, color.g, color.r, color.a);
+}
+
+vec4 specular_value(vec3 l, vec4 s_product, float k_diffuse, float shininess)
+{
+  vec4 spec;
+
+
+  float ks;
+  vec3 R, E;
+  if (k_diffuse > 0.0) {
+    E = normalize(-frag_pos);
+    R = normalize(reflect(l, frag_normal));
+
+    ks = pow(max(dot(R, E), 0.0), shininess);
+
+    spec = s_product * ks;
+
+  } else {
+    spec = vec4(0.0, 0.0, 0.0, 1.0);
+  }
+
+  return spec;
 }

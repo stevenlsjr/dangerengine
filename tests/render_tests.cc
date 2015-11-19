@@ -13,7 +13,7 @@ using namespace testing;
 class RenderTests : public Test {
 private:
 
-  static slsTexture *make_texture()
+  static slsMaterial *make_texture()
   {
     char const *img_path = "resources/art/barrelBeige_outline.png";
     char const *norm_path = "resources/art/barrelBeige_normal.png";
@@ -48,7 +48,7 @@ protected:
 
   slsContext *ctx = nullptr;
   slsMesh *mesh = nullptr;
-  slsTexture *tex = nullptr;
+  slsMaterial *tex = nullptr;
   GLuint program;
 
   slsShader shader;

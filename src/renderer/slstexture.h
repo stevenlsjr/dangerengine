@@ -43,8 +43,8 @@
 #include <inttypes.h>
 #include <kazmath/vec3.h>
 
-typedef struct slsTexture slsTexture;
-typedef struct slsTexture_p slsTexture_p;
+typedef struct slsMaterial slsMaterial;
+typedef struct slsMaterial_p slsMaterial_p;
 typedef struct slsTexPair slsTexPair;
 
 struct slsTexPair {
@@ -64,9 +64,9 @@ struct slsTexPair {
 
 };
 
-struct slsTexture {
+struct slsMaterial {
   /**
-   * @brief initializes a slsTexture object.
+   * @brief initializes a slsMaterial object.
    * @details all parameters (aside from `self`) are optional:
    * if a path parameter is NULL, the slsTexPair will be marked as
    * inactivek
@@ -76,24 +76,24 @@ struct slsTexture {
    * @param normal_path path to normal map image
    * @return initilized `self`
    */
-  slsTexture *(*init)(slsTexture *self,
-                      char const *diffuse_path,
-                      char const *specular_path,
-                      char const *normal_path);
+  slsMaterial *(*init)(slsMaterial *self,
+                       char const *diffuse_path,
+                       char const *specular_path,
+                       char const *normal_path);
 
-  void (*dtor)(slsTexture *self);
+  void (*dtor)(slsMaterial *self);
 
   /**
    * @brief Program property.
    * @detail Methods for setting and getting active mesh shader program
    */
-  void (*set_program)(slsTexture *self, GLuint program);
+  void (*set_program)(slsMaterial *self, GLuint program);
 
-  GLuint (*get_program)(slsTexture *self);
+  GLuint (*get_program)(slsMaterial *self);
 
-  void (*bind)(slsTexture *self);
+  void (*bind)(slsMaterial *self);
 
-  slsTexture_p *priv;
+  slsMaterial_p *priv;
 
 
   slsTexPair diffuse;
@@ -108,10 +108,10 @@ struct slsTexture {
 
 };
 
-slsTexture const *sls_texture_class();
+slsMaterial const *sls_texture_class();
 
 /**
- * @brief allocates and initializes a slsTexture object.
+ * @brief allocates and initializes a slsMaterial object.
  * @details all parameters (aside from `self`) are optional:
  * if a path parameter is NULL, the slsTexPair will be marked as
  * inactive
@@ -121,9 +121,9 @@ slsTexture const *sls_texture_class();
  * @param normal_path path to normal map image
  * @return initilized `self`
  */
-slsTexture *sls_texture_new(char const *diffuse_path,
-                            char const *specular_path,
-                            char const *normal_path);
+slsMaterial *sls_texture_new(char const *diffuse_path,
+                             char const *specular_path,
+                             char const *normal_path);
 
 
 GLuint sls_gltex_from_surface(SDL_Surface *surface);

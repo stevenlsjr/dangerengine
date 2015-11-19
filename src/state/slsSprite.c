@@ -59,7 +59,7 @@ bool sls_is_spriteentity(slsEntity *self)
          self->mesh->vertices.length == 4;
 }
 
-slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const *name, slsTexture *tex,
+slsSprite *sls_init_sprite(slsEntity *self, apr_pool_t *parent_pool, char const *name, slsMaterial *tex,
                            slsShader *shader)
 {
   self = sls_entity_init(self, parent_pool, sprite_mask, name);

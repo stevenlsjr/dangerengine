@@ -48,7 +48,7 @@
  * @brief Private texture information
  * @detail
  **/
-struct slsTexture_p {
+struct slsMaterial_p {
   GLuint program;
 
 };
@@ -58,28 +58,28 @@ struct slsTexture_p {
  * prototypes
  *----------------------------*/
 
-slsTexture *sls_texture_init(slsTexture *self,
-                             char const *diffuse_path,
-                             char const *specular_path,
-                             char const *normal_path);
+slsMaterial *sls_texture_init(slsMaterial *self,
+                              char const *diffuse_path,
+                              char const *specular_path,
+                              char const *normal_path);
 
-void sls_texture_dtor(slsTexture *self);
+void sls_texture_dtor(slsMaterial *self);
 
-void sls_texture_set_program(slsTexture *self, GLuint program);
+void sls_texture_set_program(slsMaterial *self, GLuint program);
 
 
-GLuint sls_texture_get_program(slsTexture *self);
+GLuint sls_texture_get_program(slsMaterial *self);
 
-void sls_texture_bind(slsTexture *self);
+void sls_texture_bind(slsMaterial *self);
 
 /*----------------------------*
  * class implementation
  *----------------------------*/
 
-slsTexture const *sls_texture_class()
+slsMaterial const *sls_texture_class()
 {
 
-  static slsTexture proto = {
+  static slsMaterial proto = {
       .init         =sls_texture_init,
       .dtor         =sls_texture_dtor,
       .set_program  = sls_texture_set_program,
@@ -94,23 +94,23 @@ slsTexture const *sls_texture_class()
 #pragma clang diagnostic pop
 }
 
-slsTexture *sls_texture_new(char const *diffuse_path,
-                            char const *specular_path,
-                            char const *normal_path)
+slsMaterial *sls_texture_new(char const *diffuse_path,
+                             char const *specular_path,
+                             char const *normal_path)
 {
-  slsTexture *self = sls_objalloc(sls_texture_class(), sizeof(slsTexture));
+  slsMaterial *self = sls_objalloc(sls_texture_class(), sizeof(slsMaterial));
 
   return sls_msg(self, init, diffuse_path, specular_path, normal_path);
 }
 
-slsTexture *sls_texture_init(slsTexture *self,
-                             char const *diffuse_path,
-                             char const *specular_path,
-                             char const *normal_path)
+slsMaterial *sls_texture_init(slsMaterial *self,
+                              char const *diffuse_path,
+                              char const *specular_path,
+                              char const *normal_path)
 {
   if (!self) { return NULL; }
 
-  self->priv = calloc(1, sizeof(slsTexture_p));
+  self->priv = calloc(1, sizeof(slsMaterial_p));
   sls_checkmem(self->priv);
 
   const int width = -1;
@@ -160,7 +160,7 @@ slsTexture *sls_texture_init(slsTexture *self,
   return NULL;
 }
 
-void sls_texture_dtor(slsTexture *self)
+void sls_texture_dtor(slsMaterial *self)
 {
   if (!self) { return; }
 
@@ -171,7 +171,7 @@ void sls_texture_dtor(slsTexture *self)
   free(self);
 }
 
-void sls_texture_set_program(slsTexture *self, GLuint program)
+void sls_texture_set_program(slsMaterial *self, GLuint program)
 {
   if (!self) { return; }
   sls_check(glIsProgram(program), "object %ui is not a program handle", program);
@@ -206,7 +206,7 @@ void sls_texture_set_program(slsTexture *self, GLuint program)
 }
 
 
-GLuint sls_texture_get_program(slsTexture *self)
+GLuint sls_texture_get_program(slsMaterial *self)
 {
   assert(self);
   assert(self->priv);
@@ -214,7 +214,7 @@ GLuint sls_texture_get_program(slsTexture *self)
   return self->priv->program;
 }
 
-void sls_texture_bind(slsTexture *self)
+void sls_texture_bind(slsMaterial *self)
 {
   if (!self) { return; }
   glUseProgram(self->priv->program);

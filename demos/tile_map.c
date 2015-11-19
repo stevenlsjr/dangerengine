@@ -79,7 +79,7 @@ void sls_tilemap_create_children(slsEntity *self, apr_pool_t *pool)
 
       child->transform.scale = (kmVec2){0.5, 0.5};
 
-      slsTexture *tex = data->tile_texture;
+      slsMaterial *tex = data->tile_texture;
 
       char *_name = NULL;
       _name = apr_psprintf(tmp_pool, "tile,%i,%i", i, j);

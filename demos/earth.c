@@ -28,14 +28,19 @@ typedef struct EarthData {
   kmMat4 earth_transform;
   kmMat4 sun_transform;
   kmMat4 projection;
-  slsTexture *earth_tex;
+  slsMaterial *earth_tex;
 
 
-  slsTexture *earth_texb;
+  slsMaterial *earth_texb;
   bool do_rotate;
   bool do_orbit;
 } EarthData;
 
+
+struct {
+  GLuint fbo;
+  GLuint texture;
+} frame_buffer;
 
 static EarthData data = {
     .earth = (EarthModel) {
@@ -63,6 +68,8 @@ static slsContext *single_ctx = NULL;
 void create_earth_mesh(slsMesh *self);
 
 void earth_bind_season(slsContext *pContext);
+
+void earth_setup_framebuffer(slsContext *self);
 
 void earth_del_ctx(slsContext *ctx)
 {
@@ -154,8 +161,13 @@ void earth_ctx_setup(slsContext *self)
                                     "resources/art/dec_bath.png",
                                     "resources/art/clouds.png");
 
-  sls_msg(data.earth_tex, set_program, data.earth_shader.program);
-  sls_msg(data.earth_tex, bind);
+  if (glIsProgram(data.earth_shader.program)) {
+    sls_msg(data.earth_tex, set_program, data.earth_shader.program);
+    sls_msg(data.earth_tex, bind);
+  }
+
+
+  earth_setup_framebuffer(self);
 
 
   size_t max_lights = 8; // defined in shader
@@ -182,6 +194,12 @@ void earth_ctx_setup(slsContext *self)
 
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
+}
+
+void earth_setup_framebuffer(slsContext *self)
+{
+
+
 }
 
 
