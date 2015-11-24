@@ -59,6 +59,7 @@ extern "C" {
 #include "math/math-types.h"
 #include "math/slsTransform2D.h"
 #include "math/slsMatrixStack.h"
+#include "math/slsTrackball.h"
 
 
 #include "renderer/shaderutils.h"

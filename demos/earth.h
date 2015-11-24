@@ -51,5 +51,13 @@ void earth_ctx_resize(slsContext *self, int x, int y);
 
 int earth_main(int *argcr, char **argv);
 
+void create_earth_mesh(slsMesh *self);
+
+void earth_bind_season(slsContext *pContext);
+
+void earth_setup_framebuffer(slsContext *self);
+
+void earth_handle_event(slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
+
 
 #endif //DANGERENGINE_EARTH_H

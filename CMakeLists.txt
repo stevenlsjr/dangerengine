@@ -86,7 +86,7 @@ set(DANGER_SRC
   src/math/slsTransform.c
   src/math/slsTransform.h
   src/sls-build-dir.c
-  src/sls-build-dir.h src/renderer/slsLight.c src/renderer/slsLight.h src/cppapi.h)
+  src/sls-build-dir.h src/renderer/slsLight.c src/renderer/slsLight.h src/cppapi.h src/math/slsTrackball.c src/math/slsTrackball.h)
 
 
 # tests compiled in c

@@ -11,6 +11,7 @@
 
 
 typedef struct EarthData {
+
   slsShader earth_shader;
   slsShader sun_shader;
 
@@ -25,6 +26,11 @@ typedef struct EarthData {
 
   double days_per_second;
 
+  slsTrackball trackball;
+
+  kmMat4 camera_view;
+
+
   kmMat4 earth_transform;
   kmMat4 sun_transform;
   kmMat4 projection;
@@ -34,6 +40,7 @@ typedef struct EarthData {
   slsMaterial *earth_texb;
   bool do_rotate;
   bool do_orbit;
+
 } EarthData;
 
 
@@ -41,6 +48,11 @@ struct {
   GLuint fbo;
   GLuint texture;
 } frame_buffer;
+
+void earth_move_trackball(slsContext *self, slsIPoint const *start_point, slsIPoint const *second_point,
+                          slsIPoint const *window_size);
+
+void earth_mv_setup(slsContext *self);
 
 static EarthData data = {
     .earth = (EarthModel) {
@@ -55,21 +67,15 @@ static EarthData data = {
     },
 
 
-    .days_per_second = 0.5,
+    .days_per_second = 10.f,
     .date = 0.0, // days
 
-    .do_rotate = true,
+    .do_rotate = false,
     .do_orbit = true
 };
 
 static slsContext *single_ctx = NULL;
 
-
-void create_earth_mesh(slsMesh *self);
-
-void earth_bind_season(slsContext *pContext);
-
-void earth_setup_framebuffer(slsContext *self);
 
 void earth_del_ctx(slsContext *ctx)
 {
@@ -102,6 +108,8 @@ slsContext *earth_shared_ctx()
     self->update = earth_ctx_update;
     self->display = earth_ctx_display;
 
+    self->handle_event = earth_handle_event;
+
     self->resize = earth_ctx_resize;
     single_ctx = self;
 
@@ -129,6 +137,8 @@ int earth_main(int *argcr, char **argv)
 void earth_ctx_setup(slsContext *self)
 {
   sls_context_class()->setup(self);
+
+  earth_mv_setup(self);
 
 
   sls_shader_init(&data.earth_shader, self->pool,
@@ -175,8 +185,7 @@ void earth_ctx_setup(slsContext *self)
 
 
   slsLight sun = {
-      .ambient_product = {0.2, 0.1
-          , 0.25},
+      .ambient_product = {0.2, 0.1, 0.25},
       .diffuse_product = {1.0, 1.0, 0.9},
       .specular_product = {0.1f, 0.1f, 0.1f},
       .light_position = {0.f, 0.f, 0.f}
@@ -194,6 +203,17 @@ void earth_ctx_setup(slsContext *self)
 
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
+}
+
+void earth_mv_setup(slsContext *self)
+{
+  kmMat4Identity(&data.projection);
+  kmMat4Identity(&data.sun_transform);
+  kmMat4Identity(&data.earth_transform);
+
+  sls_trackball_init(&data.trackball, 4.f, 2.f);
+
+
 }
 
 void earth_setup_framebuffer(slsContext *self)
@@ -221,6 +241,8 @@ void earth_ctx_teardown(slsContext *self)
 
 void earth_ctx_update(slsContext *self, double dt)
 {
+
+
   data.date += dt * data.days_per_second;
 
   kmVec3 earth_pos = get_earth_position(data.date, &data.earth);
@@ -229,14 +251,15 @@ void earth_ctx_update(slsContext *self, double dt)
   kmVec3 sun_rel;
   if (data.do_orbit) {
     double sun_theta = data.date / data.earth.period * 2 * M_PI;
-    sun_rel = (kmVec3) {1.0, cos(sun_theta), sin(sun_theta)};
+    sun_rel = (kmVec3) {1.0, cosf(sun_theta), sinf(sun_theta)};
     kmVec3Scale(&sun_rel, &sun_rel, data.earth.semi_major_axis / data.earth.radius);
   } else {
-    sun_rel = (kmVec3) {100.0, 100.0, -10000.0};
+    sun_rel = (kmVec3) {100.f, 100.f, -10000.f};
   }
 
+  kmVec3 tmp = sun_rel;
+  kmVec3MultiplyMat4(&sun_rel, &tmp, &data.trackball.rotation_mat);
 
-  kmMat4Identity(&data.sun_transform);
 
   kmMat4Identity(&data.sun_transform);
   data.lights.light_modelviews[0] = data.sun_transform;
@@ -280,11 +303,10 @@ void earth_ctx_update(slsContext *self, double dt)
 void earth_bind_season(slsContext *pContext)
 {
 
-  float date_ratio = data.date/ data.earth.period;
+  float date_ratio = data.date / data.earth.period;
 
   int season = (int)
       fmin(date_ratio * 4.0, 4.0);
-
 
 
   slsShader *shader = &data.earth_shader;
@@ -292,10 +314,9 @@ void earth_bind_season(slsContext *pContext)
   GLuint sample_a = shader->uniforms.diffuse_tex;
   GLuint sample_b = shader->uniforms.specular_tex;
 
-  GLuint season_blend = (GLuint)glGetUniformLocation(shader->program, "season_blend");
+  GLuint season_blend = (GLuint) glGetUniformLocation(shader->program, "season_blend");
 
   GLuint s1 = 0, s2 = 0;
-
 
 
   switch (season) {
@@ -367,11 +388,13 @@ void earth_ctx_display(slsContext *self, double dt)
     kmMat4Identity(&mb);
   }
 
+  kmMat4 scene;
 
-  kmMat4Translation(&ma, 0.f, 0.f, -10.f);
+  kmMat4Translation(&ma, 0.f, 0.f, -5.f);
+  kmMat4Multiply(&scene, &ma, &data.trackball.rotation_mat);
 
+  kmMat4Multiply(&mv, &scene, &mb);
 
-  kmMat4Multiply(&mv, &ma, &mb);
 
   kmMat4 normal;
   sls_mat4_normalmat(&normal, &mv);
@@ -427,7 +450,7 @@ void earth_ctx_resize(slsContext *self, int x, int y)
 
   sls_context_class()->resize;
 
-  const float fov = 20;
+  const float fov = 70.f;
   float aspect = x / (float) y;
   kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
@@ -435,5 +458,81 @@ void earth_ctx_resize(slsContext *self, int x, int y)
 
   glUniformMatrix4fv(glGetUniformLocation(data.earth_shader.program, "projection"),
                      1, GL_FALSE, data.projection.mat);
+
+}
+
+void earth_handle_event(slsContext *self, SDL_Event const *e)
+{
+  static void (*super)(slsContext *self, SDL_Event const *e) = NULL;
+  if (!super) { super = sls_context_class()->handle_event; }
+
+  static slsIPoint last_mouse = {-1, -1};
+
+
+  super(self, e);
+
+  switch (e->type) {
+    case SDL_MOUSEMOTION: {
+
+      SDL_MouseMotionEvent const *me = &e->motion;
+      slsIPoint mouse = {me->x, me->y};
+
+      if (me->state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+
+        if (last_mouse.x == -1 && last_mouse.y == -1) {
+          last_mouse = mouse;
+        }
+        bool no_motion = sls_ipoint_eq(&mouse, &last_mouse);
+
+        if (!no_motion) {
+          slsIPoint win_size = {};
+          SDL_GetWindowSize(self->window, &win_size.x, &win_size.y);
+          earth_move_trackball(self, &mouse, &last_mouse, &win_size);
+
+        }
+      }
+
+      last_mouse = mouse;
+    }
+      break;
+
+    case SDL_KEYDOWN: {
+      SDL_KeyboardEvent const *ke = &e->key;
+      if (ke->keysym.scancode == SDL_SCANCODE_R) {
+        kmMat4Identity(&data.trackball.rotation_mat);
+        kmQuaternionIdentity(&data.trackball.rotation);
+      }
+    }
+      break;
+
+    default:
+      break;
+  }
+}
+
+void earth_move_trackball(slsContext *self,
+                          slsIPoint const *start_point,
+                          slsIPoint const *second_point,
+                          slsIPoint const *window_size)
+{
+
+  float
+      w = window_size->x,
+      h = window_size->y;
+
+
+  kmVec2 delta = {
+      .x = (start_point->x - second_point->x) / w,
+      .y = (second_point->y - start_point->y) / h
+  };
+
+
+  slsTrackball *ball = &data.trackball;
+
+  kmVec2 param_0 = {(2.f * start_point->x - w) / w, (h - 2.f * start_point->y) / h};
+  kmVec2 param_1 = {(2.f * second_point->x - w) / w, (h - 2.f * second_point->y) / h};
+
+
+  sls_trackball_set(ball, param_0, param_1);
 
 }
