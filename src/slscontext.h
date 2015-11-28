@@ -64,7 +64,7 @@ struct slsContext {
    * @brief destructor method
    * @detail finalizes object and frees it from memory
    */
-  void (*dtor)(slsContext *self) SLS_NONNULL(1);
+  slsContext *(*dtor)(slsContext *self) SLS_NONNULL(1);
 
 
 

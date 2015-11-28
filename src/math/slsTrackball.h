@@ -9,6 +9,7 @@
 #define DANGERENGINE_SLSTRACKBALL_H
 
 #include <kazmath/kazmath.h>
+#include <math/math-types.h>
 
 typedef struct slsTrackball slsTrackball;
 
@@ -31,7 +32,13 @@ static inline
 slsTrackball *sls_trackball_init_default(slsTrackball *self)
 {
   return sls_trackball_init(self, 0.8, 2.0);
+
 }
+
+void sls_trackball_drag(slsTrackball *ball,
+                        slsIPoint const *start_point,
+                        slsIPoint const *second_point,
+                        slsIPoint const *window_size);
 
 
 #endif //DANGERENGINE_SLSTRACKBALL_H

@@ -22,8 +22,9 @@ typedef struct EarthData {
 
   EarthModel earth;
 
-  double date;
+  int time_multiplyer;
 
+  double date;
   double days_per_second;
 
   slsTrackball trackball;
@@ -40,6 +41,7 @@ typedef struct EarthData {
   slsMaterial *earth_texb;
   bool do_rotate;
   bool do_orbit;
+
 
 } EarthData;
 
@@ -63,14 +65,15 @@ static EarthData data = {
         .period=365.256363, // days
 
         .radius=6371.0
-
     },
 
+    .time_multiplyer = 1,
 
-    .days_per_second = 10.f,
+
+    .days_per_second = 0.5f,
     .date = 0.0, // days
 
-    .do_rotate = false,
+    .do_rotate = true,
     .do_orbit = true
 };
 
@@ -82,7 +85,7 @@ void earth_del_ctx(slsContext *ctx)
   assert(ctx == single_ctx);
 
 
-  sls_context_class()->dtor(ctx);
+  free(sls_context_class()->dtor(ctx));
   single_ctx = NULL;
 }
 
@@ -116,8 +119,6 @@ slsContext *earth_shared_ctx()
     atexit(earth_exit);
     return self;
   }
-
-
 }
 
 
@@ -243,7 +244,7 @@ void earth_ctx_update(slsContext *self, double dt)
 {
 
 
-  data.date += dt * data.days_per_second;
+  data.date += dt * data.days_per_second * data.time_multiplyer;
 
   kmVec3 earth_pos = get_earth_position(data.date, &data.earth);
   //sls_log_info("earth at day %f: %f %f %f", data.date, earth_pos.x, earth_pos.y, earth_pos.z);
@@ -367,6 +368,8 @@ void earth_bind_season(slsContext *pContext)
 
 void earth_ctx_display(slsContext *self, double dt)
 {
+  glClearColor(0.f, 0.f, 0.f, 1.f);
+
 
   float x_rot = -data.date * 2 * M_PI;
 
@@ -448,7 +451,7 @@ void earth_ctx_resize(slsContext *self, int x, int y)
 {
   glUseProgram(data.earth_shader.program);
 
-  sls_context_class()->resize;
+  sls_context_class()->resize(self, x, y);
 
   const float fov = 70.f;
   float aspect = x / (float) y;
@@ -498,10 +501,36 @@ void earth_handle_event(slsContext *self, SDL_Event const *e)
 
     case SDL_KEYDOWN: {
       SDL_KeyboardEvent const *ke = &e->key;
-      if (ke->keysym.scancode == SDL_SCANCODE_R) {
-        kmMat4Identity(&data.trackball.rotation_mat);
-        kmQuaternionIdentity(&data.trackball.rotation);
+      switch (ke->keysym.scancode) {
+        case SDL_SCANCODE_R: {
+          kmMat4Identity(&data.trackball.rotation_mat);
+          kmQuaternionIdentity(&data.trackball.rotation);
+          data.time_multiplyer = 1;
+          data.date = 0.0;
+        }
+          break;
+
+        case SDL_SCANCODE_COMMA: {
+          data.time_multiplyer--;
+          sls_log_info("%i", data.time_multiplyer);
+
+        }
+          break;
+        case SDL_SCANCODE_PERIOD: {
+          data.time_multiplyer++;
+          sls_log_info("%i", data.time_multiplyer);
+        }
+          break;
+
+        case SDL_SCANCODE_SPACE: {
+          sls_log_info("t %c%f days.", data.date > 0.0? '+': '-', fabs(data.date));
+        }break;
+
+
+        default:
+          break;
       }
+
     }
       break;
 
@@ -534,5 +563,4 @@ void earth_move_trackball(slsContext *self,
 
 
   sls_trackball_set(ball, param_0, param_1);
-
 }

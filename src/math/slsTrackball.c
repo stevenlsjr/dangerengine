@@ -7,6 +7,7 @@
  **/
 #include "slsTrackball.h"
 #include "mathmacs.h"
+#include "math-types.h"
 #include <math.h>
 #include <slsutils.h>
 
@@ -33,13 +34,12 @@ kmQuaternion *sls_trackball_calc_quat(kmQuaternion *out, float trackball_radius,
   _p2 = (kmVec3){p2->x , p2->y, sls_tb_project_to_sphere(trackball_radius, p2)};
 
   kmVec3Subtract(&dir, &_p1, &_p2);
-  kmVec3Scale(&dir, &dir, trackball_speed);
 
   kmVec3Cross(&axis, &_p2, &_p1);
 
   t = kmVec3Length(&dir)/(2.0f * trackball_radius);
   t = fminf(fmaxf(-1.f, t), 1.f);
-  phi = 2.0f * asinf(t);
+  phi = 2.0f * asinf(t) * trackball_speed;
   kmQuaternion tmp_a, tmp_b;
   kmQuaternionRotationAxisAngle(&tmp_a, &axis, phi);
 
@@ -83,4 +83,28 @@ slsTrackball *sls_trackball_init(slsTrackball *self, float radius, float rotatio
   kmMat4Identity(&self->rotation_mat);
 
   return self;
+}
+
+void sls_trackball_drag(slsTrackball *ball,
+                        slsIPoint const *start_point,
+                        slsIPoint const *second_point,
+                        slsIPoint const *window_size)
+{
+
+  float
+      w = window_size->x,
+      h = window_size->y;
+
+
+  kmVec2 delta = {
+      .x = (start_point->x - second_point->x) / w,
+      .y = (second_point->y - start_point->y) / h
+  };
+
+
+  kmVec2 param_0 = {(2.f * start_point->x - w) / w, (h - 2.f * start_point->y) / h};
+  kmVec2 param_1 = {(2.f * second_point->x - w) / w, (h - 2.f * second_point->y) / h};
+
+
+  sls_trackball_set(ball, param_0, param_1);
 }

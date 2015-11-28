@@ -79,7 +79,7 @@ void sls_context_setup(slsContext *self) SLS_NONNULL(1);
 
 void sls_context_teardown(slsContext *self) SLS_NONNULL(1);
 
-void sls_context_dtor(slsContext *self) SLS_NONNULL(1);
+slsContext *sls_context_dtor(slsContext *self) SLS_NONNULL(1);
 
 
 void sls_context_handle_event(slsContext *self, SDL_Event const *e);
@@ -214,12 +214,12 @@ slsContext *sls_context_init(slsContext *self,
   return NULL;
 }
 
-void sls_context_dtor(slsContext *self)
+slsContext *sls_context_dtor(slsContext *self)
 {
   if (self->pool) {
     apr_pool_destroy_debug(self->pool, __FILE__);
   }
-  free(self);
+  return self;
 }
 
 

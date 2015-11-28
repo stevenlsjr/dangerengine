@@ -187,7 +187,7 @@ void demo_setup_scene(slsContext *self)
   slsEntity *root = self->state->root;
   sls_checkmem(root);
 
-  root->transform.scale;
+  root->transform.scale = (kmVec2){1.f, 1.f};
   data->camera.ortho.width = 30;
   data->camera.ortho.height = 30;
 
@@ -291,7 +291,7 @@ int render_demo_main(int *argc, char **argv)
   c->setup = demo_context_setup;
   c->update = demo_context_update;
   c->display = demo_context_display;
-  c->teardown = demo_context_teardown;
+  c->teardown = demo_context_teardown;Mad
   c->resize = demo_context_resize;
   c->handle_event = demo_handle_event;
 
@@ -300,7 +300,7 @@ int render_demo_main(int *argc, char **argv)
 
 
   sls_msg(c, run);
-  sls_msg(c, dtor);
+  free(sls_msg(c, dtor));
 
 
   return 0;
