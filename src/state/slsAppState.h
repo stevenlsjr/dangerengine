@@ -11,14 +11,14 @@
 #ifndef DANGERENGINE_SLSAPPSTATE_H
 #define DANGERENGINE_SLSAPPSTATE_H
 
-#include <slsutils.h>
+#include "../slsutils.h"
 #include <apr_hash.h>
 #include <apr_pools.h>
 
-#include <math/math-types.h>
-#include <math/slsMatrixStack.h>
+#include "../math/math-types.h"
+#include "../math/slsMatrixStack.h"
 
-#include <GL/glew.h>
+#include <sls-gl.h>
 
 #include <SDL2/SDL.h>
 #include "slsEntity.h"
@@ -33,9 +33,9 @@ typedef struct slsPlayerInput slsPlayerInput;
 typedef enum {
   SLS_KEMODS_NONE = 0,
   SLS_KEYMOD_CTRL = 1 << 0,
-  SLS_KEYMOD_CMD  = 1 << 1,
-  SLS_KEYMOD_ALT  = 1 << 2,
-  SLS_KEYMOD_FN   = 1 << 3
+  SLS_KEYMOD_CMD = 1 << 1,
+  SLS_KEYMOD_ALT = 1 << 2,
+  SLS_KEYMOD_FN = 1 << 3
 } slsKeyMods;
 
 /**
@@ -60,7 +60,6 @@ struct slsPlayerInput {
 
   bool key_brake;
 
-
   slsKeyMods key_mods;
 
   slsIPoint mouse_pos;
@@ -69,9 +68,7 @@ struct slsPlayerInput {
   slsIPoint mouse_vel;
 
   slsIPoint mouse_relative;
-
 };
-
 
 typedef struct slsContext slsContext;
 /**
@@ -108,7 +105,8 @@ void sls_appstate_clearinput(slsAppState *state);
 
 void sls_appstate_handle_input(slsAppState *state, SDL_Event const *event);
 
-slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) SLS_NONNULL();
+slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
+    SLS_NONNULL();
 
 slsAppState *sls_appstate_dtor(slsAppState *self);
 
@@ -117,5 +115,4 @@ void sls_appstate_display(slsAppState *self, double dt);
 
 void sls_appstate_resize(slsAppState *self, int x, int y);
 
-
-#endif //DANGERENGINE_SLSAPPSTATE_H
+#endif // DANGERENGINE_SLSAPPSTATE_H

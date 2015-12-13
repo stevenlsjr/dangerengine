@@ -1,23 +1,30 @@
-#import <ObjFW/ObjFW.h>
+
+#import <Foundation/Foundation.h>
+#import <SDL2/SDL_system.h>
 #import "../slscontext.h"
 
-@interface SLSContext : OFObject {
+#import "SLSAppState.h"
+
+@interface SLSContext : NSObject {
 @private
   size_t _height;
   size_t _width;
-  slsContext *_ctx;
+  slsContext _ctx;
 }
 
-@property (readonly) slsContext *ctx;
+@property(readonly) slsContext *ctx;
+@property(readonly) SDL_Window *window;
+@property(readonly) SDL_GLContext *glContext;
+@property(readonly) SLSAppState *appState;
 
-@property (readwrite) size_t height;
-@property (readwrite) size_t width;
+@property(readwrite) size_t height;
+@property(readwrite) size_t width;
 
-- (instancetype)initWithCaption:(OFString *)caption
+- (instancetype)initWithCaption:(NSString *)caption
                           width:(size_t)width
                          height:(size_t)height;
 
-+ (instancetype)contextWithCaption:(OFString *)caption
++ (instancetype)contextWithCaption:(NSString *)caption
                              width:(size_t)width
                             height:(size_t)height;
 
@@ -25,8 +32,6 @@
 
 - (void)setup;
 - (void)teardown;
-
-- (void)iterLoop;
 
 - (void)drawDt:(double)dt;
 - (void)updateDt:(double)dt;

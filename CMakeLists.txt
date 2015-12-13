@@ -123,6 +123,19 @@ set(DANGER_DEMO_SRC
 #-------------project config-----------------
 #--------------------------------------------
 
+include_directories(
+  ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/extern/kazmath
+
+  ${CMAKE_SOURCE_DIR}/extern/Chipmunk2D/include
+
+  ${CMAKE_SOURCE_DIR}/extern/googlemock/include
+  ${CMAKE_SOURCE_DIR}/extern/gtest/include
+  ${APR_UTIL_INCLUDE_DIRS}
+  /usr/local/include/
+  /usr/local/Cellar/apr/1.5.1/libexec/include/apr-1
+  /usr/local/Cellar/apr-util/1.5.4/include/apr-1)
+
 
 #copy resources to build
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
@@ -148,30 +161,29 @@ add_custom_target(sls_resources
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -fblocks")
 
+if (SLS_USE_OBJC)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSLS_USE_OBJC")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSLS_USE_OBJC")
+endif(SLS_USE_OBJC)
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fms-extensions -fblocks")
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
 
 #kazmath
-add_subdirectory(extern/kazmath)
 set(KAZMATH_BUILD_JNI_WRAPPER OFF FORCE)
 set(KAZMATH_BUILD_TESTS OFF FORCE)
+add_subdirectory(extern/kazmath)
+
 
 #chipmunk
 add_subdirectory(extern/Chipmunk2D)
 
-include_directories(
-  ${CMAKE_SOURCE_DIR}/src
-  ${CMAKE_SOURCE_DIR}/extern/kazmath
 
-  ${CMAKE_SOURCE_DIR}/extern/Chipmunk2D/include
 
-  ${CMAKE_SOURCE_DIR}/extern/googlemock/include
-  ${CMAKE_SOURCE_DIR}/extern/gtest/include)
 
-#objc bindings
-add_subdirectory(src/objc)
+
 
 set(DANGER_DEPS kazmath chipmunk_static)
 
@@ -245,12 +257,7 @@ target_link_libraries(dangerengine
 #---------------------------------------
 
 
-if (SLS_USE_OBJC)
-  add_executable(demo_objc demos/objc-demo.m)
-  target_link_libraries(demo_objc
-    dangerengine-fw)
-  add_dependencies(demo_objc dangerengine-fw sls_resources)
-endif (SLS_USE_OBJC)
+
 
 
 # copy resources on build
@@ -294,8 +301,15 @@ target_link_libraries(tests
   gtest
   gtest_main)
 
-
 if (SLS_USE_OBJC)
+
+  #objc bindings
+  add_subdirectory(src/objc)
+  add_executable(demo_objc demos/objc-demo.m)
+  target_link_libraries(demo_objc
+    dangerengine-fw)
+  add_dependencies(demo_objc dangerengine-fw sls_resources)
+
   add_dependencies(c_tests dangerengine-fw)
   add_dependencies(tests dangerengine-fw)
 
@@ -304,7 +318,6 @@ if (SLS_USE_OBJC)
 
   foreach (i
     dangerengine
-    dangerengine-fw
     demo
     demo_objc
     c_tests
@@ -314,8 +327,10 @@ if (SLS_USE_OBJC)
       APPEND_STRING PROPERTY COMPILE_FLAGS "-fobjc-arc")
 
   endforeach (i)
-
 endif (SLS_USE_OBJC)
+
+
+
 
 if (DOXYGEN_FOUND)
 

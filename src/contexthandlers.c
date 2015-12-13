@@ -44,7 +44,7 @@
 #include "sls-imagelib.h"
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
-static slsBool sls_active_flag = SLS_FALSE;
+static bool sls_active_flag = false;
 
 
 

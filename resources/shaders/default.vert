@@ -1,4 +1,4 @@
-
+#line 2 0
 /**
  * @file default.vert
  * @brief sample vert shader. Define SLS_MODERN_GL to use modern shaders.
@@ -24,12 +24,9 @@ out vec2 frag_uv;
 
 void main()
 {
-
-
-
   frag_color = color;
 
-  frag_normal = normalize((normal_mat * vec4(normal, 0.0)).xyz);
+  frag_normal = normalize((transpose(inverse(model_view)) * vec4(normal, 0.0)).xyz);
 
   frag_uv = uv;
 

@@ -36,7 +36,7 @@
 #include "slsutils.h"
 #include "sls-gl.h"
 #include <SDL2/SDL.h>
-#include <state/slsAppState.h>
+#include "state/slsAppState.h"
 #include <apr_pools.h>
 
 typedef struct slsContext slsContext;

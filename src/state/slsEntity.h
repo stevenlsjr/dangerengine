@@ -5,13 +5,13 @@
 #ifndef DANGERENGINE_SLSENTITY_H
 #define DANGERENGINE_SLSENTITY_H
 
-#include <renderer/slstexture.h>
+#include "../renderer/slstexture.h"
 
 #include <apr_tables.h>
 #include <apr_hash.h>
 
-#include <data-types/intrusivelist.h>
-#include <data-types/ptrarray.h>
+#include "../data-types/intrusivelist.h"
+#include "../data-types/ptrarray.h"
 
 
 #include <math/slsCamera.h>

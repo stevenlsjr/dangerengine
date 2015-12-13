@@ -21,7 +21,6 @@
 #include <slsutils.h>
 
 
-
 typedef struct slsLight slsLight;
 
 struct slsLight {
@@ -63,9 +62,17 @@ slsLightBatch *sls_lightbatch_init(slsLightBatch *self,
 
 slsLightBatch *sls_lightbatch_dtor(slsLightBatch *self) SLS_NONNULL(1);
 
-void sls_lightbatch_set_light(slsLightBatch *self, size_t idx, slsLight const *light, bool active) SLS_NONNULL(1, 3);
+void sls_lightbatch_set_light(slsLightBatch *self,
+                              size_t idx, slsLight
+                              const *light,
+                              bool active) SLS_NONNULL(1, 3);
 
-slsLight *sls_lightbatch_get_light(slsLightBatch *self, size_t idx, slsLight *out) SLS_NONNULL(1, 3);
-slsLightView * sls_lightbatch_get_lightview(slsLightBatch *self, size_t idx, slsLightView *out) SLS_NONNULL(1, 3);
+slsLight *sls_lightbatch_get_light(slsLightBatch *self,
+                                   size_t idx,
+                                   slsLight *out) SLS_NONNULL(1, 3);
+
+slsLightView *sls_lightbatch_get_lightview(slsLightBatch *self,
+                                           size_t idx,
+                                           slsLightView *out) SLS_NONNULL(1, 3);
 
 #endif //DANGERENGINE_SLSLIGHT_H

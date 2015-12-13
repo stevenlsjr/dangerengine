@@ -34,7 +34,7 @@
 #include "../sls-gl.h"
 #include <kazmath/kazmath.h>
 #include <stdlib.h>
-#include <slsutils.h>
+#include "../slsutils.h"
 
 typedef struct slsMatrixStack slsMatrixStack;
 

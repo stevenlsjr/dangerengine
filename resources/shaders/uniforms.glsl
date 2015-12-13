@@ -1,3 +1,4 @@
+#line 1 0
 /**
  * @file uniforms.glsl
  * @brief dives uniform values for all shaders
@@ -12,9 +13,12 @@ uniform mat4 projection;
 
 uniform float time;
 
+uniform float season_blend;
+
 uniform sampler2D diffuse_tex;
 uniform sampler2D specular_tex;
 uniform sampler2D normal_tex;
+uniform int z_layer;
 
 uniform Material {
   vec3 specular_color;
@@ -24,12 +28,14 @@ uniform Material {
   float shininess;
 } material;
 
+struct Lights {
+  int n_lights;
+  vec3 ambient_products[SLS_N_LIGHTS];
+  vec3 diffuse_products[SLS_N_LIGHTS];
+  vec3 specular_products[SLS_N_LIGHTS];
+  vec4 light_positions[SLS_N_LIGHTS];
+  mat4 light_modelview[SLS_N_LIGHTS];
 
-uniform Lights {
-  uniform vec3 ambient_products[SLS_N_LIGHTS];
-  uniform vec3 diffuse_products[SLS_N_LIGHTS];
-  uniform vec3 specular_products[SLS_N_LIGHTS];
-  uniform vec4 light_positions[SLS_N_LIGHTS];
-  uniform mat4 light_modelview[SLS_N_LIGHTS];
-} lights;
+};
 
+uniform Lights lights;

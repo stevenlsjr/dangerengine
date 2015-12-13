@@ -95,7 +95,6 @@ struct slsMaterial {
 
   slsMaterial_p *priv;
 
-
   slsTexPair diffuse;
   slsTexPair specular;
   slsTexPair normal;

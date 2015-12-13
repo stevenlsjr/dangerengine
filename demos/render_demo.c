@@ -11,7 +11,6 @@
 #include <state/resourceutils.h>
 
 
-#pragma mark - private declarations
 void demo_setup_tilemap(slsContext *self);
 
 void demo_handle_event(slsContext *self,
@@ -43,6 +42,8 @@ void demo_handle_event(slsContext *self,
       break;
   }
 }
+
+//---------------------------------demo setup/teardown---------------------------------------
 
 #pragma mark -demo setup
 void demo_context_setup(slsContext *self)
@@ -95,6 +96,9 @@ void demo_setup_shaders(slsContext *self)
   demoData *data = self->data;
 
   data->shader = sls_load_shader(self->state, "default_shader", fs_path, vs_path, false);
+  if (!glIsProgram(data->shader->program)) {
+    assert(!"shader compilation failed");
+  }
 
   self->state->active_shader = data->shader;
 
@@ -248,7 +252,35 @@ void demo_update_uniforms(slsContext *self, double dt)
 
 void demo_context_display(slsContext *self, double dt)
 {
+
+  // bind light uniforms
+  slsAppState *state = self->state;
+  demoData * data = self->data;
+  GLuint program = data->shader->program;
+
+  kmMat4 light_mvs[] = {(kmMat4){}};
+  kmVec3 ambient_products[] = {(kmVec3){0.01, 0.01, 0.01}};
+  kmVec3 diffuse_products[] = {(kmVec3){1.0, 1.0, 1.0}};
+  kmVec3 specular_products[] = {(kmVec3){1.0, 1.0, 1.0}};
+  kmVec4 light_positions[] = {(kmVec4){0.0, 0.0, 1.0, 0.0}};
+
+  size_t n_lights = sizeof(light_mvs)/sizeof(kmMat4);
+  for (size_t i=0; i<n_lights; ++i) {
+    sls_transform2d_modelview(&data->camera.transform, light_mvs + i);
+  }
+
+  assert(glGetUniformLocation(program, "lights.light_modelview") >= 0);
+
+  glUniform1i(glGetUniformLocation(program, "lights.n_lights"), (GLint)n_lights);
+  glUniformMatrix4fv(glGetUniformLocation(program, "lights.light_modelview"),
+                     (GLsizei)n_lights,
+                     GL_FALSE,
+                     (float const *)light_mvs);
+
+
+
   sls_context_class()->display(self, dt);
+
 }
 
 void demo_context_teardown(slsContext *self)
@@ -291,7 +323,7 @@ int render_demo_main(int *argc, char **argv)
   c->setup = demo_context_setup;
   c->update = demo_context_update;
   c->display = demo_context_display;
-  c->teardown = demo_context_teardown;Mad
+  c->teardown = demo_context_teardown;
   c->resize = demo_context_resize;
   c->handle_event = demo_handle_event;
 

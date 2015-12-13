@@ -38,7 +38,9 @@ static inline void setup()
 int main(int argc, char *argv[])
 {
 
-  return earth_main(&argc, argv);
+  setup();
+
+  return render_demo_main(&argc, argv);
 
 }
 
