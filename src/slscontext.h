@@ -149,4 +149,32 @@ int sls_get_glversion();
 
 void sls_context_pollevents(slsContext *self) SLS_NONNULL(1);
 
+
+/*----------------------------------------*
+ * slsContext default method prototypes
+ *----------------------------------------*/
+void sls_context_run(slsContext *self) SLS_NONNULL(1);
+
+void sls_context_iter(slsContext *self) SLS_NONNULL(1);
+
+void sls_context_resize(slsContext *self, int x, int y) SLS_NONNULL(1);
+
+void sls_context_update(slsContext *self, double dt) SLS_NONNULL(1);
+
+void sls_context_display(slsContext *self, double dt) SLS_NONNULL(1);
+
+slsContext *sls_context_init(slsContext *self, char const *caption,
+                             size_t width, size_t height) SLS_NONNULL(1);
+
+void sls_context_setup(slsContext *self) SLS_NONNULL(1);
+
+void sls_context_teardown(slsContext *self) SLS_NONNULL(1);
+
+slsContext *sls_context_dtor(slsContext *self) SLS_NONNULL(1);
+
+void sls_context_handle_event(slsContext *self, SDL_Event const *e);
+
+void sls_context_setupstate(slsContext *pContext) SLS_NONNULL(1);
+
+
 #endif //DANGERENGINE_SLSCONTEXT_H
