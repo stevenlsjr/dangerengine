@@ -15,7 +15,7 @@ typedef struct slsEntity slsEntity;
 void sls_entity_draw(slsEntity *self, double dt, slsAppState *state);
 
 /**
- * @brief applies entity transform to app's matrix stack, then binds to uniform
+ * @brief applies entity transform to app's modelview stack, then binds to uniform
  */
 void sls_drawable_transform(slsEntity *pEntity, slsAppState *pState, double dt);
 

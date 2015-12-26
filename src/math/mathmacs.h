@@ -96,4 +96,53 @@ bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon)
 }
 
 
+//--------------------------utilities for calling km functions by value----------------------------
+typedef typeof(&kmMat4Multiply) slsMat4Binop_fn;
+
+static inline
+kmMat4 sls_mat4_binop_valout(kmMat4 const *lhs, kmMat4 const *rhs, slsMat4Binop_fn fn)
+{
+  assert(lhs && rhs);
+  kmMat4 m;
+
+  fn(&m, lhs, rhs);
+
+  return m;
+}
+
+static inline
+kmMat4 sls_mat4_binop_valinout(kmMat4 lhs, kmMat4 rhs, slsMat4Binop_fn fn)
+{
+  kmMat4 out;
+  fn(&out, &lhs, &rhs);
+
+  return out;
+}
+
+/**
+ * @brief Multiplies two matrix pointers, returning a value.
+ * @details
+ */
+static inline
+kmMat4 sls_mat4_mul_valout(kmMat4 const *lhs, kmMat4 const *rhs)
+{
+  return sls_mat4_binop_valout(lhs, rhs, kmMat4Multiply);
+}
+
+static inline
+kmMat4 sls_mat4_mul_valinout(kmMat4 lhs, kmMat4 rhs)
+{
+  return sls_mat4_binop_valout(&lhs, &rhs, kmMat4Multiply);
+}
+
+static inline
+kmMat4 sls_mat4_identity_val()
+{
+  kmMat4 out;
+  kmMat4Identity(&out);
+  return out;
+}
+
+
+
 #endif //DANGERENGINE_MATHMACS_H

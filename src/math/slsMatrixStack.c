@@ -81,7 +81,7 @@ slsMatrixStack *sls_matrix_stack_dtor(slsMatrixStack *self)
 kmMat4 *sls_matrix_stack_pop(slsMatrixStack *self,
                              kmMat4 *out)
 {
-  sls_check(self->matrices, "matrix array is NULL");
+  sls_check(self->matrices, "modelview array is NULL");
 
   --self->n_matrices;
 

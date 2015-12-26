@@ -8,7 +8,10 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module pa
 #-------------source lists-------------------
 #--------------------------------------------
 
-configure_file(${CMAKE_SOURCE_DIR}/src/sls-build-dir.c.in
+
+file(REMOVE ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c)
+configure_file(
+  ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c.in
   ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c @ONLY)
 
 set(DANGER_SRC
@@ -50,8 +53,8 @@ set(DANGER_SRC
   #renderer types
   src/renderer/slsmesh.c
   src/renderer/slsmesh.h
-  src/renderer/slstexture.c
-  src/renderer/slstexture.h
+  src/renderer/slsmaterial.c
+  src/renderer/slsmaterial.h
   src/renderer/slsshader.c
   src/renderer/slsshader.h
   src/renderer/shaderutils.c
@@ -79,14 +82,16 @@ set(DANGER_SRC
   src/renderer/slsTTFText.c
   src/renderer/slsTTFText.h
   src/sls-commonlibs.h
-  src/state/slsEvent.c
-  src/state/slsEvent.h
   src/state/slsPhysics.c
   src/state/slsPhysics.h
   src/math/slsTransform.c
   src/math/slsTransform.h
   src/sls-build-dir.c
-  src/sls-build-dir.h src/renderer/slsLight.c src/renderer/slsLight.h src/cppapi.h src/math/slsTrackball.c src/math/slsTrackball.h)
+  src/sls-build-dir.h
+  src/renderer/slsLight.c src/renderer/slsLight.h
+  src/cppapi.h
+  src/math/slsTrackball.c src/math/slsTrackball.h
+  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h)
 
 
 # tests compiled in c
@@ -109,14 +114,12 @@ set(DANGER_TEST_SRC
   tests/list-tests.cc)
 
 
+set(CLIENT_SRC
+  src/client/main.c
+  src/client/ClientContext.c src/client/ClientContext.h)
+
 set(DANGER_DEMO_SRC
   demos/exec.c
-  demos/render_demo.c
-  demos/render_demo.h
-  demos/slsTank.c
-  demos/slsTank.h
-  demos/tile_map.c
-  demos/tile_map.h
   demos/earth.c demos/earth.h demos/sphere.c demos/sphere.h)
 
 #--------------------------------------------
@@ -161,10 +164,6 @@ add_custom_target(sls_resources
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -fblocks")
 
-if (SLS_USE_OBJC)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSLS_USE_OBJC")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSLS_USE_OBJC")
-endif(SLS_USE_OBJC)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fms-extensions -fblocks")
@@ -179,10 +178,6 @@ add_subdirectory(extern/kazmath)
 
 #chipmunk
 add_subdirectory(extern/Chipmunk2D)
-
-
-
-
 
 
 set(DANGER_DEPS kazmath chipmunk_static)
@@ -218,8 +213,9 @@ set(DANGER_DEPS
   ${SDL2_IMAGE_LIBRARIES}
   ${SDL2_TTF_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
-  ${APR_LIBRARIES}
-  ${APR_UTIL_LIBRARIES})
+  #${APR_LIBRARIES}
+  #${APR_UTIL_LIBRARIES}
+  )
 
 
 message("apr: ${APR_INCLUDE_DIRS}")
@@ -235,16 +231,17 @@ include_directories(
 
 get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 
-foreach(dir ${dirs})
+foreach (dir ${dirs})
   message(STATUS "dir='${dir}'")
-endforeach()
+endforeach ()
 
 
 #---------------------------------------
 # build dangerengine
 #---------------------------------------
 
-add_library(dangerengine STATIC ${DANGER_SRC})
+set(BUILD_SHARED_LIBS ON)
+add_library(dangerengine ${DANGER_SRC})
 
 add_dependencies(dangerengine
   kazmath)
@@ -252,12 +249,16 @@ add_dependencies(dangerengine
 target_link_libraries(dangerengine
   ${DANGER_DEPS})
 
+get_target_property(DANGERENGINE_OUTPUT dangerengine LIBRARY_OUTPUT_NAME)
+
+add_executable(client
+  ${CLIENT_SRC})
+
+target_link_libraries(client dangerengine)
+
 #---------------------------------------
 # objective c library
 #---------------------------------------
-
-
-
 
 
 # copy resources on build
@@ -274,6 +275,7 @@ add_custom_command(
 add_executable(demo
   ${DANGER_DEMO_SRC})
 
+
 add_dependencies(demo
   dangerengine
   sls_resources)
@@ -281,7 +283,6 @@ add_dependencies(demo
 target_link_libraries(demo
   dangerengine
   ${DANGER_DEPS})
-
 
 # add a separate library for tests compiled in C. Used for supporting build
 # systems which don't compile C and C++ code separately
@@ -300,36 +301,6 @@ target_link_libraries(tests
   ${DANGER_DEPS}
   gtest
   gtest_main)
-
-if (SLS_USE_OBJC)
-
-  #objc bindings
-  add_subdirectory(src/objc)
-  add_executable(demo_objc demos/objc-demo.m)
-  target_link_libraries(demo_objc
-    dangerengine-fw)
-  add_dependencies(demo_objc dangerengine-fw sls_resources)
-
-  add_dependencies(c_tests dangerengine-fw)
-  add_dependencies(tests dangerengine-fw)
-
-  target_link_libraries(c_tests dangerengine-fw)
-  target_link_libraries(tests dangerengine-fw)
-
-  foreach (i
-    dangerengine
-    demo
-    demo_objc
-    c_tests
-    tests)
-
-    set_property(TARGET ${i}
-      APPEND_STRING PROPERTY COMPILE_FLAGS "-fobjc-arc")
-
-  endforeach (i)
-endif (SLS_USE_OBJC)
-
-
 
 
 if (DOXYGEN_FOUND)

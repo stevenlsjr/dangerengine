@@ -246,7 +246,7 @@ void sls_appstate_display(slsAppState *self, double dt) {
 
     kmMat4 inv;
 
-    sls_transform2D_to_matrix(&inv, &self->active_camera->transform);
+    sls_transform2D_to_matrix(&self->active_camera->transform, &inv);
     kmMat4Inverse(top, &inv);
 
     sls_matrix_glpush(&self->model_view);

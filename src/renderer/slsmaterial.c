@@ -40,7 +40,7 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include "slstexture.h"
+#include "slsmaterial.h"
 
 #include <assert.h>
 #include <SDL2/SDL_image.h>

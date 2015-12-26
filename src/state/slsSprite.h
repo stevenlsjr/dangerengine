@@ -40,7 +40,7 @@
 #include <renderer/slsshader.h>
 #include <renderer/slsmesh.h>
 
-#include <renderer/slstexture.h>
+#include <renderer/slsmaterial.h>
 #include "../math/slsTransform2D.h"
 #include "slsEntity.h"
 

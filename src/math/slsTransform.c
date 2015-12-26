@@ -10,18 +10,15 @@
 #include <kazmath/quaternion.h>
 #include "slsTransform.h"
 
-struct slsTransform_p {
-  kmVec3 position;
-  kmVec3 scale;
-  kmQuaternion rotation;
-};
 
 //---------------------------------constructors---------------------------------------
 slsTransform *sls_transform_init(slsTransform *self)
 {
-  self->priv = NULL;
-  self->priv = calloc(1, sizeof(slsTransform_p));
-  sls_checkmem(self->priv);
+
+
+  kmMat4 ident;
+  kmMat4Identity(&ident);
+  sls_transform_set_modelview(self, &ident);
 
   return self;
 
@@ -34,76 +31,56 @@ slsTransform *sls_transform_init(slsTransform *self)
 
 slsTransform *sls_transform_dtor(slsTransform *self)
 {
+
   return self;
 }
 
-//---------------------------------setters---------------------------------------
 
-slsTransform *sls_transform_set_position(slsTransform *self, kmVec3 const *position)
+kmMat4 const *sls_transform_get_modelview(slsTransform *self)
 {
-  sls_checkmem(self->priv);
-  self->priv->position = *position;
-  return self;
 
-  error:
-  return self;
+  return &self->priv.__modelview;
 }
 
-slsTransform *sls_transform_set_scale(slsTransform *self, kmVec3 const *scale)
+kmMat4 const *sls_transform_get_inverse_modelview(slsTransform *self)
 {
-  sls_checkmem(self->priv);
-  self->priv->scale = *scale;
 
-  return self;
+  return &self->priv.__inverse_modelview;
 
-  error:
-  return self;
 }
 
-slsTransform *sls_transform_set_rotation(slsTransform *self, kmQuaternion const *rotation)
+kmMat4 const *sls_transform_get_normalview(slsTransform *self)
 {
-  sls_checkmem(self->priv);
-  self->priv->rotation = *rotation;
 
-  return self;
-
-  error:
-  return self;
+  return &self->priv.__normalview;
 }
 
-//---------------------------------getters---------------------------------------
-
-kmVec3 sls_transform_get_position(slsTransform *self)
+kmMat4 const *sls_transform_set_modelview(slsTransform *self, kmMat4 const *mv)
 {
+  slsTransform_p *priv = &self->priv;
+  priv->__modelview = *mv;
+  priv->__inverse_modelview = *kmMat4Inverse(&priv->__inverse_modelview, mv);
+  priv->__normalview = *kmMat4Transpose(&priv->__normalview, &priv->__inverse_modelview);
 
-  return self->priv->position;
+  return &priv->__modelview;
 }
 
-kmVec3 sls_transform_get_scale(slsTransform *self)
+kmVec4 sls_transform_scale(slsTransform const *self, kmQuaternion *out)
 {
-  return self->priv->scale;
+  assert(!"not implemented");
+  return (kmVec4){};
 }
 
-kmQuaternion sls_transform_get_rotation(slsTransform *self)
+kmVec4 sls_transform_position(slsTransform const *self)
 {
-  return self->priv->rotation;
+  kmVec4 res, in = {0.0, 0.0, 0.0, 1.0};
+  kmVec4MultiplyMat4(&res, &in, &self->priv.__modelview);
+  return res;
 }
 
-void sls_transform_build_matrix(slsTransform *self)
+kmQuaternion *sls_transform_rotation(slsTransform const *self, kmQuaternion *out)
 {
+  assert(!"not implemented");
 
-  slsTransform_p *p = self->priv;
-  kmMat4 out, a, b;
-
-
-  kmMat4RotationQuaternion(&a, &p->rotation);
-  kmMat4Scaling(&b, p->scale.x, p->scale.y, p->scale.z);
-
-  kmMat4Multiply(&out, &a, &b);
-  b = out;
-  kmMat4Translation(&a, p->position.x, p->position.y, p->position.z);
-
-
-  kmMat4Multiply(&out, &a, &b);
-  self->matrix = out;
+  return NULL;
 }

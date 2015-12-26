@@ -177,7 +177,7 @@
  * @detail Because block expressions are non-standard, DO NOT
  * use a function return value as the 'obj' argument
  */
-#define sls_msg(obj, method, ...) obj->method(obj, ##__VA_ARGS__)
+#define sls_msg(obj, method, ...) (obj)->method((obj), ##__VA_ARGS__)
 
 #endif
 

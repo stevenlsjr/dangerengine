@@ -168,13 +168,12 @@ TEST(HashFnTests, HashPerformance)
     }
   }
 
-
-
   for (auto const &p: dist) {
     sls_log_info("hash %u, %u collisions", uint32_t(p.first), uint32_t(p.second));
   }
 
   sls_log_info("number of unique values: %lu", dist.size());
 
-
 }
+
+

@@ -169,8 +169,7 @@ error:
   if (self->dtor) {
     sls_msg(self, dtor);
   }
-  free(self);
-  return NULL;
+  return self;
 }
 
 slsContext *sls_context_dtor(slsContext *self) {

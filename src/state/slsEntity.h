@@ -5,7 +5,6 @@
 #ifndef DANGERENGINE_SLSENTITY_H
 #define DANGERENGINE_SLSENTITY_H
 
-#include "../renderer/slstexture.h"
 
 #include <apr_tables.h>
 #include <apr_hash.h>
@@ -20,6 +19,8 @@
 
 #include <renderer/slsmesh.h>
 #include <renderer/slsshader.h>
+#include <renderer/slsmaterial.h>
+
 
 
 #include "slsAppState.h"

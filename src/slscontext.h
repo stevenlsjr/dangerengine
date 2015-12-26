@@ -139,6 +139,14 @@ slsContext const *sls_context_class();
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height);
 
+static inline void sls_context_delete(slsContext *ctx)
+{
+  ctx = ctx->dtor(ctx);
+  if (ctx) {
+    free(ctx);
+  }
+}
+
 
 /**
  * @brief sets emscripten mainloop for context execution

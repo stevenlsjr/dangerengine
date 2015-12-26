@@ -9,33 +9,36 @@
 #define DANGERENGINE_SLSTRANSFORM_H
 
 #include <kazmath/kazmath.h>
+#include <kazmath/vec4.h>
 #include <slsutils.h>
+#include "slsTransform_private.h"
 
 typedef struct slsTransform slsTransform;
 
 typedef struct slsTransform_p slsTransform_p;
 
 
-
+/**
+ * @brief Abstract type representing a generic modelview matrix.
+ * Does not keep track of rotation, position or scale, rather manages
+ * modelview and coresponding normal matricies.
+ */
 struct slsTransform {
-  kmMat4 matrix;
-
-  slsTransform_p *priv;
+  slsTransform_p priv;
 };
 
 slsTransform *sls_transform_init(slsTransform *self) SLS_NONNULL(1);
 slsTransform *sls_transform_dtor(slsTransform *self) SLS_NONNULL(1);
 
-slsTransform *sls_transform_set_position(slsTransform *self, kmVec3 const *position) SLS_NONNULL(1, 2);
-slsTransform *sls_transform_set_scale(slsTransform *self, kmVec3 const *scale) SLS_NONNULL(1, 2);
-slsTransform *sls_transform_set_rotation(slsTransform *self, kmQuaternion const *rotation) SLS_NONNULL(1, 2);
+kmMat4 const *sls_transform_get_modelview(slsTransform *self) SLS_NONNULL(1);
+kmMat4 const *sls_transform_get_inverse_modelview(slsTransform *self);
+kmMat4 const *sls_transform_get_normalview(slsTransform *self);
 
-kmVec3 sls_transform_get_position(slsTransform *self) SLS_NONNULL(1);
-kmVec3 sls_transform_get_scale(slsTransform *self) SLS_NONNULL(1);
-kmQuaternion sls_transform_get_rotation(slsTransform *self) SLS_NONNULL(1);
+kmMat4 const *sls_transform_set_modelview(slsTransform *self, kmMat4 const *mv) SLS_NONNULL(1, 2);
 
-void sls_transform_build_matrix(slsTransform *self) SLS_NONNULL(1);
-
+kmQuaternion *sls_transform_rotation(slsTransform const *self, kmQuaternion *out);
+kmVec4 sls_transform_position(slsTransform const *self);
+kmVec4 sls_transform_scale(slsTransform const *self, kmQuaternion *out);
 
 
 

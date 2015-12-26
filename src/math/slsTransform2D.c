@@ -7,32 +7,29 @@
 #include <stdlib.h>
 #include <state/slsEntity.h>
 #include "slsTransform2D.h"
+#include <math/mathmacs.h>
 
-kmMat4 *sls_transform2D_to_matrix(kmMat4 *out,
-                                  slsTransform2D *in)
+kmMat4 *sls_transform2D_to_matrix(slsTransform2D *self, kmMat4 *out_opt)
 {
-  if (!out || !in) { return NULL; }
+  if (!out_opt || !self) { return NULL; }
 
-  kmMat4 tmp, translate, rotate, scale;
-  kmMat4Identity(out);
-
-  kmMat4RotationZ(&rotate, in->rot);
-
-  kmMat4Scaling(&scale, in->scale.x, in->scale.y, 1.0f);
-
-  tmp = *out;
-  kmMat4Multiply(out, &scale, &rotate);
-
-  kmMat4Translation(&translate, in->pos.x, in->pos.y, (float) in->z_layer);
-
-  tmp = *out;
-  kmMat4Multiply(out, &translate, &tmp);
+  kmMat4 result, rot, scale, translate;
+  kmMat4Translation(&translate, self->pos.x, self->pos.y, 0.0);
+  kmMat4RotationZ(&rot, self->rot);
+  kmMat4Scaling(&scale, self->scale.x, self->scale.y, 1.0);
 
 
-  in->local_matrix = *out;
+  result = sls_mat4_mul_valout(&translate, kmMat4Multiply(&result, &scale, &rot));
 
+  if (out_opt) {
+    *out_opt = result;
+  }
 
-  return out;
+  sls_transform_set_modelview(&self->modelview, &result);
+
+  return out_opt;
+  error:
+  return out_opt;
 }
 
 bool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b)
@@ -61,6 +58,11 @@ slsTransform2D *sls_transform2d_init(slsTransform2D *self)
   self->rot = 0;
   self->scale = (kmVec2) {1, 1};
   self->z_layer = 0;
+
+  sls_transform_init(&self->modelview);
+  sls_transform2D_to_matrix(self, NULL);
+
+
   return self;
 }
 
@@ -84,17 +86,20 @@ slsTransform2D sls_transform2d_local2world(slsEntity *entity)
 
 kmVec2 sls_transform2d_local_to_world(slsTransform2D *self, kmVec2 const *in_opt)
 {
+  sls_transform2D_to_matrix(self, NULL);
+
 
   kmVec4 result = (in_opt) ?
                   (kmVec4) {in_opt->x, in_opt->y, 0.0, 1.0} :
                   (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
+
   kmMat4 tmpmat;
 
   sls_transform2d_modelview(self, &tmpmat);
 
-  kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
+  kmVec4MultiplyMat4(&result, &res_in, sls_transform_get_modelview(&self->modelview));
 
   return (kmVec2) {result.x, result.y};
 }
@@ -102,21 +107,15 @@ kmVec2 sls_transform2d_local_to_world(slsTransform2D *self, kmVec2 const *in_opt
 
 kmVec2 sls_transform2d_world_to_local(slsTransform2D *self, kmVec2 const *in_opt)
 {
+  sls_transform2D_to_matrix(self, NULL);
+
   kmVec4 result = (in_opt) ?
                   (kmVec4) {in_opt->x, in_opt->y, 0.0, 1.0} :
                   (kmVec4) {0.0, 0.0, 0.0, 1.0};
   kmVec4 res_in = result;
 
-  kmMat4 tmpmat, tmpmat_b;
-
-  sls_transform2d_modelview(self, &tmpmat_b);
-
-
-  kmMat4Inverse(&tmpmat, &tmpmat_b);
-
-
-  kmVec4MultiplyMat4(&result, &res_in, &tmpmat);
-
+  kmMat4 const *inverse = sls_transform_get_inverse_modelview(&self->modelview );
+  kmVec4MultiplyMat4(&result, &res_in, inverse);
   return (kmVec2) {result.x, result.y};
 }
 
@@ -124,34 +123,20 @@ kmMat4 *sls_transform2d_modelview(slsTransform2D *self, kmMat4 *out)
 {
   kmMat4 tmpmat;
 
-  kmMat4Identity(out);
+  sls_transform2D_to_matrix(self, NULL);
 
-  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
-    kmMat4 mul_in = *out;
-    kmMat4Multiply(out, sls_transform2D_to_matrix(&tmpmat, &e->transform), &mul_in);
-
-  }
-
-
-
-  self->model_view = *out;
 
   return out;
 }
 
 float sls_transform2d_local_to_world_angle(slsTransform2D *self, float angle)
 {
-  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
-    angle += e->transform.rot;
-  }
-  return angle;
+  return angle + self->rot;
 }
 
 
 float sls_transform2d_world_to_local_angle(slsTransform2D *self, float angle)
 {
-  for (slsEntity *e = self->entity; e != NULL; e = e->parent) {
-    angle -= e->transform.rot;
-  }
-  return angle;
+
+  return angle - self->rot;
 }

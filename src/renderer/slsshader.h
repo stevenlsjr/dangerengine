@@ -41,6 +41,7 @@
 #include <slsutils.h>
 #include <apr_pools.h>
 #include <apr_hash.h>
+#include <data-types/hashtable.h>
 
 typedef struct slsShader slsShader;
 
@@ -94,9 +95,14 @@ struct slsShader {
     GLuint z_layer;
   } attributes;
 
+#if 0
   apr_hash_t *attr_table;
   apr_hash_t *unif_table;
+#else
 
+  slsHashTable *attr_table;
+  slsHashTable *unif_table;
+#endif
 
   GLuint program;
   bool owns_program;

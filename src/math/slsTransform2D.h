@@ -7,6 +7,7 @@
 
 #include "../slsutils.h"
 #include "slsMatrixStack.h"
+#include "slsTransform.h"
 #include <kazmath/kazmath.h>
 
 typedef  struct slsEntity slsEntity;
@@ -22,16 +23,12 @@ struct slsTransform2D {
 
   int z_layer;
 
-  kmMat4 local_matrix;
-
-  kmMat4 model_view;
-
-  slsEntity *entity;
+  slsTransform modelview;
 };
 
 
 
-kmMat4 *sls_transform2D_to_matrix(kmMat4 *out, slsTransform2D *in) SLS_NONNULL(1, 2);
+kmMat4 *sls_transform2D_to_matrix(slsTransform2D *self, kmMat4 *out_opt) SLS_NONNULL(1);
 
 bool sls_transform2D_eq(slsTransform2D const *a, slsTransform2D const *b) SLS_NONNULL(1, 2);
 bool sls_transform2D_near(slsTransform2D const *a,

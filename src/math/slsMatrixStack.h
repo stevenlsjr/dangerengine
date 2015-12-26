@@ -39,12 +39,12 @@
 typedef struct slsMatrixStack slsMatrixStack;
 
 /**
- * @brief A stack data structure for manipulating matrix
+ * @brief A stack data structure for manipulating modelview
  * transformations in a way similar to immediate mode openGL.
  */
 struct slsMatrixStack {
   /**
-   * @brief Pointer storing the matrix array
+   * @brief Pointer storing the modelview array
    */
   kmMat4 *matrices;
   /**
@@ -79,7 +79,7 @@ void sls_matrix_stack_reserve(slsMatrixStack *self, size_t size);
 
 
 //------------------------------------------------------------------------
-//----------      ffp-stle matrix stack manipulations --------------------
+//----------      ffp-stle modelview stack manipulations --------------------
 //------------------------------------------------------------------------
 
 
@@ -102,9 +102,9 @@ void sls_matrix_glpush(slsMatrixStack *self);
 
 
 /**
- * @binds the top matrix to model view.
+ * @binds the top modelview to model view.
  * @detail Also pushes transposed inverse model view as normal
- * matrix.
+ * modelview.
  */
 void sls_matrix_glbind(slsMatrixStack *self,
                        GLuint program,

@@ -47,8 +47,8 @@ slsEntity *sls_entity_init(slsEntity *self, apr_pool_t *parent_pool,
 
   self->transform = (slsTransform2D){.pos = (kmVec2){0.0, 0.0},
                                      .scale = (kmVec2){1.0, 1.0},
-                                     .rot = 0.0,
-                                     .entity = self};
+                                     .rot = 0.0};
+  sls_transform2d_init(&self->transform);
 
   self->priv = apr_pcalloc(self->pool, sizeof(slsEntity_p));
 
@@ -340,14 +340,11 @@ void sls_entity_display(slsEntity *self, slsAppState *state, double dt) {
   sls_matrix_glidentity(mv);
 
   kmMat4 local_transform;
-  sls_transform2D_to_matrix(&local_transform, &self->transform);
+  sls_transform2D_to_matrix(&self->transform, &local_transform);
 
   kmMat4 *top = sls_matrix_stack_peek(mv);
   if (top) {
-    self->transform.model_view = *top;
 
-    kmMat4Multiply(top, &self->transform.model_view, &local_transform);
-    self->transform.model_view = *top;
   }
 
   if ((self->component_mask & SLS_COMPONENT_DRAWABLE) ==

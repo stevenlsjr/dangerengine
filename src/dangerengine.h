@@ -57,14 +57,16 @@ extern "C" {
 
 #include "math/mathmacs.h"
 #include "math/math-types.h"
+#include "math/slsTransform.h"
 #include "math/slsTransform2D.h"
+#include "math/slsTransform3D.h"
 #include "math/slsMatrixStack.h"
 #include "math/slsTrackball.h"
 
 
 #include "renderer/shaderutils.h"
 #include "renderer/slsmesh.h"
-#include "renderer/slstexture.h"
+#include "renderer/slsmaterial.h"
 #include "renderer/slsshader.h"
 #include "renderer/slsTTFText.h"
 #include "renderer/slsLight.h"
@@ -76,7 +78,6 @@ extern "C" {
 #include "state/slsBehavior.h"
 #include "state/slsEntityDraw.h"
 #include "state/resourceutils.h"
-#include "state/slsEvent.h"
 #include "state/slsPhysics.h"
 #include "state/slsSprite.h"
 
