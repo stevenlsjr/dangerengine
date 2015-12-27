@@ -3,6 +3,7 @@
 //
 
 #include "../src/dangerengine.h"
+#include "earth.h"
 #include <kazmath/kazmath.h>
 #include <assert.h>
 #include <string.h>
@@ -87,21 +88,8 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
 
 int main(int argc, char *argv[])
 {
-  slsContext *ctx = &demo.super;
-  sls_context_init(ctx, "demo", 640, 480);
 
-  ctx->resize = demo_resize;
-  ctx->update = demo_update;
-  ctx->display = demo_display;
-  ctx->setup = demo_setup;
-  ctx->teardown = demo_teardown;
-  ctx->handle_event = demo_handle_event;
-  ctx->data = &demo;
-
-  sls_msg(ctx, run);
-
-  ctx->dtor(&ctx);
-  return 0;
+  return earth_main(&argc, argv);
 
 }
 

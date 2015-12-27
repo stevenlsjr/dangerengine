@@ -91,7 +91,7 @@ set(DANGER_SRC
   src/renderer/slsLight.c src/renderer/slsLight.h
   src/cppapi.h
   src/math/slsTrackball.c src/math/slsTrackball.h
-  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h)
+  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h src/renderer/slsLocationTable.c src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h)
 
 
 # tests compiled in c
@@ -111,7 +111,7 @@ set(DANGER_TEST_SRC
   tests/hash-tests.cc
   tests/ptrarray-tests.cc
   tests/array-tests.cc
-  tests/list-tests.cc)
+  tests/list-tests.cc tests/LocationTableTests.cc)
 
 
 set(CLIENT_SRC
@@ -213,8 +213,8 @@ set(DANGER_DEPS
   ${SDL2_IMAGE_LIBRARIES}
   ${SDL2_TTF_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
-  #${APR_LIBRARIES}
-  #${APR_UTIL_LIBRARIES}
+  ${APR_LIBRARIES}
+  ${APR_UTIL_LIBRARIES}
   )
 
 

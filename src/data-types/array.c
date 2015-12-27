@@ -41,12 +41,7 @@
 #include <string.h>
 
 
-slsArray *sls_array_init(slsArray *self,
-                         void const *data,
-                         size_t element_size,
-                         size_t n_elements);
 
-slsArray *sls_array_dtor(slsArray *self);
 
 
 struct slsArray_p {
@@ -83,9 +78,11 @@ slsArray *sls_array_init(slsArray *self,
                          size_t element_size,
                          size_t n_elements)
 {
-  if (!self || !data || (element_size == 0)) {
+  if (!self || (element_size == 0)) {
     return NULL;
   }
+
+
 
   self->priv = calloc(1, sizeof(slsArray_p));
   sls_checkmem(self->priv);
@@ -105,10 +102,13 @@ slsArray *sls_array_init(slsArray *self,
   sls_checkmem(self->priv->array);
 
   // copy array to buffer
-  sls_check(memcpy(self->priv->array,
-                   data,
-                   element_bytes),
-            "slsArray::init-> array failed to copy to buffer!");
+  if (data) {
+    sls_check(memcpy(self->priv->array,
+                     data,
+                     element_bytes),
+              "slsArray::init-> array failed to copy to buffer!");
+  }
+
 
 
   return self;

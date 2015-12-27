@@ -69,6 +69,10 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
       .key_callbacks = (key_cback) ? *key_cback : (slsCallbackTable) {},
       .val_callbacks = (val_cback) ? *val_cback : (slsCallbackTable) {}};
 
+  if (array_size < 8) {
+    array_size = 32;
+  }
+
   self->hashes = calloc(array_size, sizeof(uint64_t));
   self->keys = calloc(array_size, sizeof(void *));
   self->vals = calloc(array_size, sizeof(void *));
@@ -410,4 +414,9 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
 
   error:
   return  NULL;
+}
+
+uint64_t sls_hash_fn_cstr(void const *cstr, size_t size)
+{
+  return sls_hash_cstr(cstr);
 }

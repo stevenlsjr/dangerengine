@@ -270,30 +270,31 @@ void earth_ctx_update(slsContext *self, double dt)
   size_t n_lights = data.lights.n_lights;
 
   slsShader *s = &data.earth_shader;
+  slsLocationTable *tbl = &s->unif_table;
 
   earth_bind_season(self);
 
   glUseProgram(s->program);
 
-  glUniform1f(s->uniforms.time, (float) data.date);
+  glUniform1f(sls_locationtable_get_val(tbl, "time"), (float) data.date);
 
-  glUniform1i(s->uniforms.lights.n_lights, (GLint) data.lights.n_lights);
+  glUniform1i(sls_locationtable_get_val(tbl, "lights.n_lights"), (GLint) data.lights.n_lights);
 
-  glUniform3fv(s->uniforms.lights.ambient_products,
+  glUniform3fv(sls_locationtable_get_val(tbl, "lights.ambient_products"),
                n_lights,
                (GLfloat *) data.lights.ambient_products);
-  glUniform3fv(s->uniforms.lights.specular_products,
+  glUniform3fv(sls_locationtable_get_val(tbl, "lights.specular_products"),
                n_lights,
                (GLfloat *) data.lights.specular_products);
 
-  glUniform3fv(s->uniforms.lights.diffuse_products,
+  glUniform3fv(sls_locationtable_get_val(tbl, "lights.diffuse_products"),
                n_lights,
                (GLfloat *) data.lights.diffuse_products);
-  glUniform4fv(s->uniforms.lights.light_positions,
+  glUniform4fv(sls_locationtable_get_val(tbl, "lights.light_positions"),
                n_lights,
                (GLfloat *) data.lights.light_positions);
 
-  glUniformMatrix4fv(s->uniforms.lights.light_modelview,
+  glUniformMatrix4fv(sls_locationtable_get_val(tbl, "lights.light_modelview"),
                      n_lights,
                      GL_FALSE,
                      (GLfloat *) data.lights.light_modelviews[0].mat);
@@ -311,9 +312,10 @@ void earth_bind_season(slsContext *pContext)
 
 
   slsShader *shader = &data.earth_shader;
+  slsLocationTable *unifs = &shader->unif_table;
 
-  GLuint sample_a = shader->uniforms.diffuse_tex;
-  GLuint sample_b = shader->uniforms.specular_tex;
+  GLuint sample_a = sls_locationtable_get_val(unifs, "diffuse_tex");
+  GLuint sample_b = sls_locationtable_get_val(unifs, "specular_tex");
 
   GLuint season_blend = (GLuint) glGetUniformLocation(shader->program, "season_blend");
 
@@ -402,9 +404,10 @@ void earth_ctx_display(slsContext *self, double dt)
   kmMat4 normal;
   sls_mat4_normalmat(&normal, &mv);
 
+  slsLocationTable *unifs = &data.earth_shader.unif_table;
 
-  glUniformMatrix4fv(data.earth_shader.uniforms.model_view, 1, GL_FALSE, mv.mat);
-  glUniformMatrix4fv(data.earth_shader.uniforms.normal_mat, 1, GL_FALSE, normal.mat);
+  glUniformMatrix4fv(sls_locationtable_get_val(unifs, "model_view"), 1, GL_FALSE, mv.mat);
+  glUniformMatrix4fv(sls_locationtable_get_val(unifs, "normal_mat"), 1, GL_FALSE, normal.mat);
 
 
   _sls_mesh_roughdraw(data.earth_mesh, data.earth_shader.program, dt);

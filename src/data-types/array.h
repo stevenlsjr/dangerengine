@@ -130,6 +130,13 @@ slsArrayItor *sls_arrayitor_begin(slsArray *self, slsArrayItor *itor) SLS_NONNUL
 
 slsArrayItor *sls_arrayitor_next(slsArrayItor *self) SLS_NONNULL(1);
 
+slsArray *sls_array_init(slsArray *self,
+                         void const *data,
+                         size_t element_size,
+                         size_t n_elements);
+
+slsArray *sls_array_dtor(slsArray *self);
+
 /**
  * @brief convenience method for retrieving index values.
  * @detail WARNING: dereferences pointer given by slsArray::get

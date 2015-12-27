@@ -42,8 +42,10 @@
 #include <apr_pools.h>
 #include <apr_hash.h>
 #include <data-types/hashtable.h>
+#include "slsLocationTable.h"
 
 typedef struct slsShader slsShader;
+
 
 
 struct slsShader {
@@ -53,6 +55,7 @@ struct slsShader {
 
   slsShader *(*dtor)(slsShader *self) SLS_NONNULL(1);
 
+#if 0 // use hash table instead
   struct {
     GLuint model_view;
     GLuint normal_mat;
@@ -94,18 +97,13 @@ struct slsShader {
     GLuint color;
     GLuint z_layer;
   } attributes;
-
-#if 0
-  apr_hash_t *attr_table;
-  apr_hash_t *unif_table;
-#else
-
-  slsHashTable *attr_table;
-  slsHashTable *unif_table;
 #endif
 
   GLuint program;
   bool owns_program;
+
+  slsLocationTable attr_table;
+  slsLocationTable unif_table;
 
   apr_pool_t *pool;
   void *data;
@@ -123,12 +121,12 @@ void sls_shader_bind_attrs(slsShader *self) SLS_NONNULL(1);
 
 void sls_shader_bind_unifs(slsShader *self) SLS_NONNULL(1);
 
-GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
-GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
+//GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
+//GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
 
 
 void sls_uniform_check(char const *name, int val);
-void sls_attr_check(char *name, GLuint program, GLuint location);
+void sls_attr_check(char const *name, GLuint program, GLuint location);
 
 
 

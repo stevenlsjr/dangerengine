@@ -30,17 +30,23 @@ void sls_drawable_transform(slsEntity *self, slsAppState *state, double dt)
 {
 
 
+
   if (self->texture) {
     sls_msg(self->texture, bind);
   }
 
   if (self->shader) {
-    glUniform1i(self->shader->uniforms.z_layer, self->transform.z_layer);
+    GLuint z_layer = sls_locationtable_get_val(&self->shader->unif_table, "z_layer");
+    GLuint model_view = sls_locationtable_get_val(&self->shader->unif_table, "model_view");
+    GLuint normal_mat = sls_locationtable_get_val(&self->shader->unif_table, "normal_mat");
+
+    glUniform1i(z_layer, self->transform.z_layer);
+
 
     sls_matrix_glbind(&state->model_view,
                       self->shader->program,
-                      self->shader->uniforms.model_view,
-                      self->shader->uniforms.normal_mat);
+                      model_view,
+                      normal_mat);
   }
 
 }

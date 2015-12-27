@@ -44,9 +44,12 @@
 #include "callbacks.h"
 #include "ptrarray.h"
 
+#define SLS_DEFAULT_HT_CAPACITY 32
 
 typedef struct slsHashTable slsHashTable;
 typedef struct slsKeyEntry slsKeyEntry;
+
+
 
 enum slsHashDataSize {
   SLS_STRING_LENGTH = 0,
@@ -118,12 +121,17 @@ void const *sls_hash_sentinel();
 uint64_t sls_hash_fn_default(void const *val, size_t size);
 
 uint64_t sls_hash_cstr(char const *str);
+uint64_t sls_hash_fn_cstr(void const *cstr, size_t size);
+
+
 
 uint64_t sls_hash_sizeddata(void const *val, size_t size);
 
 
 slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor) SLS_NONNULL(1, 2);
 slsHashItor *sls_hashitor_next(slsHashItor *itor) SLS_NONNULL(1);
+
+
 
 #endif //DANGERENGINE_HASHTABLE_H
 

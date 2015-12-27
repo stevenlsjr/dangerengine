@@ -47,7 +47,8 @@ void sls_appstate_mousemotion(slsAppState *self,
 void sls_appstate_mousebutton(slsAppState *self,
                               SDL_MouseButtonEvent const *pEvent);
 
-slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) {
+slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
+{
   sls_check(apr_pool_create(&self->pool, parent_pool) == APR_SUCCESS,
             "pool creation failed");
 
@@ -65,11 +66,12 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool) {
 
   return self;
 
-error:
+  error:
   return NULL;
 }
 
-slsAppState *sls_appstate_dtor(slsAppState *self) {
+slsAppState *sls_appstate_dtor(slsAppState *self)
+{
   apr_pool_t *tmp;
   apr_pool_create(&tmp, self->pool);
 
@@ -86,7 +88,7 @@ slsAppState *sls_appstate_dtor(slsAppState *self) {
     for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures); itor;
          itor = apr_hash_next(itor)) {
       slsMaterial *tex;
-      apr_hash_this(itor, NULL, NULL, (void **)&tex);
+      apr_hash_this(itor, NULL, NULL, (void **) &tex);
       if (tex) {
         sls_msg(tex, dtor);
       }
@@ -98,7 +100,7 @@ slsAppState *sls_appstate_dtor(slsAppState *self) {
     for (apr_hash_index_t *itor = apr_hash_first(tmp, self->shaders); itor;
          itor = apr_hash_next(itor)) {
       slsShader *shader;
-      apr_hash_this(itor, NULL, NULL, (void **)&shader);
+      apr_hash_this(itor, NULL, NULL, (void **) &shader);
       if (shader) {
         sls_msg(shader, dtor);
       }
@@ -121,58 +123,60 @@ slsAppState *sls_appstate_dtor(slsAppState *self) {
 }
 
 void sls_appstate_mousebutton(slsAppState *self,
-                              SDL_MouseButtonEvent const *event) {}
+                              SDL_MouseButtonEvent const *event) { }
 
 void sls_appstate_mousemotion(slsAppState *self,
-                              SDL_MouseMotionEvent const *me) {
+                              SDL_MouseMotionEvent const *me)
+{
   slsPlayerInput *inp = &self->input;
-  inp->mouse_pos = (slsIPoint){me->x, me->y};
+  inp->mouse_pos = (slsIPoint) {me->x, me->y};
   inp->mouse_relative.x += me->xrel;
   inp->mouse_relative.y += me->yrel;
 }
 
 void sls_appstate_keyevent(slsAppState *self, SDL_KeyboardEvent const *ke,
-                           SDL_EventType type) {
+                           SDL_EventType type)
+{
   bool is_down = (ke->state == SDL_PRESSED);
 
   slsPlayerInput *inp = &self->input;
 
   switch (ke->keysym.scancode) {
-  case SDL_SCANCODE_W:
-    inp->key_up = is_down;
-    break;
-  case SDL_SCANCODE_S:
-    inp->key_down = is_down;
-    break;
-  case SDL_SCANCODE_A:
-    inp->key_left = is_down;
-    break;
-  case SDL_SCANCODE_D:
-    inp->key_right = is_down;
-    break;
-  case SDL_SCANCODE_B:
-    inp->key_brake = is_down;
-    break;
+    case SDL_SCANCODE_W:
+      inp->key_up = is_down;
+      break;
+    case SDL_SCANCODE_S:
+      inp->key_down = is_down;
+      break;
+    case SDL_SCANCODE_A:
+      inp->key_left = is_down;
+      break;
+    case SDL_SCANCODE_D:
+      inp->key_right = is_down;
+      break;
+    case SDL_SCANCODE_B:
+      inp->key_brake = is_down;
+      break;
 
-  case SDL_SCANCODE_UP:
-    inp->aim_up = is_down;
-    break;
-  case SDL_SCANCODE_DOWN:
-    inp->aim_down = is_down;
-    break;
-  case SDL_SCANCODE_LEFT:
-    inp->aim_left = is_down;
-    break;
-  case SDL_SCANCODE_RIGHT:
-    inp->aim_right = is_down;
-    break;
+    case SDL_SCANCODE_UP:
+      inp->aim_up = is_down;
+      break;
+    case SDL_SCANCODE_DOWN:
+      inp->aim_down = is_down;
+      break;
+    case SDL_SCANCODE_LEFT:
+      inp->aim_left = is_down;
+      break;
+    case SDL_SCANCODE_RIGHT:
+      inp->aim_right = is_down;
+      break;
 
-  case SDL_SCANCODE_SPACE:
-    inp->key_space = is_down;
-    break;
+    case SDL_SCANCODE_SPACE:
+      inp->key_space = is_down;
+      break;
 
-  default:
-    break;
+    default:
+      break;
   }
   /*
   uint8_t const *state = SDL_GetKeyboardState(NULL);
@@ -186,34 +190,36 @@ void sls_appstate_keyevent(slsAppState *self, SDL_KeyboardEvent const *ke,
    */
 }
 
-void sls_appstate_handle_input(slsAppState *self, SDL_Event const *event) {
+void sls_appstate_handle_input(slsAppState *self, SDL_Event const *event)
+{
   switch (event->type) {
-  case SDL_KEYDOWN: {
-    sls_appstate_keyevent(self, &event->key, (SDL_KEYDOWN));
-    break;
-  }
-  case SDL_KEYUP: {
-    sls_appstate_keyevent(self, &event->key, (SDL_KEYUP));
-    break;
-  }
-  case SDL_MOUSEMOTION: {
-    sls_appstate_mousemotion(self, &event->motion);
-    break;
-  }
-  case SDL_MOUSEBUTTONDOWN: {
-    sls_appstate_mousebutton(self, &event->button);
-    break;
-  }
-  case SDL_MOUSEBUTTONUP: {
-    sls_appstate_mousebutton(self, &event->button);
-    break;
-  }
-  default:
-    break;
+    case SDL_KEYDOWN: {
+      sls_appstate_keyevent(self, &event->key, (SDL_KEYDOWN));
+      break;
+    }
+    case SDL_KEYUP: {
+      sls_appstate_keyevent(self, &event->key, (SDL_KEYUP));
+      break;
+    }
+    case SDL_MOUSEMOTION: {
+      sls_appstate_mousemotion(self, &event->motion);
+      break;
+    }
+    case SDL_MOUSEBUTTONDOWN: {
+      sls_appstate_mousebutton(self, &event->button);
+      break;
+    }
+    case SDL_MOUSEBUTTONUP: {
+      sls_appstate_mousebutton(self, &event->button);
+      break;
+    }
+    default:
+      break;
   }
 }
 
-void sls_appstate_clearinput(slsAppState *self) {
+void sls_appstate_clearinput(slsAppState *self)
+{
 #if 0
   self->input = (slsPlayerInput) {
       .last_pos = self->input.mouse_pos,
@@ -223,7 +229,8 @@ void sls_appstate_clearinput(slsAppState *self) {
 #endif
 }
 
-void sls_appstate_update(slsAppState *self, double dt) {
+void sls_appstate_update(slsAppState *self, double dt)
+{
 
   slsPlayerInput *inp = &self->input;
 
@@ -238,7 +245,8 @@ void sls_appstate_update(slsAppState *self, double dt) {
   }
 }
 
-void sls_appstate_display(slsAppState *self, double dt) {
+void sls_appstate_display(slsAppState *self, double dt)
+{
   sls_matrix_glreset(&self->model_view);
   kmMat4 *top = sls_matrix_stack_peek(&self->model_view);
   // set camera view
@@ -257,11 +265,12 @@ void sls_appstate_display(slsAppState *self, double dt) {
   }
 }
 
-void sls_appstate_resize(slsAppState *self, int x, int y) {
+void sls_appstate_resize(slsAppState *self, int x, int y)
+{
   slsCamera *cam;
   kmMat4 frustrum;
 
-  float aspect = x / (float)y;
+  float aspect = x / (float) y;
   if (self->active_camera) {
     cam = self->active_camera;
     sls_camera_resize(cam, x, y);
@@ -272,18 +281,20 @@ void sls_appstate_resize(slsAppState *self, int x, int y) {
   }
 
   if (self->active_shader) {
-    GLuint proj = self->active_shader->uniforms.projection;
+    char const *projection = "projection";
+    GLuint proj = sls_locationtable_get_val(&self->active_shader->attr_table, projection);
+
     sls_check(proj == glGetUniformLocation(self->active_shader->program,
-                                           "projection"),
+                                           projection),
               "invalid projection location %u", proj);
 
     glUseProgram(self->active_shader->program);
 
     glUniformMatrix4fv(proj, 1, GL_FALSE, frustrum.mat);
 
-    if (0) {
+
     error:
-      assert(0);
-    }
+    assert(0);
   }
+
 }

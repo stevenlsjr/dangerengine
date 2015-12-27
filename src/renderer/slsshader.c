@@ -48,10 +48,12 @@
 static slsShader shader_proto = {
     .dtor = sls_shader_dtor, .init = sls_shader_init,
 };
+
 slsShader const *sls_shader_proto() { return &shader_proto; }
 
 slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool,
-                           GLuint program) {
+                           GLuint program)
+{
   *self = *sls_shader_proto();
 
   apr_status_t res = apr_pool_create(&self->pool, parent_pool);
@@ -59,27 +61,29 @@ slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool,
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
 
-  self->attr_table = apr_hash_make(self->pool);
-  sls_checkmem(self->attr_table);
-  self->unif_table = apr_hash_make(self->pool);
-  sls_checkmem(self->unif_table);
+  sls_checkmem(sls_locationtable_init(&self->attr_table));
+  sls_checkmem(sls_locationtable_init(&self->unif_table));
 
-  if (self->unif_table && self->attr_table) {
-    self->program = program;
-    sls_shader_bind_attrs(self);
-    sls_shader_bind_unifs(self);
-  }
+
+  self->program = program;
+  sls_shader_bind_attrs(self);
+  sls_shader_bind_unifs(self);
 
   self->owns_program = false;
 
   return self;
-error:
+  error:
   if (self) {
     return sls_shader_dtor(self);
   }
+
+  return NULL;
 }
 
-slsShader *sls_shader_dtor(slsShader *self) {
+slsShader *sls_shader_dtor(slsShader *self)
+{
+  sls_locationtable_dtor(&self->attr_table);
+  sls_locationtable_dtor(&self->unif_table);
 
   if (self->pool) {
     apr_pool_destroy(self->pool);
@@ -93,144 +97,74 @@ slsShader *sls_shader_dtor(slsShader *self) {
   return self;
 }
 
-void sls_shader_bind_unifs(slsShader *self) {
-  typeof(self->uniforms) *u = &self->uniforms;
+void sls_shader_bind_unifs(slsShader *self)
+{
+  //typeof(self->uniforms) *u = &self->uniforms;
 
-  struct unif_pair {
-    GLuint *loc;
-    char const *name;
-  };
 
-  struct unif_pair pairs[] = {
-      {&u->time, "time"},
-      {&u->model_view, "model_view"},
-      {&u->projection, "projection"},
-      {&u->normal_mat, "normal_mat"},
-      {&u->normal_tex, "normal_tex"},
-      {&u->diffuse_tex, "diffuse_tex"},
-      {&u->specular_tex, "specular_tex"},
-      {&u->lights.diffuse_products, "lights.diffuse_products"},
 
-      {&u->lights.ambient_products, "lights.ambient_products"},
-
-      {&u->lights.specular_products, "lights.specular_products"},
-
-      {&u->lights.light_positions, "lights.light_positions"},
-      {&u->lights.light_modelview, "lights.light_modelview"},
-
-      {&u->lights.active_lights, "lights.n_lights"}
+  char const *unifs[] = {
+      "time",
+      "model_view",
+      "projection",
+      "normal_mat",
+      "normal_tex",
+      "diffuse_tex",
+      "specular_tex",
+      "lights.diffuse_products",
+      "lights.ambient_products",
+      "lights.specular_products",
+      "lights.light_positions",
+      "lights.light_modelview",
+      "lights.n_lights"
 
   };
 
-  for (int i = 0; i < sizeof(pairs) / sizeof(struct unif_pair); ++i) {
-    struct unif_pair *itor = pairs + i;
+  for (int i = 0; i < sizeof(unifs) / sizeof(char *); ++i) {
 
-    if (itor->loc) {
-      bool res = false;
-      *itor->loc = sls_shader_get_unif(self, itor->name, &res);
-    }
+    char const *name = unifs[i];
+
+
+    GLint loc = glGetUniformLocation(self->program, name);
+
+
+    sls_locationtable_set(&self->unif_table, name, (GLuint) (loc >= 0 ? loc : 0));
+
   }
 }
 
-void sls_shader_bind_attrs(slsShader *self) {
-  typedef struct {
-    GLuint *a;
-    char *name;
-  } AttrPair;
-  typeof(self->attributes) *a = &self->attributes;
-  AttrPair attrs[] = {(AttrPair){&a->position, "position"},
-                      (AttrPair){&a->normal, "normal"},
-                      (AttrPair){&a->uv, "uv"}, (AttrPair){&a->color, "color"}};
 
-  size_t len = sizeof(attrs) / sizeof(AttrPair);
+void sls_shader_bind_attrs(slsShader *self)
+{
+
+  char const *attrs[] = {"position",
+                         "normal",
+                         "uv",
+                         "color"};
+
+  size_t len = sizeof(attrs) / sizeof(char const *);
   for (uint32_t i = 0; i < len; ++i) {
 
-    AttrPair *p = attrs + i;
-    *p->a = i;
-    glBindAttribLocation(self->program, i, attrs[i].name);
+    char const *name = attrs[i];
 
-    sls_attr_check(p->name, self->program, *p->a);
+    glBindAttribLocation(self->program, i, name);
+    sls_locationtable_set(&self->attr_table, name, i);
+
+    sls_attr_check(name, self->program, i);
   }
 }
 
-void sls_uniform_check(char const *name, int val) {
+void sls_uniform_check(char const *name, int val)
+{
   if (val < 0) {
     sls_log_warn("cannot bind uniform <%s>: %i", name, val);
   }
 }
 
-void sls_attr_check(char *name, GLuint program, GLuint location) {
+void sls_attr_check(char const *name, GLuint program, GLuint location)
+{
   int actual_location = glGetAttribLocation(program, name);
   if (actual_location != location) {
     sls_log_warn("could not bind attribute <%s>: %i", name, actual_location);
   }
-}
-
-GLuint sls_shader_get_attr(slsShader *self, char const *variable,
-                           bool *result_out) {
-  glUseProgram(self->program);
-  GLuint r_value = 0;
-  bool success = false;
-
-  GLuint *val;
-
-  val = apr_hash_get(self->attr_table, variable, APR_HASH_KEY_STRING);
-
-  if (val) {
-    r_value = *val;
-    success = true;
-  } else {
-    int location = glGetAttribLocation(self->program, variable);
-    if (location < 0) {
-      success = false;
-    } else {
-      val = apr_pcalloc(self->pool, sizeof(GLuint));
-      *val = (GLuint)location;
-      apr_hash_set(self->attr_table, variable, APR_HASH_KEY_STRING, val);
-
-      success = true;
-    }
-  }
-
-  if (result_out) {
-    *result_out = success;
-  }
-
-  return r_value;
-}
-
-GLuint sls_shader_get_unif(slsShader *self, char const *variable,
-                           bool *result_out) {
-  glUseProgram(self->program);
-  GLuint r_value = 0;
-  bool success = false;
-
-  GLuint *val;
-
-  val = apr_hash_get(self->unif_table, variable, APR_HASH_KEY_STRING);
-
-  if (val) {
-    r_value = *val;
-    success = true;
-  } else {
-    int location = glGetUniformLocation(self->program, variable);
-    if (location < 0) {
-      sls_uniform_check(variable, location);
-      success = false;
-    } else {
-      val = apr_pcalloc(self->pool, sizeof(GLuint));
-      *val = (GLuint)location;
-      apr_hash_set(self->unif_table, variable, APR_HASH_KEY_STRING, val);
-
-      r_value = *val;
-
-      success = true;
-    }
-  }
-
-  if (result_out) {
-    *result_out = success;
-  }
-
-  return r_value;
 }

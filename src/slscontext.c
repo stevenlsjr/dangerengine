@@ -119,14 +119,16 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
     bool res = sls_init();
     sls_check(res, "initialization failed!");
   }
+  self->pool = NULL;
   apr_status_t res = apr_pool_create(&self->pool, NULL);
   char buffer[20];
   sls_check(res == APR_SUCCESS, "pool creation failed: %s",
             apr_strerror(res, buffer, 20));
+  sls_checkmem(self->pool);
 
   // create sdl window
 
-  window_flags = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE;
+  window_flags = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
   self->window =
       SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                        (int)width, (int)height, window_flags);
@@ -175,6 +177,7 @@ error:
 slsContext *sls_context_dtor(slsContext *self) {
   if (self->pool) {
     apr_pool_destroy_debug(self->pool, __FILE__);
+    self->pool = NULL;
   }
   return self;
 }
