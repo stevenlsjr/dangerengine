@@ -15,7 +15,6 @@ typedef struct slsLocationTable slsLocationTable;
 
 struct slsLocationTable {
   slsHashTable ht;
-  slsArray values;
 };
 
 slsLocationTable *sls_locationtable_init(slsLocationTable *self);

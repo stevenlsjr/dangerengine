@@ -200,7 +200,7 @@ void sls_array_insert(slsArray *self, size_t i, void *value)
 
   // resize array if necessary
   if (newsize >= p->alloc_size) {
-    newsize = p->alloc_size * 2;
+    newsize = p->alloc_size > 2? p->alloc_size * 2: 8;
     sls_array_reserve(self, newsize);
   }
 
@@ -236,6 +236,11 @@ size_t sls_array_alloc_size(slsArray *self)
 void sls_array_reserve(slsArray *self, size_t count)
 {
   assert(self && self->priv);
+
+  if (count < 1) {
+    // ensure count is a natural number
+    count = 8;
+  }
   slsArray_p *p = self->priv;
 
   if (p->alloc_size < count) {

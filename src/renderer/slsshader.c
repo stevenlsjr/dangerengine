@@ -101,8 +101,6 @@ void sls_shader_bind_unifs(slsShader *self)
 {
   //typeof(self->uniforms) *u = &self->uniforms;
 
-
-
   char const *unifs[] = {
       "time",
       "model_view",
@@ -167,4 +165,14 @@ void sls_attr_check(char const *name, GLuint program, GLuint location)
   if (actual_location != location) {
     sls_log_warn("could not bind attribute <%s>: %i", name, actual_location);
   }
+}
+
+GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out)
+{
+  return sls_locationtable_get_val(&self->attr_table, variable);
+}
+
+GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out)
+{
+  return sls_locationtable_get_val(&self->unif_table, variable);
 }

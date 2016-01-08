@@ -7,8 +7,33 @@
  **/
 #include <cppapi.h>
 #include "sphere.h"
+#include <simd/simd.h>
+
+slsMesh *parametric_sphere_mesh_complex(
+    size_t n_steps,
+    int normal_dir,
+    kmVec4 base_color);
+
+
+slsMesh *interior_sphere_mesh(size_t n_steps)
+{
+  return
+      parametric_sphere_mesh_complex(n_steps,
+                                     -1,
+                                     (kmVec4) {1.0, 1.0, 1.0, 1.0});
+}
 
 slsMesh *parametric_sphere_mesh(size_t n_steps)
+{
+  return parametric_sphere_mesh_complex(n_steps,
+                                        1,
+                                        (kmVec4) {1.0, 1.0, 1.0, 1.0});
+}
+
+slsMesh *parametric_sphere_mesh_complex(
+    size_t n_steps,
+    int normal_dir,
+    kmVec4 base_color)
 {
   slsMesh *mesh = NULL;
 
@@ -50,10 +75,13 @@ slsMesh *parametric_sphere_mesh(size_t n_steps)
           sin_phi * sin_theta
       };
 
+      kmVec3Scale(&normal, &normal, normal_dir);
+
       slsVec2 uv = {
           (i / (float) n_longitudes),
           (j / (float) n_latitudes) // png loads upside-down
       };
+
 
       kmVec3Normalize(&normal, &normal);
 
@@ -73,7 +101,7 @@ slsMesh *parametric_sphere_mesh(size_t n_steps)
 
       memcpy(verts[n_vertices].position, &position, sizeof(float) * 3);
 
-      memcpy(verts[n_vertices].color, ((float[4]) {1.0, 1.0, 1.0, 1.0}), sizeof(float) * 4);
+      memcpy(verts[n_vertices].color, (float *) &base_color, sizeof(float) * 4);
       memcpy(verts[n_vertices].normal, &normal, sizeof(float) * 3);
       memcpy(verts[n_vertices].uv, &uv, sizeof(float) * 2);
 
@@ -109,11 +137,11 @@ slsMesh *parametric_sphere_mesh(size_t n_steps)
 
       for (int i = 0; i < sizeof(quad) / sizeof(uint32_t); ++i) {
         if (quad[i] > n_vertices - 2) {
-          uint32_t qx = (uint32_t)(quad[i] % n_longitudes);
-          uint32_t qy = (uint32_t)(quad - qx % n_latitudes);
+          uint32_t qx = (uint32_t) (quad[i] % n_longitudes);
+          uint32_t qy = (uint32_t) (quad - qx % n_latitudes);
           qx = 0;
 
-          quad[i] = (uint32_t)(qy * (n_longitudes) + qx);
+          quad[i] = (uint32_t) (qy * (n_longitudes) + qx);
 
         }
       }
@@ -147,3 +175,4 @@ double sphere_radius_at_height(double radius, double height)
 {
   return sqrt((radius * radius) - height * height);
 }
+

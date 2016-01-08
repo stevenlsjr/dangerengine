@@ -26,7 +26,6 @@ out float cloud_x_offset;
 void main()
 {
 
-
   gl_PointSize = 4.0;
 
   frag_color = color;

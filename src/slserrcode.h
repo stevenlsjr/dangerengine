@@ -44,7 +44,8 @@
 typedef enum slsError {
   SLS_OK = 0,
   SLS_MALLOC_ERR,
-  SLS_INDEX_OVERFLOW
+  SLS_INDEX_OVERFLOW,
+  SLS_OTHER
 } slsError;
 
 void sls_setup_errstack();
@@ -72,6 +73,12 @@ char const *sls_strerr(slsError err);
  * @brief returns number of errors on the stack
  */
 size_t sls_get_error_count();
+
+/**
+ * @brief places glError stack onto application stack, clearing
+ * opengl's errors
+ */
+void sls_glerror_unwind();
 
 #endif //DANGERENGINE_SLSERRCODE_H
 

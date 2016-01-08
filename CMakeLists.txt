@@ -91,7 +91,7 @@ set(DANGER_SRC
   src/renderer/slsLight.c src/renderer/slsLight.h
   src/cppapi.h
   src/math/slsTrackball.c src/math/slsTrackball.h
-  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h src/renderer/slsLocationTable.c src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h)
+  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h src/renderer/slsLocationTable.c src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h src/slsmacros.h)
 
 
 # tests compiled in c

@@ -44,7 +44,11 @@
 #include "callbacks.h"
 #include "ptrarray.h"
 
-#define SLS_DEFAULT_HT_CAPACITY 32
+#ifndef NDEBUG
+#define SLS_HT_DEBUG
+#endif
+
+#define SLS_DEFAULT_HT_CAPACITY 64
 
 typedef struct slsHashTable slsHashTable;
 typedef struct slsKeyEntry slsKeyEntry;
@@ -102,6 +106,7 @@ slsHashTable *sls_hashtable_init(slsHashTable *self,
                                  slsCallbackTable const *key_cback,
                                  slsCallbackTable const *val_cback) SLS_NONNULL(1);
 
+
 slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
 
 void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
@@ -132,6 +137,16 @@ slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor) SLS_NONN
 slsHashItor *sls_hashitor_next(slsHashItor *itor) SLS_NONNULL(1);
 
 
+//---------------------------------collision statistics---------------------------------------
+#ifdef SLS_HT_DEBUG
+
+/**
+ * @brief  profiles the ration of hashtable collisions to total
+ * key-val insertions
+*/
+void _sls_hashtable_profile(size_t *n_collisions, size_t *total_insertions);
+
+#endif
 
 #endif //DANGERENGINE_HASHTABLE_H
 

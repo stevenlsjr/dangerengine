@@ -16,6 +16,7 @@ slsLocationTable *sls_locationtable_init(slsLocationTable *self)
       .cmp_fn = sls_cmp_string
   };
   slsCallbackTable uintptr_cback = {
+      .free_fn = free,
       .cmp_fn = sls_cmp_uintptr
   };
 
@@ -23,8 +24,6 @@ slsLocationTable *sls_locationtable_init(slsLocationTable *self)
       sls_hashtable_init(&self->ht, init_size, sls_hash_fn_cstr, &string_cback, &uintptr_cback);
   sls_checkmem(ht);
 
-  slsArray *arr = sls_array_init(&self->values, (GLuint[]){}, sizeof(GLuint), 0);
-  sls_checkmem(arr);
 
 
   return self;
@@ -39,7 +38,6 @@ slsLocationTable *sls_locationtable_init(slsLocationTable *self)
 
 slsLocationTable *sls_locationtable_dtor(slsLocationTable *self)
 {
-  sls_array_dtor(&self->values);
   sls_hashtable_dtor(&self->ht);
   return self;
 }
@@ -58,9 +56,9 @@ GLuint const * sls_locationtable_set(slsLocationTable *self, char const *name, G
     char *buffer = NULL;
     buffer = strdup(name);
     sls_checkmem(buffer);
+    GLuint *ptr = malloc(sizeof(location));
+    *ptr = location;
 
-    sls_array_append(&self->values, &location);
-    GLuint  *ptr = sls_array_get(&self->values, sls_array_length(&self->values) - 1);
     sls_hashtable_insert(&self->ht, buffer, 0, ptr);
     res = ptr;
 

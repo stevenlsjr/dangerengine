@@ -55,50 +55,6 @@ struct slsShader {
 
   slsShader *(*dtor)(slsShader *self) SLS_NONNULL(1);
 
-#if 0 // use hash table instead
-  struct {
-    GLuint model_view;
-    GLuint normal_mat;
-    GLuint projection;
-
-    GLuint time;
-
-    GLuint diffuse_tex;
-    GLuint specular_tex;
-    GLuint normal_tex;
-
-    GLuint z_layer;
-
-    struct {
-      GLuint diffuse_color;
-      GLuint ambient_color;
-      GLuint specular_color;
-
-      GLuint shininess;
-    } material;
-    struct {
-
-      GLuint n_lights;
-      GLuint ambient_products;
-      GLuint diffuse_products;
-      GLuint specular_products;
-      GLuint light_positions;
-      GLuint light_modelview;
-
-      GLuint active_lights;
-    } lights;
-
-  } uniforms;
-
-  struct {
-    GLuint position;
-    GLuint normal;
-    GLuint uv;
-    GLuint color;
-    GLuint z_layer;
-  } attributes;
-#endif
-
   GLuint program;
   bool owns_program;
 
@@ -121,8 +77,8 @@ void sls_shader_bind_attrs(slsShader *self) SLS_NONNULL(1);
 
 void sls_shader_bind_unifs(slsShader *self) SLS_NONNULL(1);
 
-//GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
-//GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
+GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
+GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
 
 
 void sls_uniform_check(char const *name, int val);

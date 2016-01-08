@@ -38,7 +38,7 @@ void earth_del_ctx(slsContext *ctx) SLS_NONNULL(1);
 
 void earth_ctx_update(slsContext *self, double dt) SLS_NONNULL(1);
 
-void earth_ctx_display(slsContext *self, double dt SLS_NONNULL(1));
+void earth_ctx_display(slsContext *self, double dt) SLS_NONNULL(1);
 
 void earth_ctx_setup(slsContext *self) SLS_NONNULL(1);
 
@@ -51,7 +51,6 @@ void earth_ctx_resize(slsContext *self, int x, int y);
 
 int earth_main(int *argcr, char **argv);
 
-void create_earth_mesh(slsMesh *self);
 
 void earth_bind_season(slsContext *pContext);
 

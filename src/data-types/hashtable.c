@@ -44,6 +44,9 @@
 #include <string.h>
 #include <tgmath.h>
 
+static size_t _n_insertions = 0;
+static size_t _n_collisions = 0;
+
 
 void sls_hashtable_insert_with_hash(slsHashTable *self, void *key, void *val, uint64_t hash);
 
@@ -70,7 +73,7 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
       .val_callbacks = (val_cback) ? *val_cback : (slsCallbackTable) {}};
 
   if (array_size < 8) {
-    array_size = 32;
+    array_size = SLS_DEFAULT_HT_CAPACITY;
   }
 
   self->hashes = calloc(array_size, sizeof(uint64_t));
@@ -177,6 +180,9 @@ void sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, void *
 
   sls_hashtable_insert_with_hash(self, key, val, hash);
 
+  //sls_log_info("%lu inserted with %lu collisions", _n_insertions, _n_collisions);
+
+
 }
 
 
@@ -194,6 +200,7 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
   bool inserted = false;
 
   for (size_t i = 0; !inserted; ++i) {
+
     size_t probe = hash + (i * i);
     size_t idx = probe % array_size;
     void **k_itor = self->keys + idx;
@@ -209,6 +216,7 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
       *k_itor = NULL;
     }
 
+    // succesful insertion
     if (!*k_itor) {
       *k_itor = self->key_callbacks.copy_fn ?
                 self->key_callbacks.copy_fn(key) :
@@ -219,6 +227,15 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
 
       inserted = true;
     }
+
+#ifdef SLS_HT_DEBUG
+    if (i == 0) {
+      _n_insertions++;
+      if (!inserted) {
+        _n_collisions ++;
+      }
+    }
+#endif
   }
 
   self->n_entries++;
@@ -419,4 +436,14 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
 uint64_t sls_hash_fn_cstr(void const *cstr, size_t size)
 {
   return sls_hash_cstr(cstr);
+}
+
+void _sls_hashtable_profile(size_t *n_collisions, size_t *total_insertions)
+{
+  if (n_collisions) {
+    *n_collisions = _n_collisions;
+  }
+  if (total_insertions) {
+    *total_insertions = _n_insertions;
+  }
 }

@@ -15,8 +15,12 @@ typedef struct EarthData {
   slsShader earth_shader;
   slsShader sun_shader;
 
+
   slsMesh *earth_mesh;
   slsMesh *sun_mesh;
+
+  slsMesh *fb_target;
+  slsShader fb_shader;
 
   slsLightBatch lights;
 
@@ -30,7 +34,6 @@ typedef struct EarthData {
   slsTrackball trackball;
 
   kmMat4 camera_view;
-
 
   kmMat4 earth_transform;
   kmMat4 sun_transform;
@@ -158,10 +161,6 @@ void earth_ctx_setup(slsContext *self)
   data.earth_mesh = parametric_sphere_mesh(60);
   data.earth_mesh->gl_draw_mode = GL_TRIANGLES;
 
-  data.sun_mesh = parametric_sphere_mesh(10);
-  data.sun_mesh->gl_draw_mode = GL_TRIANGLES;
-
-
   data.earth_tex =
       sls_texture_new("resources/art/june_bath.png",
                       "resources/art/dec_bath.png",
@@ -200,7 +199,7 @@ void earth_ctx_setup(slsContext *self)
   glClearColor(0.1, 0.2, 0.4, 1.0);
 
   //glEnable(GL_BLEND_COLOR);
-  //glEnable(GL_CULL_FACE);
+  glEnable(GL_CULL_FACE);
 
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
@@ -219,17 +218,41 @@ void earth_mv_setup(slsContext *self)
 
 void earth_setup_framebuffer(slsContext *self)
 {
+  slsVertex verts[] = {
+      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
+      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
+      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
+      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}}
+  };
+  uint32_t indices[] = {0, 1, 2, 3, 2, 0};
 
+  size_t n_verts = sizeof(verts) / sizeof(*verts);
+  size_t n_indices = sizeof(indices) / sizeof(*indices);
+  data.fb_target = sls_mesh_new(verts, n_verts, indices, n_indices);
 
+  slsShader *res = sls_shader_init(&data.fb_shader,
+                                   self->state->pool,
+                                   sls_create_program("resources/shaders/postprocess.vert",
+                                                      "resources/shaders/postprocess.frag",
+                                                      "resources/shaders/earth_uniforms.glsl"));
+  sls_check(res, "posprocess shader didn't initialzie");
+
+  sls_mesh_bind(data.fb_target, &data.fb_shader);
+
+  return;
+  error:
+  exit(EXIT_FAILURE);
 }
 
 
 void earth_ctx_teardown(slsContext *self)
 {
   sls_shader_dtor(&data.earth_shader);
+  sls_shader_dtor(&data.fb_shader);
 
   sls_mesh_dtor(data.earth_mesh);
   sls_mesh_dtor(data.sun_mesh);
+  sls_mesh_dtor(data.fb_target);
 
   sls_msg(data.earth_tex, dtor);
   sls_msg(data.earth_texb, dtor);
@@ -243,6 +266,7 @@ void earth_ctx_teardown(slsContext *self)
 void earth_ctx_update(slsContext *self, double dt)
 {
 
+  sls_glerror_unwind();
 
   data.date += dt * data.days_per_second * data.time_multiplyer;
 
@@ -312,12 +336,15 @@ void earth_bind_season(slsContext *pContext)
 
 
   slsShader *shader = &data.earth_shader;
+
+  glUseProgram(shader->program);
   slsLocationTable *unifs = &shader->unif_table;
 
   GLuint sample_a = sls_locationtable_get_val(unifs, "diffuse_tex");
   GLuint sample_b = sls_locationtable_get_val(unifs, "specular_tex");
 
-  GLuint season_blend = (GLuint) glGetUniformLocation(shader->program, "season_blend");
+  GLint _season_blend =  glGetUniformLocation(shader->program, "season_blend");
+  GLuint season_blend = (GLuint)_season_blend;
 
   GLuint s1 = 0, s2 = 0;
 
@@ -370,13 +397,13 @@ void earth_bind_season(slsContext *pContext)
 
 void earth_ctx_display(slsContext *self, double dt)
 {
-  glClearColor(0.f, 0.f, 0.f, 1.f);
+  glClearColor(1.f, 0.f, 1.f, 1.f);
 
 
   float x_rot = -data.date * 2 * M_PI;
 
   glUseProgram(data.earth_shader.program);
-  kmMat4 ma, mb, mv;
+  kmMat4 ma, mb, mv, scale;
 
 
   if (data.do_rotate) {
@@ -396,7 +423,10 @@ void earth_ctx_display(slsContext *self, double dt)
   kmMat4 scene;
 
   kmMat4Translation(&ma, 0.f, 0.f, -5.f);
+  kmMat4Scaling(&scale, 4.0, 4.0, 4.0);
+
   kmMat4Multiply(&scene, &ma, &data.trackball.rotation_mat);
+
 
   kmMat4Multiply(&mv, &scene, &mb);
 
@@ -410,7 +440,9 @@ void earth_ctx_display(slsContext *self, double dt)
   glUniformMatrix4fv(sls_locationtable_get_val(unifs, "normal_mat"), 1, GL_FALSE, normal.mat);
 
 
-  _sls_mesh_roughdraw(data.earth_mesh, data.earth_shader.program, dt);
+  //_sls_mesh_roughdraw(data.earth_mesh, data.earth_shader.program, dt);
+
+  _sls_mesh_roughdraw(data.fb_target, data.fb_shader.program, dt);
 
 }
 
@@ -526,8 +558,9 @@ void earth_handle_event(slsContext *self, SDL_Event const *e)
           break;
 
         case SDL_SCANCODE_SPACE: {
-          sls_log_info("t %c%f days.", data.date > 0.0? '+': '-', fabs(data.date));
-        }break;
+          sls_log_info("t %c%f days.", data.date > 0.0 ? '+' : '-', fabs(data.date));
+        }
+          break;
 
 
         default:

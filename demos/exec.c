@@ -85,7 +85,6 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
 
 
 
-
 int main(int argc, char *argv[])
 {
 

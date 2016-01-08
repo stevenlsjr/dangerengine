@@ -109,14 +109,16 @@ void sls_terminate(void)
     return;
   }
 
-  SDL_Quit();
+  if (SDL_WasInit(0)) {
+    SDL_Quit();
+  }
   IMG_Quit();
 
   apr_terminate();
 
   sls_teardown_errstack();
 
-  sls_active_flag = SLS_FALSE;
+  sls_active_flag = false;
 }
 
 

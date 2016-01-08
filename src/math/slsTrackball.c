@@ -16,7 +16,7 @@ float sls_tb_project_to_sphere(float const radius, kmVec2 const *pVec2);
 kmQuaternion *sls_trackball_calc_quat(kmQuaternion *out, float trackball_radius,
                                       float trackball_speed, kmVec2 const *p1,
                                       kmVec2 const *p2) {
-  sls_log_info("p1 %f %f, p2 %f %f", p1->x, p1->y, p2->x, p2->y);
+  //sls_log_info("p1 %f %f, p2 %f %f", p1->x, p1->y, p2->x, p2->y);
 
   kmVec3 axis;
   kmVec3 _p1, _p2, dir;

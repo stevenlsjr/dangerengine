@@ -206,7 +206,6 @@ void _sls_mesh_binddata(slsMesh *self, GLuint program)
   const size_t vbo_size = sizeof(slsVertex) * self->vertices.length;
   const size_t ibo_size = sizeof(uint32_t) * self->indices.length;
 
-
   slsVertex const *verts = self->vertices.data;
   unsigned int const *idxs = self->indices.data;
 
@@ -279,8 +278,6 @@ void sls_mesh_predraw(slsMesh *self, GLuint program, double dt)
   // setup vert position pointer
 
   glBindVertexArray(self->vao);
-
-
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
 }

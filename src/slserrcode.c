@@ -39,6 +39,7 @@
 #include "slsutils.h"
 
 #include <pthread.h>
+#include <sls-gl.h>
 
 #define SLS_ERRSTACK_MAXSIZE 100
 
@@ -127,5 +128,39 @@ void sls_teardown_errstack()
   error_stack_count = 0;
   pthread_mutex_unlock(&err_lock);
 
+
+}
+
+void sls_glerror_unwind()
+{
+  GLenum err = GL_NO_ERROR;
+
+  GLenum *buffer = NULL;
+  size_t buff_size = 32;
+  size_t n_errors = 0;
+  buffer = calloc(buff_size, sizeof(GLenum));
+  sls_checkmem(buffer);
+
+  while((err = glGetError()) != GL_NO_ERROR) {
+    if (n_errors >= buff_size) {
+      buff_size *= 2;
+      buffer = realloc(buffer, buff_size);
+    }
+    buffer[n_errors] = err;
+
+    n_errors++;
+  }
+
+  for (int i=0; i<n_errors; ++i){
+    err = buffer[i];
+    sls_log_err("glError: %x", err);
+    sls_push_error((slsError) err);
+  }
+
+  free(buffer);
+
+  return;
+  error:
+    exit(EXIT_FAILURE);
 
 }

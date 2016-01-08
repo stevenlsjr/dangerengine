@@ -65,30 +65,30 @@ struct slsContext_p {
  * slsContext static prototype
  *----------------------------------------*/
 static const slsContext sls_context_proto = {.init = sls_context_init,
-                                             .dtor = sls_context_dtor,
+    .dtor = sls_context_dtor,
 
-                                             .setup = sls_context_setup,
-                                             .teardown = sls_context_teardown,
+    .setup = sls_context_setup,
+    .teardown = sls_context_teardown,
 
-                                             .run = sls_context_run,
-                                             .iter = sls_context_iter,
-                                             .resize = sls_context_resize,
+    .run = sls_context_run,
+    .iter = sls_context_iter,
+    .resize = sls_context_resize,
 
-                                             .update = sls_context_update,
-                                             .display = sls_context_display,
+    .update = sls_context_update,
+    .display = sls_context_display,
 
-                                             .handle_event =
-                                                 sls_context_handle_event,
+    .handle_event =
+    sls_context_handle_event,
 
-                                             .is_running = SLS_FALSE,
-                                             .interval = 1000 / 60,
-                                             .priv = NULL,
-                                             .window = NULL,
-                                             .state = NULL,
-                                             .data = NULL,
+    .is_running = SLS_FALSE,
+    .interval = 1000 / 60,
+    .priv = NULL,
+    .window = NULL,
+    .state = NULL,
+    .data = NULL,
 
-                                             .pool = NULL,
-                                             .tmp_pool = NULL};
+    .pool = NULL,
+    .tmp_pool = NULL};
 
 /*----------------------------------------*
  * slsContext class functions
@@ -96,7 +96,8 @@ static const slsContext sls_context_proto = {.init = sls_context_init,
 
 slsContext const *sls_context_class() { return &sls_context_proto; }
 
-slsContext *sls_context_new(char const *caption, size_t width, size_t height) {
+slsContext *sls_context_new(char const *caption, size_t width, size_t height)
+{
 
   slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
 
@@ -108,7 +109,8 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height) {
  *----------------------------------------*/
 
 slsContext *sls_context_init(slsContext *self, char const *caption,
-                             size_t width, size_t height) {
+                             size_t width, size_t height)
+{
 
   *self = *sls_context_class();
   uint32_t window_flags;
@@ -131,7 +133,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   window_flags = SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
   self->window =
       SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                       (int)width, (int)height, window_flags);
+                       (int) width, (int) height, window_flags);
 
   sls_check(self->window, "window creation failed");
 
@@ -150,7 +152,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
     self->is_running = SLS_FALSE;
   }
   sls_log_info("\nglew version %s\n"
-               "gl version %s",
+                   "gl version %s",
                glewGetString(GLEW_VERSION), glGetString(GL_VERSION));
 
 #endif //!defined(SLS_NOGLEW)
@@ -165,7 +167,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   return self;
 
 /// exception
-error:
+  error:
 
   sls_log_err("sdl error: %s", SDL_GetError());
   if (self->dtor) {
@@ -174,7 +176,8 @@ error:
   return self;
 }
 
-slsContext *sls_context_dtor(slsContext *self) {
+slsContext *sls_context_dtor(slsContext *self)
+{
   if (self->pool) {
     apr_pool_destroy_debug(self->pool, __FILE__);
     self->pool = NULL;
@@ -182,7 +185,8 @@ slsContext *sls_context_dtor(slsContext *self) {
   return self;
 }
 
-void sls_context_run(slsContext *self) {
+void sls_context_run(slsContext *self)
+{
   if (!self->priv) {
     return;
   }
@@ -210,13 +214,14 @@ void sls_context_run(slsContext *self) {
   sls_msg(self, teardown);
 }
 
-void sls_emscripten_loop(void *vctx) {
+void sls_emscripten_loop(void *vctx)
+{
   slsContext *ctx = vctx;
   sls_msg(ctx, iter);
 }
 
-void sls_context_iter(slsContext *self) {
-  sls_context_pollevents(self);
+void sls_context_iter(slsContext *self)
+{
 
   if (!self->priv) {
     return;
@@ -232,7 +237,7 @@ void sls_context_iter(slsContext *self) {
   priv->last = now;
 
   if (priv->ticks_since_draw > self->interval) {
-    double dt = priv->ticks_since_draw / (double)SLS_TICKS_PER_SEC;
+    double dt = priv->ticks_since_draw / (double) SLS_TICKS_PER_SEC;
     // sls_log_info("dt=%f", dt);
 
     priv->ticks_since_draw = 0;
@@ -252,27 +257,32 @@ void sls_context_iter(slsContext *self) {
       apr_pool_clear(self->tmp_pool);
     }
 
+    sls_context_pollevents(self);
     self->frame_n++;
   }
 }
 
-void sls_context_resize(slsContext *self, int x, int y) {
-  glViewport(0, 0, (int)x, (int)y);
+void sls_context_resize(slsContext *self, int x, int y)
+{
+  glViewport(0, 0, (int) x, (int) y);
 
   if (self->state) {
     sls_appstate_resize(self->state, x, y);
   }
 }
 
-void sls_context_update(slsContext *self, double dt) {
+void sls_context_update(slsContext *self, double dt)
+{
   sls_appstate_update(self->state, dt);
 }
 
-void sls_context_display(slsContext *self, double dt) {
+void sls_context_display(slsContext *self, double dt)
+{
   sls_appstate_display(self->state, dt);
 }
 
-void sls_context_setup(slsContext *self) {
+void sls_context_setup(slsContext *self)
+{
   if (!self->priv) {
     assert(0);
     return;
@@ -302,7 +312,8 @@ void sls_context_setup(slsContext *self) {
   sls_msg(self, resize, x * 2, y * 2);
 }
 
-void sls_context_setupstate(slsContext *self) {
+void sls_context_setupstate(slsContext *self)
+{
   if (!self->state) {
     self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
   }
@@ -310,11 +321,16 @@ void sls_context_setupstate(slsContext *self) {
   self->state->context = self;
 }
 
-void sls_context_pollevents(slsContext *self) {
+void sls_context_pollevents(slsContext *self)
+{
 
   SDL_Event e;
 
-  if (self->handle_event) {
+  if (!self->window) {
+    assert(!"window doesn't exist");
+  }
+
+  if (self->handle_event && self->is_running) {
     while (SDL_PollEvent(&e)) {
       self->handle_event(self, &e);
     }
@@ -322,28 +338,31 @@ void sls_context_pollevents(slsContext *self) {
 }
 
 static inline void _sls_context_windowevent(slsContext *self,
-                                            SDL_WindowEvent const *we) {
+                                            SDL_WindowEvent const *we)
+{
   switch (we->event) {
-  case SDL_WINDOWEVENT_RESIZED: {
-    int w = we->data1 * 2, h = we->data2 * 2;
-    sls_msg(self, resize, w, h);
-  } break;
-  default:
-    break;
+    case SDL_WINDOWEVENT_RESIZED: {
+      int w = we->data1 * 2, h = we->data2 * 2;
+      sls_msg(self, resize, w, h);
+    }
+      break;
+    default:
+      break;
   }
 }
 
-void sls_context_handle_event(slsContext *self, SDL_Event const *e) {
+void sls_context_handle_event(slsContext *self, SDL_Event const *e)
+{
 
   switch (e->type) {
-  case SDL_QUIT:
-    self->is_running = SLS_FALSE;
-    break;
-  case SDL_WINDOWEVENT:
-    _sls_context_windowevent(self, &e->window);
-    break;
-  default:
-    break;
+    case SDL_QUIT:
+      self->is_running = SLS_FALSE;
+      break;
+    case SDL_WINDOWEVENT:
+      _sls_context_windowevent(self, &e->window);
+      break;
+    default:
+      break;
   }
   // pass event to
   if (self->state) {
@@ -351,13 +370,15 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e) {
   }
 }
 
-void sls_context_teardown(slsContext *self) {
+void sls_context_teardown(slsContext *self)
+{
   self->state = sls_appstate_dtor(self->state);
 }
 
 #ifndef __EMSCRIPTEN__
 
-int sls_get_glversion() {
+int sls_get_glversion()
+{
   int major = 0, minor = 0, major_mul = 100, minor_mul = 10, full;
 
   glGetIntegerv(GL_MAJOR_VERSION, &major);
