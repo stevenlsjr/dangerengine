@@ -2,8 +2,6 @@ dangerengine
 ==============
 OpenGL engine in C
 
-Travis!!
-![travis!!](https://travis-ci.org/dangerbird2/dangerengine.svg?branch=master)
 
 **Goals**:
 
@@ -15,13 +13,12 @@ Travis!!
 
 Project dependencies
 
-* glfw (included as git submodule)
+* SDL2 (including SDL2_IMG) (not included)
 * gtest (included as git submodule)
 * kazmath (included as git submodule)
+* chipmunk 2d (included as git submodule)
 * glew (not included)
 
-this project contains header sources from libbsd:
-    Copyright (c) 1991, 1993 The Regents of the University of California.
-    All rights reserved.
+
 
 
