@@ -48,7 +48,8 @@ static size_t _n_insertions = 0;
 static size_t _n_collisions = 0;
 
 
-void sls_hashtable_insert_with_hash(slsHashTable *self, void *key, slsHashValue const *val, uint64_t hash);
+slsHashValue const * sls_hashtable_insert_with_hash(slsHashTable *self, void *key, slsHashValue const *val,
+                                                    uint64_t hash);
 
 
 void sls_hashvalue_free(slsHashValue *val, slsFreeFn free_fn) SLS_NONNULL(1, 2);
@@ -81,8 +82,8 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
   }
 
   self->hashes = calloc(array_size, sizeof(uint64_t));
-  self->keys = calloc(array_size, sizeof(void *));
-  self->vals = calloc(array_size, sizeof(void *));
+  self->keys = calloc(array_size, sizeof(self->keys[0]));
+  self->vals = calloc(array_size, sizeof(self->vals[0]));
 
   sls_checkmem(self->hashes);
   sls_checkmem(self->keys);
@@ -127,7 +128,7 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
       for (int i = 0; i < self->array_size; ++i) {
 
         void *key = self->keys[i];
-        if (key) { free_fn(key); }
+        if (key && free_fn) { free_fn(key); }
       }
     }
     free(self->keys);
@@ -178,25 +179,22 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
 
 }
 
-void sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, slsHashValue const *val)
+slsHashValue const * sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, slsHashValue const *val)
 {
   const size_t array_size = self->array_size;
   uint64_t hash = self->hash(key, key_size);
 
-  sls_hashtable_insert_with_hash(self, key, val, hash);
-
-  //sls_log_info("%lu inserted with %lu collisions", _n_insertions, _n_collisions);
-
-
+  return sls_hashtable_insert_with_hash(self, key, val, hash);
 }
 
 
-void sls_hashtable_insert_with_hash(slsHashTable *self,
-                                    void *key,
-                                    slsHashValue const *val,
-                                    uint64_t hash)
+slsHashValue const * sls_hashtable_insert_with_hash(slsHashTable *self,
+                                                    void *key,
+                                                    slsHashValue const *val,
+                                                    uint64_t hash)
 {
   const size_t array_size = self->array_size;
+  slsHashValue *res = NULL;
 
   if (self->n_entries == array_size) {
     sls_hashtable_reserve(self, array_size * 2);
@@ -227,7 +225,7 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
                 self->key_callbacks.copy_fn(key) :
                 key;
       *v_itor = sls_hashval_cpy(val, self->val_callbacks.copy_fn);
-
+      res = v_itor;
       inserted = true;
     }
 
@@ -242,6 +240,7 @@ void sls_hashtable_insert_with_hash(slsHashTable *self,
   }
 
   self->n_entries++;
+  return res;
 }
 
 slsHashValue sls_hashval_cpy(slsHashValue const *source, slsCopyFn copy_fn)

@@ -199,7 +199,7 @@ void earth_ctx_setup(slsContext *self)
   glClearColor(0.1, 0.2, 0.4, 1.0);
 
   //glEnable(GL_BLEND_COLOR);
-  glEnable(GL_CULL_FACE);
+  //glEnable(GL_CULL_FACE);
 
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
@@ -212,8 +212,6 @@ void earth_mv_setup(slsContext *self)
   kmMat4Identity(&data.earth_transform);
 
   sls_trackball_init(&data.trackball, 4.f, 2.f);
-
-
 }
 
 void earth_setup_framebuffer(slsContext *self)

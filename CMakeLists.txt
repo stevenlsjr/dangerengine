@@ -163,6 +163,8 @@ add_custom_target(sls_resources
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -fblocks")
+set(CMAKE_C_FLAGS_DEBUG  "${CMAKE_C_FLAGS_DEBUG} -std=gnu11 -fblocks")
+set(CMAKE_C_FLAGS_RELEASE   "${CMAKE_C_FLAGS_RELEASE} -std=gnu11 -fblocks")
 
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")

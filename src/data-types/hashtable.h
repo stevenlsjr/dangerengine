@@ -38,6 +38,7 @@
 #define DANGERENGINE_HASHTABLE_H
 
 #include <stdlib.h>
+#include <inttypes.h>
 #include <data-types/array.h>
 #include <data-types/callbacks.h>
 #include "../slsutils.h"
@@ -134,7 +135,7 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
 
 void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
 
-void sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, slsHashValue const *val) SLS_NONNULL(1, 2, 4);
+slsHashValue const * sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, slsHashValue const *val) SLS_NONNULL(1, 2, 4);
 
 void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size) SLS_NONNULL(1);
 
@@ -206,7 +207,7 @@ static inline slsHashValue sls_double_hashvalue(double val)
   return v;
 }
 
-#define sls_hashvalue(val)  _Generic((val),             \
+#define sls_hashvalue(val)  _Generic(val,             \
     int8_t: sls_int_hashvalue,        /* INT overloads*/ \
     int16_t: sls_int_hashvalue,                         \
     int32_t: sls_int_hashvalue,                         \
@@ -220,6 +221,7 @@ static inline slsHashValue sls_double_hashvalue(double val)
     long double:  sls_double_hashvalue,                 \
     default: sls_prt_hashvalue          /* otherwise, voidptr */ \
   )((val))
+
 
 
 #endif //DANGERENGINE_HASHTABLE_H

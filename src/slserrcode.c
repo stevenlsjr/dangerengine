@@ -58,6 +58,9 @@ void sls_push_error(slsError err)
 
   pthread_mutex_lock(&err_lock);
   // push code to top of stack
+  if (SLS_ERRSTACK_MAXSIZE <= error_stack_count) {
+    error_stack_count = 0;
+  }
   error_stack[error_stack_count] = err;
 
   ++error_stack_count;
@@ -131,6 +134,17 @@ void sls_teardown_errstack()
 
 }
 
+void sls_push_glerrors(GLenum const *errs, size_t n_errors, char const *fn_name)
+{
+  char const *_fn_name = fn_name? fn_name: "";
+
+  for (int i=0; i<n_errors; ++i){
+    GLenum err = errs[i];
+    //sls_log_err("%s glError: %x", _fn_name err);
+    sls_push_error((slsError) err);
+  }
+}
+
 void sls_glerror_unwind()
 {
   GLenum err = GL_NO_ERROR;
@@ -146,16 +160,18 @@ void sls_glerror_unwind()
       buff_size *= 2;
       buffer = realloc(buffer, buff_size);
     }
+    if (n_errors > buff_size) {
+      sls_push_glerrors(buffer, n_errors, NULL);
+      n_errors = 0;
+    }
     buffer[n_errors] = err;
 
     n_errors++;
   }
 
-  for (int i=0; i<n_errors; ++i){
-    err = buffer[i];
-    sls_log_err("glError: %x", err);
-    sls_push_error((slsError) err);
-  }
+  sls_push_glerrors(buffer, n_errors, NULL);
+
+
 
   free(buffer);
 

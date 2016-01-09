@@ -20,9 +20,9 @@ struct slsLocationTable {
 slsLocationTable *sls_locationtable_init(slsLocationTable *self);
 slsLocationTable *sls_locationtable_dtor(slsLocationTable *self);
 
-GLuint const * sls_locationtable_get(slsLocationTable *self, char const *name);
+size_t * sls_locationtable_get(slsLocationTable *self, char const *name);
 GLuint sls_locationtable_get_val(slsLocationTable *self, char const *name);
-GLuint const * sls_locationtable_set(slsLocationTable *self, char const *name, GLuint location);
+size_t const * sls_locationtable_set(slsLocationTable *self, char const *name, GLuint location);
 
 void sls_locationtable_remove(slsLocationTable *self, char const *name);
 

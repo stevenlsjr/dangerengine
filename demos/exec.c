@@ -42,7 +42,7 @@ static DemoCtx demo = {};
 
 //---------------------------------context method implementations---------------------------------------
 
-void demo_setup(slsContext *self) SLS_NONNULL(1)
+void demo_setup(slsContext *self)
 {
   sls_context_setup(self);
 
@@ -50,23 +50,23 @@ void demo_setup(slsContext *self) SLS_NONNULL(1)
   assert(&ctx->super == self);
 }
 
-void demo_teardown(slsContext *self) SLS_NONNULL(1)
+void demo_teardown(slsContext *self)
 {
   // code here
   sls_context_teardown(self);
 }
 
-void demo_resize(slsContext *self, int x, int y) SLS_NONNULL(1)
+void demo_resize(slsContext *self, int x, int y)
 {
   sls_context_resize(self, x, y);
 }
 
-void demo_update(slsContext *self, double dt) SLS_NONNULL(1)
+void demo_update(slsContext *self, double dt)
 {
   sls_context_update(self, dt);
 }
 
-void demo_display(slsContext *self, double dt) SLS_NONNULL(1)
+void demo_display(slsContext *self, double dt)
 {
   sls_context_display(self, dt);
 }
