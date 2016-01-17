@@ -11,7 +11,11 @@ OpenGL engine in C
 * Ensure a portable build-including deployments for the browser via emscripten
 
 
-Project dependencies
+## note:
+this branch is undergoing major refactoring and
+is not functional now
+
+## Project dependencies
 
 * SDL2 (including SDL2_IMG) (not included)
 * gtest (included as git submodule)
