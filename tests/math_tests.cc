@@ -64,62 +64,6 @@ TEST_F(IPointTests, IDiv)
 
 #include <kazmath/kazmath.h>
 
-class TransformTest: public ::testing::Test {
-protected:
-  slsTransform a;
-  slsTransform b;
-  kmMat4 mat;
-
-  virtual void SetUp()
-  {
-    sls_transform_init(&a);
-    sls_transform_init(&b);
-
-    kmMat4 tr, scale, rot, acc;
-    kmMat4Translation(&tr, 0.0, 1.0, -1.0);
-    kmMat4Scaling(&scale, 2.0, 2.0 ,2.0);
-    kmMat4RotationX(&rot, 90.0 * M_PI/180.0);
-
-    kmMat4Multiply(&acc, &scale, &rot);
-
-    scale = acc;
-    kmMat4Multiply(&acc, &tr, &scale);
-
-    mat = acc;
-    sls_transform_set_modelview(&a, &mat);
-
-  }
-  virtual void TearDown()
-  {
-    sls_transform_dtor(&a);
-    sls_transform_dtor(&b);
-  }
-
-};
-
-
-TEST_F(TransformTest, GetModelview)
-{
-  auto mv = sls_transform_get_modelview(&a);
-  ASSERT_TRUE(kmMat4AreEqual(mv, &mat));
-}
-
-
-TEST_F(TransformTest, GetInverseView)
-{
-  auto imv = sls_transform_get_inverse_modelview(&a);
-  kmMat4 inverse;
-  ASSERT_TRUE(kmMat4AreEqual(kmMat4Inverse(&inverse, &mat), imv));
-}
-
-TEST_F(TransformTest, GetNormalView)
-{
-  kmMat4 normal, inv;
-  kmMat4Transpose(&normal, kmMat4Inverse(&inv, &mat));
-  ASSERT_TRUE(kmMat4AreEqual(&normal,
-                             sls_transform_get_normalview(&a)));
-}
-
 class MatStackTest : public ::testing::Test {
 
 protected:

@@ -41,9 +41,6 @@
 #include <string.h>
 
 
-
-
-
 struct slsArray_p {
   size_t length;
   size_t alloc_size;
@@ -69,6 +66,7 @@ slsArray *sls_array_new(void const *array, size_t element_size, size_t n_element
   if (self) {
     self = sls_msg(self, init, array, element_size, n_elements);
   }
+
   return self;
 }
 
@@ -249,6 +247,8 @@ void sls_array_reserve(slsArray *self, size_t count)
 
     p->array = realloc(p->array, new_size * p->element_size);
     sls_checkmem(p->array);
+
+
   }
 
   return;

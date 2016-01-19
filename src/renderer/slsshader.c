@@ -43,6 +43,7 @@
 #include <apr_pools.h>
 #include <sls-gl.h>
 #include <assert.h>
+#include <data-types/slsPool.h>
 #include "slsshader.h"
 
 static slsShader shader_proto = {
@@ -51,13 +52,12 @@ static slsShader shader_proto = {
 
 slsShader const *sls_shader_proto() { return &shader_proto; }
 
-slsShader *sls_shader_init(slsShader *self, apr_pool_t *parent_pool,
+slsShader *sls_shader_init(slsShader *self, slsPool *parent_pool,
                            GLuint program)
 {
   *self = *sls_shader_proto();
 
-  apr_status_t res = apr_pool_create(&self->pool, parent_pool);
-  sls_checkmem(res == APR_SUCCESS);
+  sls_checkmem(self->pool);
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
 
@@ -86,7 +86,6 @@ slsShader *sls_shader_dtor(slsShader *self)
   sls_locationtable_dtor(&self->unif_table);
 
   if (self->pool) {
-    apr_pool_destroy(self->pool);
     self->pool = NULL;
   }
 

@@ -25,12 +25,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-
-#include <apr_strings.h>
-#include <apr_pools.h>
-#include <apr_hash.h>
-#include <apr_tables.h>
-
-
+#include <kazmath/kazmath.h>
 
 #endif //DANGERENGINE_SLS_COMMONLIBS_H

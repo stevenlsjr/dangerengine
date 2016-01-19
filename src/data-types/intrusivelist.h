@@ -11,7 +11,7 @@
 #define SLS_LIST_FIELDNAME _ilist_field
 
 /**
- * @brief adds intrusive linked list field to a structure
+ * @brief Macro for defining intrusive linked list fields as a structure
  */
 #define SLS_INTRUSIVE_FIELDS(typename, field_name) struct {\
   typename *prev; \

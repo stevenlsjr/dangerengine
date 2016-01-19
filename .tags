@@ -1,10 +1,6 @@
-F	/Users/Shea/Documents/projects/dangerengine/R	/^A1	.\/extern\/googlemock\/include\/gmock\/gmock-ge/
-add_custom_command	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^add_custom_command($/
-add_library	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^add_library(dangerengine ${DANGER_SRC} ${DANGER_RE/
-cmake_minimum_required	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^cmake_minimum_required(VERSION 2.8)$/
-file	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}$/
-glew	/Users/Shea/Documents/projects/dangerengine/README.md	/^* glew (not included)$/
-if	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")$/
-include_directories	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^    include_directories($/
-set	/Users/Shea/Documents/projects/dangerengine/engine_src.cmake	/^set (DANGER_SRC$/
-target_link_libraries	/Users/Shea/Documents/projects/dangerengine/CMakeLists.txt	/^target_link_libraries(dangerbird_bin$/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//

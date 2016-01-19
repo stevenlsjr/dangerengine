@@ -8,6 +8,8 @@
 #ifndef DANGERENGINE_SLSLOCATIONTABLE_H
 #define DANGERENGINE_SLSLOCATIONTABLE_H
 
+
+#include <sys/rbtree.h>
 #include <data-types/hashtable.h>
 #include <sls-gl.h>
 

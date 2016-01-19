@@ -9,7 +9,7 @@
 #define DANGERENGINE_SLSCAMERA_H
 
 #include <stdbool.h>
-#include "slsTransform2D.h"
+#include <sls-commonlibs.h>
 
 typedef struct slsCamera slsCamera;
 
@@ -30,8 +30,6 @@ struct slsCamera {
 
   kmMat4 frustrum;
 
-  slsTransform2D transform;
-  slsEntity *e;
 };
 
 void sls_camera_resize(slsCamera *camera, int x, int y) SLS_NONNULL(1);

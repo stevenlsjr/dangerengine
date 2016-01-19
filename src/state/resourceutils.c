@@ -8,10 +8,11 @@
 #include <MacTypes.h>
 #include <renderer/slsshader.h>
 #include <renderer/shaderutils.h>
+#include <renderer/slsmaterial.h>
 #include "resourceutils.h"
 #include "slsAppState.h"
-#include "slsBehavior.h"
 
+#if 0
 slsMaterial *sls_load_texture(slsAppState *state,
                               char const *name,
                               char const *diffuse_map,
@@ -22,13 +23,13 @@ slsMaterial *sls_load_texture(slsAppState *state,
   slsMaterial *tex = NULL;
   tex = sls_texture_new(diffuse_map, spec_map, norm_map);
   sls_checkmem(tex);
-
+#if 0
 
   sls_check(apr_hash_get(state->textures, name, APR_HASH_KEY_STRING),
             "texture with key %s already exists", name);
 
   apr_hash_set(state->textures, name, APR_HASH_KEY_STRING, tex);
-
+#endif
   return tex;
 
   error:
@@ -78,3 +79,4 @@ slsMaterial *sls_get_texture(slsAppState *state, char const *name)
 {
   return NULL;
 }
+#endif

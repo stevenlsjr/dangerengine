@@ -154,4 +154,19 @@
 #define sls_msg(obj, method, ...) (obj)->method((obj), ##__VA_ARGS__)
 
 
+//---------------------------------degugging helpers---------------------------------------
+
+
+#ifndef _MSC_VER
+/**
+ * @brief Raises an appropriate signal to break execution in a debugger
+ * @detail Because Windows apparently does not respond to SIGNINT, the macro raises
+ * SIGABRT to break execution. To allow continued execution, call `signal 0` or a corresponding
+ * debugger command.
+ */
+#   define SLS_DEBUGGER_BREAKPT() raise(SIGINT)
+#else
+#   define SLS_DEBUGGER_BREAKPT() raise(SIGABRT)
+#endif
+
 #endif //DANGERENGINE_SLSMACROS_H

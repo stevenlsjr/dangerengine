@@ -44,7 +44,7 @@ slsLocationTable *sls_locationtable_dtor(slsLocationTable *self)
 
 size_t * sls_locationtable_get(slsLocationTable *self, char const *name)
 {
-  slsHashValue *val = sls_hashtable_find(&self->ht, name, 0);
+  slsHashValue *val = sls_hashtable_find(&self->ht, name, SLS_STRING_LENGTH);
   if (val && val->type == SLS_SIZE_T) {
     return &val->size_tval;
 
@@ -61,6 +61,7 @@ size_t const * sls_locationtable_set(slsLocationTable *self, char const *name, G
   slsHashValue const *res = sls_hashtable_insert(&self->ht, (void*)name, 0, &v);
 
   sls_check(res && res->type == SLS_SIZE_T, "invalid result");
+  sls_check(res->int64val == location, "resulting value does not equal location parameter");
 
   return &res->size_tval;
   error:

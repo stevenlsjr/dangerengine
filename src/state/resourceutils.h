@@ -12,12 +12,12 @@ typedef struct slsAppState slsAppState;
 typedef struct slsMaterial slsMaterial;
 typedef struct slsShader slsShader;
 
-slsMaterial *sls_load_texture(slsAppState *state,
-                              char const *name,
-                              char const *diffuse_map,
-                              char const *spec_map,
-                              char const *norm_map,
-                              bool path_is_absolute);
+slsMaterial *sls_load_material(slsAppState *state,
+                               char const *name,
+                               char const *diffuse_map,
+                               char const *spec_map,
+                               char const *norm_map,
+                               bool path_is_absolute);
 
 slsShader *sls_load_shader(slsAppState *state,
                            char const *name,

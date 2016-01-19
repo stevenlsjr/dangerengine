@@ -12,8 +12,7 @@
 #define DANGERENGINE_SLSAPPSTATE_H
 
 #include "../slsutils.h"
-#include <apr_hash.h>
-#include <apr_pools.h>
+#include <renderer/slsshader.h>
 
 #include "../math/math-types.h"
 #include "../math/slsMatrixStack.h"
@@ -21,9 +20,8 @@
 #include <sls-gl.h>
 
 #include <SDL2/SDL.h>
-#include "slsEntity.h"
+#include <data-types/slsPool.h>
 
-typedef struct slsEntity slsEntity;
 typedef struct slsAppState slsAppState;
 typedef struct slsPlayerInput slsPlayerInput;
 
@@ -76,26 +74,22 @@ typedef struct slsContext slsContext;
  */
 struct slsAppState {
 
-  apr_hash_t *images;
-  apr_hash_t *shaders;
-  apr_hash_t *textures;
 
   slsPlayerInput input;
 
   GLuint shader;
 
-  slsCamera *active_camera;
   slsShader *active_shader;
 
   slsMatrixStack model_view;
 
   kmMat4 projection;
 
-  slsEntity *root;
-
   slsContext *context;
 
-  apr_pool_t *pool;
+  slsPool *pool;
+  slsPool *tmp_pool;
+
 };
 
 /**
@@ -105,7 +99,7 @@ void sls_appstate_clearinput(slsAppState *state);
 
 void sls_appstate_handle_input(slsAppState *state, SDL_Event const *event);
 
-slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
+slsAppState *sls_appstate_init(slsAppState *self, slsPool *parent_pool)
     SLS_NONNULL();
 
 slsAppState *sls_appstate_dtor(slsAppState *self);

@@ -42,6 +42,7 @@
 #include <apr_pools.h>
 #include <apr_hash.h>
 #include <data-types/hashtable.h>
+#include <data-types/slsPool.h>
 #include "slsLocationTable.h"
 
 typedef struct slsShader slsShader;
@@ -50,7 +51,7 @@ typedef struct slsShader slsShader;
 
 struct slsShader {
   slsShader *(*init)(slsShader *self,
-                     apr_pool_t *parent_pool,
+                     slsPool *parent_pool,
                      GLuint program) SLS_NONNULL(1, 2);
 
   slsShader *(*dtor)(slsShader *self) SLS_NONNULL(1);
@@ -61,14 +62,14 @@ struct slsShader {
   slsLocationTable attr_table;
   slsLocationTable unif_table;
 
-  apr_pool_t *pool;
+  slsPool *pool;
   void *data;
 };
 
 slsShader const *sls_shader_proto();
 
 slsShader *sls_shader_init(slsShader *self,
-                           apr_pool_t *parent_pool,
+                           slsPool *parent_pool,
                            GLuint program) SLS_NONNULL(1, 2);
 
 slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);

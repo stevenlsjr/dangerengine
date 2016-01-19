@@ -29,14 +29,19 @@ set(DANGER_SRC
   src/slserrcode.c
   src/slserrcode.h
 
+  src/cppapi.h
+  src/slsmacros.h
+
   src/math/mathmacs.h
   src/math/mathmacs.c
   src/math/math-types.c
   src/math/math-types.h
-  src/math/slsTransform2D.c
-  src/math/slsTransform2D.h
   src/math/slsMatrixStack.c
   src/math/slsMatrixStack.h
+  src/math/slsTrackball.c src/math/slsTrackball.h
+  src/math/slsCamera.c
+  src/math/slsCamera.h
+
 
   #data types
   src/data-types/callbacks.h
@@ -49,6 +54,8 @@ set(DANGER_SRC
   src/data-types/linkedlist.c
   src/data-types/hashtable.c
   src/data-types/hashtable.h
+  src/data-types/intrusivelist.h
+
 
   #renderer types
   src/renderer/slsmesh.c
@@ -59,39 +66,22 @@ set(DANGER_SRC
   src/renderer/slsshader.h
   src/renderer/shaderutils.c
   src/renderer/shaderutils.h
-  src/renderer/slsSpriteRenderer.c
-  src/renderer/slsSpriteRenderer.h
-  src/state/slsSprite.c
-  src/state/slsSprite.h
 
   # game state machine
-  src/state/slsEntity.h
-  src/state/slsEntity.c
 
   src/state/slsAppState.c
   src/state/slsAppState.h
-  src/state/slsEntityDraw.c
-  src/state/slsEntityDraw.h
-  src/math/slsCamera.c
-  src/math/slsCamera.h
-  src/state/slsBehavior.c
-  src/state/slsBehavior.h
   src/state/resourceutils.c
   src/state/resourceutils.h
-  src/data-types/intrusivelist.h
-  src/renderer/slsTTFText.c
-  src/renderer/slsTTFText.h
+
   src/sls-commonlibs.h
-  src/state/slsPhysics.c
-  src/state/slsPhysics.h
-  src/math/slsTransform.c
-  src/math/slsTransform.h
+
   src/sls-build-dir.c
   src/sls-build-dir.h
   src/renderer/slsLight.c src/renderer/slsLight.h
-  src/cppapi.h
-  src/math/slsTrackball.c src/math/slsTrackball.h
-  src/math/slsTransform3D.c src/math/slsTransform3D.h src/math/slsTransform_private.h src/renderer/slsLocationTable.c src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h src/slsmacros.h)
+  src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
+
+  src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/data-types.h)
 
 
 # tests compiled in c
@@ -105,13 +95,18 @@ set(DANGER_TEST_SRC
   tests/math_tests.cc
   tests/main.cc
   tests/utiltests.cc
-  tests/ecs-tests.cc
-  tests/render_tests.cc
-  tests/image_tests.cc
   tests/hash-tests.cc
   tests/ptrarray-tests.cc
   tests/array-tests.cc
-  tests/list-tests.cc tests/LocationTableTests.cc)
+  tests/list-tests.cc
+  tests/LocationTableTests.cc
+
+  #TODO test context once refactoring begins
+
+  #tests/render_tests.cc
+  #tests/image_tests.cc
+
+  )
 
 
 set(CLIENT_SRC
@@ -229,7 +224,9 @@ include_directories(
   ${APR_INCLUDE_DIRS}
   ${APR_UTIL_INCLUDE_DIRS}
   /usr/local/Cellar/apr/1.5.1/libexec/include/apr-1
-  /usr/local/Cellar/apr-util/1.5.4/include/apr-1)
+  /usr/local/Cellar/apr-util/1.5.4/include/apr-1
+  extern/uthash/src
+)
 
 get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 
@@ -257,10 +254,6 @@ add_executable(client
   ${CLIENT_SRC})
 
 target_link_libraries(client dangerengine)
-
-#---------------------------------------
-# objective c library
-#---------------------------------------
 
 
 # copy resources on build
@@ -323,6 +316,12 @@ if (DOXYGEN_FOUND)
     ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating API documentation with Doxygen" VERBATIM)
+  add_custom_target(view-html-docs
+    open ./html/index.html
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "opening html docs")
+
+  add_dependencies(view-html-docs doc)
 
 
 endif (DOXYGEN_FOUND)

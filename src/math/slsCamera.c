@@ -54,7 +54,6 @@ slsCamera *sls_camera_init(slsCamera *self)
 {
   self->is_perspective = false;
 
-  sls_transform2d_init(&self->transform);
 
 
   self->ortho.far = (float)-50.0;

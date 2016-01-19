@@ -35,8 +35,8 @@
  *policies,
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include <renderer/slsshader.h>
+#include <math/slsCamera.h>
 #include "slsAppState.h"
-#include "slsEntity.h"
 
 void sls_appstate_keyevent(slsAppState *self, SDL_KeyboardEvent const *pEvent,
                            SDL_EventType type);
@@ -47,15 +47,8 @@ void sls_appstate_mousemotion(slsAppState *self,
 void sls_appstate_mousebutton(slsAppState *self,
                               SDL_MouseButtonEvent const *pEvent);
 
-slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
+slsAppState *sls_appstate_init(slsAppState *self, slsPool *parent_pool)
 {
-  sls_check(apr_pool_create(&self->pool, parent_pool) == APR_SUCCESS,
-            "pool creation failed");
-
-  self->images = apr_hash_make(self->pool);
-  sls_checkmem(self->images);
-
-  self->shaders = apr_hash_make(self->pool);
 
   SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
 
@@ -72,52 +65,11 @@ slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 
 slsAppState *sls_appstate_dtor(slsAppState *self)
 {
-  apr_pool_t *tmp;
-  apr_pool_create(&tmp, self->pool);
 
-  if (self->root) {
-    for (slsEntity *e = self->root->il.next; e != NULL && e != self->root;
-         e = e->il.next) {
-      sls_msg(e, dtor);
-    }
 
-    sls_msg(self->root, dtor);
-  }
-
-  if (self->textures) {
-    for (apr_hash_index_t *itor = apr_hash_first(tmp, self->textures); itor;
-         itor = apr_hash_next(itor)) {
-      slsMaterial *tex;
-      apr_hash_this(itor, NULL, NULL, (void **) &tex);
-      if (tex) {
-        sls_msg(tex, dtor);
-      }
-    }
-  }
-
-  if (self->shaders) {
-
-    for (apr_hash_index_t *itor = apr_hash_first(tmp, self->shaders); itor;
-         itor = apr_hash_next(itor)) {
-      slsShader *shader;
-      apr_hash_this(itor, NULL, NULL, (void **) &shader);
-      if (shader) {
-        sls_msg(shader, dtor);
-      }
-    }
-  }
-
-  if (self->root && self->root->dtor) {
-    sls_msg(self->root, dtor);
-  }
 
   sls_matrix_stack_dtor(&self->model_view);
 
-  apr_pool_destroy(tmp);
-
-  if (self->pool) {
-    apr_pool_destroy_debug(self->pool, __FILE__);
-  }
 
   return self;
 }
@@ -234,15 +186,6 @@ void sls_appstate_update(slsAppState *self, double dt)
 
   slsPlayerInput *inp = &self->input;
 
-  if (self->root) {
-    sls_entity_update(self->root, self, dt);
-
-    for (slsEntity *e = self->root->il.next; e != NULL && e != self->root;
-         e = e->il.next) {
-
-      sls_entity_update(e, self, dt);
-    }
-  }
 }
 
 void sls_appstate_display(slsAppState *self, double dt)
@@ -250,35 +193,13 @@ void sls_appstate_display(slsAppState *self, double dt)
   sls_matrix_glreset(&self->model_view);
   kmMat4 *top = sls_matrix_stack_peek(&self->model_view);
   // set camera view
-  if (top && self->active_camera) {
 
-    kmMat4 inv;
-
-    sls_transform2D_to_matrix(&self->active_camera->transform, &inv);
-    kmMat4Inverse(top, &inv);
-
-    sls_matrix_glpush(&self->model_view);
-  }
-
-  if (self->root) {
-    sls_entity_display(self->root, self, dt);
-  }
 }
 
 void sls_appstate_resize(slsAppState *self, int x, int y)
 {
-  slsCamera *cam;
   kmMat4 frustrum;
-
-  float aspect = x / (float) y;
-  if (self->active_camera) {
-    cam = self->active_camera;
-    sls_camera_resize(cam, x, y);
-    frustrum = cam->frustrum;
-  } else {
-    kmMat4OrthographicProjection(&frustrum, -aspect, aspect, -1.0f, 1.0f, -1.0f,
-                                 1.0f);
-  }
+  kmMat4Identity(&frustrum);
 
   if (self->active_shader) {
     char const *projection = "projection";

@@ -49,17 +49,10 @@ extern "C" {
 
 #include "contexthandlers.h"
 
-#include "data-types/callbacks.h"
-#include "data-types/array.h"
-#include "data-types/ptrarray.h"
-#include "data-types/linkedlist.h"
-#include "data-types/hashtable.h"
+#include "data-types/data-types.h"
 
 #include "math/mathmacs.h"
 #include "math/math-types.h"
-#include "math/slsTransform.h"
-#include "math/slsTransform2D.h"
-#include "math/slsTransform3D.h"
 #include "math/slsMatrixStack.h"
 #include "math/slsTrackball.h"
 
@@ -71,15 +64,8 @@ extern "C" {
 #include "renderer/slsTTFText.h"
 #include "renderer/slsLight.h"
 
-#include "state/slsSprite.h"
-
-#include "state/slsEntity.h"
 #include "state/slsAppState.h"
-#include "state/slsBehavior.h"
-#include "state/slsEntityDraw.h"
 #include "state/resourceutils.h"
-#include "state/slsPhysics.h"
-#include "state/slsSprite.h"
 
 #include "objc/DangerengineFW.h"
 

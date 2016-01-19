@@ -46,7 +46,6 @@
 #include <assert.h>
 
 #include "contexthandlers.h"
-#include <apr_errno.h>
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -99,7 +98,8 @@ slsContext const *sls_context_class() { return &sls_context_proto; }
 slsContext *sls_context_new(char const *caption, size_t width, size_t height)
 {
 
-  slsContext *self = sls_objalloc(sls_context_class(), sizeof(slsContext));
+  slsContext *self = sls_objalloc(sls_context_class(),
+                                  sizeof(slsContext));
 
   return self->init(self, caption, width, height);
 }
@@ -122,10 +122,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
     sls_check(res, "initialization failed!");
   }
   self->pool = NULL;
-  apr_status_t res = apr_pool_create(&self->pool, NULL);
-  char buffer[20];
-  sls_check(res == APR_SUCCESS, "pool creation failed: %s",
-            apr_strerror(res, buffer, 20));
+
   sls_checkmem(self->pool);
 
   // create sdl window
@@ -149,7 +146,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   glew = glewInit();
   if (glew != GLEW_OK) {
     sls_log_err("glew error: %s", glewGetErrorString(glew));
-    self->is_running = SLS_FALSE;
+    self->is_running = false;
   }
   sls_log_info("\nglew version %s\n"
                    "gl version %s",
@@ -161,8 +158,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
   sls_checkmem(apr_pool_create(&self->tmp_pool, self->pool) == APR_SUCCESS);
 
-  self->priv = apr_pcalloc(self->pool, sizeof(slsContext_p));
-  sls_checkmem(self->priv);
 
   return self;
 
@@ -178,10 +173,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
 slsContext *sls_context_dtor(slsContext *self)
 {
-  if (self->pool) {
-    apr_pool_destroy_debug(self->pool, __FILE__);
-    self->pool = NULL;
-  }
   return self;
 }
 
