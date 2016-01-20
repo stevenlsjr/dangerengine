@@ -89,8 +89,9 @@ struct slsCallbackTable {
  * @brief does not copy pointer,
  * instead casting it as non-const and returning
  * the value.
- * @detail used when you wish to store a raw pointer without
- * managing its memory within the structure
+ * @detail Used when you wish to store a raw pointer without
+ * managing its memory within the structure. By default, storing
+ * keys by assign removes const-safety.
  */
 void *sls_copy_assign(void const *ptr);
 

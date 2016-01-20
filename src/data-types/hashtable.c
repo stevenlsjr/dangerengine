@@ -45,24 +45,10 @@
 #include <tgmath.h>
 
 
-#include <uthash.h>
 
 
-struct slsHashtable_p {
+void const * sls_hashtable_insert_with_hash(slsHashTable *self, void const *key, void const *val, uint64_t hash);
 
-};
-
-static size_t _n_insertions = 0;
-static size_t _n_collisions = 0;
-
-
-slsHashValue const *sls_hashtable_insert_with_hash(slsHashTable *self, void *key, slsHashValue const *val,
-                                                   uint64_t hash);
-
-
-void sls_hashvalue_free(slsHashValue *val, slsFreeFn free_fn) SLS_NONNULL(1, 2);
-
-slsHashValue sls_hashval_cpy(slsHashValue const *source, slsCopyFn copy_fn);
 
 /**
  * @brief hashes a null-terminated string
@@ -85,16 +71,9 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
       .key_callbacks = (key_cback) ? *key_cback : (slsCallbackTable) {},
       .val_callbacks = (val_cback) ? *val_cback : (slsCallbackTable) {}};
 
-  if (array_size < 8) {
-    array_size = SLS_DEFAULT_HT_CAPACITY;
-  }
-
-  if (key_cback){self->key_callbacks = *key_cback;}
-  if (val_cback){self->val_callbacks = *val_cback;}
-
   self->hashes = calloc(array_size, sizeof(uint64_t));
-  self->keys = calloc(array_size, sizeof(self->keys[0]));
-  self->vals = calloc(array_size, sizeof(self->vals[0]));
+  self->keys = calloc(array_size, sizeof(void *));
+  self->vals = calloc(array_size, sizeof(void *));
 
   sls_checkmem(self->hashes);
   sls_checkmem(self->keys);
@@ -125,9 +104,8 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
     slsFreeFn free_fn = self->val_callbacks.free_fn;
     if (free_fn) {
       for (int i = 0; i < self->array_size; ++i) {
-        slsHashValue v = self->vals[i];
-        // only release pointer values
-        if (v.type == SLS_VOIDPTR) { free_fn(v.ptrvalue); }
+        void *v = self->vals[i];
+        if (v) { free_fn(v); }
       }
     }
     free(self->vals);
@@ -139,7 +117,7 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
       for (int i = 0; i < self->array_size; ++i) {
 
         void *key = self->keys[i];
-        if (key && free_fn) { free_fn(key); }
+        if (key) { free_fn(key); }
       }
     }
     free(self->keys);
@@ -163,25 +141,25 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
 
   size_t old_size = self->array_size;
 
-  typeof(self->hashes) hashes = self->hashes;
-  typeof(self->keys) keys = self->keys;
-  typeof(self->vals) vals = self->vals;
+  uint64_t *hashes = self->hashes;
+  void **keys = self->keys;
+  void **vals = self->vals;
   sls_checkmem(hashes);
   sls_checkmem(keys);
   sls_checkmem(vals);
 
 
-  self->keys = calloc(n_items, sizeof(self->keys[0]));
-  self->vals = calloc(n_items, sizeof(self->vals[0]));
-  self->hashes = calloc(n_items, sizeof(self->hashes[0]));
+  self->keys = calloc(n_items, sizeof(void **));
+  self->vals = calloc(n_items, sizeof(void **));
+  self->hashes = calloc(n_items, sizeof(uint64_t));
 
   sls_checkmem(self->hashes);
   sls_checkmem(self->keys);
   sls_checkmem(self->vals);
 
   for (int i = 0; i < old_size; ++i) {
-    if (keys[i] && vals[i].is_active)
-      sls_hashtable_insert_with_hash(self, keys[i], vals + i, hashes[i]);
+    if (keys[i] && vals[i] && !sls_is_hash_sentinel(keys[i]))
+      sls_hashtable_insert_with_hash(self, keys[i], vals[i], hashes[i]);
   }
   return;
 
@@ -190,28 +168,20 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
 
 }
 
-slsHashValue const *sls_hashtable_insert(slsHashTable *self, void *key, size_t key_size, slsHashValue const *val)
+void const * sls_hashtable_insert(slsHashTable *self, void const *key, size_t key_size, void const *val)
 {
-  const size_t array_size = self->array_size;
   uint64_t hash = self->hash(key, key_size);
 
   return sls_hashtable_insert_with_hash(self, key, val, hash);
 }
 
 
-slsHashValue const *sls_hashtable_insert_with_hash(slsHashTable *self,
-                                                   void *key,
-                                                   slsHashValue const *val,
-                                                   uint64_t hash)
+void const * sls_hashtable_insert_with_hash(slsHashTable *self,
+                                            void const *key,
+                                            void const *val,
+                                            uint64_t hash)
 {
-  assert(self);
-  assert(self->keys);
-  assert(self->vals);
   const size_t array_size = self->array_size;
-  slsHashValue *res = NULL;
-
-  slsCmpFn cmpFn = self->key_callbacks.cmp_fn ?
-                   self->key_callbacks.cmp_fn : sls_cmp_voidptr;
 
   if (self->n_entries == array_size) {
     sls_hashtable_reserve(self, array_size * 2);
@@ -219,102 +189,66 @@ slsHashValue const *sls_hashtable_insert_with_hash(slsHashTable *self,
 
   bool inserted = false;
 
+  void *val_res = NULL;
+
   for (size_t i = 0; !inserted; ++i) {
+    size_t probe = hash + (i * i);
+    size_t idx = probe % array_size;
+    void **k_itor = self->keys + idx;
+    void **v_itor = self->vals + idx;
 
-    size_t probe = sls_hashtable_probe_next(self, hash, i, NULL);
-
-
-    void **pkey = self->keys + probe;
-    slsHashValue *pval = self->vals + probe;
-
-    if (!*pkey && !sls_is_hash_sentinel(*pkey)) {
-      inserted = true;
-    } else if (cmpFn(key, self->keys[i]) == 0) {
-      // replace existing key if already exists
+    if (*k_itor && self->key_callbacks.cmp_fn(*k_itor, key) == 0) {
       if (self->key_callbacks.free_fn) {
-        self->key_callbacks.free_fn(self->keys[i]);
-      }
-
-      if (self->key_callbacks.free_fn) {
-        self->key_callbacks.free_fn(*pkey);
+        self->key_callbacks.free_fn(*k_itor);
       }
       if (self->val_callbacks.free_fn) {
-        self->val_callbacks.free_fn(val->ptrvalue);
-        self->val_callbacks.free_fn(val->ptrvalue);
+        self->val_callbacks.free_fn(*v_itor);
       }
-      self->n_entries--;
-      inserted = true;
+      *k_itor = NULL;
     }
 
-    if (inserted) {
-      if (self->key_callbacks.copy_fn) {
-        *pkey = self->key_callbacks.copy_fn(key);
-      } else { *pkey = key; }
+    if (!*k_itor) {
+      *k_itor = self->key_callbacks.copy_fn ?
+                self->key_callbacks.copy_fn(key) :
+                sls_copy_assign(key);
+      *v_itor = self->val_callbacks.copy_fn ?
+                self->val_callbacks.copy_fn(val) :
+                sls_copy_assign(val);
 
-      *pval = *val;
-      pval->is_active = true;
-      if (self->val_callbacks.copy_fn) {
-        pval->ptrvalue = self->val_callbacks.copy_fn(val->ptrvalue);
-      }
+      val_res = *v_itor;
 
-      self->hashes[probe] = hash;
-      res = pval;
+      return val_res;
+      inserted = true;
     }
   }
 
   self->n_entries++;
-  return res;
+
+  return val_res;
+
+
 }
 
-slsHashValue sls_hashval_cpy(slsHashValue const *source, slsCopyFn copy_fn)
+void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
 {
-  slsHashValue result = *source;
-
-  if (source->type == SLS_VOIDPTR && copy_fn) {
-    result.ptrvalue = copy_fn(source->ptrvalue);
-  }
-
-  return result;
-}
-
-void sls_hashvalue_free(slsHashValue *val, slsFreeFn free_fn)
-{
-
-  if (val->type == SLS_VOIDPTR) {
-    free_fn(val->ptrvalue);
-  }
-}
-
-slsHashValue *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
-{
-  slsHashValue *ptr = NULL;
+  void *ptr = NULL;
   sls_check(self->keys, "no val array");
 
   assert(self->key_callbacks.cmp_fn);
   size_t array_size = self->array_size;
 
-  //slsCmpFn cmp = self->key_callbacks.cmp_fn;
-  slsCmpFn cmp = sls_cmp_string;
-
   uint64_t hash = self->hash(key, key_size);
 
   bool found = false;
 
-  for (size_t i = 0; !found; ++i) {
-    size_t probe = sls_hashtable_probe_next(self, hash, i, NULL);
-    assert(probe <= self->array_size);
-    void **pkey = self->keys + probe;
+  for (size_t i = 0; !found && i < array_size; ++i) {
+    size_t probe = hash + (i * i);
+    size_t idx = probe % array_size;
+    void **k_itor = self->keys + idx;
+    void **v_itor = self->vals + idx;
 
-    if (sls_is_hash_sentinel(*pkey)) { continue; }
-    if (!(*pkey)) {
-      // key doesn't exist
-      ptr = NULL;
-      found = true;
-    }
-
-    int res = cmp(*pkey, key);
-    if (res == 0) {
-      ptr = *pkey;
+    if (*k_itor && self->key_callbacks.cmp_fn(*k_itor, key) == 0) {
+      ptr = *v_itor;
       found = true;
     }
   }
@@ -325,7 +259,7 @@ slsHashValue *sls_hashtable_find(slsHashTable *self, void const *key, size_t key
   return ptr;
 }
 
-slsHashValue const *sls_hashtable_findval(slsHashTable *self, slsHashValue const *val)
+void *sls_hashtable_findval(slsHashTable *self, void const *val)
 {
 
   void *ptr = NULL;
@@ -335,8 +269,8 @@ slsHashValue const *sls_hashtable_findval(slsHashTable *self, slsHashValue const
   slsCmpFn cmp = self->val_callbacks.cmp_fn;
 
   for (int i = 0; i < self->array_size; ++i) {
-    slsHashValue *iter = self->vals + i;
-    if (iter && sls_hashvalue_cmp(val, iter, cmp) == 0) {
+    void *iter = self->vals[i];
+    if (iter && cmp(iter, val) == 0) {
       ptr = iter;
       return ptr;
     }
@@ -348,7 +282,6 @@ slsHashValue const *sls_hashtable_findval(slsHashTable *self, slsHashValue const
 }
 
 
-//---------------------------------hashtable probing sentinel values---------------------------------------
 static int sls_hash_sentinel_value = 0;
 
 bool sls_is_hash_sentinel(void const *val)
@@ -357,12 +290,6 @@ bool sls_is_hash_sentinel(void const *val)
 }
 
 void const *sls_hash_sentinel()
-{
-  return &sls_hash_sentinel_value;
-}
-
-static inline
-void *sls_hash_sentinel_mut()
 {
   return &sls_hash_sentinel_value;
 }
@@ -431,7 +358,7 @@ uint64_t sls_hash_cstr(char const *str)
   for (int i = 0;
        str[i] != '\0' && i < max_len;
        ++i) {
-    hash = ((hash * a) + str[i]) % UINT64_MAX;
+    hash = ((hash*a) + str[i]) % UINT64_MAX;
   }
 
   return hash;
@@ -439,16 +366,13 @@ uint64_t sls_hash_cstr(char const *str)
 
 void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size)
 {
-  slsHashValue *val = sls_hashtable_find(self, key, key_size);
+  void *val = sls_hashtable_find(self, key, key_size);
   if (val && !sls_is_hash_sentinel(val)) {
-    if (self->val_callbacks.free_fn && val->type == SLS_VOIDPTR) {
-      self->val_callbacks.free_fn(val->ptrvalue);
-      val->is_active = false;
+    if (self->val_callbacks.free_fn) {
+      self->val_callbacks.free_fn(val);
     }
-  }
 
-  size_t idx = val - self->vals;
-  self->keys[idx] = sls_hash_sentinel_mut();
+  }
 
 }
 
@@ -456,18 +380,18 @@ slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor)
 {
   int first = -1;
   itor->table = table;
-  for (int i = 0; i < table->array_size; ++i) {
-    if (table->keys[i] && table->vals[i].is_active) {
+  for (int i=0; i<table->array_size; ++i) {
+    if (table->keys[i] && table->vals[i]) {
       first = i;
-      itor->index = (size_t) i;
+      itor->index = (size_t)i;
       itor->key = table->keys + i;
       itor->val = table->vals + i;
       break;
     }
   }
 
-  return first > -1 ?
-         itor :
+  return first > -1?
+         itor:
          NULL;
 }
 
@@ -477,8 +401,8 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
   bool found_next = false;
   slsHashTable *table = itor->table;
 
-  for (size_t i = itor->index; i < table->array_size; ++i) {
-    if (table->keys[i] && table->vals[i].is_active) {
+  for (size_t i = itor->index; i<table->array_size; ++i) {
+    if (table->keys[i] && table->vals[i]) {
       found_next = true;
 
       itor->index = i;
@@ -489,74 +413,26 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
     }
   }
 
-  return found_next ?
-         itor :
+  return found_next?
+         itor:
          NULL;
 
   error:
-  return NULL;
+  return  NULL;
 }
 
-uint64_t sls_hash_fn_cstr(void const *cstr, size_t size)
+int sls_hashtable_cmp(slsHashTable *self, void const *lhs, void const *rhs, slsCmpFn cmp, size_t param_size)
 {
-  return sls_hash_cstr(cstr);
-}
-
-void _sls_hashtable_profile(size_t *n_collisions, size_t *total_insertions)
-{
-  if (n_collisions) {
-    *n_collisions = _n_collisions;
-  }
-  if (total_insertions) {
-    *total_insertions = _n_insertions;
-  }
-}
-
-int sls_hashvalue_cmp(slsHashValue const *a, slsHashValue const *b, slsCmpFn ptr_cmp)
-{
-  if (a->type != b->type) { return -1; }
   int res = -1;
-  switch (a->type) {
-
-    case SLS_VOIDPTR: {
-      if (ptr_cmp) { res = ptr_cmp(a->ptrvalue, b->ptrvalue); }
-      else { sls_cmp_voidptr(a->ptrvalue, b->ptrvalue); }
-    }
-      break;
-    case SLS_INT64:
-      res = (int) (a->int64val - b->int64val);
-      break;
-    case SLS_DOUBLE: {
-      double aa = a->doubleval;
-      double bb = b->doubleval;
-      if (aa == bb) {
-        res = 0;
-      } else if (aa < bb) {
-        res = 1;
-      } else {
-        res = -1;
-      }
-    }
-      break;
-    case SLS_SIZE_T:
-      res = (int) (a->size_tval - b->size_tval);
-      break;
-    case SLS_HASHDATATYPE_END:
-      assert(!"invalid hashvalue type");
-      res = -1;
-      break;
-    default:
-      break;
+  // automatically fail comparrison if one value is a sentinel
+  if (sls_is_hash_sentinel(lhs) || sls_is_hash_sentinel(rhs)) {
+    res = 0xdadb0d; // because
+  } else if (cmp) {
+    res = cmp(lhs, rhs);
+  } else if (param_size == SLS_STRING_LENGTH) {
+    res = strncmp(lhs, rhs, SIZE_MAX);
+  } else {
+    res = sls_cmp_voidptr(lhs, rhs);
   }
   return res;
-}
-
-size_t sls_hashtable_probe_next(slsHashTable const *table, size_t hashvalue, size_t i, bool *location_found)
-{
-
-  hashvalue = hashvalue % table->array_size;
-  size_t probe = (hashvalue + i * i) % table->array_size;
-
-  assert(probe <= table->array_size);
-  return probe;
 }

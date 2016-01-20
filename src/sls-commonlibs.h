@@ -19,6 +19,9 @@
 #include <string.h>
 #include <tgmath.h>
 
+#include <time.h>
+#include <assert.h>
+#include <signal.h>
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"

@@ -47,9 +47,19 @@ protected:
 
     key_cback.cmp_fn = sls_cmp_string;
     key_cback.copy_fn = [](auto k){
-      return (void*)strdup((char const*)k);
+      return static_cast<void*>(strdup((char const*)k));
     };
     key_cback.free_fn = free;
+
+    val_cback.cmp_fn = sls_cmp_uintptr;
+
+    val_cback.copy_fn = [](auto v){
+      int *p = static_cast<int*>(malloc(sizeof(int)));
+      *p = *static_cast<int const *>(v);
+      return static_cast<void*>(p);
+    };
+
+    val_cback.free_fn = free;
 
     table = sls_hashtable_init(new slsHashTable, array_size, sls_hash_fn_default, &key_cback, &val_cback);
 
@@ -57,7 +67,7 @@ protected:
 
     for (auto const &p: hash_data) {
       auto key = p.first.c_str();
-      auto val = sls_int_hashvalue(p.second);
+      auto val = p.second;
       ASSERT_TRUE(sls_hashtable_insert(table, (void *) (key), SLS_STRING_LENGTH, &val))
                     << "table insertion failure";
     }
@@ -92,8 +102,7 @@ TEST_F(TableTests, FindSingleItem)
   auto res = sls_hashtable_find(table, (void*)key, SLS_STRING_LENGTH);
   EXPECT_TRUE(res);
   if (res) {
-    EXPECT_EQ( SLS_INT64, res->type);
-    EXPECT_EQ(val, res->int64val);
+    EXPECT_EQ(val, *static_cast<int const *>(res));
   }
 
 }
@@ -112,11 +121,11 @@ TEST_F(TableTests, FindItems)
   shuffle(shuffled_data.begin(), shuffled_data.end(), rng);
 
   for (auto const &p: shuffled_data) {
+
     auto hval = sls_hashtable_find(table, p.first.c_str(), SLS_STRING_LENGTH);
     EXPECT_TRUE(hval);
     if (hval) {
-      EXPECT_EQ(SLS_INT64, hval->type) << "hval->type must be SLS_INT64";
-      EXPECT_EQ(p.second, GLuint(hval->int64val));
+      EXPECT_EQ(p.second, *static_cast<int const *>(hval));
     }
   }
 }

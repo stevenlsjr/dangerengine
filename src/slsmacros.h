@@ -17,7 +17,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <assert.h>
-
+#include <signal.h>
 
 /**
  * @brief token concentrator macro
