@@ -102,4 +102,3 @@ GLuint sls_locationtable_get_val(slsLocationTable *self, char const *name)
   size_t const *ptr = sls_locationtable_get(self, name);
   return ptr ? (GLuint)*ptr : 0;
 }
-un
