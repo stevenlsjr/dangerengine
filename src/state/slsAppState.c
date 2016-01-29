@@ -47,7 +47,7 @@ void sls_appstate_mousemotion(slsAppState *self,
 void sls_appstate_mousebutton(slsAppState *self,
                               SDL_MouseButtonEvent const *pEvent);
 
-slsAppState *sls_appstate_init(slsAppState *self, slsPool *parent_pool)
+slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
 {
 
   SDL_GetMouseState(&self->input.last_pos.x, &self->input.last_pos.y);
@@ -200,9 +200,9 @@ void sls_appstate_resize(slsAppState *self, int x, int y)
 {
   kmMat4 frustrum;
   kmMat4Identity(&frustrum);
-
   if (self->active_shader) {
     char const *projection = "projection";
+
     GLuint proj = sls_locationtable_get_val(&self->active_shader->attr_table, projection);
 
     sls_check(proj == glGetUniformLocation(self->active_shader->program,
@@ -212,10 +212,11 @@ void sls_appstate_resize(slsAppState *self, int x, int y)
     glUseProgram(self->active_shader->program);
 
     glUniformMatrix4fv(proj, 1, GL_FALSE, frustrum.mat);
-
-
-    error:
-    assert(0);
   }
+
+
+  return;
+  error:
+  assert(0);
 
 }

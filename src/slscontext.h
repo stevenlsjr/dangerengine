@@ -38,6 +38,9 @@
 #include <SDL2/SDL.h>
 #include "state/slsAppState.h"
 
+
+#include <apr_pools.h>
+
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
 
@@ -121,12 +124,16 @@ struct slsContext {
   slsContext_p *priv;
 
   /**
-   * @brief Apr memory pool
+   * @brief memory pool
    * @detail If you wish for the memory lifetime to last only through
    * one application run(), allocate to the self->state's pool.
    */
+
+#if 0
   slsPool *pool;
-  slsPool *tmp_pool;
+#else
+  apr_pool_t *pool;
+#endif
 
   slsAppState *state;
 

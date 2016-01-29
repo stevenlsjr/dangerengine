@@ -181,10 +181,9 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self,
                                             void const *val,
                                             uint64_t hash)
 {
-  const size_t array_size = self->array_size;
 
-  if (self->n_entries == array_size) {
-    sls_hashtable_reserve(self, array_size * 2);
+  if (self->n_entries == self->array_size) {
+    sls_hashtable_reserve(self, self->array_size * 2);
   }
 
   bool inserted = false;
@@ -193,7 +192,7 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self,
 
   for (size_t i = 0; !inserted; ++i) {
     size_t probe = hash + (i * i);
-    size_t idx = probe % array_size;
+    size_t idx = probe % self->array_size;
     void **k_itor = self->keys + idx;
     void **v_itor = self->vals + idx;
 
@@ -216,9 +215,9 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self,
                 sls_copy_assign(val);
 
       val_res = *v_itor;
-
-      return val_res;
       inserted = true;
+    } else {
+      val_res= NULL;
     }
   }
 
@@ -226,15 +225,17 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self,
 
   return val_res;
 
-
 }
 
 void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
 {
+  sls_checkmem(self);
   void *ptr = NULL;
-  sls_check(self->keys, "no val array");
+  sls_check(self->keys, "no key array");
+  sls_check(self->vals, "no val array");
+  sls_check(self->hashes, "no hash array");
 
-  assert(self->key_callbacks.cmp_fn);
+  sls_check(self->key_callbacks.cmp_fn, "no key compare function");
   size_t array_size = self->array_size;
 
   uint64_t hash = self->hash(key, key_size);

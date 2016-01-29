@@ -66,7 +66,7 @@ protected:
     tex = make_texture();
 
     program = make_program();
-    sls_shader_init(&shader, ctx->pool, program);
+    sls_shader_init(&shader, program);
 
 
     sls_msg(tex, set_program, program);

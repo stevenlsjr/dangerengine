@@ -87,7 +87,7 @@ static const slsContext sls_context_proto = {.init = sls_context_init,
     .data = NULL,
 
     .pool = NULL,
-    .tmp_pool = NULL};
+    };
 
 /*----------------------------------------*
  * slsContext class functions
@@ -123,7 +123,10 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   }
   self->pool = NULL;
 
-  sls_checkmem(self->pool);
+  sls_checkmem(apr_pool_create(&self->pool, NULL) == APR_SUCCESS);
+
+  self->priv = apr_palloc(self->pool, sizeof(slsContext_p));
+  sls_checkmem(self->priv);
 
   // create sdl window
 
@@ -156,7 +159,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
   // allocate and initialize private members
 
-  sls_checkmem(apr_pool_create(&self->tmp_pool, self->pool) == APR_SUCCESS);
 
 
   return self;
@@ -173,6 +175,13 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
 slsContext *sls_context_dtor(slsContext *self)
 {
+  if (self->window) {
+    SDL_DestroyWindow(self->window);
+  }
+  if (self->pool) {
+    apr_pool_destroy(self->pool);
+  }
+
   return self;
 }
 
@@ -244,9 +253,7 @@ void sls_context_iter(slsContext *self)
     // reset input state after update interval
     sls_appstate_clearinput(self->state);
 
-    if (self->frame_n % 5 == 0) {
-      apr_pool_clear(self->tmp_pool);
-    }
+
 
     sls_context_pollevents(self);
     self->frame_n++;
@@ -306,7 +313,7 @@ void sls_context_setup(slsContext *self)
 void sls_context_setupstate(slsContext *self)
 {
   if (!self->state) {
-    self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
+    self->state = apr_palloc(self->pool, sizeof(slsAppState));
   }
   self->state = sls_appstate_init(self->state, self->pool);
   self->state->context = self;

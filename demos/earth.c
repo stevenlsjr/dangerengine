@@ -145,10 +145,11 @@ void earth_ctx_setup(slsContext *self)
   earth_mv_setup(self);
 
 
-  sls_shader_init(&data.earth_shader, self->pool,
-                  sls_create_program("resources/shaders/earth.vert",
-                                     "resources/shaders/earth.frag",
-                                     "resources/shaders/earth_uniforms.glsl"));
+  sls_shader_init(&data.earth_shader, sls_create_program("resources/shaders/earth.vert",
+                                                         "resources/shaders/earth.frag",
+                                                         "resources/shaders/earth_uniforms.glsl"));
+
+  self->state->active_shader = &data.earth_shader;
 
   //sls_shader_init(&data.sun_shader, self->pool,
   //                sls_create_program("resources/shaders/sun.vert",
@@ -228,11 +229,9 @@ void earth_setup_framebuffer(slsContext *self)
   size_t n_indices = sizeof(indices) / sizeof(*indices);
   data.fb_target = sls_mesh_new(verts, n_verts, indices, n_indices);
 
-  slsShader *res = sls_shader_init(&data.fb_shader,
-                                   self->state->pool,
-                                   sls_create_program("resources/shaders/postprocess.vert",
-                                                      "resources/shaders/postprocess.frag",
-                                                      "resources/shaders/earth_uniforms.glsl"));
+  slsShader *res = sls_shader_init(&data.fb_shader, sls_create_program("resources/shaders/postprocess.vert",
+                                                                       "resources/shaders/postprocess.frag",
+                                                                       "resources/shaders/earth_uniforms.glsl"));
   sls_check(res, "posprocess shader didn't initialzie");
 
   sls_mesh_bind(data.fb_target, &data.fb_shader);

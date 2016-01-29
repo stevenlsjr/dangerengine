@@ -1,0 +1,28 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+DANGERENGINE_SLSTEXTURE_H	slsmaterial.h	/^#define DANGERENGINE_SLSTEXTURE_H$/;"	d
+ambient_color	slsmaterial.h	/^  kmVec3 ambient_color;$/;"	m	struct:slsMaterial
+bind	slsmaterial.h	/^  void (*bind)(slsMaterial *self);$/;"	m	struct:slsMaterial
+diffuse	slsmaterial.h	/^  slsTexPair diffuse;$/;"	m	struct:slsMaterial
+diffuse_color	slsmaterial.h	/^  kmVec3 diffuse_color;$/;"	m	struct:slsMaterial
+dtor	slsmaterial.h	/^  void (*dtor)(slsMaterial *self);$/;"	m	struct:slsMaterial
+get_program	slsmaterial.h	/^  GLuint (*get_program)(slsMaterial *self);$/;"	m	struct:slsMaterial
+gltex	slsmaterial.h	/^  GLuint gltex;$/;"	m	struct:slsTexPair
+init	slsmaterial.h	/^  slsMaterial *(*init)(slsMaterial *self,$/;"	m	struct:slsMaterial
+is_active	slsmaterial.h	/^  bool is_active;$/;"	m	struct:slsTexPair
+normal	slsmaterial.h	/^  slsTexPair normal;$/;"	m	struct:slsMaterial
+priv	slsmaterial.h	/^  slsMaterial_p *priv;$/;"	m	struct:slsMaterial
+set_program	slsmaterial.h	/^  void (*set_program)(slsMaterial *self, GLuint program);$/;"	m	struct:slsMaterial
+shininess	slsmaterial.h	/^  float shininess;$/;"	m	struct:slsMaterial
+slsMaterial	slsmaterial.h	/^struct slsMaterial {$/;"	s
+slsMaterial	slsmaterial.h	/^typedef struct slsMaterial slsMaterial;$/;"	t	typeref:struct:slsMaterial
+slsMaterial_p	slsmaterial.h	/^typedef struct slsMaterial_p slsMaterial_p;$/;"	t	typeref:struct:slsMaterial_p
+slsTexPair	slsmaterial.h	/^struct slsTexPair {$/;"	s
+slsTexPair	slsmaterial.h	/^typedef struct slsTexPair slsTexPair;$/;"	t	typeref:struct:slsTexPair
+specular	slsmaterial.h	/^  slsTexPair specular;$/;"	m	struct:slsMaterial
+specular_color	slsmaterial.h	/^  kmVec3 specular_color;$/;"	m	struct:slsMaterial
+uniform	slsmaterial.h	/^  GLuint uniform;$/;"	m	struct:slsTexPair

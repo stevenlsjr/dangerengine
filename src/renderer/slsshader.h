@@ -51,8 +51,7 @@ typedef struct slsShader slsShader;
 
 struct slsShader {
   slsShader *(*init)(slsShader *self,
-                     slsPool *parent_pool,
-                     GLuint program) SLS_NONNULL(1, 2);
+                     GLuint program) SLS_NONNULL(1);
 
   slsShader *(*dtor)(slsShader *self) SLS_NONNULL(1);
 
@@ -62,15 +61,12 @@ struct slsShader {
   slsLocationTable attr_table;
   slsLocationTable unif_table;
 
-  slsPool *pool;
   void *data;
 };
 
 slsShader const *sls_shader_proto();
 
-slsShader *sls_shader_init(slsShader *self,
-                           slsPool *parent_pool,
-                           GLuint program) SLS_NONNULL(1, 2);
+slsShader *sls_shader_init(slsShader *self, GLuint program) SLS_NONNULL(1);
 
 slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
 

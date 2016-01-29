@@ -20,7 +20,6 @@
 #include <sls-gl.h>
 
 #include <SDL2/SDL.h>
-#include <data-types/slsPool.h>
 
 typedef struct slsAppState slsAppState;
 typedef struct slsPlayerInput slsPlayerInput;
@@ -87,8 +86,8 @@ struct slsAppState {
 
   slsContext *context;
 
-  slsPool *pool;
-  slsPool *tmp_pool;
+  apr_pool_t *pool;
+  apr_pool_t *tmp_pool;
 
 };
 
@@ -99,7 +98,7 @@ void sls_appstate_clearinput(slsAppState *state);
 
 void sls_appstate_handle_input(slsAppState *state, SDL_Event const *event);
 
-slsAppState *sls_appstate_init(slsAppState *self, slsPool *parent_pool)
+slsAppState *sls_appstate_init(slsAppState *self, apr_pool_t *parent_pool)
     SLS_NONNULL();
 
 slsAppState *sls_appstate_dtor(slsAppState *self);

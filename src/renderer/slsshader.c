@@ -40,10 +40,8 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include <apr_pools.h>
 #include <sls-gl.h>
 #include <assert.h>
-#include <data-types/slsPool.h>
 #include "slsshader.h"
 
 static slsShader shader_proto = {
@@ -52,12 +50,10 @@ static slsShader shader_proto = {
 
 slsShader const *sls_shader_proto() { return &shader_proto; }
 
-slsShader *sls_shader_init(slsShader *self, slsPool *parent_pool,
-                           GLuint program)
+slsShader *sls_shader_init(slsShader *self, GLuint program)
 {
   *self = *sls_shader_proto();
 
-  sls_checkmem(self->pool);
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
 
@@ -85,9 +81,7 @@ slsShader *sls_shader_dtor(slsShader *self)
   sls_locationtable_dtor(&self->attr_table);
   sls_locationtable_dtor(&self->unif_table);
 
-  if (self->pool) {
-    self->pool = NULL;
-  }
+
 
   if (self->owns_program) {
     glDeleteProgram(self->program);
