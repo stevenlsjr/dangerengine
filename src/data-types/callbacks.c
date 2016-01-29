@@ -57,7 +57,7 @@ void *sls_copy_string(void const *str)
   cpy = calloc(size+1, sizeof(char));
   sls_checkmem(cpy);
 
-  strlcpy(cpy, typed_str, size);
+  strlcpy(cpy, typed_str, size+1);
 
   return cpy;
 error:
