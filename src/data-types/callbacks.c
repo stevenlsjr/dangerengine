@@ -51,6 +51,7 @@ void *sls_copy_assign(void const *ptr)
 
 void *sls_copy_string(void const *str)
 {
+  sls_checkmem(str);
   char const *typed_str = str;
   char *cpy = NULL;
   size_t size = strnlen(typed_str, max_string_len);

@@ -125,8 +125,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
   sls_checkmem(apr_pool_create(&self->pool, NULL) == APR_SUCCESS);
 
-  self->priv = apr_palloc(self->pool, sizeof(slsContext_p));
-  sls_checkmem(self->priv);
 
   // create sdl window
 
@@ -143,7 +141,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
   self->gl_context = SDL_GL_CreateContext(self->window);
 
-#if !defined(SLS_NOGLEW)
 
   glewExperimental = GL_TRUE;
   glew = glewInit();
@@ -155,9 +152,15 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
                    "gl version %s",
                glewGetString(GLEW_VERSION), glGetString(GL_VERSION));
 
-#endif //!defined(SLS_NOGLEW)
 
   // allocate and initialize private members
+
+  self->priv = apr_pcalloc(self->pool, sizeof(slsContext_p));
+  sls_checkmem(self->priv);
+
+  self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
+  self->state = sls_appstate_init(self->state, self->pool);
+  sls_checkmem(self->state);
 
 
 
@@ -170,6 +173,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   if (self->dtor) {
     sls_msg(self, dtor);
   }
+  SLS_DEBUGGER_BREAKPT();
   return self;
 }
 
@@ -370,7 +374,9 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e)
 
 void sls_context_teardown(slsContext *self)
 {
-  self->state = sls_appstate_dtor(self->state);
+  if (self->state) {
+    self->state = sls_appstate_dtor(self->state);
+  }
 }
 
 #ifndef __EMSCRIPTEN__

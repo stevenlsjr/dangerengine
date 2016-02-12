@@ -16,6 +16,8 @@ slsMesh * parametric_sphere_mesh(size_t n_steps);
 
 slsMesh * interior_sphere_mesh(size_t n_steps);
 
+slsMesh *cube_mesh(bool use_cubemap_texcoords);
+
 double sphere_radius_at_height(double radius, double height);
 
 

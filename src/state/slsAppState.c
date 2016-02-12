@@ -67,7 +67,6 @@ slsAppState *sls_appstate_dtor(slsAppState *self)
 {
 
 
-
   sls_matrix_stack_dtor(&self->model_view);
 
 
@@ -203,20 +202,20 @@ void sls_appstate_resize(slsAppState *self, int x, int y)
   if (self->active_shader) {
     char const *projection = "projection";
 
-    GLuint proj = sls_locationtable_get_val(&self->active_shader->attr_table, projection);
+    size_t *proj = sls_locationtable_get(&self->active_shader->unif_table, projection);
+    GLuint loc = 0;
+    if (proj) {
+      loc = (GLuint)*proj;
+      glUseProgram(self->active_shader->program);
 
-    sls_check(proj == glGetUniformLocation(self->active_shader->program,
-                                           projection),
-              "invalid projection location %u", proj);
+      glUniformMatrix4fv(loc, 1, GL_FALSE, frustrum.mat);
+    }
 
-    glUseProgram(self->active_shader->program);
-
-    glUniformMatrix4fv(proj, 1, GL_FALSE, frustrum.mat);
   }
 
 
   return;
   error:
-  assert(0);
+  return;
 
 }

@@ -140,7 +140,9 @@ int earth_main(int *argcr, char **argv)
 
 void earth_ctx_setup(slsContext *self)
 {
-  sls_context_class()->setup(self);
+  sls_checkmem(self && self->state);
+  self->state->active_shader = NULL;
+  sls_context_setup(self);
 
   earth_mv_setup(self);
 
@@ -159,7 +161,10 @@ void earth_ctx_setup(slsContext *self)
   data.sun_shader.owns_program = true;
   data.earth_shader.owns_program = true;
 
-  data.earth_mesh = parametric_sphere_mesh(60);
+
+
+  data.earth_mesh = parametric_sphere_mesh(40);
+  //data.earth_mesh = cube_mesh(false);
   data.earth_mesh->gl_draw_mode = GL_TRIANGLES;
 
   data.earth_tex =
@@ -196,14 +201,22 @@ void earth_ctx_setup(slsContext *self)
 
 
   glEnable(GL_PROGRAM_POINT_SIZE);
+  glEnable(GL_DEPTH_TEST);
+  //glDisable(GL_DEPTH_TEST);
 
   glClearColor(0.1, 0.2, 0.4, 1.0);
 
-  //glEnable(GL_BLEND_COLOR);
-  //glEnable(GL_CULL_FACE);
+  glEnable(GL_CULL_FACE);
+  glDisable(GL_BLEND_COLOR);
+  glCullFace(GL_BACK);
 
 
   sls_msg(data.earth_mesh, bind, &data.earth_shader);
+
+  return;
+  error:
+  SLS_DEBUGGER_BREAKPT();
+  return;
 }
 
 void earth_mv_setup(slsContext *self)
@@ -437,9 +450,9 @@ void earth_ctx_display(slsContext *self, double dt)
   glUniformMatrix4fv(sls_locationtable_get_val(unifs, "normal_mat"), 1, GL_FALSE, normal.mat);
 
 
-  //_sls_mesh_roughdraw(data.earth_mesh, data.earth_shader.program, dt);
+  _sls_mesh_roughdraw(data.earth_mesh, data.earth_shader.program, dt);
 
-  _sls_mesh_roughdraw(data.fb_target, data.fb_shader.program, dt);
+  //_sls_mesh_roughdraw(data.fb_target, data.fb_shader.program, dt);
 
 }
 
@@ -555,10 +568,17 @@ void earth_handle_event(slsContext *self, SDL_Event const *e)
           break;
 
         case SDL_SCANCODE_SPACE: {
-          sls_log_info("t %c%f days.", data.date > 0.0 ? '+' : '-', fabs(data.date));
+          if (data.earth_mesh->gl_draw_mode == GL_TRIANGLES) {
+            data.earth_mesh->gl_draw_mode = GL_LINES;
+          } else {
+            data.earth_mesh->gl_draw_mode = GL_TRIANGLES;
+          }
         }
           break;
 
+        case SDL_SCANCODE_ESCAPE: {
+          self->is_running = false;
+        } break;
 
         default:
           break;

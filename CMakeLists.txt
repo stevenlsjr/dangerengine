@@ -114,7 +114,9 @@ set(CLIENT_SRC
 
 set(DANGER_DEMO_SRC
   demos/exec.c
-  demos/earth.c demos/earth.h demos/sphere.c demos/sphere.h)
+  demos/earth.c demos/earth.h
+  demos/sphere.c demos/sphere.h
+  demos/demo_2.c demos/demo_2.h)
 
 #--------------------------------------------
 #-------------project config-----------------

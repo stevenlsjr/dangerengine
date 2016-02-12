@@ -127,6 +127,29 @@ static inline slsVec4 sls_make_vec4(float x, float y, float z, float w)
   return v;
 }
 
+
+
+static inline kmMat3 sls_mat3_id()
+{
+  kmMat3 mat;
+  kmMat3Identity(&mat);
+  return mat;
+}
+
+static inline kmMat4 sls_mat4_id()
+{
+  kmMat4 mat;
+  kmMat4Identity(&mat);
+  return mat;
+}
+
+static inline kmQuaternion sls_quat_id()
+{
+  kmQuaternion q;
+  kmQuaternionIdentity(&q);
+  return q;
+}
+
 static inline void sls_log_mat4(kmMat4 const *mat)
 {
   sls_log_info("mat4x4 [");
@@ -187,6 +210,8 @@ static inline kmVec4 sls_array_to_vec4(float const *arr) {
 
   return v;
 };
+
+
 
 
 kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview);

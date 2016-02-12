@@ -176,3 +176,69 @@ double sphere_radius_at_height(double radius, double height)
   return sqrt((radius * radius) - height * height);
 }
 
+slsMesh *cube_mesh(bool use_cubemap_texcoords)
+{
+  slsVertex verts[] = { //
+      // front
+      {.position={-1.f, -1.f, 1.f}, .normal={0.0, 0.0, 1.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={1.f, -1.f, 1.f}, .normal={0.0, 0.0, 1.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={1.f, 1.f, 1.f}, .normal={0.0, 0.0, 1.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={-1.f, 1.f, 1.f}, .normal={0.0, 0.0, 1.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}},
+
+      // back
+      {.position={-1.f, -1.f, -1.f}, .normal={0.0, 0.0, -1.f}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={1.f, -1.f, -1.f}, .normal={0.0, 0.0, -1.f}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={1.f, 1.f, -1.f}, .normal={0.0, 0.0, -1.f}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={-1.f, 1.f, -1.f}, .normal={0.0, 0.0, -1.f}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}},
+
+      // top
+      {.position={-1.f, 1.f, -1.f}, .normal={0.0, 1.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={1.f, 1.f, -1.f}, .normal={0.0, 1.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={1.f, 1.f, 1.f}, .normal={0.0, 1.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={-1.f, 1.f, 1.f}, .normal={0.0, 1.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}},
+
+      // bottom
+      {.position={-1.f, -1.f, -1.f}, .normal={0.0, -1.f, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={1.f, -1.f, -1.f}, .normal={0.0, -1.f, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={1.f, -1.f, 1.f}, .normal={0.0, -1.f, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={-1.f, -1.f, 1.f}, .normal={0.0, -1.f, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}},
+
+      // right
+      {.position={1.f, -1.f, -1.f}, .normal={1.0, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={1.f, 1.f, -1.f}, .normal={1.0, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={1.f, 1.f, 1.f}, .normal={1.0, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={1.f, -1.f, 1.f}, .normal={1.0, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}},
+
+      // left
+      {.position={-1.f, -1.f, -1.f}, .normal={-1.f, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 0.f}},
+      {.position={-1.f, 1.f, -1.f},  .normal={-1.f, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 0.f}},
+      {.position={-1.f, 1.f, 1.f},   .normal={-1.f, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={1.f, 1.f}},
+      {.position={-1.f, -1.f, 1.f},  .normal={-1.f, 0.0, 0.0}, .color={1.f, 1.f, 1.f, 1.f}, .uv={0.f, 1.f}}
+  };
+  uint32_t indices[] = {
+      0, 1, 2, 0, 2, 3,
+      2, 1, 0, 3, 2, 0,
+
+      0, 1, 2, 0, 2, 3,
+      2, 1, 0, 3, 2, 0,
+
+      0, 1, 2, 0, 2, 3,
+      2, 1, 0, 3, 2, 0,
+
+
+  };
+
+  for (int j = 0; j < 6; ++j) {
+    uint32_t *iter = indices + j * 6;
+    for (int i = 0; i < 6; ++i) {
+      iter[i] += j * 4;
+      printf("%u ", iter[i]);
+    }
+    puts("\n");
+  }
+
+  size_t n_verts = sizeof(verts) / sizeof(*verts);
+  size_t n_indices = sizeof(indices) / sizeof(*indices);
+
+  return sls_mesh_new(verts, n_verts, indices, n_indices);
+}
