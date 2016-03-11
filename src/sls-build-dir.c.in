@@ -7,5 +7,5 @@
  **/
 #include "sls-build-dir.h"
 
-char const *dangerengine_build_dir = "@CMAKE_BINARY_DIR@";
-char const *dangerengine_src_dir = "@CMAKE_SOURCE_DIR@";
+char const * const dangerengine_build_dir = "@CMAKE_BINARY_DIR@";
+char const * const dangerengine_src_dir = "@CMAKE_SOURCE_DIR@";

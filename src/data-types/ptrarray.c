@@ -37,7 +37,6 @@
 #include "ptrarray.h"
 
 
-#include <math/mathmacs.h>
 
 #include <slsutils.h>
 #include <string.h>
@@ -59,7 +58,7 @@ slsPtrArray *sls_ptrarray_init(slsPtrArray *self,
   };
 
 
-  self->n_alloced = sls_nearest_squarelu(n_elements) * 2;
+  self->n_alloced = n_elements * 2;
 
   assert(self->n_alloced >= self->n_elements * 2);
 
@@ -112,7 +111,7 @@ void sls_ptrarray_reserve(slsPtrArray *self, size_t size)
   assert(self);
   if (!self) { return; }
 
-  size_t new_size = sls_nearest_squarelu(size);
+  size_t new_size = size;
 
   if (new_size > self->n_alloced) {
     self->data = realloc(self->data, sizeof(void *) * new_size);

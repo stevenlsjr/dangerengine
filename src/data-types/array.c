@@ -36,7 +36,6 @@
 
 #include "array.h"
 #include "../slsutils.h"
-#include "../math/mathmacs.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -85,8 +84,7 @@ slsArray *sls_array_init(slsArray *self,
   self->priv = calloc(1, sizeof(slsArray_p));
   sls_checkmem(self->priv);
 
-  size_t const alloc_size =
-      sls_nearest_squarelu(element_size * n_elements);
+  size_t const alloc_size = element_size * n_elements;
 
   size_t const element_bytes = element_size * n_elements;
 
@@ -242,7 +240,7 @@ void sls_array_reserve(slsArray *self, size_t count)
   slsArray_p *p = self->priv;
 
   if (p->alloc_size < count) {
-    size_t new_size = sls_nearest_squarelu(count);
+    size_t new_size = count;
     p->alloc_size = new_size;
 
     p->array = realloc(p->array, new_size * p->element_size);

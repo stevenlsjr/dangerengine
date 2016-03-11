@@ -8,11 +8,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module pa
 #-------------source lists-------------------
 #--------------------------------------------
 
+add_subdirectory(src/data-types)
 
 file(REMOVE ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c)
 configure_file(
-  ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c.in
-  ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c @ONLY)
+  src/sls-build-dir.c.in
+  src/sls-build-dir.c @ONLY)
 
 set(DANGER_SRC
     src/dangerengine.h
@@ -43,20 +44,6 @@ set(DANGER_SRC
     src/math/slsCamera.h
 
 
-    #data types
-    src/data-types/callbacks.h
-    src/data-types/callbacks.c
-    src/data-types/array.h
-    src/data-types/array.c
-    src/data-types/ptrarray.h
-    src/data-types/ptrarray.c
-    src/data-types/linkedlist.h
-    src/data-types/linkedlist.c
-    src/data-types/hashtable.c
-    src/data-types/hashtable.h
-    src/data-types/intrusivelist.h
-
-
     #renderer types
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
@@ -81,7 +68,7 @@ set(DANGER_SRC
     src/renderer/slsLight.c src/renderer/slsLight.h
     src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
 
-    src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/data-types.h src/state/slsRenderList.c src/state/slsRenderlist.h src/data-types/slsPool_p.h src/cxx/overloads.h)
+    src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/dangertypes.h src/state/slsRenderList.c src/state/slsRenderlist.h src/data-types/slsPool_p.h src/cxx/overloads.h src/data-types/dangertypes.h)
 
 
 # tests compiled in c
@@ -108,13 +95,10 @@ set(DANGER_TEST_SRC
 
   tests/pool-tests.cc)
 
-set(CLIENT_SRC
-  src/client/main.c
-  src/client/ClientContext.c src/client/ClientContext.h)
+
 
 set(DANGER_DEMO_SRC
   demos/exec.c
-  demos/earth.c demos/earth.h
   demos/sphere.c demos/sphere.h
   demos/demo_2.c demos/demo_2.h)
 
@@ -207,14 +191,15 @@ add_subdirectory(extern/googlemock)
 
 set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS} ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
-  ${DANGER_DEPS}
-  ${GLEW_LIBRARY}
-  ${SDL2_LIBRARY}
-  ${SDL2_IMAGE_LIBRARIES}
-  ${SDL2_TTF_LIBRARIES}
-  ${OPENGL_gl_LIBRARY}
-  ${APR_LIBRARIES}
-  ${APR_UTIL_LIBRARIES})
+    ${DANGER_DEPS}
+    ${DANGERTYPES_LIB}
+    ${GLEW_LIBRARY}
+    ${SDL2_LIBRARY}
+    ${SDL2_IMAGE_LIBRARIES}
+    ${SDL2_TTF_LIBRARIES}
+    ${OPENGL_gl_LIBRARY}
+    ${APR_LIBRARIES}
+    ${APR_UTIL_LIBRARIES})
 
 
 message("apr: ${APR_INCLUDE_DIRS}")
@@ -252,10 +237,7 @@ target_link_libraries(dangerengine
 
 get_target_property(DANGERENGINE_OUTPUT dangerengine LIBRARY_OUTPUT_NAME)
 
-add_executable(client
-  ${CLIENT_SRC})
 
-target_link_libraries(client dangerengine)
 
 
 # copy resources on build

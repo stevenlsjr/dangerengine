@@ -11,7 +11,7 @@
 #include "linkedlist.h"
 #include "intrusivelist.h"
 #include <stdlib.h>
-#include <slsutils.h>
+#include <slsmacros.h>
 #include <limits.h>
 
 #include "slsPool_p.h"
