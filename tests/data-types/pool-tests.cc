@@ -10,7 +10,7 @@
 #include <gtest/gtest.h>
 #include <dangerengine.h>
 
-#include "../src/data-types/slsPool_p.h"
+#include "data-types/slsPool_p.h"
 
 class PoolTests : public ::testing::Test {
 

@@ -4,8 +4,8 @@
 
 
 #include <gtest/gtest.h>
-#include "../src/dangerengine.h"
-#include "test-utils.h"
+#include "dangerengine.h"
+#include "../test-utils.h"
 
 #include <algorithm>
 #include <vector>

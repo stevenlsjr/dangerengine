@@ -78,22 +78,22 @@ set(DANGER_CTEST_SRC
 
 #tests compiled in c++
 set(DANGER_TEST_SRC
-  tests/minunit-runner.cc
-  tests/math_tests.cc
-  tests/main.cc
-  tests/utiltests.cc
-  tests/hash-tests.cc
-  tests/ptrarray-tests.cc
-  tests/array-tests.cc
-  tests/list-tests.cc
-  tests/LocationTableTests.cc
+    tests/minunit-runner.cc
+    tests/math_tests.cc
+    tests/main.cc
+    tests/utiltests.cc
+    tests/data-types/hash-tests.cc
+    tests/data-types/ptrarray-tests.cc
+    tests/data-types/array-tests.cc
+    tests/data-types/list-tests.cc
+    tests/LocationTableTests.cc
 
-  #TODO test context once refactoring begins
+    #TODO test context once refactoring begins
 
-  #tests/render_tests.cc
-  #tests/image_tests.cc
+    #tests/render_tests.cc
+    #tests/image_tests.cc
 
-  tests/pool-tests.cc)
+    tests/data-types/pool-tests.cc)
 
 
 
