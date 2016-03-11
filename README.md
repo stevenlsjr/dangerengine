@@ -11,10 +11,11 @@ OpenGL engine in C
 * Possibly implement browser deployment via emscripten
 
 ## to build
-2) create separate build directory
-3) `$ cmake $(PATH_TO_ROOT_SOURCE_DIR)`
-4) `$ make`
-5) run executables `demo` or `tests`
+* `$ git submodule update --init`
+* create separate build directory & change to that directory
+* `$ cmake $(PATH_TO_ROOT_SOURCE_DIR)`
+* `$ make`
+* run executables `demo` or `tests`
 
 
 ## note:

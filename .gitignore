@@ -305,7 +305,6 @@ install_manifest.txt
 resources/bower/
 
 # build directories
-build/
 jsbuild/
 xcode/
 
@@ -315,3 +314,9 @@ xcode/
 # cmake generated sources
 
 src/sls-build-dir.c
+
+
+# ctags
+.tags
+.tags_sorted_by_file
+tags
