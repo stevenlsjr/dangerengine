@@ -154,6 +154,23 @@
 #define sls_msg(obj, method, ...) (obj)->method((obj), ##__VA_ARGS__)
 
 
+/**
+ * @brief checks for null parameters at runtime if GNU nonnull extension is not available.
+ * @detail expands to nothing if the extension exists, should be used in conjunction with
+ * __attribute__((nonnull(...)) or SLS_NONNULL(...)
+ */
+
+#if __has_attribute(nonnull)
+
+#define sls_nonnull_param(p)
+
+#else
+
+#define sls_nonnull_param(p) sls_check(p, "parameter %p is null!", p);
+
+
+#endif
+
 //---------------------------------degugging helpers---------------------------------------
 
 

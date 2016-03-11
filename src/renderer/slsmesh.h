@@ -64,7 +64,7 @@ struct slsMesh {
                    unsigned const *indices,
                    size_t idx_count);
 
-  void (*dtor)(slsMesh *self);
+  slsMesh *(*dtor)(slsMesh *self);
 
   void (*bind)(slsMesh *self, slsShader *shader_program);
 
@@ -83,7 +83,6 @@ struct slsMesh {
    * @brief unbinds buffer objects
    */
   void(*post_draw)(slsMesh *self, GLuint program, double dt);
-
 
 
   struct {
@@ -115,10 +114,26 @@ struct slsMesh {
 
 slsMesh const *sls_mesh_class();
 
+
+static inline
 slsMesh *sls_mesh_new(slsVertex const *vertices,
                       size_t vert_count,
                       unsigned const *indices,
-                      size_t idx_count);
+                      size_t idx_count)
+{
+  slsMesh *obj = (slsMesh*)sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
+  return obj->init(obj, vertices, vert_count, indices, idx_count);
+}
+
+static inline
+void sls_mesh_delete(slsMesh *self)
+{
+  if (self) {
+    typeof(self) zombie = sls_msg(self, dtor);
+    if (zombie) {free(zombie);}
+  }
+  else { assert(!"invalid mesh instance!"); }
+}
 
 
 slsMesh *sls_mesh_create_shape(char const *name) __attribute__((deprecated));
@@ -137,7 +152,6 @@ slsMesh *sls_sphere_mesh(size_t n_vertices,
 slsMesh *sls_tile_mesh(size_t width, size_t height);
 
 
-
 slsMesh *sls_mesh_init(slsMesh *self,
                        slsVertex const *vertices,
                        size_t vert_count,
@@ -145,7 +159,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        size_t idx_count);
 
 
-void sls_mesh_dtor(slsMesh *self);
+slsMesh * sls_mesh_dtor(slsMesh *self);
 
 void sls_mesh_bind(slsMesh *self, slsShader *shader);
 

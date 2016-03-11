@@ -2,21 +2,27 @@
 // Created by Steven on 5/3/15.
 //
 
+#include <time.h>
 #include <gtest/gtest.h>
 #include "../src/dangerengine.h"
 #include <cppapi.h>
+#include <sysexits.h>
+#include <kazmath/kazmath.h>
+
 
 using namespace std;
 
+/// operator overloads to aid test suite
 bool operator==(slsIPoint const &a, slsIPoint const &b)
 {
   return bool(sls_ipoint_eq(&a, &b));
 }
 
-ostream &operator<<(ostream &out, slsIPoint const &p)
+bool operator==(kmMat4 const &a, kmMat4 const &b)
 {
-  return out << "slsIPoint{" << p.x << ", " << p.y << "}";
+  return kmMat4AreEqual(&a, &b);
 }
+
 
 class IPointTests : public ::testing::Test {
 protected:
@@ -144,4 +150,146 @@ TEST_F(MatStackTest, Translate)
   sls_matrix_glidentity(mat);
   sls_matrix_gltranslate(mat, t);
   EXPECT_TRUE(kmMat4AreEqual(&m, sls_matrix_stack_peek(mat)));
+}
+
+static inline
+kmVec4 *sls_mat4_column(kmVec4 *out, kmMat4 const *in, size_t i)
+{
+  assert(out && in && "arguments must be nonnull");
+  assert(i < 4);
+
+  float const *m = in->mat;
+  *out = {
+      .x = m[i],
+      .y = m[4 + i],
+      .z = m[8 + i],
+      .w = m[12 + i]
+  };
+
+  return out;
+}
+
+#include <immintrin.h>
+#include <gmpxx.h>
+
+static inline
+kmMat4 *sls_mat4simd_mul(kmMat4 *out, kmMat4 const *lhs, kmMat4 const *rhs)
+{
+  float const *a = lhs->mat;
+  float const *b = rhs->mat;
+  alignas(16) float o[16] = {};
+  __m128 row0 = _mm_load_ps(b),
+      row1 = _mm_load_ps(b + 4),
+      row2 = _mm_load_ps(b + 8),
+      row3 = _mm_load_ps(b + 12);
+
+
+// requires compiler optimization (presumably loop unrolling
+// to outperform kmMat4Multiply
+  for (
+      int i = 0;
+      i < 4; ++i) {
+    __m128 brod0 = _mm_set1_ps(a[4 * i + 0]),
+        brod1 =_mm_set1_ps(a[4 * i + 1]),
+        brod2 =_mm_set1_ps(a[4 * i + 2]),
+        brod3 =_mm_set1_ps(a[4 * i + 3]);
+
+    __m128 outrow = _mm_add_ps(
+        _mm_add_ps(_mm_mul_ps(brod0, row0),
+                   _mm_mul_ps(brod1, row1)),
+        _mm_add_ps(_mm_mul_ps(brod2, row2),
+                   _mm_mul_ps(brod3, row3)));
+
+    _mm_store_ps(o + 4 * i, outrow);
+  }
+
+  memcpy(out->mat, o, 16 * sizeof(float));
+
+  return
+      out;
+}
+
+
+TEST(SimdTests, Mat4Mul)
+{
+  kmMat4 a = {1.0f, 0.0f, 0.0f, 0.0f,
+              0.0f, 2.0f, 0.0f, 0.0f,
+              0.0f, 0.0f, 2.0f, 0.0f,
+              0.0f, 0.0f, 0.0f, 1.0f};
+
+  kmMat4 b = {1.0f, 0.0f, 0.0f, 0.0f,
+              0.0f, 2.0f, 0.0f, 0.0f,
+              0.0f, 0.0f, 2.0f, 0.0f,
+              0.0f, 0.0f, 0.0f, 1.0f};
+
+  kmMat4 expect = {1.0f, 0.0f, 0.0f, 0.0f,
+                   0.0f, 4.0f, 0.0f, 0.0f,
+                   0.0f, 0.0f, 4.0f, 0.0f,
+                   0.0f, 0.0f, 0.0f, 1.0f};
+
+
+  kmMat4 out, out2;
+
+
+  EXPECT_EQ(expect, *kmMat4Multiply(&out, &a, &b)) << "sanity test";
+
+  EXPECT_TRUE(bool(sls_mat4simd_mul(&out2, &a, &b)));
+
+  EXPECT_EQ(out, out2);
+}
+
+
+#include <thread>
+#include <chrono>
+
+/**
+ * NOTE: This test will almost always fail without
+ * compiler optimizations.
+ */
+TEST(SimdTests, Performance)
+{
+  kmMat4 a = {1.0f, 0.0f, 0.0f, 0.0f,
+              0.0f, 2.0f, 0.0f, 0.0f,
+              0.0f, 0.0f, 2.0f, 0.0f,
+              0.0f, 0.0f, 0.0f, 1.0f};
+
+  kmMat4 b = {1.0f, 0.0f, 0.0f, 0.0f,
+              0.0f, 2.0f, 0.0f, 0.0f,
+              0.0f, 0.0f, 2.0f, 0.0f,
+              0.0f, 0.0f, 0.0f, 1.0f};
+
+
+  kmMat4 out, out2;
+
+  auto hpc = chrono::high_resolution_clock();
+
+
+  auto n_tests = 10;
+  auto successes = 0;
+
+  for (auto i = 0; i < n_tests; ++i) {
+    auto scalar_start = hpc.now();
+    kmMat4Multiply(&out, &a, &b);
+    auto scalar_end = hpc.now();
+
+    auto simd_start = hpc.now();
+    sls_mat4simd_mul(&out2, &a, &b);
+    auto simd_end = hpc.now();
+
+
+    auto simd_dif = (simd_end - simd_start).count();
+    auto scalar_dif = (scalar_end - scalar_start).count();
+
+    //EXPECT_LT(simd_dif, scalar_dif) << "in run " << i << " out of " << n_tests;
+    if (simd_dif < scalar_dif) {
+      successes++;
+    }
+
+  }
+
+  cerr << "simd implementation was faster " << successes << " times\n";
+
+  EXPECT_LT(n_tests / 2, successes);
+
+
 }

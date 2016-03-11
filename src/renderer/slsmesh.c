@@ -94,14 +94,7 @@ slsMesh const *sls_mesh_class()
   return proto;
 }
 
-slsMesh *sls_mesh_new(slsVertex const *vertices,
-                      size_t vert_count,
-                      unsigned const *indices,
-                      size_t idx_count)
-{
-  slsMesh *obj = sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
-  return obj->init(obj, vertices, vert_count, indices, idx_count);
-}
+
 
 slsMesh *sls_mesh_init(slsMesh *self,
                        slsVertex const *vertices,
@@ -132,9 +125,9 @@ slsMesh *sls_mesh_init(slsMesh *self,
   return NULL;
 }
 
-void sls_mesh_dtor(slsMesh *self)
+slsMesh * sls_mesh_dtor(slsMesh *self)
 {
-  if (!self) { return; }
+  if (!self) { return NULL; }
 
   if (self->priv) { free(self->priv); }
 
@@ -153,7 +146,8 @@ void sls_mesh_dtor(slsMesh *self)
 
 
   glDeleteVertexArrays(1, &(self->vao));
-  free(self);
+
+  return self;
 }
 
 

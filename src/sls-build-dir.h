@@ -8,7 +8,7 @@
 #ifndef DANGERENGINE_SLS_BUILD_DIR_H
 #define DANGERENGINE_SLS_BUILD_DIR_H
 
-extern char const *dangerengine_build_dir;
-extern char const *dangerengine_src_dir;
+extern char const * const dangerengine_build_dir;
+extern char const * const dangerengine_src_dir;
 
 #endif //DANGERENGINE_SLS_BUILD_DIR_H

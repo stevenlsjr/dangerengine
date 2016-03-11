@@ -218,58 +218,7 @@ kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview);
 
 // TODO(Steven): c11 overloading functions
 
-#if 1
-#   define sls_add(res, aptr, bptr) _Generic((res)  \
-      kmVec2*:  kmVec2Add((res), (aptr), (bprt)),    \
-      kmVec3*:  kmVec3Add((res), (aptr), (bprt)),    \
-      kmVec4*:  kmVec4Add((res), (aptr), (bprt)),    \
-      slsVec2*: kmVec2Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec3*: kmVec3Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec4*: kmVec4Add((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-    )
 
-#   define sls_sub(res, aptr, bptr) _Generic((res)  \
-      kmVec2*:  kmVec2Sub((res), (aptr), (bprt)),    \
-      kmVec3*:  kmVec3Sub((res), (aptr), (bprt)),    \
-      kmVec4*:  kmVec4Sub((res), (aptr), (bprt)),    \
-      slsVec2*: kmVec2Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec3*: kmVec3Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec4*: kmVec4Sub((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-    )
-#   define sls_mul(res, aptr, bptr) _Generic((res)  \
-      kmVec2*:  kmVec2Mul((res), (aptr), (bprt)),    \
-      kmVec3*:  kmVec3Mul((res), (aptr), (bprt)),    \
-      kmVec4*:  kmVec4Mul((res), (aptr), (bprt)),    \
-      slsVec2*: kmVec2Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec3*: kmVec3Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec4*: kmVec4Mul((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-    )
-#   define sls_div(res, aptr, bptr) _Generic((res)  \
-      kmVec2*:  kmVec2Div((res), (aptr), (bprt)),    \
-      kmVec3*:  kmVec3Div((res), (aptr), (bprt)),    \
-      kmVec4*:  kmVec4Div((res), (aptr), (bprt)),    \
-      slsVec2*: kmVec2Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec3*: kmVec3Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-      slsVec4*: kmVec4Div((res->kvec), (aptr->kvec), (bprt->kvec)),    \
-    )
-
-#   define sls_dot(a, b) _Generic((res)  \
-      kmVec2*:  kmVec2Dot((a), (b)),    \
-      kmVec3*:  kmVec3Dot((a), (b)),    \
-      kmVec4*:  kmVec4Dot((a), (b)),    \
-      slsVec2*: kmVec2Dot((a->kvec), (b->kvec)),    \
-      slsVec3*: kmVec3Dot((a->kvec), (b->kvec))),    \
-      slsVec4*: kmVec4Dot((a->kvec), (b->kvec))),    \
-      const kmVec2*:  kmVec2Dot((a), (b)),    \
-      const kmVec3*:  kmVec3Dot((a), (b)),    \
-      const kmVec4*:  kmVec4Dot((a), (b)),    \
-      const slsVec2*: kmVec2Dot((a->kvec), (b->kvec)),    \
-      const slsVec3*: kmVec3Dot((a->kvec), (b->kvec))),    \
-      const slsVec4*: kmVec4Dot((a->kvec), (b->kvec))),    \
-    )
-
-
-#endif
 
 
 #endif //DANGERENGINE_MATH_TYPES_H

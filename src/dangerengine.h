@@ -37,7 +37,6 @@
 extern "C" {
 #endif
 
-#include <sls-build-dir.h>
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"
@@ -67,11 +66,12 @@ extern "C" {
 #include "state/slsAppState.h"
 #include "state/resourceutils.h"
 
-#include "objc/DangerengineFW.h"
 
 #ifdef __cplusplus
 }
 #endif
+
+#include "cxx/cxx_interop.h"
 
 
 

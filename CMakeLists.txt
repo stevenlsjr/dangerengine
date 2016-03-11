@@ -15,79 +15,79 @@ configure_file(
   ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c @ONLY)
 
 set(DANGER_SRC
-  src/dangerengine.h
+    src/dangerengine.h
 
-  # context handling and general utilities
-  src/sls-gl.h
-  src/sls-imagelib.h
-  src/slscontext.h
-  src/slscontext.c
-  src/slsutils.c
-  src/slsutils.h
-  src/contexthandlers.c
-  src/contexthandlers.h
-  src/slserrcode.c
-  src/slserrcode.h
+    # context handling and general utilities
+    src/sls-gl.h
+    src/sls-imagelib.h
+    src/slscontext.h
+    src/slscontext.c
+    src/slsutils.c
+    src/slsutils.h
+    src/contexthandlers.c
+    src/contexthandlers.h
+    src/slserrcode.c
+    src/slserrcode.h
 
-  src/cppapi.h
-  src/slsmacros.h
+    src/cppapi.h
+    src/slsmacros.h
 
-  src/math/mathmacs.h
-  src/math/mathmacs.c
-  src/math/math-types.c
-  src/math/math-types.h
-  src/math/slsMatrixStack.c
-  src/math/slsMatrixStack.h
-  src/math/slsTrackball.c src/math/slsTrackball.h
-  src/math/slsCamera.c
-  src/math/slsCamera.h
-
-
-  #data types
-  src/data-types/callbacks.h
-  src/data-types/callbacks.c
-  src/data-types/array.h
-  src/data-types/array.c
-  src/data-types/ptrarray.h
-  src/data-types/ptrarray.c
-  src/data-types/linkedlist.h
-  src/data-types/linkedlist.c
-  src/data-types/hashtable.c
-  src/data-types/hashtable.h
-  src/data-types/intrusivelist.h
+    src/math/mathmacs.h
+    src/math/mathmacs.c
+    src/math/math-types.c
+    src/math/math-types.h
+    src/math/slsMatrixStack.c
+    src/math/slsMatrixStack.h
+    src/math/slsTrackball.c src/math/slsTrackball.h
+    src/math/slsCamera.c
+    src/math/slsCamera.h
 
 
-  #renderer types
-  src/renderer/slsmesh.c
-  src/renderer/slsmesh.h
-  src/renderer/slsmaterial.c
-  src/renderer/slsmaterial.h
-  src/renderer/slsshader.c
-  src/renderer/slsshader.h
-  src/renderer/shaderutils.c
-  src/renderer/shaderutils.h
+    #data types
+    src/data-types/callbacks.h
+    src/data-types/callbacks.c
+    src/data-types/array.h
+    src/data-types/array.c
+    src/data-types/ptrarray.h
+    src/data-types/ptrarray.c
+    src/data-types/linkedlist.h
+    src/data-types/linkedlist.c
+    src/data-types/hashtable.c
+    src/data-types/hashtable.h
+    src/data-types/intrusivelist.h
 
-  # game state machine
 
-  src/state/slsAppState.c
-  src/state/slsAppState.h
-  src/state/resourceutils.c
-  src/state/resourceutils.h
+    #renderer types
+    src/renderer/slsmesh.c
+    src/renderer/slsmesh.h
+    src/renderer/slsmaterial.c
+    src/renderer/slsmaterial.h
+    src/renderer/slsshader.c
+    src/renderer/slsshader.h
+    src/renderer/shaderutils.c
+    src/renderer/shaderutils.h
 
-  src/sls-commonlibs.h
+    # game state machine
 
-  src/sls-build-dir.c
-  src/sls-build-dir.h
-  src/renderer/slsLight.c src/renderer/slsLight.h
-  src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
+    src/state/slsAppState.c
+    src/state/slsAppState.h
+    src/state/resourceutils.c
+    src/state/resourceutils.h
 
-  src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/data-types.h src/state/slsRenderList.c src/state/slsRenderlist.h src/data-types/slsPool_p.h)
+    src/sls-commonlibs.h
+
+    src/sls-build-dir.c
+    src/sls-build-dir.h
+    src/renderer/slsLight.c src/renderer/slsLight.h
+    src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
+
+    src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/data-types.h src/state/slsRenderList.c src/state/slsRenderlist.h src/data-types/slsPool_p.h src/cxx/overloads.h)
 
 
 # tests compiled in c
 set(DANGER_CTEST_SRC
-  tests/c_cases.c
-  tests/c_cases.h)
+    tests/c_cases.c
+    tests/c_cases.h src/cxx/cxx_interop.h)
 
 #tests compiled in c++
 set(DANGER_TEST_SRC
@@ -179,29 +179,20 @@ add_subdirectory(extern/Chipmunk2D)
 
 
 set(DANGER_DEPS kazmath chipmunk_static)
-if (NOT EMSCRIPTEN)
-  find_package(OpenGL REQUIRED)
-  find_package(GLEW REQUIRED)
-  find_package(Doxygen)
 
-  find_package(PkgConfig REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(Doxygen)
 
-  find_package(SDL2 REQUIRED)
-  find_package(SDL2_image REQUIRED)
-  find_package(SDL2_ttf REQUIRED)
+find_package(PkgConfig REQUIRED)
 
-  pkg_check_modules(APR apr-1)
-  pkg_check_modules(APR_UTIL apr-util-1)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
-else (NOT EMSCRIPTEN)
-  set(WEBGL_CFG "-s FULL_ES2=1")
-  set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} ${WEBGL_CFG})
-  set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${WEBGL_CFG})
-  set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} ${WEBGL_CFG}
-  set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS} ${WEBGL_CFG}))
+pkg_check_modules(APR apr-1)
+pkg_check_modules(APR_UTIL apr-util-1)
 
-
-endif (NOT EMSCRIPTEN)
 
 
 set(CMAKE_LIBRARY_PATH
@@ -223,8 +214,7 @@ set(DANGER_DEPS
   ${SDL2_TTF_LIBRARIES}
   ${OPENGL_gl_LIBRARY}
   ${APR_LIBRARIES}
-  ${APR_UTIL_LIBRARIES}
-  )
+  ${APR_UTIL_LIBRARIES})
 
 
 message("apr: ${APR_INCLUDE_DIRS}")

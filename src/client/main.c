@@ -3,6 +3,7 @@
  * @brief 
  * @license ${LICENSE}
  * Copyright (c) 12/25/15, Steven
+ *
  * 
  **/
 
@@ -17,6 +18,8 @@
 
 #include <dangerengine.h>
 
+
+// TODO (Steve) setup plugin system to make unified client!
 
 char **find_plugin_args(int argc, char **argv)
 {

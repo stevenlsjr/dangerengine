@@ -140,7 +140,8 @@ int earth_main(int *argcr, char **argv)
 
 void earth_ctx_setup(slsContext *self)
 {
-  sls_checkmem(self && self->state);
+  sls_nonnull_param(self);
+  sls_checkmem(self->state);
   self->state->active_shader = NULL;
   sls_context_setup(self);
 
@@ -260,9 +261,9 @@ void earth_ctx_teardown(slsContext *self)
   sls_shader_dtor(&data.earth_shader);
   sls_shader_dtor(&data.fb_shader);
 
-  sls_mesh_dtor(data.earth_mesh);
-  sls_mesh_dtor(data.sun_mesh);
-  sls_mesh_dtor(data.fb_target);
+  sls_mesh_delete(data.earth_mesh);
+  sls_mesh_delete(data.sun_mesh);
+  sls_mesh_delete(data.fb_target);
 
   sls_msg(data.earth_tex, dtor);
   sls_msg(data.earth_texb, dtor);
