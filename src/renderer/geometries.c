@@ -6,7 +6,7 @@
  * 
  **/
 #include <cppapi.h>
-#include "sphere.h"
+#include "geometries.h"
 #include <simd/simd.h>
 
 slsMesh *parametric_sphere_mesh_complex(
@@ -15,7 +15,7 @@ slsMesh *parametric_sphere_mesh_complex(
     kmVec4 base_color);
 
 
-slsMesh *interior_sphere_mesh(size_t n_steps)
+slsMesh *sls_interior_sphere_mesh(size_t n_steps)
 {
   return
       parametric_sphere_mesh_complex(n_steps,
@@ -23,7 +23,7 @@ slsMesh *interior_sphere_mesh(size_t n_steps)
                                      (kmVec4) {1.0, 1.0, 1.0, 1.0});
 }
 
-slsMesh *parametric_sphere_mesh(size_t n_steps)
+slsMesh *sls_parametric_sphere_mesh(size_t n_steps)
 {
   return parametric_sphere_mesh_complex(n_steps,
                                         1,
@@ -171,12 +171,12 @@ slsMesh *parametric_sphere_mesh_complex(
 
 }
 
-double sphere_radius_at_height(double radius, double height)
+double sls_sphere_radius_at_height(double radius, double height)
 {
   return sqrt((radius * radius) - height * height);
 }
 
-slsMesh *cube_mesh(bool use_cubemap_texcoords)
+slsMesh *sls_cube_mesh(bool use_cubemap_texcoords)
 {
   slsVertex verts[] = { //
       // front

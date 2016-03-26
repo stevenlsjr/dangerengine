@@ -43,7 +43,6 @@ set(DANGER_SRC
     src/math/slsCamera.c
     src/math/slsCamera.h
 
-
     #renderer types
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
@@ -67,8 +66,10 @@ set(DANGER_SRC
     src/sls-build-dir.h
     src/renderer/slsLight.c src/renderer/slsLight.h
     src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
+    src/renderer/geometries.c src/renderer/geometries.h
 
-    src/data-types/slsPool.c src/data-types/slsPool.h src/data-types/dangertypes.h src/state/slsRenderList.c src/state/slsRenderlist.h src/data-types/slsPool_p.h src/cxx/overloads.h src/data-types/dangertypes.h)
+    src/state/slsRenderList.c src/state/slsRenderlist.h
+    src/cxx/overloads.h src/data-types/dangertypes.h)
 
 
 # tests compiled in c
@@ -98,9 +99,9 @@ set(DANGER_TEST_SRC
 
 
 set(DANGER_DEMO_SRC
-  demos/exec.c
-  demos/sphere.c demos/sphere.h
-  demos/demo_2.c demos/demo_2.h)
+    demos/exec.c
+
+    demos/demo_2.c demos/demo_2.h)
 
 #--------------------------------------------
 #-------------project config-----------------

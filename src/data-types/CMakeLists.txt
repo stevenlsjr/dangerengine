@@ -13,8 +13,7 @@ set (DANGERTYPES_SRC
      intrusivelist.h
      linkedlist.c linkedlist.h
      ptrarray.c ptrarray.h
-     slsPool.c slsPool.h
-     slsPool_p.h)
+     slsPool.c slsPool.h)
 
 
 
