@@ -186,4 +186,13 @@
 #   define SLS_DEBUGGER_BREAKPT() raise(SIGABRT)
 #endif
 
+//---------------------------------C/C++ header guard---------------------------------------
+#ifndef __cplusplus
+#   define SLS_BEGIN_CDECLS extern "C" {
+#   define SLS_END_CDECLS }
+#else
+#   define SLS_BEGIN_CDECLS
+#   define SLS_END_CDECLS
+#endif
+
 #endif //DANGERENGINE_SLSMACROS_H

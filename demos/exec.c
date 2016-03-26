@@ -3,7 +3,6 @@
 //
 
 #include "../src/dangerengine.h"
-#include "earth.h"
 #include "demo_2.h"
 #include <kazmath/kazmath.h>
 #include <assert.h>

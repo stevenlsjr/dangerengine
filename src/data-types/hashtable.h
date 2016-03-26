@@ -38,8 +38,8 @@
 #define DANGERENGINE_HASHTABLE_H
 
 #include <stdlib.h>
-#include <array.h>
-#include <callbacks.h>
+#include "array.h"
+#include "callbacks.h"
 #include "../slsutils.h"
 #include "callbacks.h"
 #include "ptrarray.h"

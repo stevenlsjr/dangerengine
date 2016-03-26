@@ -8,21 +8,15 @@
 
 
 #include "slsPool.h"
-#include "linkedlist.h"
-#include "intrusivelist.h"
 #include <stdlib.h>
 #include <slsmacros.h>
 #include <limits.h>
 
-#include "slsPool_p.h"
+static
+void sls_pool_insertchild(slsPool *parent, slsPool *child);
+static
+slsPool *sls_pool_unlink(slsPool *pool);
 
-
-
-
-void sls_pool_insertchild(slsPool *parent, slsPool *child) SLS_NONNULL(1,2);
-
-
-slsPool *sls_pool_unlink(slsPool *pPool) SLS_NONNULL(1);
 
 slsPool *sls_pool_create(slsPool *parent)
 {
@@ -42,6 +36,7 @@ slsPool *sls_pool_create(slsPool *parent)
   return NULL;
 }
 
+static
 void sls_pool_insertchild(slsPool *parent, slsPool *child)
 {
   child->siblings.next = NULL;
@@ -74,16 +69,18 @@ slsPool *sls_pool_delete(slsPool *pool)
 {
   sls_pool_unlink(pool);
   sls_pool_clear(pool);
-
+#if 0
   for (int i=0; i<N_POOL_ARENAS; ++i) {
     if (pool->arenas[i]) {free(pool->arenas[i]); pool->arenas[i] = NULL;}
   }
+
+#endif
 
 
   free(pool);
   return NULL;
 }
-
+static
 slsPool *sls_pool_unlink(slsPool *pool)
 {
   slsPool *pprev = pool->siblings.prev;
@@ -121,6 +118,7 @@ void *sls_palloc_arena_hint(slsPool *self, size_t size, size_t arena_hint)
 
   bool found = false;
   // find valid region
+#if 0
   for (int i=0; i<N_POOL_ARENAS; ++i) {
     if (!self->arenas[i]) {
 
@@ -138,8 +136,10 @@ void *sls_palloc_arena_hint(slsPool *self, size_t size, size_t arena_hint)
       found = true;
       break;
     }
+
   }
 
+#endif
 
 
   if (!ptr) {

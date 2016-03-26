@@ -7,7 +7,7 @@
  **/
 #include <renderer/slsshader.h>
 #include "demo_2.h"
-#include "sphere.h"
+#include "renderer/geometries.h"
 
 
 typedef struct DemoData {
