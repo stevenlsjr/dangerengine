@@ -70,7 +70,6 @@ static const slsContext sls_context_proto = {.init = sls_context_init,
     .teardown = sls_context_teardown,
 
     .run = sls_context_run,
-    .iter = sls_context_iter,
     .resize = sls_context_resize,
 
     .update = sls_context_update,
@@ -212,7 +211,7 @@ void sls_context_run(slsContext *self)
 
   sls_msg(self, display, 0.0);
   while (self->is_running) {
-    sls_msg(self, iter);
+    sls_context_iter(self);
   }
 
   sls_msg(self, teardown);
@@ -221,7 +220,7 @@ void sls_context_run(slsContext *self)
 void sls_emscripten_loop(void *vctx)
 {
   slsContext *ctx = vctx;
-  sls_msg(ctx, iter);
+  sls_context_iter(ctx);
 }
 
 void sls_context_iter(slsContext *self)

@@ -89,11 +89,6 @@ struct slsContext {
    */
   void (*run)(slsContext *self) SLS_NONNULL(1);
 
-  /**
-   * @brief performs a single iteration of the mainloop
-   */
-  void (*iter) (slsContext *self) SLS_NONNULL(1);
-
   void (*handle_event) (slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
 
   /**
