@@ -58,8 +58,6 @@ struct slsShader {
   GLuint program;
   bool owns_program;
 
-  slsLocationTable attr_table;
-  slsLocationTable unif_table;
 
   void *data;
 };
@@ -70,16 +68,7 @@ slsShader *sls_shader_init(slsShader *self, GLuint program) SLS_NONNULL(1);
 
 slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
 
-void sls_shader_bind_attrs(slsShader *self) SLS_NONNULL(1);
 
-void sls_shader_bind_unifs(slsShader *self) SLS_NONNULL(1);
-
-GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out);
-GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out);
-
-
-void sls_uniform_check(char const *name, int val);
-void sls_attr_check(char const *name, GLuint program, GLuint location);
 
 
 

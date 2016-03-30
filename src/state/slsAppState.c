@@ -201,14 +201,13 @@ void sls_appstate_resize(slsAppState *self, int x, int y)
   kmMat4Identity(&frustrum);
   if (self->active_shader) {
     char const *projection = "projection";
+    GLuint pr = self->active_shader->program;
 
-    size_t *proj = sls_locationtable_get(&self->active_shader->unif_table, projection);
-    GLuint loc = 0;
-    if (proj) {
-      loc = (GLuint)*proj;
+    int proj = glGetUniformLocation(pr, projection);
+    if (proj >= 0) {
       glUseProgram(self->active_shader->program);
 
-      glUniformMatrix4fv(loc, 1, GL_FALSE, frustrum.mat);
+      glUniformMatrix4fv((GLuint) proj, 1, GL_FALSE, frustrum.mat);
     }
 
   }

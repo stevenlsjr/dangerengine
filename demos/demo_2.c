@@ -16,11 +16,15 @@ typedef struct DemoData {
 
   slsLightBatch lights;
 
+  slsMesh *mesh;
+
 
   slsTrackball trackball;
 
   kmMat4 camera_view;
   kmMat4 projection;
+
+
 
 
 } DemoData;
@@ -31,10 +35,15 @@ struct {
   GLuint texture;
 } frame_buffer;
 
+static
 void demo_move_trackball(slsContext *self, slsIPoint const *start_point, slsIPoint const *second_point,
-                          slsIPoint const *window_size);
+                         slsIPoint const *window_size);
 
+static
 void demo_mv_setup(slsContext *self);
+
+static
+void demo_scene_setup(slsContext *pContext);
 
 static DemoData data = {
 
@@ -104,7 +113,7 @@ void demo_ctx_setup(slsContext *self)
   sls_context_setup(self);
 
   demo_mv_setup(self);
-
+  demo_scene_setup(self);
 
 
   glEnable(GL_PROGRAM_POINT_SIZE);
@@ -118,19 +127,35 @@ void demo_ctx_setup(slsContext *self)
   glCullFace(GL_BACK);
 
 
-
   return;
   error:
   SLS_DEBUGGER_BREAKPT();
   return;
 }
 
+static
+void demo_scene_setup(slsContext *self)
+{
+
+  slsShader *res = sls_shader_init(&data.phong_shader,
+                                   sls_create_program("resources/shaders/demo.vert",
+                                                      "resources/shaders/demo.frag",
+                                                      "resources/shaders/demo_uniforms.glsl"));
+  res->owns_program = true;
+  data.mesh = sls_parametric_sphere_mesh(10);
+
+
+  assert (res);
+
+}
+
+static
 void demo_mv_setup(slsContext *self)
 {
   kmMat4Identity(&data.projection);
   kmMat4Identity(&data.camera_view);
 
-  sls_lightbatch_init(&data.lights, 8, (slsLight[]){}, 1);
+  sls_lightbatch_init(&data.lights, 8, (slsLight[]) {}, 1);
 
 
   sls_trackball_init(&data.trackball, 4.f, 2.f);
@@ -170,9 +195,10 @@ void demo_setup_framebuffer(slsContext *self)
 void demo_ctx_teardown(slsContext *self)
 {
   sls_shader_dtor(&data.phong_shader);
-
+  free(sls_msg(data.mesh, dtor));
 
   sls_lightbatch_dtor(&data.lights);
+
 
   sls_context_class()->teardown(self);
 }
@@ -185,31 +211,29 @@ void demo_ctx_update(slsContext *self, double dt)
 
 
   data.lights.light_positions[0] = (kmVec4) {0.0, 0.1, 1.0, 0.0};
-  GLuint program = data.phong_shader.program;
 
   GLsizei n_lights = (GLsizei) data.lights.n_lights;
 
   slsShader *s = &data.phong_shader;
-  slsLocationTable *tbl = &s->unif_table;
+  GLuint program = s->program;
 
+  glUniform1i(glGetUniformLocation(program, "lights.n_lights"), (GLint) data.lights.n_lights);
 
-  glUniform1i(sls_locationtable_get_val(tbl, "lights.n_lights"), (GLint) data.lights.n_lights);
-
-  glUniform3fv(sls_locationtable_get_val(tbl, "lights.ambient_products"),
+  glUniform3fv(glGetUniformLocation(program, "lights.ambient_products"),
                n_lights,
                (GLfloat *) data.lights.ambient_products);
-  glUniform3fv(sls_locationtable_get_val(tbl, "lights.specular_products"),
+  glUniform3fv(glGetUniformLocation(program, "lights.specular_products"),
                n_lights,
                (GLfloat *) data.lights.specular_products);
 
-  glUniform3fv(sls_locationtable_get_val(tbl, "lights.diffuse_products"),
+  glUniform3fv(glGetUniformLocation(program, "lights.diffuse_products"),
                n_lights,
                (GLfloat *) data.lights.diffuse_products);
-  glUniform4fv(sls_locationtable_get_val(tbl, "lights.light_positions"),
+  glUniform4fv(glGetUniformLocation(program, "lights.light_positions"),
                n_lights,
                (GLfloat *) data.lights.light_positions);
 
-  glUniformMatrix4fv(sls_locationtable_get_val(tbl, "lights.light_modelview"),
+  glUniformMatrix4fv(glGetUniformLocation(program, "lights.light_modelview"),
                      n_lights,
                      GL_FALSE,
                      (GLfloat *) data.lights.light_modelviews[0].mat);
@@ -222,9 +246,8 @@ void demo_ctx_display(slsContext *self, double dt)
 {
 
 
+
 }
-
-
 
 
 void demo_ctx_resize(slsContext *self, int x, int y)
@@ -300,7 +323,8 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
 
         case SDL_SCANCODE_ESCAPE: {
           self->is_running = false;
-        } break;
+        }
+          break;
 
         default:
           break;
@@ -314,10 +338,11 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
   }
 }
 
+static
 void demo_move_trackball(slsContext *self,
-                          slsIPoint const *start_point,
-                          slsIPoint const *second_point,
-                          slsIPoint const *window_size)
+                         slsIPoint const *start_point,
+                         slsIPoint const *second_point,
+                         slsIPoint const *window_size)
 {
 
   float

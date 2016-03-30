@@ -57,13 +57,8 @@ slsShader *sls_shader_init(slsShader *self, GLuint program)
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
 
-  sls_checkmem(sls_locationtable_init(&self->attr_table));
-  sls_checkmem(sls_locationtable_init(&self->unif_table));
-
 
   self->program = program;
-  sls_shader_bind_attrs(self);
-  sls_shader_bind_unifs(self);
 
   self->owns_program = false;
 
@@ -78,9 +73,6 @@ slsShader *sls_shader_init(slsShader *self, GLuint program)
 
 slsShader *sls_shader_dtor(slsShader *self)
 {
-  sls_locationtable_dtor(&self->attr_table);
-  sls_locationtable_dtor(&self->unif_table);
-
 
 
   if (self->owns_program) {
@@ -90,6 +82,9 @@ slsShader *sls_shader_dtor(slsShader *self)
   return self;
 }
 
+// TODO: unif/attr binding logic should not be part of the base
+#if 0
+// shader handling
 void sls_shader_bind_unifs(slsShader *self)
 {
   //typeof(self->uniforms) *u = &self->uniforms;
@@ -144,28 +139,4 @@ void sls_shader_bind_attrs(slsShader *self)
     sls_attr_check(name, self->program, i);
   }
 }
-
-void sls_uniform_check(char const *name, int val)
-{
-  if (val < 0) {
-    sls_log_warn("cannot bind uniform <%s>: %i", name, val);
-  }
-}
-
-void sls_attr_check(char const *name, GLuint program, GLuint location)
-{
-  int actual_location = glGetAttribLocation(program, name);
-  if (actual_location != location) {
-    sls_log_warn("could not bind attribute <%s>: %i", name, actual_location);
-  }
-}
-
-GLuint sls_shader_get_attr(slsShader *self, char const *variable, bool *result_out)
-{
-  return sls_locationtable_get_val(&self->attr_table, variable);
-}
-
-GLuint sls_shader_get_unif(slsShader *self, char const *variable, bool *result_out)
-{
-  return sls_locationtable_get_val(&self->unif_table, variable);
-}
+#endif
