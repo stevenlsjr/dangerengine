@@ -68,7 +68,7 @@ slsLightBatch *sls_lightbatch_dtor(slsLightBatch *self)
 slsLightView * sls_lightbatch_get_lightview(slsLightBatch *self, size_t idx, slsLightView *out)
 {
   if (idx >= self->n_lights) {
-    sls_log_err("index overflow: idx=%ul n_lights=%lu", idx, self->n_lights);
+    sls_log_err("index overflow: idx=%ul n_lights=%ul", idx, self->n_lights);
     return NULL;
   }
 

@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <dangerengine.h>
+#include <data-types/dangertypes.h>
 #include "../test-utils.h"
 
 #include <algorithm>
@@ -96,5 +97,6 @@ TEST_F(ListTests, ListIteration)
     ++idx;
   }
 }
+
 
 

@@ -13,12 +13,10 @@
 /**
  * @brief Macro for defining intrusive linked list fields as a structure
  */
-#define SLS_INTRUSIVE_FIELDS(typename, field_name) struct {\
+#define SLS_INTRUSIVE_FIELDS(typename) struct {\
   typename *prev; \
   typename  *next; \
-} field_name
-
-
+}
 
 
 #endif //DANGERENGINE_INTRUSIVELIST_H

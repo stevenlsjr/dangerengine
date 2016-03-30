@@ -38,6 +38,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <signal.h>
+#include <state/slsEvent.h>
 
 #include "contexthandlers.h"
 #include "slsutils.h"
@@ -85,6 +86,9 @@ bool sls_init(void)
   sls_check(sls_init_ttf(0), "ttf creation failed %s", TTF_GetError());
 
   sls_check(apr_initialize() == APR_SUCCESS, "apr failed to init");
+
+  // setup internal library
+  sls_init_eventsystem();
 
 
   sls_active_flag = SLS_TRUE;

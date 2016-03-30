@@ -5,12 +5,32 @@
 #include <time.h>
 #include <gtest/gtest.h>
 #include "../src/dangerengine.h"
-#include <cppapi.h>
 #include <sysexits.h>
 #include <kazmath/kazmath.h>
+#include <iostream>
+#include <random>
+#include <smmintrin.h>
 
 
+#include <thread>
+#include <chrono>
+
+using namespace std::chrono;
 using namespace std;
+using namespace testing;
+
+template<typename INFO_T, typename T_TIME_PT>
+static inline
+decltype(auto) benchmark(INFO_T test_info, string desc, T_TIME_PT start, T_TIME_PT stop)
+{
+  auto delta = duration_cast<nanoseconds>(stop - start);
+
+  cout << string(test_info->name())
+  << "\n\t" << desc << ": performed in " << long(delta.count()) << "µs\n";
+
+  return delta;
+
+}
 
 /// operator overloads to aid test suite
 bool operator==(slsIPoint const &a, slsIPoint const &b)
@@ -172,6 +192,7 @@ kmVec4 *sls_mat4_column(kmVec4 *out, kmMat4 const *in, size_t i)
 #include <immintrin.h>
 #include <gmpxx.h>
 
+
 static inline
 kmMat4 *sls_mat4simd_mul(kmMat4 *out, kmMat4 const *lhs, kmMat4 const *rhs)
 {
@@ -190,9 +211,9 @@ kmMat4 *sls_mat4simd_mul(kmMat4 *out, kmMat4 const *lhs, kmMat4 const *rhs)
       int i = 0;
       i < 4; ++i) {
     __m128 brod0 = _mm_set1_ps(a[4 * i + 0]),
-        brod1 =_mm_set1_ps(a[4 * i + 1]),
-        brod2 =_mm_set1_ps(a[4 * i + 2]),
-        brod3 =_mm_set1_ps(a[4 * i + 3]);
+        brod1 = _mm_set1_ps(a[4 * i + 1]),
+        brod2 = _mm_set1_ps(a[4 * i + 2]),
+        brod3 = _mm_set1_ps(a[4 * i + 3]);
 
     __m128 outrow = _mm_add_ps(
         _mm_add_ps(_mm_mul_ps(brod0, row0),
@@ -210,7 +231,33 @@ kmMat4 *sls_mat4simd_mul(kmMat4 *out, kmMat4 const *lhs, kmMat4 const *rhs)
 }
 
 
-TEST(SimdTests, Mat4Mul)
+class SimdTests : public Test {
+protected:
+  chrono::high_resolution_clock hpc;
+  default_random_engine rng;
+  uniform_real_distribution<float> dist;
+
+  slsVec4Array va;
+  slsVec4Array vb;
+
+
+  virtual void SetUp() override
+  {
+    dist = uniform_real_distribution<float>(0.0, 20.0);
+
+    for (auto i = 0; i < 4; ++i) {
+      va.arr[i] = {dist(rng), dist(rng), dist(rng), 1.0};
+      vb.arr[i] = {dist(rng), dist(rng), dist(rng), 0.0};
+    }
+  }
+
+  virtual void TearDown() override
+  {
+  }
+
+};
+
+TEST_F(SimdTests, Mat4Mul)
 {
   kmMat4 a = {1.0f, 0.0f, 0.0f, 0.0f,
               0.0f, 2.0f, 0.0f, 0.0f,
@@ -239,14 +286,13 @@ TEST(SimdTests, Mat4Mul)
 }
 
 
-#include <thread>
-#include <chrono>
 
+#if 0
 /**
  * NOTE: This test will almost always fail without
  * compiler optimizations.
  */
-TEST(SimdTests, Performance)
+TEST_F(SimdTests, Performance)
 {
   kmMat4 a = {1.0f, 0.0f, 0.0f, 0.0f,
               0.0f, 2.0f, 0.0f, 0.0f,
@@ -260,8 +306,6 @@ TEST(SimdTests, Performance)
 
 
   kmMat4 out, out2;
-
-  auto hpc = chrono::high_resolution_clock();
 
 
   auto n_tests = 10;
@@ -287,9 +331,40 @@ TEST(SimdTests, Performance)
 
   }
 
-  cerr << "simd implementation was faster " << successes << " times\n";
 
-  EXPECT_LT(n_tests / 2, successes);
+}
+
+TEST_F(SimdTests, sls4Vec4Simd)
+{
+
+  auto res = sls_simdvec_from_vec4s_val(&va);
+  alignas(16) float row[4];
+
+  _mm_store_ps(row, res.xv);
+  EXPECT_FLOAT_EQ(row[0], va.arr[0].x);
+  EXPECT_FLOAT_EQ(row[0], va.arr[1].x);
+  EXPECT_FLOAT_EQ(row[0], va.arr[2].x);
+  EXPECT_FLOAT_EQ(row[0], va.arr[3].x);
+
+  _mm_store_ps(row, res.yv);
+  EXPECT_FLOAT_EQ(row[1], va.arr[0].y);
+  EXPECT_FLOAT_EQ(row[1], va.arr[1].y);
+  EXPECT_FLOAT_EQ(row[1], va.arr[2].y);
+  EXPECT_FLOAT_EQ(row[1], va.arr[3].y);
+
+  _mm_store_ps(row, res.zv);
+  EXPECT_FLOAT_EQ(row[2], va.arr[0].z);
+  EXPECT_FLOAT_EQ(row[2], va.arr[1].z);
+  EXPECT_FLOAT_EQ(row[2], va.arr[2].z);
+  EXPECT_FLOAT_EQ(row[2], va.arr[3].z);
+
+  _mm_store_ps(row, res.wv);
+
+  EXPECT_FLOAT_EQ(row[3], va.arr[0].w);
+  EXPECT_FLOAT_EQ(row[3], va.arr[1].w);
+  EXPECT_FLOAT_EQ(row[3], va.arr[2].w);
+  EXPECT_FLOAT_EQ(row[3], va.arr[3].w);
 
 
 }
+#endif

@@ -18,19 +18,22 @@ class ErrorTests : public ::testing::Test {
 public:
   ErrorTests()
   {
-    while(sls_get_error_count() > 0) {
+    while (sls_get_error_count() > 0) {
       sls_geterr();
     }
   }
-  virtual ~ErrorTests() {
-    while(sls_get_error_count() > 0) {
+
+  virtual ~ErrorTests()
+  {
+    while (sls_get_error_count() > 0) {
       sls_geterr();
     }
   }
 
 protected:
 
-  static void *errstack_thread_work(void *data)  {
+  static void *errstack_thread_work(void *data)
+  {
 
     auto dist = uniform_int_distribution<int>(0, 100000);
     random_device rd;
@@ -40,7 +43,7 @@ protected:
     usleep(mu_sec);
 
     // push given error to error stack
-    slsError *err = (slsError*)data;
+    slsError *err = (slsError *) data;
     sls_push_error(*err);
 
     return NULL;
@@ -64,11 +67,9 @@ TEST_F(ErrorTests, CheckMacro)
   {
     FAIL() << "error macro should skip this line";
   } //
-error:
+  error:
   EXPECT_EQ(code, sls_geterr());
 }
-
-
 
 
 TEST_F(ErrorTests, ThreadSafety)
@@ -110,3 +111,55 @@ TEST_F(ErrorTests, ThreadSafety)
   EXPECT_EQ(expect_errcount, merror);
 
 }
+
+/*-------------------------------------------------
+ * preprocessor tests
+ *-------------------------------------------------*/
+
+TEST(CPPTests, TokenToString)
+{
+  auto str0 = SLS_TOK_TO_STR(hello_world);
+
+  EXPECT_STREQ("hello_world", str0) << R"(
+SLS_TOK_TO_STR should produce a string from
+given token)" << str0;
+
+  auto str1 = SLS_TOK_TO_STR(a
+                                 b
+                                 c {()});  // note: ignores whitespace
+  EXPECT_STREQ("a b c {()}", str1) << R"(
+SLS_TOK_TO_STR should produce a string from
+given token)" << str1;
+}
+
+
+
+
+
+TEST(CPPTests, TokenConcat)
+{
+
+#define sample_exp() \
+  int SLS_GENSYM(foo) = 10; \
+  EXPECT_EQ(10, SLS_GENSYM(foo)) << "If this compiles, it should work";
+
+#define sample_max(a, b) ({ \
+  int SLS_GENSYM(aa_) = (a); \
+  int SLS_GENSYM(bb_) = (b); \
+  SLS_GENSYM(aa_) > SLS_GENSYM(bb_)? SLS_GENSYM(aa_): SLS_GENSYM(bb_); \
+})
+
+  sample_exp(); // note, this macro  exposes variables to the scope
+  sample_exp();
+
+  // ensuring the sample_max macro compiles when invoked on the same line
+  EXPECT_EQ(10, sample_max(10, 1));
+  EXPECT_EQ(10, sample_max(10, sample_max(1, 2)));
+
+
+#undef sample_exp
+#undef sample_max
+
+}
+
+#undef sample_gensym

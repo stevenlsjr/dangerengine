@@ -19,12 +19,42 @@
 #include <assert.h>
 #include <signal.h>
 
+/*-------------------------------------------------
+ * C/C++ header guard
+ *-------------------------------------------------*/
+#ifdef __cplusplus
+#   define SLS_BEGIN_CDECLS extern "C" {
+#   define SLS_END_CDECLS }
+#else
+#   define SLS_BEGIN_CDECLS
+#   define SLS_END_CDECLS
+#endif
+
+/*-------------------------------------------------
+ * Token concat macros
+ *-------------------------------------------------*/
+
+#define SLS_CONSTOK_(x, y) x ## y
+#define SLS_CONSTOK(x, y) SLS_CONSTOK_(x, y)
+
+#define SLS_GENSYM(id) SLS_CONSTOK(id, __LINE__)
 /**
- * @brief token concentrator macro
+ * @brief safer gensym. allows concatenating another
+ * token, such as __COUNTER__, alongside the standard generation
+ * @detail Like SLS_GENSYM, it MUST be used inside a macro body, as it
+ * relies on preprocessor token pasting
  */
-#define SLS_CONCAT(x, y) x ## y
+#define SLS_GENSYM2(id, salt) SLS_GENSYM(SLS_CONSTOK(id, salt))
 
 
+#define SLS_TOK_TO_STR1_(x) ""#x
+#define SLS_TOK_TO_STR(x) SLS_TOK_TO_STR1_(x)
+
+
+
+/*-------------------------------------------------
+ * GCC/Clang extension shortcuts
+ *-------------------------------------------------*/
 /**
  * @brief attribute wrappers for GCC & clang
  */
@@ -186,13 +216,6 @@
 #   define SLS_DEBUGGER_BREAKPT() raise(SIGABRT)
 #endif
 
-//---------------------------------C/C++ header guard---------------------------------------
-#ifndef __cplusplus
-#   define SLS_BEGIN_CDECLS extern "C" {
-#   define SLS_END_CDECLS }
-#else
-#   define SLS_BEGIN_CDECLS
-#   define SLS_END_CDECLS
-#endif
+
 
 #endif //DANGERENGINE_SLSMACROS_H

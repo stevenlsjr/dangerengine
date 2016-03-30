@@ -24,7 +24,6 @@ protected:
 
   virtual void TearDown()
   {
-
     sls_pool_delete(p);
   }
 
@@ -43,6 +42,7 @@ TEST_F(PoolTests, Alloc)
 
 TEST_F(PoolTests, BigAlloc)
 {
+#if 0
   for (auto j = 0; j < N_POOL_ARENAS * 2; ++j) {
     auto alen = (size_t) 200000;
     auto buff = (int *) sls_palloc(p, sizeof(int) * alen);
@@ -59,6 +59,6 @@ TEST_F(PoolTests, BigAlloc)
     }
 
   }
-
+#endif
 }
 

@@ -14,37 +14,32 @@
 #include "callbacks.h"
 
 typedef struct slsPool slsPool;
+typedef struct slsPool_p slsPool_p;
 typedef struct slsReleaseUnit slsReleaseUnit;
 
 struct slsReleaseUnit {
   slsFreeFn free_fn;
   void *data;
-  slsReleaseUnit *next;
 };
 
 /**
- * @brief a memory pool type
- * for preserving memory allocations.
- * @detail As an added feature, the pool should
- * also be able to register generic cleanup callbacks
- * to make this a general-purpose autorelease pool
+ * @brief An all-purpose memory management
+ * structure, comparable to APR's apr_pool_t.
+ * TODO: support both auto-release callbacks and pre-allocated memory arenas
  */
 struct slsPool {
 
-
   slsPool *parent;
-  slsPool *child_top;
-
-  slsReleaseUnit *release_list;
+  slsPool_p *priv;
 
   size_t unit_size;
   size_t block_size;
 
-  SLS_INTRUSIVE_FIELDS(slsPool, siblings);
+  SLS_INTRUSIVE_FIELDS(slsPool) siblings;
 
 };
 
-slsPool *sls_pool_create(slsPool *parent) SLS_NONNULL(1);
+slsPool *sls_pool_create(slsPool *parent);
 
 slsPool *sls_pool_clear(slsPool *pool) SLS_NONNULL(1);
 
@@ -54,7 +49,6 @@ void *sls_pool_register_freefn(slsFreeFn *fn, void *data);
 
 void *sls_palloc(slsPool *pool, size_t size) SLS_NONNULL(1);
 
-void *sls_palloc_arena_hint(slsPool *pool, size_t size, size_t arena_hint) SLS_NONNULL(1);
 
 
 #endif //DANGERENGINE_SLSPOOL_H

@@ -6,12 +6,14 @@
 #include "../src/dangerengine.h"
 #include <string>
 #include "test-utils.h"
+#include <pthread.h>
 
 using namespace std;
 using namespace testing;
 
 
 class RenderTests : public Test {
+
 private:
 
   static slsMaterial *make_texture()
@@ -45,9 +47,10 @@ private:
   }
 
 
-protected:
 
+protected:
   slsContext *ctx = nullptr;
+
   slsMesh *mesh = nullptr;
   slsMaterial *tex = nullptr;
   GLuint program;
@@ -89,13 +92,15 @@ protected:
     shader.dtor(&shader);
     glDeleteProgram(program);
 
-
-    sls_msg(ctx, dtor);
+    if (ctx ) {
+      free(sls_msg(ctx, dtor));
+    }
     sls_terminate();
+
+
   }
 
 };
-
 
 TEST_F(RenderTests, ContextCreation)
 {
@@ -153,3 +158,61 @@ TEST_F(RenderTests, TestGeometries)
 }
 
 
+class EventTests : public RenderTests {
+protected:
+  virtual void SetUp()
+  {
+    RenderTests::SetUp();
+  }
+
+  virtual void TearDown()
+  {
+    RenderTests::TearDown();
+  }
+};
+
+/**
+ * ensure that the library registers the user-defined
+ * SDL events properly
+ */
+TEST_F(EventTests, RegisterIds)
+{
+  EXPECT_GE(sls_first_eventid(), 0);
+}
+
+TEST_F(EventTests, GetEventIds)
+{
+  slsEventType ls[] = {
+      SLS_EVT_DISPATCH,
+      SLS_EVT_TIMED_DISPATCH
+  };
+
+  auto first_idx = sls_first_eventid();
+  for (auto const &type : ls) {
+    auto id = sls_eventtype_to_eventid(type);
+    EXPECT_EQ(type, sls_eventid_to_eventtype(id));
+    EXPECT_GE(id, first_idx) << "The event ID must be within the range registered by SDL";
+    EXPECT_LT(id, first_idx + SLS_EVT_LAST) << "The event ID must be within the range registered by SDL";
+  }
+}
+
+
+TEST_F(EventTests, GetInvalidIds)
+{
+  auto first_idx = int32_t(sls_first_eventid());
+  uint32_t invalid_ids[] = {
+      first_idx + uint32_t (SLS_EVT_LAST),
+      first_idx + uint32_t (SLS_INVALID_EVT_ID),
+      first_idx + 1000u,
+      first_idx - 1u
+  };
+
+  for (auto id: invalid_ids) {
+
+
+    EXPECT_EQ(SLS_INVALID_EVT_ID, sls_eventid_to_eventtype(id)) <<
+              "id with index " << id << " should return invalid event type\n" <<
+              "first index == " << first_idx << ", index must be less than " << first_idx + SLS_EVT_LAST;
+  }
+
+}

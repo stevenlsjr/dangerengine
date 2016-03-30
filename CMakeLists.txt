@@ -65,11 +65,15 @@ set(DANGER_SRC
     src/sls-build-dir.c
     src/sls-build-dir.h
     src/renderer/slsLight.c src/renderer/slsLight.h
-    src/renderer/slsLocationTable.c src/renderer/slsLocationTable.h
-    src/renderer/geometries.c src/renderer/geometries.h
+    src/renderer/slsLocationTable.c
+    src/renderer/slsLocationTable.h
+    src/renderer/geometries.c
+    src/renderer/geometries.h
 
     src/state/slsRenderList.c src/state/slsRenderlist.h
-    src/cxx/overloads.h src/data-types/dangertypes.h)
+    src/cxx/overloads.h
+    src/data-types/dangertypes.h
+    src/state/slsEvent.c src/state/slsEvent.h src/math/slsSimd.c src/math/slsSimd.h)
 
 
 # tests compiled in c
@@ -91,7 +95,7 @@ set(DANGER_TEST_SRC
 
     #TODO test context once refactoring begins
 
-    #tests/render_tests.cc
+    tests/render_tests.cc
     #tests/image_tests.cc
 
     tests/data-types/pool-tests.cc)

@@ -54,6 +54,7 @@ extern "C" {
 #include "math/math-types.h"
 #include "math/slsMatrixStack.h"
 #include "math/slsTrackball.h"
+#include "math/slsSimd.h"
 
 
 #include "renderer/shaderutils.h"
@@ -65,6 +66,7 @@ extern "C" {
 
 #include "state/slsAppState.h"
 #include "state/resourceutils.h"
+#include "state/slsEvent.h"
 
 
 #ifdef __cplusplus
