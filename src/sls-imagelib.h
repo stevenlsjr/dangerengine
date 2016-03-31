@@ -37,6 +37,7 @@
 #   include <SDL2/SDL_image.h>
 #else
 //
+#include <stb_image.h>
 #endif
 
 #endif //DANGERENGINE_SLS_IMAGELIB_H
