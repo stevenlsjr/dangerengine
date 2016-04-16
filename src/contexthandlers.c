@@ -91,9 +91,8 @@ bool sls_init(void)
   sls_init_eventsystem();
 
 
-  sls_active_flag = SLS_TRUE;
+  sls_active_flag = true;
 
-  sls_setup_errstack();
 
   atexit(sls_terminate);
 
@@ -119,8 +118,6 @@ void sls_terminate(void)
   IMG_Quit();
 
   apr_terminate();
-
-  sls_teardown_errstack();
 
   sls_active_flag = false;
 }

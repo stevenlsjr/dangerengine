@@ -21,25 +21,17 @@
 #define SLS_USE_ERRORSTACK 1
 #include "slsmacros.h"
 
-#include "slserrcode.h"
 
 
 /**
  * @brief Error checker with same format as sls_check, but submits
  * a given error code on failure
  */
-#define sls_check_code(cond, code, msg, ...) do  {\
-  if (!(cond)) {                                  \
-    sls_log_err((msg), ##__VA_ARGS__);            \
-    sls_push_error((slsError)(code));             \
-    goto error;                                   \
-  }                                               \
-} while (0)
 
 // redefine
 #undef sls_checkmem
 #define sls_checkmem(pointer) do {  \
-  sls_check_code((pointer), SLS_MALLOC_ERR, "memory error! %s", #pointer); \
+  sls_check((pointer), "memory error! %s", #pointer); \
 } while (0)
 
 

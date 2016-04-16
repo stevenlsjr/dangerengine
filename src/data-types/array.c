@@ -151,7 +151,7 @@ size_t sls_array_element_size(slsArray const *self)
 void *sls_array_get(slsArray *self, size_t i)
 {
   if (!self) { return NULL; }
-  sls_check_code(i <= self->priv->length, SLS_INDEX_OVERFLOW, "out of index error!");
+  sls_check(i <= self->priv->length, "out of index error!");
 
   char *ptr = self->priv->array + (i * self->priv->element_size);
 
@@ -190,8 +190,7 @@ void sls_array_insert(slsArray *self, size_t i, void *value)
   size_t len = p->length;
   size_t newlen = len + 1;
   size_t newsize = newlen * p->element_size;
-  sls_check_code(i <= len,
-                 SLS_INDEX_OVERFLOW,
+  sls_check(i <= len,
                  "index %lu cannot be appended above %lu", i, len);
 
   // resize array if necessary

@@ -41,12 +41,10 @@
 #include <slsutils.h>
 #include <apr_pools.h>
 #include <apr_hash.h>
-#include <data-types/hashtable.h>
-#include <data-types/slsPool.h>
-#include "slsLocationTable.h"
+#include <kazmath/kazmath.h>
+#include <kazmath/vec4.h>
 
 typedef struct slsShader slsShader;
-
 
 
 struct slsShader {
@@ -68,8 +66,42 @@ slsShader *sls_shader_init(slsShader *self, GLuint program) SLS_NONNULL(1);
 
 slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
 
+void sls_shader_use(slsShader *self_opt);
+
+void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec) SLS_NONNULL(1);
+
+void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec) SLS_NONNULL(1);
+
+void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec, size_t count) SLS_NONNULL(1);
+
+void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec, size_t count) SLS_NONNULL(1);
+
+void sls_shader_bind_mat4(slsShader *self, GLuint location, kmMat4 const *m, bool transpose)SLS_NONNULL(1, 3);
+
+void sls_shader_bind_mat3(slsShader *self, GLuint location, kmMat3 const *m, bool transpose)SLS_NONNULL(1, 3);
+
+void sls_shader_bind_mat4v(slsShader *self,
+                           GLuint location, kmMat4 const *m, size_t count,
+                           bool transpose)
+    SLS_NONNULL(1, 3);
+
+void sls_shader_bind_mat3v(slsShader *self,
+                           GLuint location,
+                           kmMat3 const *m,
+                           size_t count, bool transpose) SLS_NONNULL(1, 3);
 
 
+#define sls_shader_bind(sself, location, gen_val, ...)  _Generic(gen_val, \
+kmVec3: sls_shader_bind_vec3(sself, location, gen_val),\
+kmVec4: sls_shader_bind_vec4(sself, location, gen_val),\
+kmVec4  *: sls_shader_bind_vec4v(sself, location, gen_val, __VA_ARGS__),\
+kmVec4 const *: sls_shader_bind_vec4v(sself, location, gen_val, __VA_ARGS__),\
+kmVec3 *: sls_shader_bind_vec3v(sself, location, gen_val, __VA_ARGS__),\
+kmVec3 const  *: sls_shader_bind_vec3v(sself, location, gen_val, __VA_ARGS__),\
+kmMat4 * : sls_shader_bind_mat4(sself, location, gen_val, __VA_ARGS__), \
+kmMat4 const * : sls_shader_bind_mat4(sself, location, gen_val, __VA_ARGS__), \
+kmMat3 * : sls_shader_bind_mat3(sself, location, gen_val, __VA_ARGS__), \
+kmMat3  const* : sls_shader_bind_mat3(sself, location, gen_val, __VA_ARGS__))
 
 
 #endif //DANGERENGINE_SLSSHADER_H

@@ -131,8 +131,7 @@ void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
   if (!self || !ptr) {return;}
   sls_check(self->data, "self->data does is null");
 
-  sls_check_code(idx <= self->n_elements,
-                 SLS_INDEX_OVERFLOW,
+  sls_check(idx <= self->n_elements,
                  "Index overflow: index %lu is greater than array sized %lu",
                  idx, self->n_elements);
 

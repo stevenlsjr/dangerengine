@@ -103,8 +103,7 @@ slsMesh *sls_mesh_init(slsMesh *self,
                        size_t idx_count)
 {
   if (!vertices || !indices || !self) { return NULL; }
-  //self->_indices = sls_array_new(indices, sizeof(unsigned), idx_count);
-  //self->_vertices = sls_array_new(vertices, sizeof(slsVertex), vert_count);
+  *self = sls_mesh_proto;
 
   self->vertices.data = calloc((vert_count + 1), sizeof(slsVertex));
   self->indices.data = calloc((idx_count + 1), sizeof(uint32_t));
@@ -153,14 +152,15 @@ slsMesh * sls_mesh_dtor(slsMesh *self)
 
 void sls_mesh_bind(slsMesh *self, slsShader *shader)
 {
+#ifndef SLS_GNU_EXT
+  if (!self) { return; }
+#endif
   glGenBuffers(1, &self->vbo);
   glGenBuffers(1, &self->ibo);
 
   glGenVertexArrays(1, &self->vao);
 
-#ifndef SLS_GNU_EXT
-  if (!self) { return; }
-#endif
+
   // bind gl objects
   glUseProgram(shader->program);
 

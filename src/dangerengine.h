@@ -44,7 +44,6 @@ extern "C" {
 
 #include "slscontext.h"
 #include "slsutils.h"
-#include "slserrcode.h"
 
 #include "contexthandlers.h"
 

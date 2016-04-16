@@ -207,9 +207,6 @@ void demo_ctx_teardown(slsContext *self)
 void demo_ctx_update(slsContext *self, double dt)
 {
 
-  sls_glerror_unwind();
-
-
   data.lights.light_positions[0] = (kmVec4) {0.0, 0.1, 1.0, 0.0};
 
   GLsizei n_lights = (GLsizei) data.lights.n_lights;
@@ -244,8 +241,29 @@ void demo_ctx_update(slsContext *self, double dt)
 
 void demo_ctx_display(slsContext *self, double dt)
 {
+  slsVertex verts[] = {
+      {.position = {-1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = {-1.f,  1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = { 1.f,  1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = { 1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}}
+  };
+  uint32_t idxs[] = {2, 1, 0, 3, 2, 0};
+
+  slsMesh m;
+  sls_mesh_init(&m, verts, sizeof(verts)/sizeof(*verts), idxs, sizeof(idxs)/sizeof(*idxs));
+
+  sls_mesh_bind(&m, &data.phong_shader);
+
+  kmMat4 id;
+  kmMat4Identity(&id);
+  sls_shader_bind_mat4(&data.phong_shader,
+                       glGetUniformLocation(data.phong_shader.program, "model_view"), &id, false);
+
+  _sls_mesh_roughdraw(&m, data.phong_shader.program, dt );
 
 
+
+  sls_mesh_dtor(&m);
 
 }
 

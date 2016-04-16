@@ -82,61 +82,62 @@ slsShader *sls_shader_dtor(slsShader *self)
   return self;
 }
 
-// TODO: unif/attr binding logic should not be part of the base
-#if 0
-// shader handling
-void sls_shader_bind_unifs(slsShader *self)
+void sls_shader_use(slsShader *self)
 {
-  //typeof(self->uniforms) *u = &self->uniforms;
-
-  char const *unifs[] = {
-      "time",
-      "model_view",
-      "projection",
-      "normal_mat",
-      "normal_tex",
-      "diffuse_tex",
-      "specular_tex",
-      "lights.diffuse_products",
-      "lights.ambient_products",
-      "lights.specular_products",
-      "lights.light_positions",
-      "lights.light_modelview",
-      "lights.n_lights"
-
-  };
-
-  for (int i = 0; i < sizeof(unifs) / sizeof(char *); ++i) {
-
-    char const *name = unifs[i];
-
-
-    GLint loc = glGetUniformLocation(self->program, name);
-
-
-    sls_locationtable_set(&self->unif_table, name, (GLuint) (loc >= 0 ? loc : 0));
-
-  }
+  GLuint prg = self ? self->program : 0;
+  glUseProgram(prg);
 }
 
 
-void sls_shader_bind_attrs(slsShader *self)
+void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec)
+{
+  sls_shader_bind_vec3v(self, location, &vec, 1);
+
+}
+
+void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec)
+{
+  sls_shader_bind_vec4v(self, location, &vec, 1);
+
+
+}
+
+void sls_shader_bind_mat4(slsShader *self, GLuint location, kmMat4 const *m, bool transpose)
+{
+  sls_shader_bind_mat4v(self, location, m, 1, transpose);
+}
+
+void sls_shader_bind_mat3(slsShader *self, GLuint location, kmMat3 const *m, bool transpose)
 {
 
-  char const *attrs[] = {"position",
-                         "normal",
-                         "uv",
-                         "color"};
+  sls_shader_bind_mat3v(self, location, m, 1, transpose);
 
-  size_t len = sizeof(attrs) / sizeof(char const *);
-  for (uint32_t i = 0; i < len; ++i) {
 
-    char const *name = attrs[i];
-
-    glBindAttribLocation(self->program, i, name);
-    sls_locationtable_set(&self->attr_table, name, i);
-
-    sls_attr_check(name, self->program, i);
-  }
 }
-#endif
+
+
+void sls_shader_bind_mat4v(slsShader *self, GLuint location, kmMat4 const *m, size_t count, bool transpose)
+{
+  sls_shader_use(self);
+  glUniformMatrix4fv(location, (GLsizei)count, (GLboolean) transpose, m->mat);
+
+}
+
+void sls_shader_bind_mat3v(slsShader *self, GLuint location, kmMat3 const *m, size_t count, bool transpose)
+{
+  sls_shader_use(self);
+  glUniformMatrix3fv(location, (GLsizei)count, (GLboolean) transpose, m->mat);
+}
+
+void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec, size_t count)
+{
+  sls_shader_use(self);
+  glUniform3fv(location, (GLsizei )count, &vec->x);
+
+}
+
+void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec, size_t count)
+{
+  sls_shader_use(self);
+  glUniform4fv(location, (GLsizei )count, &vec->x);
+}
