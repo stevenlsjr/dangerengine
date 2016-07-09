@@ -85,7 +85,6 @@ static const slsContext sls_context_proto = {.init = sls_context_init,
     .state = NULL,
     .data = NULL,
 
-    .pool = NULL,
     };
 
 /*----------------------------------------*
@@ -120,9 +119,6 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
     bool res = sls_init();
     sls_check(res, "initialization failed!");
   }
-  self->pool = NULL;
-
-  sls_checkmem(apr_pool_create(&self->pool, NULL) == APR_SUCCESS);
 
 
   // create sdl window
@@ -154,11 +150,10 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 
   // allocate and initialize private members
 
-  self->priv = apr_pcalloc(self->pool, sizeof(slsContext_p));
+  self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
 
-  self->state = apr_pcalloc(self->pool, sizeof(slsAppState));
-  self->state = sls_appstate_init(self->state, self->pool);
+  self->state = calloc(1, sizeof(slsAppState));
   sls_checkmem(self->state);
 
 
@@ -181,8 +176,7 @@ slsContext *sls_context_dtor(slsContext *self)
   if (self->window) {
     SDL_DestroyWindow(self->window);
   }
-  if (self->pool) {
-    apr_pool_destroy(self->pool);
+  if (self->state) {
   }
 
   return self;
@@ -254,7 +248,6 @@ void sls_context_iter(slsContext *self)
     SDL_GL_SwapWindow(self->window);
 
     // reset input state after update interval
-    sls_appstate_clearinput(self->state);
 
 
 
@@ -268,18 +261,15 @@ void sls_context_resize(slsContext *self, int x, int y)
   glViewport(0, 0, (int) x, (int) y);
 
   if (self->state) {
-    sls_appstate_resize(self->state, x, y);
   }
 }
 
 void sls_context_update(slsContext *self, double dt)
 {
-  sls_appstate_update(self->state, dt);
 }
 
 void sls_context_display(slsContext *self, double dt)
 {
-  sls_appstate_display(self->state, dt);
 }
 
 void sls_context_setup(slsContext *self)
@@ -315,11 +305,7 @@ void sls_context_setup(slsContext *self)
 
 void sls_context_setupstate(slsContext *self)
 {
-  if (!self->state) {
-    self->state = apr_palloc(self->pool, sizeof(slsAppState));
-  }
-  self->state = sls_appstate_init(self->state, self->pool);
-  self->state->context = self;
+
 }
 
 void sls_context_pollevents(slsContext *self)
@@ -367,14 +353,12 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e)
   }
   // pass event to
   if (self->state) {
-    sls_appstate_handle_input(self->state, e);
   }
 }
 
 void sls_context_teardown(slsContext *self)
 {
   if (self->state) {
-    self->state = sls_appstate_dtor(self->state);
   }
 }
 

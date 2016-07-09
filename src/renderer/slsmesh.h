@@ -68,23 +68,6 @@ struct slsMesh {
 
   void (*bind)(slsMesh *self, slsShader *shader_program);
 
-
-  /**
-   * @brief set up buffer objects for drawing
-   */
-  void(*pre_draw)(slsMesh *self, GLuint program, double dt);
-
-  /**
-   * @brief calls drawElements routine
-   */
-  void(*draw)(slsMesh *self, double dt);
-
-  /**
-   * @brief unbinds buffer objects
-   */
-  void(*post_draw)(slsMesh *self, GLuint program, double dt);
-
-
   struct {
     slsVertex *data;
     size_t length;

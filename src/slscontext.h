@@ -39,7 +39,6 @@
 #include "state/slsAppState.h"
 
 
-#include <apr_pools.h>
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
@@ -124,11 +123,6 @@ struct slsContext {
    * one application run(), allocate to the self->state's pool.
    */
 
-#if 0
-  slsPool *pool;
-#else
-  apr_pool_t *pool;
-#endif
 
   slsAppState *state;
 

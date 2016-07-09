@@ -39,28 +39,22 @@
 #ifndef DANGERENGINE_SLS_GL_H
 #define DANGERENGINE_SLS_GL_H
 
+#include <slsmacros.h>
+SLS_BEGIN_CDECLS
+
 /**
  * use gles directly if
  */
 #if defined(__EMSCRIPTEN__)
-#define SLS_NOGLEW 1
-#define SLS_GLES 1
-#include <GLES2/gl2.h>
-
-#elif defined(SLS_USE_OBJC)
-
-#define SLS_NOGLEW 1
-
-#define SLS_APPLE_GL 1
-
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
-
+#   define SLS_NOGLEW 1
+#   define SLS_GLES 1
+#   include <GLES2/gl2.h>
 #else
-
-#include <GL/glew.h>
+#   include <GL/glew.h>
 #endif
 
 #include <SDL2/SDL.h>
+
+SLS_END_CDECLS
 
 #endif // DANGERENGINE_SLS_GL_H

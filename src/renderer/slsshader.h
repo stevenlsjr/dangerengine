@@ -39,8 +39,6 @@
 
 #include <sls-gl.h>
 #include <slsutils.h>
-#include <apr_pools.h>
-#include <apr_hash.h>
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 

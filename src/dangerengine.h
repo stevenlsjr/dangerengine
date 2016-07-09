@@ -49,7 +49,7 @@ extern "C" {
 
 #include "data-types/dangertypes.h"
 
-#include "math/mathmacs.h"
+#include "math/slsMathUtils.h"
 #include "math/math-types.h"
 #include "math/slsMatrixStack.h"
 #include "math/slsTrackball.h"

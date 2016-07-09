@@ -31,8 +31,8 @@ set(DANGER_SRC
     src/cppapi.h
     src/slsmacros.h
 
-    src/math/mathmacs.h
-    src/math/mathmacs.c
+    src/math/slsMathUtils.h
+    src/math/slsMathUtils.c
     src/math/math-types.c
     src/math/math-types.h
     src/math/slsMatrixStack.c
@@ -63,15 +63,16 @@ set(DANGER_SRC
     src/sls-build-dir.c
     src/sls-build-dir.h
     src/renderer/slsLight.c src/renderer/slsLight.h
-    src/renderer/slsLocationTable.c
-    src/renderer/slsLocationTable.h
     src/renderer/geometries.c
     src/renderer/geometries.h
 
-    src/state/slsRenderList.c src/state/slsRenderlist.h
     src/cxx/overloads.h
     src/data-types/dangertypes.h
-    src/state/slsEvent.c src/state/slsEvent.h src/math/slsSimd.c src/math/slsSimd.h)
+    src/state/slsEvent.c src/state/slsEvent.h
+    src/math/slsSimd.c src/math/slsSimd.h
+    src/renderer/slsDebugDraw.c src/renderer/slsDebugDraw.h
+
+    extern/nuklear.c extern/sls-nuklear.h )
 
 
 # tests compiled in c
@@ -89,12 +90,7 @@ set(DANGER_TEST_SRC
     tests/data-types/ptrarray-tests.cc
     tests/data-types/array-tests.cc
     tests/data-types/list-tests.cc
-    tests/LocationTableTests.cc
-
-    #TODO test context once refactoring begins
-
     tests/render_tests.cc
-    #tests/image_tests.cc
 
     tests/data-types/pool-tests.cc)
 
@@ -114,13 +110,12 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/extern/kazmath
 
   ${CMAKE_SOURCE_DIR}/extern/Chipmunk2D/include
+  ${CMAKE_SOURCE_DIR}/extern/nuklear
 
   ${CMAKE_SOURCE_DIR}/extern/googlemock/include
   ${CMAKE_SOURCE_DIR}/extern/gtest/include
-  ${APR_UTIL_INCLUDE_DIRS}
-  /usr/local/include/
-  /usr/local/Cellar/apr/1.5.1/libexec/include/apr-1
-  /usr/local/Cellar/apr-util/1.5.4/include/apr-1)
+  ${CMAKE_SOURCE_DIR}/extern/stb
+  /usr/local/include/)
 
 
 #copy resources to build
@@ -200,12 +195,9 @@ set(DANGER_DEPS
     ${SDL2_LIBRARY}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}
-    ${OPENGL_gl_LIBRARY}
-    ${APR_LIBRARIES}
-    ${APR_UTIL_LIBRARIES})
+    ${OPENGL_gl_LIBRARY})
 
 
-message("apr: ${APR_INCLUDE_DIRS}")
 
 include_directories(
   ${GLEW_INCLUDE_DIR}
@@ -213,8 +205,6 @@ include_directories(
   ${SDL2_INCLUDE_DIR}
   ${APR_INCLUDE_DIRS}
   ${APR_UTIL_INCLUDE_DIRS}
-  /usr/local/Cellar/apr/1.5.1/libexec/include/apr-1
-  /usr/local/Cellar/apr-util/1.5.4/include/apr-1
   extern/uthash/src
 )
 
@@ -239,8 +229,6 @@ target_link_libraries(dangerengine
   ${DANGER_DEPS})
 
 get_target_property(DANGERENGINE_OUTPUT dangerengine LIBRARY_OUTPUT_NAME)
-
-
 
 
 # copy resources on build

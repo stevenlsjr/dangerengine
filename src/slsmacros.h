@@ -123,10 +123,10 @@
  * @param fmt printf-style format
  * @param ... format arguments
  */
-#define sls_debug(file, msg1, fmt, ...) do { \
-    fprintf((file), "%s (%s %d):\n\t", (msg1), __func__, __LINE__);  \
-    fprintf((file), fmt, ##__VA_ARGS__);    \
-    fprintf((file), "\n");  \
+#define sls_debug(file, msg1, fmt, ...) do {                          \
+    fprintf((file), "%s (%s %d):\n\t", (msg1), __func__, __LINE__);   \
+    fprintf((file), fmt, ##__VA_ARGS__);                              \
+    fprintf((file), "\n");                                            \
 } while(0)
 
 /**
@@ -156,10 +156,10 @@
  * @brief Logs a message, throws an assertion failure, and exits with a failure
  * @detail Used to specify a fatal error
  */
-#define sls_log_fatal(fmt, ...) do{ \
-  sls_debug(stderr, "FATAL ERROR", fmt, ##__VA_ARGS__);    \
-  assert(0);  \
-  exit(EXIT_FAILURE);  \
+#define sls_log_fatal(fmt, ...) do{                       \
+  sls_debug(stderr, "FATAL ERROR", fmt, ##__VA_ARGS__);   \
+  assert(0);                                              \
+  exit(EXIT_FAILURE);                                     \
 } while (0)
 
 /**
@@ -167,16 +167,16 @@
  * @detail takes a condition, if the condition fails, it calls a 'goto' to
  * the `error:` label, which must exist in the function
  */
-#define sls_check(cond, msg, ...) do { \
-  if (!(cond)) { \
-    sls_log_err((msg), ##__VA_ARGS__);    \
-    goto error;                         \
-  }   \
+#define sls_check(cond, msg, ...) do {                    \
+  if (!(cond)) {                                          \
+    sls_log_err((msg), ##__VA_ARGS__);                    \
+    goto error;                                           \
+  }                                                       \
 } while (0)
 
 
-#define sls_checkmem(pointer) do {  \
-  sls_check((pointer), "memory error! %s", #pointer); \
+#define sls_checkmem(pointer) do {                        \
+  sls_check((pointer), "memory error! %s", #pointer);     \
 } while (0)
 
 #define sls_fail() sls_check(0, "reached fail location %s %d", __FILE__, __LINE__);
@@ -189,7 +189,6 @@
  * @detail expands to nothing if the extension exists, should be used in conjunction with
  * __attribute__((nonnull(...)) or SLS_NONNULL(...)
  */
-
 #if __has_attribute(nonnull)
 
 #define sls_nonnull_param(p)
@@ -198,8 +197,17 @@
 
 #define sls_nonnull_param(p) sls_check(p, "parameter %p is null!", p);
 
-
 #endif
+
+//---------------------------------data utilities---------------------------------------
+
+/**
+ * @brief expands count of a fixed-length array type
+ * @detail WARNING: this macro will fail if using a raw pointer type.
+ * Only works for static or stack-based arrays
+ */
+#define SLS_ARRAY_COUNT(arr) \
+  (sizeof((arr)) / sizeof(*(arr)))
 
 //---------------------------------degugging helpers---------------------------------------
 

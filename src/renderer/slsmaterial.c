@@ -238,7 +238,7 @@ GLuint sls_gltex_from_file(char const *path, int width_opt, int height_opt) {
   SDL_Surface *img = NULL;
 
   img = IMG_Load(path);
-  sls_checkmem(img);
+  sls_check(img, "file loading failed");
 
   tex = sls_gltex_from_surface(img);
 

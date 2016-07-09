@@ -2,7 +2,7 @@
 // Created by Steven on 5/2/15.
 //
 
-#include "mathmacs.h"
+#include "slsMathUtils.h"
 
 kmVec2 sls_vec2_add(const kmVec2 *a, const kmVec2 *b)
 {

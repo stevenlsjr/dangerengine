@@ -24,8 +24,8 @@ is not functional now
 
 ## Project dependencies
 
-* SDL2 (including SDL2_IMG) (not included)
-* gtest (included as git submodule)
+* [SDL2](https://www.libsdl.org/index.php) (including SDL2_IMG) (not included)
+* GoogleTest (included as git submodule)
 * kazmath (included as git submodule)
 * chipmunk 2d (included as git submodule)
 * stb (included as a git submodule)

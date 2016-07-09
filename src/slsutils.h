@@ -35,9 +35,6 @@
 } while (0)
 
 
-
-
-
 typedef enum slsBool {
   SLS_TRUE = true,
   SLS_FALSE = false

@@ -85,7 +85,6 @@ bool sls_init(void)
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
   sls_check(sls_init_ttf(0), "ttf creation failed %s", TTF_GetError());
 
-  sls_check(apr_initialize() == APR_SUCCESS, "apr failed to init");
 
   // setup internal library
   sls_init_eventsystem();
@@ -117,7 +116,6 @@ void sls_terminate(void)
   }
   IMG_Quit();
 
-  apr_terminate();
 
   sls_active_flag = false;
 }

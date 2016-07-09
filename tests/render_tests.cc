@@ -47,7 +47,6 @@ private:
   }
 
 
-
 protected:
   slsContext *ctx = nullptr;
 
@@ -92,7 +91,7 @@ protected:
     shader.dtor(&shader);
     glDeleteProgram(program);
 
-    if (ctx ) {
+    if (ctx) {
       free(sls_msg(ctx, dtor));
     }
     sls_terminate();
@@ -201,18 +200,24 @@ TEST_F(EventTests, GetInvalidIds)
 {
   auto first_idx = int32_t(sls_first_eventid());
   uint32_t invalid_ids[] = {
-      first_idx + uint32_t (SLS_EVT_LAST),
-      first_idx + uint32_t (SLS_INVALID_EVT_ID),
+      first_idx + uint32_t(SLS_EVT_LAST),
+      first_idx + uint32_t(SLS_INVALID_EVT_ID),
       first_idx + 1000u,
       first_idx - 1u
   };
 
   for (auto id: invalid_ids) {
 
+    auto res = slsEventType(0);
 
-    EXPECT_EQ(SLS_INVALID_EVT_ID, sls_eventid_to_eventtype(id)) <<
-              "id with index " << id << " should return invalid event type\n" <<
-              "first index == " << first_idx << ", index must be less than " << first_idx + SLS_EVT_LAST;
+    sls::silence_stderr([&]() {
+      res = sls_eventid_to_eventtype(id);
+    });
+    EXPECT_EQ(SLS_INVALID_EVT_ID, res)
+              << "id with index " << id << " should return invalid event type\n"
+              << "first index == " << first_idx << ", index must be less than "
+              << first_idx + SLS_EVT_LAST;
+
   }
 
 }

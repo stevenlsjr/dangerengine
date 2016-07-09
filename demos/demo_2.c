@@ -10,6 +10,7 @@
 #include "renderer/geometries.h"
 
 
+
 typedef struct DemoData {
 
   slsShader phong_shader;
@@ -17,33 +18,24 @@ typedef struct DemoData {
   slsLightBatch lights;
 
   slsMesh *mesh;
+  slsMesh *rect_mesh;
 
 
-  slsTrackball trackball;
 
   kmMat4 camera_view;
   kmMat4 projection;
 
-
-
-
 } DemoData;
 
 
-struct {
-  GLuint fbo;
-  GLuint texture;
-} frame_buffer;
-
-static
-void demo_move_trackball(slsContext *self, slsIPoint const *start_point, slsIPoint const *second_point,
-                         slsIPoint const *window_size);
 
 static
 void demo_mv_setup(slsContext *self);
 
 static
 void demo_scene_setup(slsContext *pContext);
+
+void demo_sample_debugdraw(slsContext *self, double dt);
 
 static DemoData data = {
 
@@ -109,7 +101,6 @@ int demo_main(int *argcr, char **argv)
 void demo_ctx_setup(slsContext *self)
 {
   sls_checkmem(self && self->state);
-  self->state->active_shader = NULL;
   sls_context_setup(self);
 
   demo_mv_setup(self);
@@ -137,15 +128,28 @@ static
 void demo_scene_setup(slsContext *self)
 {
 
-  slsShader *res = sls_shader_init(&data.phong_shader,
-                                   sls_create_program("resources/shaders/demo.vert",
-                                                      "resources/shaders/demo.frag",
-                                                      "resources/shaders/demo_uniforms.glsl"));
+  slsShader *res =
+      sls_shader_init(&data.phong_shader,
+                      sls_create_program("resources/shaders/demo.vert",
+                                         "resources/shaders/demo.frag",
+                                         "resources/shaders/demo_uniforms.glsl"));
   res->owns_program = true;
   data.mesh = sls_parametric_sphere_mesh(10);
 
 
-  assert (res);
+  slsVertex verts[] = {
+      {.position = {-1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = {-1.f, 1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = {1.f, 1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
+      {.position = {1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}}
+  };
+  uint32_t idxs[] = {2, 1, 0, 3, 2, 0};
+  data.rect_mesh = sls_mesh_new(verts, SLS_ARRAY_COUNT(verts),
+                                idxs, SLS_ARRAY_COUNT(idxs));
+
+
+  assert(data.rect_mesh);
+
 
 }
 
@@ -155,41 +159,10 @@ void demo_mv_setup(slsContext *self)
   kmMat4Identity(&data.projection);
   kmMat4Identity(&data.camera_view);
 
-  sls_lightbatch_init(&data.lights, 8, (slsLight[]) {}, 1);
 
-
-  sls_trackball_init(&data.trackball, 4.f, 2.f);
 }
 
-void demo_setup_framebuffer(slsContext *self)
-{
 
-#if 0 // TODO setup quad mesh to render framebuffer texture
-  slsVertex verts[] = {
-      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
-      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
-      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}},
-      (slsVertex) {.position={-1.0, -1.0, 0.0}, .normal={0.f, 0.f, 1.f}, .uv={0.f, 0.f}}
-  };
-  uint32_t indices[] = {0, 1, 2, 3, 2, 0};
-
-  size_t n_verts = sizeof(verts) / sizeof(*verts);
-  size_t n_indices = sizeof(indices) / sizeof(*indices);
-  data.fb_target = sls_mesh_new(verts, n_verts, indices, n_indices);
-
-  slsShader *res = sls_shader_init(&data.fb_shader, sls_create_program("resources/shaders/postprocess.vert",
-                                                                       "resources/shaders/postprocess.frag",
-                                                                       "resources/shaders/demo_uniforms.glsl"));
-  sls_check(res, "posprocess shader didn't initialzie");
-
-  sls_mesh_bind(data.fb_target, &data.fb_shader);
-
-  return;
-  error:
-  exit(EXIT_FAILURE);
-
-#endif
-}
 
 
 void demo_ctx_teardown(slsContext *self)
@@ -199,6 +172,7 @@ void demo_ctx_teardown(slsContext *self)
 
   sls_lightbatch_dtor(&data.lights);
 
+  free(sls_mesh_dtor(data.rect_mesh));
 
   sls_context_class()->teardown(self);
 }
@@ -207,33 +181,7 @@ void demo_ctx_teardown(slsContext *self)
 void demo_ctx_update(slsContext *self, double dt)
 {
 
-  data.lights.light_positions[0] = (kmVec4) {0.0, 0.1, 1.0, 0.0};
 
-  GLsizei n_lights = (GLsizei) data.lights.n_lights;
-
-  slsShader *s = &data.phong_shader;
-  GLuint program = s->program;
-
-  glUniform1i(glGetUniformLocation(program, "lights.n_lights"), (GLint) data.lights.n_lights);
-
-  glUniform3fv(glGetUniformLocation(program, "lights.ambient_products"),
-               n_lights,
-               (GLfloat *) data.lights.ambient_products);
-  glUniform3fv(glGetUniformLocation(program, "lights.specular_products"),
-               n_lights,
-               (GLfloat *) data.lights.specular_products);
-
-  glUniform3fv(glGetUniformLocation(program, "lights.diffuse_products"),
-               n_lights,
-               (GLfloat *) data.lights.diffuse_products);
-  glUniform4fv(glGetUniformLocation(program, "lights.light_positions"),
-               n_lights,
-               (GLfloat *) data.lights.light_positions);
-
-  glUniformMatrix4fv(glGetUniformLocation(program, "lights.light_modelview"),
-                     n_lights,
-                     GL_FALSE,
-                     (GLfloat *) data.lights.light_modelviews[0].mat);
 
 
 }
@@ -241,29 +189,21 @@ void demo_ctx_update(slsContext *self, double dt)
 
 void demo_ctx_display(slsContext *self, double dt)
 {
-  slsVertex verts[] = {
-      {.position = {-1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = {-1.f,  1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = { 1.f,  1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = { 1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}}
-  };
-  uint32_t idxs[] = {2, 1, 0, 3, 2, 0};
 
-  slsMesh m;
-  sls_mesh_init(&m, verts, sizeof(verts)/sizeof(*verts), idxs, sizeof(idxs)/sizeof(*idxs));
-
-  sls_mesh_bind(&m, &data.phong_shader);
+  sls_mesh_bind(data.rect_mesh, &data.phong_shader);
 
   kmMat4 id;
   kmMat4Identity(&id);
   sls_shader_bind_mat4(&data.phong_shader,
-                       glGetUniformLocation(data.phong_shader.program, "model_view"), &id, false);
+                       (uint) glGetUniformLocation(data.phong_shader.program, "model_view"), &id, false);
 
-  _sls_mesh_roughdraw(&m, data.phong_shader.program, dt );
+  _sls_mesh_roughdraw(data.rect_mesh, data.phong_shader.program, dt);
+  demo_sample_debugdraw(self, dt);
+}
 
+void demo_sample_debugdraw(slsContext *self, double dt)
+{
 
-
-  sls_mesh_dtor(&m);
 
 }
 
@@ -276,9 +216,9 @@ void demo_ctx_resize(slsContext *self, int x, int y)
 
   const float fov = 70.f;
   float aspect = x / (float) y;
-  kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
+  //kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
-  //kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f/aspect, 5.f/aspect, -100.f, 100.f);
+  kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f/aspect, 5.f/aspect, -100.f, 100.f);
 
   glUniformMatrix4fv(glGetUniformLocation(data.phong_shader.program, "projection"),
                      1, GL_FALSE, data.projection.mat);
@@ -288,56 +228,15 @@ void demo_ctx_resize(slsContext *self, int x, int y)
 void demo_handle_event(slsContext *self, SDL_Event const *e)
 {
 
-  static slsIPoint last_mouse = {-1, -1};
 
 
   sls_context_handle_event(self, e);
 
   switch (e->type) {
-    case SDL_MOUSEMOTION: {
-
-      SDL_MouseMotionEvent const *me = &e->motion;
-      slsIPoint mouse = {me->x, me->y};
-
-      if (me->state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-
-        if (last_mouse.x == -1 && last_mouse.y == -1) {
-          last_mouse = mouse;
-        }
-        bool no_motion = sls_ipoint_eq(&mouse, &last_mouse);
-
-        if (!no_motion) {
-          slsIPoint win_size = {};
-          SDL_GetWindowSize(self->window, &win_size.x, &win_size.y);
-          demo_move_trackball(self, &mouse, &last_mouse, &win_size);
-
-        }
-      }
-
-      last_mouse = mouse;
-    }
-      break;
 
     case SDL_KEYDOWN: {
       SDL_KeyboardEvent const *ke = &e->key;
       switch (ke->keysym.scancode) {
-        case SDL_SCANCODE_R: {
-          kmMat4Identity(&data.trackball.rotation_mat);
-          kmQuaternionIdentity(&data.trackball.rotation);
-        }
-          break;
-
-        case SDL_SCANCODE_COMMA: {
-
-        }
-          break;
-        case SDL_SCANCODE_PERIOD: {
-        }
-          break;
-
-        case SDL_SCANCODE_SPACE: {
-        }
-          break;
 
         case SDL_SCANCODE_ESCAPE: {
           self->is_running = false;
@@ -354,31 +253,4 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
     default:
       break;
   }
-}
-
-static
-void demo_move_trackball(slsContext *self,
-                         slsIPoint const *start_point,
-                         slsIPoint const *second_point,
-                         slsIPoint const *window_size)
-{
-
-  float
-      w = window_size->x,
-      h = window_size->y;
-
-
-  kmVec2 delta = {
-      .x = (start_point->x - second_point->x) / w,
-      .y = (second_point->y - start_point->y) / h
-  };
-
-
-  slsTrackball *ball = &data.trackball;
-
-  kmVec2 param_0 = {(2.f * start_point->x - w) / w, (h - 2.f * start_point->y) / h};
-  kmVec2 param_1 = {(2.f * second_point->x - w) / w, (h - 2.f * second_point->y) / h};
-
-
-  sls_trackball_set(ball, param_0, param_1);
 }

@@ -14,21 +14,6 @@
 typedef struct DemoModel DemoModel;
 
 struct DemoModel {
-  double aphelion;
-  double perihelion;
-  double semi_major_axis;
-  double eccentricity;
-
-  /**
-   * @brief inclination in radians
-   **/
-  double inclination;
-  /**
-   * @orbital period, in days
-   */
-  double period;
-
-  double radius;
 };
 
 slsContext * demo_shared_ctx();

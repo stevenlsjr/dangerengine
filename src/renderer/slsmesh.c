@@ -48,10 +48,7 @@ static const slsMesh sls_mesh_proto = {
     .dtor = sls_mesh_dtor,
     .bind = sls_mesh_bind,
 
-    .pre_draw=sls_mesh_predraw,
 
-    .draw=sls_mesh_draw,
-    .post_draw= sls_mesh_postdraw,
     .vbo = 0,
     .ibo = 0,
     .vao = 0,
@@ -256,9 +253,9 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt)
 {
-  self->pre_draw(self, program, dt);
-  self->draw(self, dt);
-  self->post_draw(self, program, dt);
+  sls_mesh_predraw(self, program, dt);
+  sls_mesh_draw(self, dt);
+  sls_mesh_postdraw(self, program, dt);
 
 }
 

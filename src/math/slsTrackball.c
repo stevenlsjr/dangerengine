@@ -6,7 +6,7 @@
  *
  **/
 #include "slsTrackball.h"
-#include "mathmacs.h"
+#include "slsMathUtils.h"
 #include "math-types.h"
 #include <math.h>
 #include <slsutils.h>

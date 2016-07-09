@@ -29,6 +29,7 @@
  * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include <CoreGraphics/CoreGraphics.h>
+#include <renderer/slsDebugDraw.h>
 #include "slsMatrixStack.h"
 #include "math-types.h"
 
@@ -264,4 +265,14 @@ void sls_matrix_glreset(slsMatrixStack *self)
 
   sls_matrix_stack_reserve(self, SLS_MATRIXSTACK_DEFAULTSIZE);
 }
+
+
+
+
+
+
+
+
+
+
 
