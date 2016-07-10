@@ -72,7 +72,7 @@ set(DANGER_SRC
     src/math/slsSimd.c src/math/slsSimd.h
     src/renderer/slsDebugDraw.c src/renderer/slsDebugDraw.h
 
-    extern/nuklear.c extern/sls-nuklear.h )
+    src/renderer/nuklear.c src/renderer/sls-nuklear.h)
 
 
 # tests compiled in c
