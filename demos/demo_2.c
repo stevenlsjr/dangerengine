@@ -149,8 +149,6 @@ void demo_scene_setup(slsContext *self)
 
 
   assert(data.rect_mesh);
-
-
 }
 
 static
@@ -158,11 +156,7 @@ void demo_mv_setup(slsContext *self)
 {
   kmMat4Identity(&data.projection);
   kmMat4Identity(&data.camera_view);
-
-
 }
-
-
 
 
 void demo_ctx_teardown(slsContext *self)
@@ -183,7 +177,6 @@ void demo_ctx_update(slsContext *self, double dt)
 
 
 
-
 }
 
 
@@ -199,6 +192,7 @@ void demo_ctx_display(slsContext *self, double dt)
 
   _sls_mesh_roughdraw(data.rect_mesh, data.phong_shader.program, dt);
   demo_sample_debugdraw(self, dt);
+
 }
 
 void demo_sample_debugdraw(slsContext *self, double dt)

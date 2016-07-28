@@ -8,17 +8,14 @@
 #define SLS_N_LIGHTS 8
 
 uniform mat4 model_view;
+uniform mat4 inv_model_view;
 uniform mat4 normal_mat;
-uniform mat4 projection;
 
 uniform float time;
-
-uniform float season_blend;
 
 uniform sampler2D diffuse_tex;
 uniform sampler2D specular_tex;
 uniform sampler2D normal_tex;
-uniform int z_layer;
 
 uniform Material {
   vec3 specular_color;
@@ -35,7 +32,6 @@ struct Lights {
   vec3 specular_products[SLS_N_LIGHTS];
   vec4 light_positions[SLS_N_LIGHTS];
   mat4 light_modelview[SLS_N_LIGHTS];
-
 };
 
 uniform Lights lights;

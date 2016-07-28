@@ -220,7 +220,7 @@ endforeach ()
 #---------------------------------------
 
 set(BUILD_SHARED_LIBS ON)
-add_library(dangerengine ${DANGER_SRC})
+add_library(dangerengine STATIC ${DANGER_SRC})
 
 add_dependencies(dangerengine
   kazmath)

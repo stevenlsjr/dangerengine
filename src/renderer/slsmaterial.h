@@ -61,7 +61,6 @@ struct slsTexPair {
    * @brief flags the texture's successful load in memory
    */
   bool is_active;
-
 };
 
 struct slsMaterial {
@@ -104,7 +103,6 @@ struct slsMaterial {
   kmVec3 specular_color;
 
   float shininess;
-
 };
 
 slsMaterial const *sls_texture_class();
