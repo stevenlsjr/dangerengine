@@ -19,6 +19,7 @@ typedef struct DemoData {
 
   kmMat4 camera_view;
   kmMat4 projection;
+  slsDrawBatch debug_draw;
 
 } DemoData;
 
@@ -104,11 +105,13 @@ error:
 }
 
 static void demo_scene_setup(slsContext *self) {
+  sls_drawbatch_init(&data.debug_draw);
+
   slsShader *res = sls_shader_init(
       &data.phong_shader,
       sls_create_program("resources/shaders/demo.vert",
                          "resources/shaders/demo.frag",
-                         "resources/shaders/demo_uniforms.glsl"));
+                         "resources/shaders/uniforms.glsl"));
   res->owns_program = true;
   data.mesh = sls_parametric_sphere_mesh(10);
 
@@ -130,6 +133,7 @@ static void demo_mv_setup(slsContext *self) {
 }
 
 void demo_ctx_teardown(slsContext *self) {
+  sls_drawbatch_dtor(&data.debug_draw);
   sls_shader_dtor(&data.phong_shader);
   free(sls_msg(data.mesh, dtor));
 
@@ -156,7 +160,12 @@ void demo_ctx_display(slsContext *self, double dt) {
   demo_sample_debugdraw(self, dt);
 }
 
-void demo_sample_debugdraw(slsContext *self, double dt) {}
+void demo_sample_debugdraw(slsContext *self, double dt) {
+
+  sls_ddraw_begin(&data.debug_draw);
+  sls_ddraw_cstring(&data.debug_draw, "hello world", -1);
+  sls_ddraw_end(&data.debug_draw);
+}
 
 void demo_ctx_resize(slsContext *self, int x, int y) {
   glUseProgram(data.phong_shader.program);

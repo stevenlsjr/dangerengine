@@ -29,7 +29,6 @@
  * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #include <CoreGraphics/CoreGraphics.h>
-#include <renderer/slsDebugDraw.h>
 #include "slsMatrixStack.h"
 #include "math-types.h"
 

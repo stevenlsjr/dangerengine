@@ -10,7 +10,6 @@
 #include <renderer/shaderutils.h>
 #include <renderer/slsmaterial.h>
 #include "resourceutils.h"
-#include "slsAppState.h"
 
 #if 0
 slsMaterial *sls_load_texture(slsAppState *state,

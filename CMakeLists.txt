@@ -53,8 +53,6 @@ set(DANGER_SRC
 
     # game state machine
 
-    src/state/slsAppState.c
-    src/state/slsAppState.h
     src/state/resourceutils.c
     src/state/resourceutils.h
 
@@ -70,7 +68,6 @@ set(DANGER_SRC
     src/data-types/dangertypes.h
     src/state/slsEvent.c src/state/slsEvent.h
     src/math/slsSimd.c src/math/slsSimd.h
-    src/renderer/slsDebugDraw.c src/renderer/slsDebugDraw.h
 
     src/renderer/nuklear.c src/renderer/sls-nuklear.h)
 

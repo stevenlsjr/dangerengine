@@ -62,7 +62,6 @@ extern "C" {
 #include "renderer/slsshader.h"
 #include "renderer/slsLight.h"
 
-#include "state/slsAppState.h"
 #include "state/resourceutils.h"
 #include "state/slsEvent.h"
 

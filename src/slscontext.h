@@ -8,25 +8,31 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
+ * 1. Redistributions of source code must retain the above copyright notice,
+*this
  *    list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+*AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+*FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+*DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted as representing official policies,
+ * The views and conclusions contained in the software and documentation are
+*those
+ * of the authors and should not be interpreted as representing official
+*policies,
  * either expressed or implied, of Steven Shea.
 **/
 
@@ -36,18 +42,16 @@
 #include "slsutils.h"
 #include "sls-gl.h"
 #include <SDL2/SDL.h>
-#include "state/slsAppState.h"
-
-
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
+
+typedef struct slsAppState { char TODO; } slsAppState;
 
 /**
  * @brief context object for glfw renderer
  */
 struct slsContext {
-
   /**
    * @brief initializer
    *
@@ -57,17 +61,14 @@ struct slsContext {
    *
    * @return initialized `self` object
    */
-  slsContext * (*init)(slsContext *self,
-                       char const *caption,
-                       size_t width, size_t height) SLS_NONNULL(1);
+  slsContext *(*init)(slsContext *self, char const *caption, size_t width,
+                      size_t height)SLS_NONNULL(1);
 
   /**
    * @brief destructor method
    * @detail finalizes object and frees it from memory
    */
-  slsContext *(*dtor)(slsContext *self) SLS_NONNULL(1);
-
-
+  slsContext *(*dtor)(slsContext *self)SLS_NONNULL(1);
 
   /**
    * @brief sets up opengl and rendering context
@@ -81,14 +82,13 @@ struct slsContext {
    */
   void (*teardown)(slsContext *self) SLS_NONNULL(1);
 
-
   /**
    * @brief sets up run loop
    * @detail sets up context, executes main loop, and tears down context at end
    */
   void (*run)(slsContext *self) SLS_NONNULL(1);
 
-  void (*handle_event) (slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
+  void (*handle_event)(slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
 
   /**
    * @brief callback method for window resize
@@ -105,13 +105,10 @@ struct slsContext {
    */
   void (*display)(slsContext *self, double dt) SLS_NONNULL(1);
 
-
-
   SDL_Window *window;
   SDL_GLContext gl_context;
 
   long frame_n;
-
 
   bool is_running;
   uint64_t interval;
@@ -123,7 +120,6 @@ struct slsContext {
    * one application run(), allocate to the self->state's pool.
    */
 
-
   slsAppState *state;
 
   void *data;
@@ -133,14 +129,12 @@ slsContext const *sls_context_class();
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height);
 
-static inline void sls_context_delete(slsContext *ctx)
-{
+static inline void sls_context_delete(slsContext *ctx) {
   ctx = ctx->dtor(ctx);
   if (ctx) {
     free(ctx);
   }
 }
-
 
 /**
  * @brief sets emscripten mainloop for context execution
@@ -150,7 +144,6 @@ void sls_emscripten_loop(void *vctx);
 int sls_get_glversion();
 
 void sls_context_pollevents(slsContext *self) SLS_NONNULL(1);
-
 
 /*----------------------------------------*
  * slsContext default method prototypes
@@ -178,5 +171,4 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e);
 
 void sls_context_setupstate(slsContext *pContext) SLS_NONNULL(1);
 
-
-#endif //DANGERENGINE_SLSCONTEXT_H
+#endif  // DANGERENGINE_SLSCONTEXT_H

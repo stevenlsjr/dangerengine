@@ -49,8 +49,28 @@
 #include <kazmath/vec4.h>
 
 typedef struct slsShader slsShader;
-typedef struct slsShaderLocations slsShaderProps;
+typedef struct slsUniformLocations slsUniformLocations;
+typedef struct slsAttrLocations slsAttrLocations;
 
+
+
+struct slsAttrLocations {
+  GLuint position, normal, uv, color;
+};
+
+struct slsUniformLocations {
+  GLuint model_view, inv_model_view, normal_mat, time, diffuse_tex,
+      specular_tex, normal_tex;
+
+  struct {
+    GLuint specular_color, diffuse_color, ambient_color, shininess;
+  } material;
+
+  struct {
+    GLuint n_lights, ambient_products, diffuse_products, specular_products,
+        light_positions, light_modelview;
+  } lights;
+};
 
 struct slsShader {
   slsShader *(*init)(slsShader *self, GLuint program)SLS_NONNULL(1);
@@ -61,15 +81,14 @@ struct slsShader {
   bool owns_program;
 
   void *data;
+
+  slsUniformLocations uniforms;
+  slsAttrLocations attributes;
 };
 
-struct slsShaderLocations {
-  struct {
-  } uniforms;
-  struct {
-  } attributes;
-};
-
+//
+// Attribute/Uniform location tables
+//
 
 slsShader const *sls_shader_proto();
 
