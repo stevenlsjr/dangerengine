@@ -7,6 +7,7 @@
 
 #define SLS_N_LIGHTS 8
 
+uniform mat4 projection;
 uniform mat4 model_view;
 uniform mat4 inv_model_view;
 uniform mat4 normal_mat;

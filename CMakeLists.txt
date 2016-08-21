@@ -35,8 +35,6 @@ set(DANGER_SRC
     src/math/slsMathUtils.c
     src/math/math-types.c
     src/math/math-types.h
-    src/math/slsMatrixStack.c
-    src/math/slsMatrixStack.h
     src/math/slsTrackball.c src/math/slsTrackball.h
     src/math/slsCamera.c
     src/math/slsCamera.h

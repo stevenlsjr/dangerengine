@@ -51,7 +51,6 @@ extern "C" {
 
 #include "math/slsMathUtils.h"
 #include "math/math-types.h"
-#include "math/slsMatrixStack.h"
 #include "math/slsTrackball.h"
 #include "math/slsSimd.h"
 

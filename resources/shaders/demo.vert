@@ -18,14 +18,13 @@ layout (location=3) in vec4 color;
 
 out vec3 frag_pos;
 out vec3 frag_normal;
+out vec3 frag_eye;
 out vec4 frag_color;
 out vec2 frag_uv;
 
-out float cloud_x_offset;
 
-void main()
+void main(void)
 {
-
   gl_PointSize = 4.0;
 
   frag_color = color;
@@ -33,22 +32,11 @@ void main()
   vec3 nt = (normal_mat * vec4(normal, 0.0)).xyz;
   frag_normal = normalize(nt);
 
-
   frag_uv = uv;
-
-  cloud_x_offset = frag_uv.s + time /2.0;
-
   frag_pos = vec3(model_view * vec4(position, 1.0));
+  frag_eye = -frag_pos;
 
-  mat4 tmp_mv = mat4(
-  vec4(1.0, 0.0, 0.0, 0.0),
-  vec4(0.0, 1.0, 0.0, 0.0),
-  vec4(0.0, 0.0, 1.0, 0.0),
-  vec4(0.0, 0.0, 0.0, 1.0)
-
-  );
-
-  gl_Position = vec4(position, 1.0f);
+  gl_Position = projection * vec4(frag_pos, 1.0);
 
 
 }

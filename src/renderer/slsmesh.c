@@ -114,6 +114,12 @@ slsMesh *sls_mesh_init(slsMesh *self,
   self->priv = calloc(sizeof(slsMesh_p), 1);
   sls_checkmem(self->priv);
 
+  glGenBuffers(1, &self->vbo);
+  glGenBuffers(1, &self->ibo);
+
+  glGenVertexArrays(1, &self->vao);
+
+
 
   return self;
   error:
@@ -138,7 +144,9 @@ slsMesh * sls_mesh_dtor(slsMesh *self)
   }
 
 
-  glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
+  if (glIsBuffer(buffers[0])) {
+    glDeleteBuffers(sizeof(buffers) / sizeof(GLuint), buffers);
+  }
 
 
   glDeleteVertexArrays(1, &(self->vao));
@@ -152,10 +160,6 @@ void sls_mesh_bind(slsMesh *self, slsShader *shader)
 #ifndef SLS_GNU_EXT
   if (!self) { return; }
 #endif
-  glGenBuffers(1, &self->vbo);
-  glGenBuffers(1, &self->ibo);
-
-  glGenVertexArrays(1, &self->vao);
 
 
   // bind gl objects
@@ -304,7 +308,7 @@ void sls_mesh_update_verts(slsMesh *self, slsShader *shader)
 }
 
 
-//---------------------------------mesh generations---------------------------------------
+//---------------------------------plane_mesh generations---------------------------------------
 
 
 

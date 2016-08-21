@@ -14,12 +14,11 @@ typedef struct DemoData {
 
   slsLightBatch lights;
 
-  slsMesh *mesh;
+  slsMesh *cube_mesh;
   slsMesh *rect_mesh;
 
   kmMat4 camera_view;
   kmMat4 projection;
-  slsDrawBatch debug_draw;
 
 } DemoData;
 
@@ -27,15 +26,13 @@ static void demo_mv_setup(slsContext *self);
 
 static void demo_scene_setup(slsContext *pContext);
 
-void demo_sample_debugdraw(slsContext *self, double dt);
 
-static DemoData data = {
-
-};
+static DemoData data = {};
 
 static slsContext *single_ctx = NULL;
 
-void demo_del_ctx(slsContext *ctx) {
+void demo_del_ctx(slsContext *ctx)
+{
   assert(ctx == single_ctx);
 
   free(sls_context_class()->dtor(ctx));
@@ -44,7 +41,8 @@ void demo_del_ctx(slsContext *ctx) {
 
 void demo_exit() { demo_del_ctx(demo_shared_ctx()); }
 
-slsContext *demo_shared_ctx() {
+slsContext *demo_shared_ctx()
+{
   if (single_ctx) {
     return single_ctx;
   } else {
@@ -69,7 +67,8 @@ slsContext *demo_shared_ctx() {
   }
 }
 
-int demo_main(int *argcr, char **argv) {
+int demo_main(int *argcr, char **argv)
+{
   slsContext *ctx = demo_shared_ctx();
 
   if (ctx) {
@@ -81,8 +80,12 @@ int demo_main(int *argcr, char **argv) {
 //---------------------------------context
 //callbacks---------------------------------------
 
-void demo_ctx_setup(slsContext *self) {
+void demo_ctx_setup(slsContext *self)
+{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpointer-bool-conversion"
   sls_checkmem(self && self->state);
+#pragma GCC diagnostic pop
   sls_context_setup(self);
 
   demo_mv_setup(self);
@@ -94,18 +97,18 @@ void demo_ctx_setup(slsContext *self) {
 
   glClearColor(0.1, 0.2, 0.4, 1.0);
 
-  glEnable(GL_CULL_FACE);
-  glDisable(GL_BLEND_COLOR);
+  //glEnable(GL_CULL_FACE);
+  glEnable(GL_BLEND_COLOR);
   glCullFace(GL_BACK);
 
   return;
-error:
+  error:
   SLS_DEBUGGER_BREAKPT();
   return;
 }
 
-static void demo_scene_setup(slsContext *self) {
-  sls_drawbatch_init(&data.debug_draw);
+static void demo_scene_setup(slsContext *self)
+{
 
   slsShader *res = sls_shader_init(
       &data.phong_shader,
@@ -113,7 +116,7 @@ static void demo_scene_setup(slsContext *self) {
                          "resources/shaders/demo.frag",
                          "resources/shaders/uniforms.glsl"));
   res->owns_program = true;
-  data.mesh = sls_parametric_sphere_mesh(10);
+  data.cube_mesh = sls_cube_mesh(false);
 
   slsVertex verts[] = {
       {.position = {-1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
@@ -125,17 +128,21 @@ static void demo_scene_setup(slsContext *self) {
       sls_mesh_new(verts, SLS_ARRAY_COUNT(verts), idxs, SLS_ARRAY_COUNT(idxs));
 
   assert(data.rect_mesh);
+  sls_mesh_bind(data.rect_mesh, &data.phong_shader);
+  sls_mesh_bind(data.cube_mesh, &data.phong_shader);
+
 }
 
-static void demo_mv_setup(slsContext *self) {
+static void demo_mv_setup(slsContext *self)
+{
   kmMat4Identity(&data.projection);
   kmMat4Identity(&data.camera_view);
 }
 
-void demo_ctx_teardown(slsContext *self) {
-  sls_drawbatch_dtor(&data.debug_draw);
+void demo_ctx_teardown(slsContext *self)
+{
   sls_shader_dtor(&data.phong_shader);
-  free(sls_msg(data.mesh, dtor));
+  free(sls_msg(data.cube_mesh, dtor));
 
   sls_lightbatch_dtor(&data.lights);
 
@@ -146,34 +153,55 @@ void demo_ctx_teardown(slsContext *self) {
 
 void demo_ctx_update(slsContext *self, double dt) {}
 
-void demo_ctx_display(slsContext *self, double dt) {
-  sls_mesh_bind(data.rect_mesh, &data.phong_shader);
+void demo_ctx_display(slsContext *self, double dt)
+{
 
-  kmMat4 id;
-  kmMat4Identity(&id);
+  kmMat4 mv, normal, inv_mv;
+  // use matrices to perform modelview transformation
+  {
+    kmMat4Translation(&inv_mv, 0.0f, -0.5f, -1.f);
+    kmVec3 v = {1.f, 0.5, 0.5};
+    kmMat4RotationAxisAngle(&normal, &v, M_PI_2);
+    kmMat4Multiply(&mv, &inv_mv, &normal);
+  }
+
+  kmMat4Inverse(&inv_mv, &mv);
+  kmMat4Transpose(&normal, &inv_mv);
+
   sls_shader_bind_mat4(
       &data.phong_shader,
-      (uint)glGetUniformLocation(data.phong_shader.program, "model_view"), &id,
+      (uint) glGetUniformLocation(data.phong_shader.program, "model_view"), &mv,
       false);
 
-  _sls_mesh_roughdraw(data.rect_mesh, data.phong_shader.program, dt);
-  demo_sample_debugdraw(self, dt);
+  sls_shader_bind_mat4(
+      &data.phong_shader,
+      (uint) glGetUniformLocation(data.phong_shader.program, "inv_model_view"),
+      &inv_mv,
+      false);
+
+  sls_shader_bind_mat4(
+      &data.phong_shader,
+      (uint) glGetUniformLocation(data.phong_shader.program, "normal_mat"),
+      &normal,
+      false);
+
+  if (data.rect_mesh) {
+    //_sls_mesh_roughdraw(data.rect_mesh, data.phong_shader.program, dt);
+  }
+  if (data.cube_mesh) {
+    _sls_mesh_roughdraw(data.cube_mesh, data.phong_shader.program, dt);
+  }
 }
 
-void demo_sample_debugdraw(slsContext *self, double dt) {
 
-  sls_ddraw_begin(&data.debug_draw);
-  sls_ddraw_cstring(&data.debug_draw, "hello world", -1);
-  sls_ddraw_end(&data.debug_draw);
-}
-
-void demo_ctx_resize(slsContext *self, int x, int y) {
+void demo_ctx_resize(slsContext *self, int x, int y)
+{
   glUseProgram(data.phong_shader.program);
 
   sls_context_class()->resize(self, x, y);
 
   const float fov = 70.f;
-  float aspect = x / (float)y;
+  float aspect = x / (float) y;
   // kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
   kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f / aspect,
@@ -184,7 +212,8 @@ void demo_ctx_resize(slsContext *self, int x, int y) {
       GL_FALSE, data.projection.mat);
 }
 
-void demo_handle_event(slsContext *self, SDL_Event const *e) {
+void demo_handle_event(slsContext *self, SDL_Event const *e)
+{
   sls_context_handle_event(self, e);
 
   switch (e->type) {
@@ -193,13 +222,15 @@ void demo_handle_event(slsContext *self, SDL_Event const *e) {
       switch (ke->keysym.scancode) {
         case SDL_SCANCODE_ESCAPE: {
           self->is_running = false;
-        } break;
+        }
+          break;
 
         default:
           break;
       }
 
-    } break;
+    }
+      break;
 
     default:
       break;

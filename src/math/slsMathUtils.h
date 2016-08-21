@@ -17,20 +17,41 @@
 #include <stdbool.h>
 
 
+
 /**
- * @brief convenience function for returning a
- * vec2 operation by value
+ * adds two kmVec2 values, and returns result by-value
+ * @param a
+ * @param b
+ * @return the sum of the two vectors
  */
 kmVec2 sls_vec2_add(const kmVec2 *a, const kmVec2 *b);
 
-
+/**
+ * adds two kmVec3 values, and returns result by-value
+ * @param a
+ * @param b
+ * @return the sum of the two vectors
+ */
 kmVec3 sls_vec3_add(const kmVec3 *a, const kmVec3 *b);
 
-
+/**
+ * adds two kmVec4 values, and returns result by-value
+ * @param a
+ * @param b
+ * @return the sum of the two vectors
+ */
 kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b);
 
 size_t sls_nearest_squarelu(size_t x);
 
+/**
+ * Returns true if given double values are equal to or
+ * nearly equal to by given relative error
+ * @param a
+ * @param b
+ * @param epsilon relative error factor
+ * @return true if equal or nearly equal, otherwise false
+ */
 static inline
 bool sls_neard(double a, double b, double epsilon)
 {
@@ -48,6 +69,14 @@ bool sls_neard(double a, double b, double epsilon)
   }
 }
 
+/**
+ * Returns true if given float values are equal to or
+ * nearly equal to by given relative error
+ * @param a
+ * @param b
+ * @param epsilon relative error factor
+ * @return true if equal or nearly equal, otherwise false
+ */
 static inline
 bool sls_nearf(float a, float b, float epsilon)
 {
@@ -74,7 +103,6 @@ static inline kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
   }
   return out;
 }
-
 
 static inline double sls_to_radians(double degrees)
 {

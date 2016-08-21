@@ -115,7 +115,7 @@ void sls_mesh_delete(slsMesh *self)
     typeof(self) zombie = sls_msg(self, dtor);
     if (zombie) {free(zombie);}
   }
-  else { assert(!"invalid mesh instance!"); }
+  else { assert(!"invalid plane_mesh instance!"); }
 }
 
 
