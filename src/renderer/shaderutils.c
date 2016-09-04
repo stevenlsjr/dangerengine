@@ -84,7 +84,7 @@ void _sls_print_log(GLuint object, char const *shader_file, char const *file, ch
 GLuint sls_create_shader(const char *filename, char const *uniform_file_name,
                          GLenum type)
 {
-  GLchar const *modern_preamble = "#version 410\n#define SLS_MODERN_OPENGL 1\n";
+  GLchar const *modern_preamble = "#version 330\n#define SLS_MODERN_OPENGL 1\n";
   GLchar const *legacy_preamble = "#version 130\n";
   GLchar const *gles_preamble = "#version 100\n";
 
