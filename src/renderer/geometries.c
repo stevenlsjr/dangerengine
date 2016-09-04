@@ -5,9 +5,7 @@
  * Copyright (c) 11/11/15, Steven
  * 
  **/
-#include <cppapi.h>
 #include "geometries.h"
-#include <simd/simd.h>
 
 slsMesh *parametric_sphere_mesh_complex(
     size_t n_steps,

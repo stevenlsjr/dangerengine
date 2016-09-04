@@ -270,9 +270,6 @@ target_link_libraries (demo
 
 #  add  a  separate  library  for  tests  compiled  in  C.  Used  for  supporting  build
 #  systems  which  don't  compile  C  and  C++  code  separately
-add_library (c_tests  ${DANGER_CTEST_SRC})
-add_dependencies (c_tests  dangerengine)
-target_link_libraries (c_tests  dangerengine)
 
 add_executable (tests  ${DANGER_TEST_SRC})
 add_dependencies (tests
@@ -281,7 +278,6 @@ add_dependencies (tests
   dangerengine)
 target_link_libraries (tests
   dangerengine
-  c_tests
   ${DANGER_DEPS}
   gtest
   gtest_main)

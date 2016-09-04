@@ -84,8 +84,5 @@ void sls_push_timed_dispatch(slsContext *ctx,
 
 }
 
-void sls_push_dispatchblock(slsContext *ctx, slsDispatchBlock blk)
-{
 
-}
 

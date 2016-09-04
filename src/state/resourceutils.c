@@ -5,7 +5,6 @@
  * Copyright (c) 10/13/15, Steven
  * 
  **/
-#include <MacTypes.h>
 #include <renderer/slsshader.h>
 #include <renderer/shaderutils.h>
 #include <renderer/slsmaterial.h>

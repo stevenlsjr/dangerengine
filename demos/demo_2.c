@@ -82,10 +82,7 @@ int demo_main(int *argcr, char **argv)
 
 void demo_ctx_setup(slsContext *self)
 {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wpointer-bool-conversion"
   sls_checkmem(self && self->state);
-#pragma GCC diagnostic pop
   sls_context_setup(self);
 
   demo_mv_setup(self);

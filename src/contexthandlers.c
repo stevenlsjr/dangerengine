@@ -60,12 +60,6 @@ static inline bool sls_init_img(int32_t img_flags)
   return (img&img_flags) == img_flags;
 }
 
-static inline bool sls_init_ttf(int32_t ttf_flags)
-{
-  int ttf = TTF_Init();
-
-  return ttf !=-1;
-}
 
 
 bool sls_init(void)
@@ -81,7 +75,6 @@ bool sls_init(void)
 
   sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
-  sls_check(sls_init_ttf(0), "ttf creation failed %s", TTF_GetError());
 
 
   // setup internal library
