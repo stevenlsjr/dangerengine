@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
-
+cmake_minimum_required(VERSION 3.4)
 project(dangerengine)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module path")
@@ -8,7 +7,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake module pa
 #-------------source lists-------------------
 #--------------------------------------------
 
-add_subdirectory(src/data-types)
 
 file(REMOVE ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c)
 configure_file(
@@ -104,13 +102,10 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/extern/kazmath
 
-  ${CMAKE_SOURCE_DIR}/extern/Chipmunk2D/include
   ${CMAKE_SOURCE_DIR}/extern/nuklear
 
-  ${CMAKE_SOURCE_DIR}/extern/googlemock/include
-  ${CMAKE_SOURCE_DIR}/extern/gtest/include
-  ${CMAKE_SOURCE_DIR}/extern/stb
-  /usr/local/include/)
+  ${CMAKE_SOURCE_DIR}/extern/googletest/googlemock/include
+  ${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include)
 
 
 #copy resources to build
@@ -135,41 +130,38 @@ add_custom_target(sls_resources
   SOURCES ${DANGER_RES})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++1y")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11 -fblocks")
-set(CMAKE_C_FLAGS_DEBUG  "${CMAKE_C_FLAGS_DEBUG} -std=gnu11 -fblocks")
-set(CMAKE_C_FLAGS_RELEASE   "${CMAKE_C_FLAGS_RELEASE} -std=gnu11 -fblocks")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fms-extensions -fblocks")
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
+add_subdirectory(extern/googletest)
+add_subdirectory(extern/Chipmunk2D)
+add_subdirectory(extern/kazmath)
+add_subdirectory(src/data-types)
 
 #kazmath
 set(KAZMATH_BUILD_JNI_WRAPPER OFF FORCE)
 set(KAZMATH_BUILD_TESTS OFF FORCE)
-add_subdirectory(extern/kazmath)
-
 
 #chipmunk
-add_subdirectory(extern/Chipmunk2D)
+set(BUILD_DEMOS OFF FORCE)
 
 
-set(DANGER_DEPS kazmath chipmunk_static)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Doxygen)
 
-find_package(PkgConfig REQUIRED)
+#find_package(PkgConfig REQUIRED)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
 
-pkg_check_modules(APR apr-1)
-pkg_check_modules(APR_UTIL apr-util-1)
-
+#pkg_check_modules(APR apr-1)
+#pkg_check_modules(APR_UTIL apr-util-1)
 
 
 set(CMAKE_LIBRARY_PATH
@@ -180,11 +172,12 @@ set(CMAKE_LIBRARY_PATH
 
 
 #only compile gtest and glfw when not using emscripten
-add_subdirectory(extern/googlemock)
 
 set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS} ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
-    ${DANGER_DEPS}
+    kazmath
+    gtest
+    gmock
     ${DANGERTYPES_LIB}
     ${GLEW_LIBRARY}
     ${SDL2_LIBRARY}
