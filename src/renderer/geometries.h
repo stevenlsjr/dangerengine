@@ -8,7 +8,6 @@
 #ifndef DANGERENGINE_SPHERE_H
 #define DANGERENGINE_SPHERE_H
 
-#include <tgmath.h>
 #include <dangerengine.h>
 
 

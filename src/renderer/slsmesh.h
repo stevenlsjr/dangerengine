@@ -112,14 +112,14 @@ static inline
 void sls_mesh_delete(slsMesh *self)
 {
   if (self) {
-    typeof(self) zombie = sls_msg(self, dtor);
+    slsMesh *zombie = sls_msg(self, dtor);
     if (zombie) {free(zombie);}
   }
   else { assert(!"invalid plane_mesh instance!"); }
 }
 
 
-slsMesh *sls_mesh_create_shape(char const *name) __attribute__((deprecated));
+slsMesh *sls_mesh_create_shape(char const *name) SLS_ATTRIBUTE((deprecated));
 
 slsMesh *sls_mesh_square();
 

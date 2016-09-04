@@ -34,9 +34,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <sls-gl.h>
 #include <signal.h>
 #include <state/slsEvent.h>
 

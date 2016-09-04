@@ -12,10 +12,10 @@
 
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
+#define _USE_MATH_DEFINES // for C
 #include <math.h>
 #include <stddef.h>
 #include <stdbool.h>
-
 
 
 /**
@@ -125,7 +125,7 @@ bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon)
 
 
 //--------------------------utilities for calling km functions by value----------------------------
-typedef typeof(&kmMat4Multiply) slsMat4Binop_fn;
+typedef kmMat4* (*slsMat4Binop_fn)(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2) ;
 
 static inline
 kmMat4 sls_mat4_binop_valout(kmMat4 const *lhs, kmMat4 const *rhs, slsMat4Binop_fn fn)

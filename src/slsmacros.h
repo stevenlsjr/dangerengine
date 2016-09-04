@@ -75,6 +75,8 @@
  * source can rely on SLS_NONNULL for nullability checks
  **/
 #   define SLS_GNU_EXT 1
+#	define SLS_ATTRIBUTE(x) __attribute__(x)
+#	define SLS_FUNC __func__
 
 #else
 #   define SLS_NONNULL(param, ...)
@@ -82,6 +84,8 @@
 #   define SLS_PURE
 #   define SLS_CONSTFN
 #   define SLS_CLEANUP(cleanup_fn)
+#	define SLS_ATTRIBUTE(x)
+
 #endif //!_MSC_VER
 
 #define SLS_USE_COLORS 1
@@ -189,7 +193,7 @@
  * @detail expands to nothing if the extension exists, should be used in conjunction with
  * __attribute__((nonnull(...)) or SLS_NONNULL(...)
  */
-#if __has_attribute(nonnull)
+#if __clang__s
 
 #define sls_nonnull_param(p)
 

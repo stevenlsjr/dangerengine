@@ -42,7 +42,7 @@
 #include <data-types/callbacks.h>
 #include <assert.h>
 #include <string.h>
-#include <tgmath.h>
+#include <math.h>
 
 
 
@@ -70,6 +70,9 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
       .hash = hash_fn,
       .key_callbacks = (key_cback) ? *key_cback : (slsCallbackTable) {},
       .val_callbacks = (val_cback) ? *val_cback : (slsCallbackTable) {}};
+  self->vals = NULL;
+  self->keys = NULL;
+
 
   self->hashes = calloc(array_size, sizeof(uint64_t));
   self->keys = calloc(array_size, sizeof(void *));

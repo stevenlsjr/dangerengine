@@ -53,7 +53,15 @@ SLS_BEGIN_CDECLS
 #   include <GL/glew.h>
 #endif
 
-#include <SDL2/SDL.h>
+#ifndef _MSC_VER //  
+#	include <SDL.h>
+#	include <SDL_image.h>
+#else
+#	include <SDL2/SDL.h>
+#	include <SDL2/SDL_image.h>
+#endif // !_WIN32 
+
+
 
 SLS_END_CDECLS
 

@@ -103,5 +103,5 @@ int sls_cmp_uintptr(void const *a, void const *b)
 
 int sls_cmp_voidptr(void const *a, void const *b)
 {
-  return (int)(b - a);
+  return (int)((const char*)b - (const char*)a);
 }

@@ -101,22 +101,7 @@ void sls_push_timed_dispatch(slsContext *ctx,
                              void *data);
 
 
-/*-------------------------------------------------
- * dispatch events using clang blocks extension
- *-------------------------------------------------*/
-#if __has_extension(blocks)
 
-typedef void (^slsDispatchBlock)(slsEvent *event);
-
-/**
- * @brief If using clang block extension,
- * sends a dispatch from a block object
- */
-void sls_push_dispatchblock(slsContext *ctx,
-                            slsDispatchBlock blk);
-
-
-#endif
 SLS_END_CDECLS
 
 
