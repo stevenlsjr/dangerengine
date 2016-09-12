@@ -30,17 +30,11 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdbool.h>
 
-#include <sls-gl.h>
-#include <signal.h>
-#include <state/slsEvent.h>
+
 
 #include "contexthandlers.h"
-#include "slsutils.h"
-#include "sls-imagelib.h"
+#include <state/slsEvent.h>
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static bool sls_active_flag = false;

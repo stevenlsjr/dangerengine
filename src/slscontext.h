@@ -39,10 +39,10 @@
 #ifndef DANGERENGINE_SLSCONTEXT_H
 #define DANGERENGINE_SLSCONTEXT_H
 
-#include "slsutils.h"
 #include "sls-gl.h"
-#include <SDL2/SDL.h>
+#include "slsutils.h"
 #include "slsworkqueue.h"
+#include <SDL2/SDL.h>
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;

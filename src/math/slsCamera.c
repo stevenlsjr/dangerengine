@@ -5,9 +5,10 @@
  * Copyright (c) 10/12/15, Steven
  * 
  **/
+
+#include "math-types.h"
 #include "slsCamera.h"
 #include <math.h>
-#include "math-types.h"
 
 void sls_camera_resize(slsCamera *self, int x, int y)
 {

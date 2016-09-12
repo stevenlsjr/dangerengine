@@ -29,14 +29,13 @@
  * of the authors and should not be interpreted as representing official policies,
  * either expressed or implied, of Steven Shea.
 **/
-#include "slsmesh.h"
+
 #include "../slsutils.h"
 #include "shaderutils.h"
-#include "string.h"
+#include "slsmesh.h"
 #include "slsshader.h"
-
+#include "string.h"
 #include <assert.h>
-#include <math/math-types.h>
 
 
 struct slsMesh_p {

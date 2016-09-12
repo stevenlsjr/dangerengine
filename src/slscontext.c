@@ -35,17 +35,16 @@
 *policies,
  * either expressed or implied, of Steven Shea.
 **/
-#include "sls-gl.h"
 
+
+
+#include "contexthandlers.h"
+
+#include "sls-gl.h"
 #include "slscontext.h"
-#include "slsutils.h"
 
 #include <assert.h>
 #include <math/math-types.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "contexthandlers.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>

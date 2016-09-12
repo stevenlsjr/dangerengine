@@ -36,8 +36,8 @@
 #ifndef DANGERENGINE_LINKEDLIST_H
 #define DANGERENGINE_LINKEDLIST_H
 
-#include <stddef.h>
 #include "callbacks.h"
+#include <stddef.h>
 
 typedef struct slsLinkedList slsLinkedList;
 typedef struct slsListNode slsListNode;

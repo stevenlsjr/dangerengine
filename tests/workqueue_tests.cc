@@ -5,10 +5,9 @@
  * Copyright (c) 9/12/16, Steven
  * 
  **/
-#include <gtest/gtest.h>
-#include <dangerengine.h>
 
-#include <vector>
+#include <dangerengine.h>
+#include <gtest/gtest.h>
 
 using namespace std;
 

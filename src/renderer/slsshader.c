@@ -40,9 +40,8 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include <sls-gl.h>
-#include <assert.h>
 #include "slsshader.h"
+#include <sls-gl.h>
 
 static slsShader shader_proto = {
     .dtor = sls_shader_dtor, .init = sls_shader_init,

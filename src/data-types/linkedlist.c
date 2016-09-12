@@ -34,9 +34,9 @@
  * either expressed or implied, of Steven Shea. 
 **/
 
-#include <assert.h>
-#include "linkedlist.h"
 #include "../slsutils.h"
+#include "linkedlist.h"
+#include <assert.h>
 
 
 slsLinkedList *sls_linked_list_init(slsLinkedList *self, slsCallbackTable const *callbacks)

@@ -8,10 +8,10 @@
 #ifndef DANGERENGINE_MATH_TYPES_H
 #define DANGERENGINE_MATH_TYPES_H
 
+#include "../slsutils.h"
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 #include <string.h>
-#include "../slsutils.h"
 
 /**
  * @brief simple structure for a integer point

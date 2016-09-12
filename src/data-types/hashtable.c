@@ -34,16 +34,11 @@
  * either expressed or implied, of Steven Shea. 
 **/
 
-
-
 #include "hashtable.h"
+
 #include "callbacks.h"
-#include <stdlib.h>
-#include <data-types/callbacks.h>
 #include <assert.h>
 #include <string.h>
-#include <math.h>
-
 
 
 

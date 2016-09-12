@@ -5,12 +5,13 @@
  * Copyright (c) 3/28/16, Steven
  * 
  **/
+
 #include "slsSimd.h"
-#include <math.h>
-#include <stdalign.h>
 #include <assert.h>
-#include <string.h>
+#include <math.h>
 #include <smmintrin.h>
+#include <stdalign.h>
+#include <string.h>
 
 
 static_assert(__alignas_is_defined, "requires C11 _Alignas");

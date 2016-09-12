@@ -8,10 +8,10 @@
 #ifndef DANGERENGINE_SLSPOOL_H
 #define DANGERENGINE_SLSPOOL_H
 
-#include <stdlib.h>
-#include <slsmacros.h>
-#include "intrusivelist.h"
 #include "callbacks.h"
+#include "intrusivelist.h"
+#include <slsmacros.h>
+#include <stdlib.h>
 
 typedef struct slsPool slsPool;
 typedef struct slsPool_p slsPool_p;

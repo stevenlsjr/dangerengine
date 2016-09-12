@@ -43,10 +43,10 @@
 #ifndef DANGERENGINE_SLSSHADER_H
 #define DANGERENGINE_SLSSHADER_H
 
-#include <sls-gl.h>
-#include <slsutils.h>
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
+#include <sls-gl.h>
+#include <slsutils.h>
 
 typedef struct slsShader slsShader;
 typedef struct slsUniformLocations slsUniformLocations;

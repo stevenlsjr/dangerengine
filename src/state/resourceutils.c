@@ -5,10 +5,11 @@
  * Copyright (c) 10/13/15, Steven
  * 
  **/
-#include <renderer/slsshader.h>
+
+#include "resourceutils.h"
 #include <renderer/shaderutils.h>
 #include <renderer/slsmaterial.h>
-#include "resourceutils.h"
+#include <renderer/slsshader.h>
 
 #if 0
 slsMaterial *sls_load_texture(slsAppState *state,

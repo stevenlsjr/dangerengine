@@ -8,8 +8,8 @@
 #ifndef DANGERENGINE_SLSCAMERA_H
 #define DANGERENGINE_SLSCAMERA_H
 
-#include <stdbool.h>
 #include <sls-commonlibs.h>
+#include <stdbool.h>
 
 typedef struct slsCamera slsCamera;
 

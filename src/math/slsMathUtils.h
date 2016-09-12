@@ -10,12 +10,12 @@
 #ifndef DANGERENGINE_MATHMACS_H
 #define DANGERENGINE_MATHMACS_H
 
+#define _USE_MATH_DEFINES // for C
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
-#define _USE_MATH_DEFINES // for C
 #include <math.h>
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 
 /**

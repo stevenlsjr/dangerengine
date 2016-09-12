@@ -13,9 +13,9 @@
 #ifndef DANGERENGINE_SLSUTILS_H
 #define DANGERENGINE_SLSUTILS_H
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #define SLS_USE_ERRORSTACK 1

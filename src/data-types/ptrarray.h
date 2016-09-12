@@ -37,9 +37,8 @@
 #ifndef DANGERENGINE_PTRARRAY_H
 #define DANGERENGINE_PTRARRAY_H
 
-#include <stdlib.h>
-
 #include "callbacks.h"
+#include <stdlib.h>
 
 typedef struct slsPtrArray slsPtrArray;
 

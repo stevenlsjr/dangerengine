@@ -37,34 +37,30 @@
 extern "C" {
 #endif
 
+#include "contexthandlers.h"
+#include "data-types/dangertypes.h"
+
+#include "math/math-types.h"
+#include "math/slsMathUtils.h"
+#include "math/slsSimd.h"
+#include "math/slsTrackball.h"
+
+#include "renderer/shaderutils.h"
+#include "renderer/slsLight.h"
+#include "renderer/slsmaterial.h"
+#include "renderer/slsmesh.h"
+#include "renderer/slsshader.h"
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"
-#include <sls-build-dir.h>
-
 #include "slscontext.h"
 #include "slsutils.h"
 #include "slsworkqueue.h"
 
-#include "contexthandlers.h"
-
-#include "data-types/dangertypes.h"
-
-#include "math/slsMathUtils.h"
-#include "math/math-types.h"
-#include "math/slsTrackball.h"
-#include "math/slsSimd.h"
-
-
-#include "renderer/shaderutils.h"
-#include "renderer/slsmesh.h"
-#include "renderer/slsmaterial.h"
-#include "renderer/slsshader.h"
-#include "renderer/slsLight.h"
-
 #include "state/resourceutils.h"
 #include "state/slsEvent.h"
 
+#include <sls-build-dir.h>
 
 #ifdef __cplusplus
 }

@@ -40,10 +40,11 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include "slsmaterial.h"
 
-#include <assert.h>
+
+#include "slsmaterial.h"
 #include <SDL2/SDL_image.h>
+#include <assert.h>
 
 /*----------------------------*
  * prototypes

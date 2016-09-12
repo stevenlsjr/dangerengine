@@ -37,6 +37,7 @@
 #ifndef DANGERENGINE_SLSTEXTURE_H
 #define DANGERENGINE_SLSTEXTURE_H
 
+
 #include "../sls-gl.h"
 #include "../sls-imagelib.h"
 #include "../slsutils.h"

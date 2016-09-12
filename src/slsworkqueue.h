@@ -8,9 +8,9 @@
 #ifndef DANGERENGINE_SLSWORKQUEUE_H
 #define DANGERENGINE_SLSWORKQUEUE_H
 
+#include "slsmacros.h"
 #include <pthread.h>
 #include <stdbool.h>
-#include "slsmacros.h"
 
 #ifndef SLS_N_WORK_THREADS
 #   define SLS_N_WORK_THREADS 10

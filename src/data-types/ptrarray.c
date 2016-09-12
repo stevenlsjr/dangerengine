@@ -34,10 +34,8 @@
  * either expressed or implied, of Steven Shea. 
 **/
 
+
 #include "ptrarray.h"
-
-
-
 #include <slsutils.h>
 #include <string.h>
 

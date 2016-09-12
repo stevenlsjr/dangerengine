@@ -16,9 +16,9 @@
 
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <slsutils.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 
 typedef struct slsLight slsLight;

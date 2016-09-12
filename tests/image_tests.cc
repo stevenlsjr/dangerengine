@@ -2,8 +2,8 @@
 // Created by Steven on 7/2/15.
 //
 
-#include <gtest/gtest.h>
 #include "../src/dangerengine.h"
+#include <gtest/gtest.h>
 #include <string>
 #include <tuple>
 

@@ -37,13 +37,12 @@
 #ifndef DANGERENGINE_HASHTABLE_H
 #define DANGERENGINE_HASHTABLE_H
 
-#include <stdlib.h>
+#include "../slsutils.h"
 #include "array.h"
 #include "callbacks.h"
-#include "../slsutils.h"
 #include "callbacks.h"
 #include "ptrarray.h"
-
+#include <stdlib.h>
 #
 
 typedef struct slsHashTable slsHashTable;

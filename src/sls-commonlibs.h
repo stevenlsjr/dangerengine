@@ -10,24 +10,24 @@
 
 #include "slsutils.h"
 
-
-#include <errno.h>
-#include <inttypes.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <tgmath.h>
-
-#include <time.h>
-#include <assert.h>
-#include <signal.h>
-
 #include "sls-gl.h"
 #include "sls-imagelib.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+
+#include <assert.h>
+#include <errno.h>
+#include <inttypes.h>
+
 #include <kazmath/kazmath.h>
+
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <tgmath.h>
+#include <time.h>
 
 #endif //DANGERENGINE_SLS_COMMONLIBS_H

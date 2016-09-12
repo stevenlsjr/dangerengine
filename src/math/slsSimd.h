@@ -8,10 +8,10 @@
 #ifndef DANGERENGINE_SLSSIMD_H
 #define DANGERENGINE_SLSSIMD_H
 
-#include <stddef.h>
-#include <smmintrin.h>
 #include <kazmath/vec4.h>
 #include <slsmacros.h>
+#include <smmintrin.h>
+#include <stddef.h>
 
 /**
  * @brief a struct of 4 _m128 values

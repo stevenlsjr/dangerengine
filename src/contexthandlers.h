@@ -39,8 +39,8 @@
 #ifndef DANGERENGINE_SLS_HANDLERS_H
 #define DANGERENGINE_SLS_HANDLERS_H
 
-#include <stdbool.h>
 #include "slscontext.h"
+#include <stdbool.h>
 
 
 /**

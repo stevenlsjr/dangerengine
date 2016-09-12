@@ -5,11 +5,8 @@
  * Copyright (c) 11/23/15, Steven
  *
  **/
-#include "slsTrackball.h"
 #include "slsMathUtils.h"
-#include "math-types.h"
-#include <math.h>
-#include <slsutils.h>
+#include "slsTrackball.h"
 
 float sls_tb_project_to_sphere(float const radius, kmVec2 const *pVec2);
 
