@@ -70,10 +70,10 @@ void main(void)
   vec4 ia = ambp,
   id = vec4(0.0, 0.0, 0.0, 1.0),
   is = vec4(0.0, 0.0, 0.0, 1.0);
+  int i = 100;
 
 
-
-  if (lambert > 0.0) {
+  if (lambert == 0.0) {
     id = diffp * lambert;
     vec3 eye = normalize(frag_eye);
     vec3 reflect = reflect(L_term, N_term);

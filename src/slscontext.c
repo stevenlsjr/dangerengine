@@ -91,7 +91,7 @@ static const slsContext sls_context_proto = {
  *----------------------------------------*/
 
 slsContext const*
-sls_context_class()
+sls_context_prototype()
 {
   return &sls_context_proto;
 }
@@ -100,7 +100,7 @@ slsContext*
 sls_context_new(char const* caption, size_t width, size_t height)
 {
 
-  slsContext* self = sls_objalloc(sls_context_class(), sizeof(slsContext));
+  slsContext* self = sls_objalloc(sls_context_prototype(), sizeof(slsContext));
 
   return self->init(self, caption, width, height);
 }
@@ -114,7 +114,7 @@ sls_context_init(slsContext* self, char const* caption, size_t width,
                  size_t height)
 {
 
-  *self = *sls_context_class();
+  *self = *sls_context_prototype();
   uint32_t window_flags;
   GLenum glew;
 
@@ -123,6 +123,9 @@ sls_context_init(slsContext* self, char const* caption, size_t width,
     bool res = sls_init();
     sls_check(res, "initialization failed!");
   }
+
+  // initialize work queue
+  sls_workscheduler_init(&self->queue);
 
   // create sdl window
 
@@ -174,7 +177,6 @@ error:
   if (self->dtor) {
     sls_msg(self, dtor);
   }
-  SLS_DEBUGGER_BREAKPT();
   return self;
 }
 
@@ -184,9 +186,7 @@ sls_context_dtor(slsContext* self)
   if (self->window) {
     SDL_DestroyWindow(self->window);
   }
-  if (self->state) {
-  }
-
+  sls_workscheduler_dtor(&self->queue);
   return self;
 }
 

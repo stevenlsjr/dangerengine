@@ -42,11 +42,15 @@
 #include "slsutils.h"
 #include "sls-gl.h"
 #include <SDL2/SDL.h>
+#include "slsworkqueue.h"
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
 
-typedef struct slsAppState { char TODO; } slsAppState;
+
+typedef struct slsAppState {
+  char TODO;
+} slsAppState;
 
 /**
  * @brief context object for glfw renderer
@@ -108,6 +112,8 @@ struct slsContext {
   SDL_Window *window;
   SDL_GLContext gl_context;
 
+  slsWorkScheduler queue;
+
   long frame_n;
 
   bool is_running;
@@ -125,21 +131,20 @@ struct slsContext {
   void *data;
 };
 
-slsContext const *sls_context_class();
+
+
+slsContext const *sls_context_prototype();
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height);
 
-static inline void sls_context_delete(slsContext *ctx) {
+static inline void sls_context_delete(slsContext *ctx)
+{
   ctx = ctx->dtor(ctx);
   if (ctx) {
     free(ctx);
   }
 }
 
-/**
- * @brief sets emscripten mainloop for context execution
- */
-void sls_emscripten_loop(void *vctx);
 
 int sls_get_glversion();
 

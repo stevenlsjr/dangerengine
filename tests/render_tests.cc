@@ -18,8 +18,8 @@ private:
 
   static slsMaterial *make_texture()
   {
-    char const *img_path = "resources/art/barrelBeige_outline.png";
-    char const *norm_path = "resources/art/barrelBeige_normal.png";
+    char const *img_path = "resources/art/homer.jpg";
+    char const *norm_path = "resources/art/homer.jpg";
 
     return sls_texture_new(img_path,
                            nullptr,
@@ -100,6 +100,12 @@ protected:
   }
 
 };
+
+/// allow disabling tests dependent on
+/// sdl context
+
+//#define SLS_INTEGRATION_TESTS
+#ifdef SLS_INTEGRATION_TESTS
 
 TEST_F(RenderTests, ContextCreation)
 {
@@ -221,3 +227,4 @@ TEST_F(EventTests, GetInvalidIds)
   }
 
 }
+#endif

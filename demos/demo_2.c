@@ -35,7 +35,7 @@ void demo_del_ctx(slsContext *ctx)
 {
   assert(ctx == single_ctx);
 
-  free(sls_context_class()->dtor(ctx));
+  free(sls_context_prototype()->dtor(ctx));
   single_ctx = NULL;
 }
 
@@ -99,8 +99,8 @@ void demo_ctx_setup(slsContext *self)
   glCullFace(GL_BACK);
 
   return;
-  error:
-  SLS_DEBUGGER_BREAKPT();
+error:
+  assert(0);
   return;
 }
 
@@ -145,7 +145,7 @@ void demo_ctx_teardown(slsContext *self)
 
   free(sls_mesh_dtor(data.rect_mesh));
 
-  sls_context_class()->teardown(self);
+  sls_context_prototype()->teardown(self);
 }
 
 void demo_ctx_update(slsContext *self, double dt) {}
@@ -195,7 +195,7 @@ void demo_ctx_resize(slsContext *self, int x, int y)
 {
   glUseProgram(data.phong_shader.program);
 
-  sls_context_class()->resize(self, x, y);
+  sls_context_prototype()->resize(self, x, y);
 
   const float fov = 70.f;
   float aspect = x / (float) y;

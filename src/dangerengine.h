@@ -44,6 +44,7 @@ extern "C" {
 
 #include "slscontext.h"
 #include "slsutils.h"
+#include "slsworkqueue.h"
 
 #include "contexthandlers.h"
 
@@ -68,9 +69,6 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-
-#include "cxx/cxx_interop.h"
-
 
 
 #endif //DANGERENGINE_DANGERENGINE_H

@@ -120,7 +120,6 @@ slsMesh *sls_mesh_init(slsMesh *self,
   glGenVertexArrays(1, &self->vao);
 
 
-
   return self;
   error:
   if (self && self->dtor) { sls_msg(self, dtor); }

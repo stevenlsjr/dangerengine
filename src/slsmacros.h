@@ -19,6 +19,11 @@
 #include <assert.h>
 #include <signal.h>
 
+#ifdef WIN32
+# include <windows.h>
+#endif
+
+
 /*-------------------------------------------------
  * C/C++ header guard
  *-------------------------------------------------*/
@@ -50,7 +55,10 @@
 #define SLS_TOK_TO_STR1_(x) ""#x
 #define SLS_TOK_TO_STR(x) SLS_TOK_TO_STR1_(x)
 
-
+/**
+ * @brief Call funtion pointer contained as object member.
+ */
+#define sls_msg(obj, method, ...) (obj)->method((obj), ##__VA_ARGS__)
 
 /*-------------------------------------------------
  * GCC/Clang extension shortcuts
@@ -124,8 +132,8 @@
  *
  * @param file file pointer
  * @param msg1 header message
- * @param fmt printf-style format
- * @param ... format arguments
+ * @param fmt: printf-style format
+ * @param __VA_ARGS__: formatter arguments
  */
 #define sls_debug(file, msg1, fmt, ...) do {                          \
     fprintf((file), "%s (%s %d):\n\t", (msg1), __func__, __LINE__);   \
@@ -183,24 +191,15 @@
   sls_check((pointer), "memory error! %s", #pointer);     \
 } while (0)
 
-#define sls_fail() sls_check(0, "reached fail location %s %d", __FILE__, __LINE__);
-
-#define sls_msg(obj, method, ...) (obj)->method((obj), ##__VA_ARGS__)
-
-
 /**
  * @brief checks for null parameters at runtime if GNU nonnull extension is not available.
  * @detail expands to nothing if the extension exists, should be used in conjunction with
  * __attribute__((nonnull(...)) or SLS_NONNULL(...)
  */
-#if __clang__s
-
-#define sls_nonnull_param(p)
-
+#if __clang__
+#   define sls_nonnull_param(p)
 #else
-
-#define sls_nonnull_param(p) sls_check(p, "parameter %p is null!", p);
-
+#   define sls_nonnull_param(p) sls_check(p, "parameter %p is null!", p);
 #endif
 
 //---------------------------------data utilities---------------------------------------
@@ -223,9 +222,9 @@
  * SIGABRT to break execution. To allow continued execution, call `signal 0` or a corresponding
  * debugger command.
  */
-#   define SLS_DEBUGGER_BREAKPT() raise(SIGINT)
+#   define SLS_DEBUG_BREAK() raise(SIGINT)
 #else
-#   define SLS_DEBUGGER_BREAKPT() raise(SIGABRT)
+#   define SLS_DEBUG_BREAK() DebugBreak();
 #endif
 
 

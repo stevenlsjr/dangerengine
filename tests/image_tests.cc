@@ -21,7 +21,7 @@ protected:
 
 public:
   ImageTests() {
-    ctx = sls_context_new("image tests", 100, 100);
+    ctx = sls_context_new((char const *) "image tests", 100Lu, 100Lu);
     sls_msg(ctx, setup);
 
     size = make_tuple(1080, 1080);

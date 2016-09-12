@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION  3.4)
+cmake_minimum_required (VERSION  3.1)
 project (dangerengine)
 
 set (CMAKE_MODULE_PATH  "${CMAKE_SOURCE_DIR}/CMake/"  CACHE  STRING  "cmake  module  path")
@@ -51,78 +51,77 @@ configure_file (
 #--------------------------------------------
 
 set (DANGER_SRC
-  src/dangerengine.h
+     src/dangerengine.h
 
-  #  context  handling  and  general  utilities
-  src/sls-gl.h
-  src/sls-imagelib.h
-  src/slscontext.h
-  src/slscontext.c
-  src/slsutils.c
-  src/slsutils.h
-  src/contexthandlers.c
-  src/contexthandlers.h
+     #  context  handling  and  general  utilities
+     src/sls-gl.h
+     src/sls-imagelib.h
+     src/slscontext.h
+     src/slscontext.c
+     src/slsutils.c
+     src/slsutils.h
+     src/contexthandlers.c
+     src/contexthandlers.h
 
-  src/cppapi.h
-  src/slsmacros.h
+     src/cppapi.h
+     src/slsmacros.h
 
-  src/math/slsMathUtils.h
-  src/math/slsMathUtils.c
-  src/math/math-types.c
-  src/math/math-types.h
-  src/math/slsTrackball.c  src/math/slsTrackball.h
-  src/math/slsCamera.c
-  src/math/slsCamera.h
+     src/math/slsMathUtils.h
+     src/math/slsMathUtils.c
+     src/math/math-types.c
+     src/math/math-types.h
+     src/math/slsTrackball.c src/math/slsTrackball.h
+     src/math/slsCamera.c
+     src/math/slsCamera.h
 
-  #renderer  types
-  src/renderer/slsmesh.c
-  src/renderer/slsmesh.h
-  src/renderer/slsmaterial.c
-  src/renderer/slsmaterial.h
-  src/renderer/slsshader.c
-  src/renderer/slsshader.h
-  src/renderer/shaderutils.c
-  src/renderer/shaderutils.h
+     #renderer  types
+     src/renderer/slsmesh.c
+     src/renderer/slsmesh.h
+     src/renderer/slsmaterial.c
+     src/renderer/slsmaterial.h
+     src/renderer/slsshader.c
+     src/renderer/slsshader.h
+     src/renderer/shaderutils.c
+     src/renderer/shaderutils.h
 
-  #  game  state  machine
+     #  game  state  machine
 
-  src/state/resourceutils.c
-  src/state/resourceutils.h
+     src/state/resourceutils.c
+     src/state/resourceutils.h
 
-  src/sls-commonlibs.h
+     src/sls-commonlibs.h
 
-  src/sls-build-dir.c
-  src/sls-build-dir.h
-  src/renderer/slsLight.c  src/renderer/slsLight.h
-  src/renderer/geometries.c
-  src/renderer/geometries.h
+     src/sls-build-dir.c
+     src/sls-build-dir.h
+     src/renderer/slsLight.c src/renderer/slsLight.h
+     src/renderer/geometries.c
+     src/renderer/geometries.h
 
-  src/cxx/overloads.h
-  src/data-types/dangertypes.h
-  src/state/slsEvent.c  src/state/slsEvent.h
-  src/math/slsSimd.c  src/math/slsSimd.h
+     src/data-types/dangertypes.h
+     src/state/slsEvent.c src/state/slsEvent.h
+     src/math/slsSimd.c src/math/slsSimd.h
 
-  src/renderer/nuklear.c  src/renderer/sls-nuklear.h)
+     src/renderer/nuklear.c src/renderer/sls-nuklear.h src/slsworkqueue.c src/slsworkqueue.h)
 
 
 #  tests  compiled  in  c
 set (DANGER_CTEST_SRC
   tests/c_cases.c
-  tests/c_cases.h  src/cxx/cxx_interop.h)
+  tests/c_cases.h)
 
 #tests  compiled  in  c++
 set (DANGER_TEST_SRC
-  tests/minunit-runner.cc
-  tests/math_tests.cc
-  tests/main.cc
-  tests/utiltests.cc
-  tests/data-types/hash-tests.cc
-  tests/data-types/ptrarray-tests.cc
-  tests/data-types/array-tests.cc
-  tests/data-types/list-tests.cc
-  tests/render_tests.cc
+     tests/minunit-runner.cc
+     tests/math_tests.cc
+     tests/main.cc
+     tests/utiltests.cc
+     tests/data-types/hash-tests.cc
+     tests/data-types/ptrarray-tests.cc
+     tests/data-types/array-tests.cc
+     tests/data-types/list-tests.cc
+     tests/render_tests.cc
 
-  tests/data-types/pool-tests.cc)
+     tests/workqueue_tests.cc)
 
 
 
@@ -136,6 +135,9 @@ set (DANGER_DEMO_SRC
 #--------------------------------------------
 
 include_directories (
+  ${SDL2_INCLUDE_DIRS}/SDL2
+  ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
+
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/extern/kazmath
 
