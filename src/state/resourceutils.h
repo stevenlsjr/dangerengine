@@ -8,6 +8,9 @@
 #ifndef DANGERENGINE_RESOURCEUTILS_H
 #define DANGERENGINE_RESOURCEUTILS_H
 
+#include <stdbool.h>
+
+
 typedef struct slsAppState slsAppState;
 typedef struct slsMaterial slsMaterial;
 typedef struct slsShader slsShader;
