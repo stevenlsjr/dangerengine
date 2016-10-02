@@ -8,7 +8,6 @@
 
 #include "resourceutils.h"
 #include <renderer/shaderutils.h>
-#include <renderer/slsmaterial.h>
 #include <renderer/slsshader.h>
 
 #if 0
@@ -79,3 +78,9 @@ slsMaterial *sls_get_texture(slsAppState *state, char const *name)
   return NULL;
 }
 #endif
+
+static void placeholder_resourceutils(void)
+{
+  printf("hello!\n");
+  return;
+}

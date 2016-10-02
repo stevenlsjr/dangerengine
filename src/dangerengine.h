@@ -47,7 +47,6 @@ extern "C" {
 
 #include "renderer/shaderutils.h"
 #include "renderer/slsLight.h"
-#include "renderer/slsmaterial.h"
 #include "renderer/slsmesh.h"
 #include "renderer/slsshader.h"
 

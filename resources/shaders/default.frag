@@ -39,13 +39,6 @@ Light sample_source();
 
 void main()
 {
-  Light l;
-  l.position = vec4(0.0, 0.0, 4.0, 1.0);
-  l.color = vec3(1.0, 1.0, 1.0);
-  l.attenuation = 1.0;
-  mat4 light_mv = lights.light_modelview[0];
-
-
 
   vec4 texel_color = bgra_to_rgba(texture(diffuse_tex, frag_uv));
   vec3 texel_norm = bgra_to_rgba(texture(specular_tex, frag_uv)).xyz;

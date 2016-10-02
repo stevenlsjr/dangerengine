@@ -77,8 +77,6 @@ set (DANGER_SRC
      #renderer  types
      src/renderer/slsmesh.c
      src/renderer/slsmesh.h
-     src/renderer/slsmaterial.c
-     src/renderer/slsmaterial.h
      src/renderer/slsshader.c
      src/renderer/slsshader.h
      src/renderer/shaderutils.c

@@ -11,9 +11,7 @@
 #include "array.h"
 #include "callbacks.h"
 #include "hashtable.h"
-#include "intrusivelist.h"
 #include "linkedlist.h"
 #include "ptrarray.h"
-#include "slsPool.h"
 
 #endif //DANGERENGINE_DATA_TYPES_H

@@ -10,10 +10,9 @@ set (DANGERTYPES_SRC
      array.c array.h
      callbacks.c callbacks.h
      hashtable.c hashtable.h
-     intrusivelist.h
      linkedlist.c linkedlist.h
      ptrarray.c ptrarray.h
-     slsPool.c slsPool.h)
+     )
 
 
 

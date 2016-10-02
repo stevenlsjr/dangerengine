@@ -17,17 +17,17 @@ typedef struct DemoData {
   slsMesh *cube_mesh;
   slsMesh *rect_mesh;
 
+  slsMaterial mesh_mat;
+
   kmMat4 camera_view;
   kmMat4 projection;
 
 } DemoData;
+static DemoData data = {};
 
 static void demo_mv_setup(slsContext *self);
 
 static void demo_scene_setup(slsContext *pContext);
-
-
-static DemoData data = {};
 
 static slsContext *single_ctx = NULL;
 
@@ -51,7 +51,6 @@ slsContext *demo_shared_ctx()
     self->data = &data;
 
     self->dtor = NULL;
-
     self->setup = demo_ctx_setup;
     self->teardown = demo_ctx_teardown;
     self->update = demo_ctx_update;
@@ -124,9 +123,12 @@ static void demo_scene_setup(slsContext *self)
   data.rect_mesh =
       sls_mesh_new(verts, SLS_ARRAY_COUNT(verts), idxs, SLS_ARRAY_COUNT(idxs));
 
+
   assert(data.rect_mesh);
   sls_mesh_bind(data.rect_mesh, &data.phong_shader);
   sls_mesh_bind(data.cube_mesh, &data.phong_shader);
+
+  sls_material_init
 
 }
 
