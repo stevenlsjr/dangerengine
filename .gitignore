@@ -320,3 +320,5 @@ src/sls-build-dir.c
 .tags
 .tags_sorted_by_file
 tags
+
+/cmake-build-*/

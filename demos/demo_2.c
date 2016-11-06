@@ -17,12 +17,15 @@ typedef struct DemoData {
   slsMesh *cube_mesh;
   slsMesh *rect_mesh;
 
-  slsMaterial mesh_mat;
 
   kmMat4 camera_view;
   kmMat4 projection;
 
+  slsUniformLocations uniforms;
+  slsAttrLocations attributes;
+
 } DemoData;
+
 static DemoData data = {};
 
 static void demo_mv_setup(slsContext *self);
@@ -98,7 +101,7 @@ void demo_ctx_setup(slsContext *self)
   glCullFace(GL_BACK);
 
   return;
-error:
+  error:
   assert(0);
   return;
 }
@@ -128,7 +131,12 @@ static void demo_scene_setup(slsContext *self)
   sls_mesh_bind(data.rect_mesh, &data.phong_shader);
   sls_mesh_bind(data.cube_mesh, &data.phong_shader);
 
-  sls_material_init
+  GLuint tex = sls_image_load("resources/sheet_tanks.png");
+
+  if (glIsTexture(tex)) {
+    glDeleteTextures(1, &tex);
+  }
+
 
 }
 
@@ -211,6 +219,16 @@ void demo_ctx_resize(slsContext *self, int x, int y)
       GL_FALSE, data.projection.mat);
 }
 
+static void handle_key_event(slsContext *self, SDL_KeyboardEvent const *kevent)
+{
+switch (kevent->keysym.scancode) {
+  case SDL_SCANCODE_ESCAPE: {
+      self->is_running = false;
+      break;
+    }
+  }
+}
+
 void demo_handle_event(slsContext *self, SDL_Event const *e)
 {
   sls_context_handle_event(self, e);
@@ -218,15 +236,7 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
   switch (e->type) {
     case SDL_KEYDOWN: {
       SDL_KeyboardEvent const *ke = &e->key;
-      switch (ke->keysym.scancode) {
-        case SDL_SCANCODE_ESCAPE: {
-          self->is_running = false;
-        }
-          break;
-
-        default:
-          break;
-      }
+      handle_key_event(self, ke);
 
     }
       break;

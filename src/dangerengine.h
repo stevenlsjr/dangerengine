@@ -49,6 +49,7 @@ extern "C" {
 #include "renderer/slsLight.h"
 #include "renderer/slsmesh.h"
 #include "renderer/slsshader.h"
+#include "renderer/slstexture.h"
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"
@@ -57,7 +58,6 @@ extern "C" {
 #include "slsworkqueue.h"
 
 #include "state/resourceutils.h"
-#include "state/slsEvent.h"
 
 #include <sls-build-dir.h>
 

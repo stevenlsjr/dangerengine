@@ -54,10 +54,17 @@ typedef struct slsAttrLocations slsAttrLocations;
 
 
 
+/**
+ * @brief struct storing attribute locations for default shaders
+ */
 struct slsAttrLocations {
   GLuint position, normal, uv, color;
 };
 
+/**
+ * @brief: struct storing uniform locations for most shader programs
+ * @details uniform header file at /resources/shaders/uniforms.glsl
+ */
 struct slsUniformLocations {
   GLuint model_view, inv_model_view, normal_mat, time, diffuse_tex,
       specular_tex, normal_tex;

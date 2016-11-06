@@ -400,7 +400,7 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
   bool found_next = false;
   slsHashTable *table = itor->table;
 
-  for (size_t i = itor->index; i<table->array_size; ++i) {
+  for (size_t i = itor->index + 1; i<table->array_size; ++i) {
     if (table->keys[i] && table->vals[i]) {
       found_next = true;
 

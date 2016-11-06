@@ -34,7 +34,6 @@
 
 
 #include "contexthandlers.h"
-#include <state/slsEvent.h>
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static bool sls_active_flag = false;
@@ -58,9 +57,7 @@ static inline bool sls_init_img(int32_t img_flags)
 
 bool sls_init(void)
 {
-
   sls_check(!sls_active_flag, "runtime is already active!");
-
 
   uint32_t sdl_flags = SDL_INIT_EVERYTHING;
   int32_t img_flags = IMG_INIT_JPG |
@@ -70,13 +67,7 @@ bool sls_init(void)
   sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
   sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
 
-
-  // setup internal library
-  sls_init_eventsystem();
-
-
   sls_active_flag = true;
-
 
   atexit(sls_terminate);
 
@@ -106,10 +97,6 @@ void sls_terminate(void)
 }
 
 
-void sls_error_cback(int i, char const *string)
-{
-  sls_log_err("glfw error: %s", string);
-}
 
 bool sls_is_active(void)
 {
