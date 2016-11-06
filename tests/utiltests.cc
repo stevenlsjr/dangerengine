@@ -58,7 +58,7 @@ TEST(CPPTests, TokenConcat)
 
   // ensuring the sample_max macro compiles when invoked on the same line
   EXPECT_EQ(10, sample_max(10, 1));
-  EXPECT_EQ(10, sample_max(10, sample_max(1, 2)));
+  EXPECT_EQ(1000, sample_max(10, sample_max(1000, 2)));
 
 
 #undef sample_exp
