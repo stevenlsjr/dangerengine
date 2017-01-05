@@ -39,19 +39,8 @@
 #ifndef DANGERENGINE_SLS_GL_H
 #define DANGERENGINE_SLS_GL_H
 
-#include <slsmacros.h>
-SLS_BEGIN_CDECLS
 
-/**
- * use gles directly if
- */
-#if defined(__EMSCRIPTEN__)
-#define SLS_NOGLEW 1
-#define SLS_GLES 1
-#include <GLES2/gl2.h>
-#else
 #include <GL/glew.h>
-#endif
 
 #ifdef _WIN32 //
 #include <SDL.h>
@@ -61,6 +50,5 @@ SLS_BEGIN_CDECLS
 #include <SDL2/SDL_image.h>
 #endif // !_WIN32
 
-SLS_END_CDECLS
 
 #endif // DANGERENGINE_SLS_GL_H
