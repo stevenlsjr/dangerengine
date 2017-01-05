@@ -1,10 +1,6 @@
 /**
- * @file ${FILE}
- * @brief 
- * @license ${LICENSE}
- * Copyright (c) 3/28/16, Steven
- * 
- **/
+ *
+ */
 
 #include "slsSimd.h"
 #include <assert.h>

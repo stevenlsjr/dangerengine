@@ -9,8 +9,9 @@
 #include <kazmath/kazmath.h>
 #include <iostream>
 #include <random>
+#include <array>
 #include <smmintrin.h>
-
+#include <algorithm>
 
 #include <thread>
 #include <chrono>
@@ -26,7 +27,7 @@ decltype(auto) benchmark(INFO_T test_info, string desc, T_TIME_PT start, T_TIME_
   auto delta = duration_cast<nanoseconds>(stop - start);
 
   cout << string(test_info->name())
-  << "\n\t" << desc << ": performed in " << long(delta.count()) << "µs\n";
+       << "\n\t" << desc << ": performed in " << long(delta.count()) << "µs\n";
 
   return delta;
 
@@ -43,6 +44,47 @@ bool operator==(kmMat4 const &a, kmMat4 const &b)
   return kmMat4AreEqual(&a, &b);
 }
 
+
+bool operator==(kmVec2 const &a, kmVec2 const &b)
+{
+  return kmVec2AreEqual(&a, &b);
+}
+
+
+bool operator==(kmVec3 const &a, kmVec3 const &b)
+{
+  return kmVec3AreEqual(&a, &b);
+}
+
+
+bool operator==(kmVec4 const &a, kmVec4 const &b)
+{
+  return kmVec4AreEqual(&a, &b);
+}
+
+std::ostream &operator<<(std::ostream &out, kmVec2 const &v)
+{
+  return out << "kmVec2["
+             << v.x << ", "
+             << v.y << "]";
+}
+
+std::ostream &operator<<(std::ostream &out, kmVec3 const &v)
+{
+  return out << "kmVec3["
+             << v.x << ", "
+             << v.y << ", "
+             << v.z << "]";
+}
+
+std::ostream &operator<<(std::ostream &out, kmVec4 const &v)
+{
+  return out << "kmVec4["
+             << v.x << ", "
+             << v.y << ", "
+             << v.z << ", "
+             << v.w << "]";
+}
 
 class IPointTests : public ::testing::Test {
 protected:
@@ -85,7 +127,6 @@ TEST_F(IPointTests, IDiv)
   // zero / a == zero
   EXPECT_EQ(zero, sls_ipoint_idiv(&zero, &a));
 }
-
 
 
 static inline
@@ -194,13 +235,113 @@ TEST_F(SimdTests, Mat4Mul)
   kmMat4 out, out2;
 
 
-  EXPECT_EQ(expect, *kmMat4Multiply(&out, &a, &b)) << "sanity test";
+  EXPECT_EQ(expect, *kmMat4Multiply(&out, &a, &b));
 
   EXPECT_TRUE(bool(sls_mat4simd_mul(&out2, &a, &b)));
 
   EXPECT_EQ(out, out2);
 }
 
+static constexpr int N_ITER = 10;
+
+class VectorTests : public ::testing::Test {
+protected:
+
+
+  std::default_random_engine rng;
+  std::uniform_real_distribution<float> dist;
+
+  template<size_t Dim = 4>
+  std::array<float, Dim> gen_array()
+  {
+    auto res = std::array<float, Dim>();
+    for (auto &&i: res) {
+      i = dist(rng);
+    }
+
+    return res;
+  }
+
+};
+
+TEST_F(VectorTests, Vec2)
+{
+  constexpr auto n = 4;
+  kmVec2 vals[2] = {0};
+
+  for (int i = 0; i < N_ITER; ++i) {
+    auto in = gen_array<n>();
+    memcpy(vals, &in[0], n * sizeof(float));
+    kmVec2 expect;
+
+    kmVec2Add(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec2p_add(vals + 0, vals + 1)) << "addition test #" << i;
+
+    kmVec2Subtract(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec2p_sub(vals + 0, vals + 1)) << "subtraction #" << i;
+
+    kmVec2Mul(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec2p_mul(vals + 0, vals + 1)) << "multiplication #" << i;
+
+    kmVec2Div(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec2p_div(vals + 0, vals + 1)) << "division #" << i;
+  }
+}
+
+
+TEST_F(VectorTests, Vec3)
+{
+  constexpr auto n = 3 * 2;
+
+  kmVec3 vals[2] = {0};
+
+  for (int i = 0; i < N_ITER; ++i) {
+    auto in = gen_array<n>();
+    memcpy(vals, &in[0], n * sizeof(float));
+    kmVec3 expect;
+
+    kmVec3Add(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec3p_add(vals + 0, vals + 1)) << "addition test #" << i;
+
+    kmVec3Subtract(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec3p_sub(vals + 0, vals + 1)) << "subtraction #" << i;
+
+    kmVec3Mul(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec3p_mul(vals + 0, vals + 1)) << "multiplication #" << i;
+
+    kmVec3Div(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec3p_div(vals + 0, vals + 1)) << "division #" << i;
+  }
+}
+
+
+TEST_F(VectorTests, Vec4)
+{
+  constexpr auto n = 4 * 2;
+
+  kmVec4 vals[2] = {0};
+
+  for (int i = 0; i < N_ITER; ++i) {
+    auto in = gen_array<n>();
+    memcpy(vals, &in[0], n * sizeof(float));
+    kmVec4 expect;
+
+    kmVec4Add(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec4p_add(vals + 0, vals + 1)) << "addition test #" << i;
+
+    kmVec4Subtract(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec4p_sub(vals + 0, vals + 1)) << "subtraction #" << i;
+
+    kmVec4Mul(&expect, vals + 0, vals + 1);
+    EXPECT_EQ(expect, sls_vec4p_mul(vals + 0, vals + 1)) << "multiplication #" << i;
+
+    kmVec4Div(&expect, vals + 0, vals + 1);
+    auto div = sls_vec4p_div(vals + 0, vals + 1);
+    for (auto i = 0; i < 4; ++i) {
+      EXPECT_FLOAT_EQ((&expect.x)[i],  (&div.x)[i]);
+    }
+  }
+}
 
 
 #if 0

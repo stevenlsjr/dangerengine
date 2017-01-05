@@ -18,29 +18,7 @@
 #include <stddef.h>
 
 
-/**
- * adds two kmVec2 values, and returns result by-value
- * @param a
- * @param b
- * @return the sum of the two vectors
- */
-kmVec2 sls_vec2_add(const kmVec2 *a, const kmVec2 *b);
 
-/**
- * adds two kmVec3 values, and returns result by-value
- * @param a
- * @param b
- * @return the sum of the two vectors
- */
-kmVec3 sls_vec3_add(const kmVec3 *a, const kmVec3 *b);
-
-/**
- * adds two kmVec4 values, and returns result by-value
- * @param a
- * @param b
- * @return the sum of the two vectors
- */
-kmVec4 sls_vec4_add(const kmVec4 *a, const kmVec4 *b);
 
 size_t sls_nearest_squarelu(size_t x);
 
@@ -52,22 +30,7 @@ size_t sls_nearest_squarelu(size_t x);
  * @param epsilon relative error factor
  * @return true if equal or nearly equal, otherwise false
  */
-static inline
-bool sls_neard(double a, double b, double epsilon)
-{
-  const double abs_a = fabs(a);
-  const double abs_b = fabs(b);
-  const double diff = fabs(a - b);
-
-  if (a == b) { // shortcut
-    return true;
-  } else if (a * b == 0) { // a or b or both are zero
-    // relative error is not meaningful here
-    return diff < (epsilon * epsilon);
-  } else { // use relative error
-    return diff / (abs_a + abs_b) < epsilon;
-  }
-}
+bool sls_neard(double a, double b, double epsilon);
 
 /**
  * Returns true if given float values are equal to or
@@ -77,91 +40,45 @@ bool sls_neard(double a, double b, double epsilon)
  * @param epsilon relative error factor
  * @return true if equal or nearly equal, otherwise false
  */
-static inline
-bool sls_nearf(float a, float b, float epsilon)
-{
+bool sls_nearf(float a, float b, float epsilon);
 
-  const float abs_a = fabsf(a);
-  const float abs_b = fabsf(b);
-  const float diff = fabsf(a - b);
+kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot);
 
-  if (a == b) { // shortcut
-    return true;
-  } else if (a * b == 0) { // a or b or both are zero
-    // relative error is not meaningful here
-    return diff < (epsilon * epsilon);
-  } else { // use relative error
-    return diff / (abs_a + abs_b) < epsilon;
-  }
-}
+double sls_to_radians(double degrees);
 
-static inline kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
-{
-  if (out) {
-    out->x = cosf(rot);
-    out->y = sinf(rot);
-  }
-  return out;
-}
+double sls_to_degrees(double radians);
 
-static inline double sls_to_radians(double degrees)
-{
-  return degrees * M_PI / 180.0;
-}
 
-static inline double sls_to_degrees(double radians)
-{
-  return radians * 180.0 / M_PI;
-}
+bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon);
 
-static inline
-bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon)
-{
-  assert(a && b);
+/*
+ * by-value vector functions
+ */
 
-  return sls_nearf(a->x, b->x, epsilon) &&
-         sls_nearf(a->y, b->y, epsilon);
-}
+kmVec2 sls_vec2p_add(kmVec2 const *rhs, kmVec2 const *lhs);
+kmVec2 sls_vec2p_sub(kmVec2 const *rhs, kmVec2 const *lhs);
+kmVec2 sls_vec2p_mul(kmVec2 const *rhs, kmVec2 const *lhs);
+kmVec2 sls_vec2p_div(kmVec2 const *rhs, kmVec2 const *lhs);
 
+
+kmVec3 sls_vec3p_add(kmVec3 const *rhs, kmVec3 const *lhs);
+kmVec3 sls_vec3p_sub(kmVec3 const *rhs, kmVec3 const *lhs);
+kmVec3 sls_vec3p_mul(kmVec3 const *rhs, kmVec3 const *lhs);
+kmVec3 sls_vec3p_div(kmVec3 const *rhs, kmVec3 const *lhs);
+
+kmVec4 sls_vec4p_add(kmVec4 const *rhs, kmVec4 const *lhs);
+kmVec4 sls_vec4p_sub(kmVec4 const *rhs, kmVec4 const *lhs);
+kmVec4 sls_vec4p_mul(kmVec4 const *rhs, kmVec4 const *lhs);
+kmVec4 sls_vec4p_div(kmVec4 const *rhs, kmVec4 const *lhs);
+
+#ifndef __cplusplus
+
+
+#endif //!__cplusplus
 
 //--------------------------utilities for calling km functions by value----------------------------
-typedef kmMat4* (*slsMat4Binop_fn)(kmMat4* pOut, const kmMat4* pM1, const kmMat4* pM2) ;
 
-static inline
-kmMat4 sls_mat4_binop_valout(kmMat4 const *lhs, kmMat4 const *rhs, slsMat4Binop_fn fn)
-{
-  assert(lhs && rhs);
-  kmMat4 m;
 
-  fn(&m, lhs, rhs);
-
-  return m;
-}
-
-static inline
-kmMat4 sls_mat4_binop_valinout(kmMat4 lhs, kmMat4 rhs, slsMat4Binop_fn fn)
-{
-  kmMat4 out;
-  fn(&out, &lhs, &rhs);
-
-  return out;
-}
-
-/**
- * @brief Multiplies two matrix pointers, returning a value.
- * @details
- */
-static inline
-kmMat4 sls_mat4_mul_valout(kmMat4 const *lhs, kmMat4 const *rhs)
-{
-  return sls_mat4_binop_valout(lhs, rhs, kmMat4Multiply);
-}
-
-static inline
-kmMat4 sls_mat4_mul_valinout(kmMat4 lhs, kmMat4 rhs)
-{
-  return sls_mat4_binop_valout(&lhs, &rhs, kmMat4Multiply);
-}
 
 static inline
 kmMat4 sls_mat4_identity_val()
@@ -170,6 +87,8 @@ kmMat4 sls_mat4_identity_val()
   kmMat4Identity(&out);
   return out;
 }
+
+
 
 
 

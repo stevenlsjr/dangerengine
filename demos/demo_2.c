@@ -5,7 +5,6 @@
  * Copyright (c) 11/11/15, Steven
  *
  **/
-#include <renderer/slsshader.h>
 #include "demo_2.h"
 #include "renderer/geometries.h"
 
@@ -24,6 +23,7 @@ typedef struct DemoData {
   slsUniformLocations uniforms;
   slsAttrLocations attributes;
 
+  slsTrackball trackball;
 } DemoData;
 
 static DemoData data = {};
@@ -101,7 +101,7 @@ void demo_ctx_setup(slsContext *self)
   glCullFace(GL_BACK);
 
   return;
-  error:
+error:
   assert(0);
   return;
 }
@@ -137,13 +137,17 @@ static void demo_scene_setup(slsContext *self)
     glDeleteTextures(1, &tex);
   }
 
+  // setup trackball
+
+  sls_trackball_init_default(&data.trackball);
+
 
 }
 
 static void demo_mv_setup(slsContext *self)
 {
   kmMat4Identity(&data.projection);
-  kmMat4Identity(&data.camera_view);
+  kmMat4Translation(&data.camera_view, 0.f, 0.f, -10.f);
 }
 
 void demo_ctx_teardown(slsContext *self)
@@ -158,19 +162,16 @@ void demo_ctx_teardown(slsContext *self)
   sls_context_prototype()->teardown(self);
 }
 
-void demo_ctx_update(slsContext *self, double dt) {}
+void demo_ctx_update(slsContext *self, double dt)
+{
+}
 
 void demo_ctx_display(slsContext *self, double dt)
 {
 
   kmMat4 mv, normal, inv_mv;
   // use matrices to perform modelview transformation
-  {
-    kmMat4Translation(&inv_mv, 0.0f, -0.5f, -1.f);
-    kmVec3 v = {1.f, 0.5, 0.5};
-    kmMat4RotationAxisAngle(&normal, &v, M_PI_2);
-    kmMat4Multiply(&mv, &inv_mv, &normal);
-  }
+  mv = data.camera_view;
 
   kmMat4Inverse(&inv_mv, &mv);
   kmMat4Transpose(&normal, &inv_mv);
@@ -209,10 +210,10 @@ void demo_ctx_resize(slsContext *self, int x, int y)
 
   const float fov = 70.f;
   float aspect = x / (float) y;
-  // kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
+  kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
-  kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f / aspect,
-                               5.f / aspect, -100.f, 100.f);
+  //kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f / aspect,
+  //                             5.f / aspect, -100.f, 100.f);
 
   glUniformMatrix4fv(
       glGetUniformLocation(data.phong_shader.program, "projection"), 1,
@@ -221,11 +222,59 @@ void demo_ctx_resize(slsContext *self, int x, int y)
 
 static void handle_key_event(slsContext *self, SDL_KeyboardEvent const *kevent)
 {
-switch (kevent->keysym.scancode) {
-  case SDL_SCANCODE_ESCAPE: {
+  switch (kevent->keysym.scancode) {
+    case SDL_SCANCODE_ESCAPE: {
       self->is_running = false;
       break;
     }
+    default:
+      break;
+  }
+}
+
+static
+void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
+{
+  int state = event->state;
+  SDL_Keymod keymod = SDL_GetModState();
+
+  slsInputState *input = self->state->input;
+
+  if (state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+
+    slsTrackball *ball = &data.trackball;
+    slsIPoint last_pos = sls_inputstate_last_mousestate(input, NULL);
+    slsIPoint current_pos = {event->x, event->y};
+    slsIPoint win_size = {};
+    slsIPoint diff = sls_ipoint_sub(&current_pos, &last_pos);
+    SDL_GetWindowSize(self->window, &win_size.x, &win_size.y);
+
+    kmMat4 a, b;
+
+    if (keymod & (KMOD_LSHIFT | KMOD_LALT)) {
+      // todo: translate radius by distance dragged
+      kmVec2 translation = {diff.x, diff.y};
+      kmVec2Scale(&translation, &translation, 0.05);
+      if (keymod & KMOD_LSHIFT) {
+        kmMat4Translation(&a, 0.0, translation.x, translation.y);
+      } else if (keymod & KMOD_LALT) {
+        kmMat4Translation(&a, translation.x, translation.y, 0.0);
+      }
+      b = data.camera_view;
+      kmMat4Multiply(&data.camera_view, &a, &b);
+
+      kmVec3 p = {0.f, 0.f, 0.f},
+          translated_pos;
+
+      kmVec3MultiplyMat4(&translated_pos, &p, &data.camera_view);
+
+    } else {
+      ball->rotation_speed = 0.01;
+      sls_trackball_drag(ball, last_pos, current_pos, win_size);
+      b = data.camera_view;
+      kmMat4Multiply(&data.camera_view, &ball->rotation_mat, &b);
+    }
+
   }
 }
 
@@ -237,9 +286,12 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
     case SDL_KEYDOWN: {
       SDL_KeyboardEvent const *ke = &e->key;
       handle_key_event(self, ke);
+      break;
+    }
+    case SDL_MOUSEMOTION: {
+      handle_mousemotion(self, &e->motion);
 
     }
-      break;
 
     default:
       break;

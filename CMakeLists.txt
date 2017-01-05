@@ -11,18 +11,17 @@ set(CMAKE_MODULE_PATH
 
 set(CMAKE_PREFER_PTHREADS ON FORCE)
 
-find_package(OpenGL REQUIRED)
+find_package(OpenGL)
 find_package(Threads REQUIRED)
-find_package(GLEW REQUIRED)
+find_package(GLEW)
 find_package(Doxygen)
 
-#find_package (PkgConfig  REQUIRED)
+find_package(PkgConfig REQUIRED)
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
+find_package(SDL2)
+find_package(SDL2_image)
+pkg_search_module(GLIB glib-2.0 REQUIRED)
 
-#pkg_check_modules (APR  apr-1)
-#pkg_check_modules (APR_UTIL  apr-util-1)
 
 #force  pthreads  on  win32
 
@@ -52,53 +51,40 @@ configure_file(
 set(DANGER_SRC
     src/dangerengine.h
 
-    #  context  handling  and  general  utilities
-    src/sls-gl.h
-    src/sls-imagelib.h
-    src/slscontext.h
-    src/slscontext.c
-    src/slsutils.c
-    src/slsutils.h
     src/contexthandlers.c
     src/contexthandlers.h
-
-    src/cppapi.h
-    src/slsmacros.h
-
-    src/math/slsMathUtils.h
-    src/math/slsMathUtils.c
+    src/data-types/dangertypes.h
     src/math/math-types.c
     src/math/math-types.h
-    src/math/slsTrackball.c src/math/slsTrackball.h
     src/math/slsCamera.c
     src/math/slsCamera.h
-
-    #renderer  types
+    src/math/slsMathUtils.c
+    src/math/slsMathUtils.h
+    src/math/slsSimd.c src/math/slsSimd.h
+    src/math/slsTrackball.c src/math/slsTrackball.h
+    src/renderer/geometries.c
+    src/renderer/geometries.h
+    src/renderer/shaderutils.c
+    src/renderer/shaderutils.h
+    src/renderer/slsLight.c src/renderer/slsLight.h
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
     src/renderer/slsshader.c
     src/renderer/slsshader.h
-    src/renderer/shaderutils.c
-    src/renderer/shaderutils.h
-
-    #  game  state  machine
-
-    src/state/resourceutils.c
-    src/state/resourceutils.h
-
-    src/sls-commonlibs.h
-
+    src/renderer/slstexture.c src/renderer/slstexture.h
     src/sls-build-dir.c
     src/sls-build-dir.h
-    src/renderer/slsLight.c src/renderer/slsLight.h
-    src/renderer/geometries.c
-    src/renderer/geometries.h
-
-    src/data-types/dangertypes.h
-    src/math/slsSimd.c src/math/slsSimd.h
-
+    src/sls-commonlibs.h
+    src/sls-gl.h
+    src/sls-imagelib.h
+    src/slscontext.c
+    src/slscontext.h
+    src/slsmacros.h
+    src/slsutils.c
+    src/slsutils.h
     src/slsworkqueue.c src/slsworkqueue.h
-    src/renderer/slstexture.c src/renderer/slstexture.h)
+    src/state/slsAppState.c src/state/slsAppState.h
+    src/state/slsInputState.c src/state/slsInputState.h)
 
 
 #tests  compiled  in  c++
@@ -124,16 +110,12 @@ set(DANGER_DEMO_SRC
 #--------------------------------------------
 
 include_directories(
-  ${SDL2_INCLUDE_DIRS}/SDL2
-  ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
-
-  ${CMAKE_SOURCE_DIR}/src
-  ${CMAKE_SOURCE_DIR}/extern/kazmath
-
-  ${CMAKE_SOURCE_DIR}/extern/nuklear
-
   ${CMAKE_SOURCE_DIR}/extern/googletest/googlemock/include
-  ${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include)
+  ${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include
+  ${CMAKE_SOURCE_DIR}/extern/kazmath
+  ${CMAKE_SOURCE_DIR}/src
+  ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
+  ${SDL2_INCLUDE_DIRS}/SDL2)
 
 
 #copy  resources  to  build
@@ -161,59 +143,45 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -fms-extensions  -fblocks")
-endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-
-add_subdirectory(extern/googletest/googlemock)
 add_subdirectory(extern/Chipmunk2D)
 add_subdirectory(extern/kazmath)
 add_subdirectory(src/data-types)
 
 #kazmath
-set(KAZMATH_BUILD_JNI_WRAPPER OFF FORCE)
-set(KAZMATH_BUILD_TESTS OFF FORCE)
+set(KAZMATH_BUILD_JNI_WRAPPER OFF CACHE BOOLEAN "kazmath build tests")
+set(KAZMATH_BUILD_TESTS OFF CACHE BOOLEAN "kazmath build tests")
 
 #chipmunk
 set(BUILD_DEMOS OFF FORCE)
 
 
-set(CMAKE_LIBRARY_PATH
-    "${CMAKE_LIBRARY_PATH}  \
-  ${SDL2_LIBRARY_DIRS}  \
-  ${SDL2IMG_LIBRARY_DIRS}"
-    CACHE STRING "library  search  path")
+link_directories(${SDL2_LIBRARY_DIRS}
+                 ${SDL2IMG_LIBRARY_DIRS}
+                 ${GLIB_LIBRARY_DIRS})
 
 
+set(CMAKE_LINK_LIBRARY_FLAGS "${CMAKE_LINK_LIBRARY_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
+set(CMAKE_LINK_EXE_FLAGS "${CMAKE_LINK_EXE_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
 
-set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS}  ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
-    ${DANGER_PTHREAD_LIB}
-    kazmath
-    gtest
-    gmock
     ${DANGERTYPES_LIB}
+    ${DANGER_PTHREAD_LIB}
     ${GLEW_LIBRARY}
-    ${SDL2_LIBRARY}
+    ${GLIB_LIBRARIES}
+    ${OPENGL_gl_LIBRARY}
     ${SDL2_IMAGE_LIBRARIES}
+    ${SDL2_LIBRARY}
     ${SDL2_TTF_LIBRARIES}
-    ${OPENGL_gl_LIBRARY})
-
+    kazmath
+)
 
 include_directories(
+  ${APR_INCLUDE_DIRS}
+  ${APR_UTIL_INCLUDE_DIRS}
   ${GLEW_INCLUDE_DIR}
   ${OPENGL_INCLUDE_DIR}
   ${SDL2_INCLUDE_DIR}
-  ${APR_INCLUDE_DIRS}
-  ${APR_UTIL_INCLUDE_DIRS}
-  extern/uthash/src
 )
-
-get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-
-foreach (dir ${dirs})
-  message(STATUS "dir='${dir}'")
-endforeach ()
 
 
 #---------------------------------------
@@ -258,6 +226,10 @@ target_link_libraries(demo
 #  add  a  separate  library  for  tests  compiled  in  C.  Used  for  supporting  build
 #  systems  which  don't  compile  C  and  C++  code  separately
 
+
+# don't use googletest when emscripten is the platform
+add_subdirectory(extern/googletest/googlemock)
+
 add_executable(tests ${DANGER_TEST_SRC})
 add_dependencies(tests
                  gtest
@@ -271,14 +243,13 @@ target_link_libraries(tests
 
 
 if (DOXYGEN_FOUND)
-
   set(DANGER_DOC_FILES
-      "${CMAKE_SOURCE_DIR}/src/  \
-  ${CMAKE_SOURCE_DIR}/src/data-types/  \
-  ${CMAKE_SOURCE_DIR}/src/math/  \
-  ${CMAKE_SOURCE_DIR}/extern/glfw/include/GLFW  \
-  ${CMAKE_SOURCE_DIR}/extern/kazmath/kazmath  \
-  ${CMAKE_SOURCE_DIR}/extern/kazmath/kazmath/GL")
+      "${CMAKE_SOURCE_DIR}/src \
+      ${CMAKE_SOURCE_DIR}/src/data-types \
+      ${CMAKE_SOURCE_DIR}/src/math \
+      ${CMAKE_SOURCE_DIR}/src/renderer \
+      ${CMAKE_SOURCE_DIR}/src/state"
+      )
 
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile.in

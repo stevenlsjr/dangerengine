@@ -1,10 +1,5 @@
-//
-// Created by Steven on 5/3/15.
-//
-
 /**
- * @file array.c
- * @brief 
+ * @brief
  *
  * Copyright (c) 2015, Steven Shea
  * All rights reserved.

@@ -1,10 +1,7 @@
-//
-// Created by Steven on 7/2/15.
-//
+
 
 /**
- * @file hashtable.c
- * @brief 
+ * @brief
  *
  * Copyright (c) 2015, Steven Shea
  * All rights reserved.
@@ -423,7 +420,7 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
 int sls_hashtable_cmp(slsHashTable *self, void const *lhs, void const *rhs, slsCmpFn cmp, size_t param_size)
 {
   int res = -1;
-  // automatically fail comparrison if one value is a sentinel
+  // automatically fail comparison if one value is a sentinel
   if (sls_is_hash_sentinel(lhs) || sls_is_hash_sentinel(rhs)) {
     res = 0xdadb0d; // because
   } else if (cmp) {

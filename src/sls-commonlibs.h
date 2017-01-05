@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 10/20/15, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_SLS_COMMONLIBS_H
 #define DANGERENGINE_SLS_COMMONLIBS_H
@@ -30,4 +30,4 @@
 #include <tgmath.h>
 #include <time.h>
 
-#endif //DANGERENGINE_SLS_COMMONLIBS_H
+#endif // DANGERENGINE_SLS_COMMONLIBS_H

@@ -1,10 +1,5 @@
-//
-// Created by Steven on 7/17/15.
-//
-
 /**
- * @file callbacks.c
- * @brief 
+ * @brief
  *
  * Copyright (c) 2015, Steven Shea
  * All rights reserved.

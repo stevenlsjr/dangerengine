@@ -1,5 +1,4 @@
 /**
- * @file ${FILE}
  * @brief
  * @license ${LICENSE}
  * Copyright (c) 11/23/15, Steven
@@ -77,16 +76,16 @@ slsTrackball *sls_trackball_init(slsTrackball *self, float radius,
   return self;
 }
 
-void sls_trackball_drag(slsTrackball *ball, slsIPoint const *start_point,
-                        slsIPoint const *second_point,
-                        slsIPoint const *window_size) {
+void sls_trackball_drag(slsTrackball *ball, slsIPoint start_point,
+                        slsIPoint second_point,
+                        slsIPoint window_size) {
 
-  float w = window_size->x, h = window_size->y;
+  float w = window_size.x, h = window_size.y;
 
-  kmVec2 param_0 = {(2.f * start_point->x - w) / w,
-                    (h - 2.f * start_point->y) / h};
-  kmVec2 param_1 = {(2.f * second_point->x - w) / w,
-                    (h - 2.f * second_point->y) / h};
+  kmVec2 param_0 = {(2.f * start_point.x - w) / w,
+                    (h - 2.f * start_point.y) / h};
+  kmVec2 param_1 = {(2.f * second_point.x - w) / w,
+                    (h - 2.f * second_point.y) / h};
 
   sls_trackball_set(ball, param_0, param_1);
 }
