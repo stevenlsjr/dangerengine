@@ -2,13 +2,10 @@
  * //
  * // Created by Steven on 4/25/15.
  * //
- * 
+ *
  * @file
  * @brief utilities specific to Dangerengine environment
  */
-
-
-
 
 #ifndef DANGERENGINE_SLSUTILS_H
 #define DANGERENGINE_SLSUTILS_H
@@ -21,8 +18,6 @@
 #define SLS_USE_ERRORSTACK 1
 #include "slsmacros.h"
 
-
-
 /**
  * @brief Error checker with same format as sls_check, but submits
  * a given error code on failure
@@ -30,26 +25,25 @@
 
 // redefine
 #undef sls_checkmem
-#define sls_checkmem(pointer) do {  \
-  sls_check((pointer), "memory error! %s", #pointer); \
-} while (0)
-
+#define sls_checkmem(pointer)                                                  \
+  do {                                                                         \
+    sls_check((pointer), "memory error! %s", #pointer);                        \
+  } while (0)
 
 typedef enum slsBool {
   SLS_TRUE = true,
   SLS_FALSE = false
 } slsBool SLS_DEPRECIATED;
 
-
 /**
  * @brief allocates 'size' bytes on the heap, and copies contents to
  * pointer
  * @details essentially a heap allocated memcpy, this facilitates
  * struct object construction
- * 
+ *
  * @param prototype [description]
  * @param size [description]
- * 
+ *
  * @return [description]
  */
 void *sls_objalloc(void const *prototype, size_t size);
@@ -62,7 +56,4 @@ void *sls_objalloc(void const *prototype, size_t size);
 
 int sls_chdir(char const *path) SLS_NONNULL(1);
 
-
-
-
-#endif //DANGERENGINE_SLSUTILS_H
+#endif // DANGERENGINE_SLSUTILS_H

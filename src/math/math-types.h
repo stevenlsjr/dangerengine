@@ -20,7 +20,6 @@ typedef struct slsIPoint {
   int x, y;
 } slsIPoint;
 
-
 typedef union slsIRect {
   struct {
     slsIPoint position;
@@ -39,8 +38,6 @@ typedef struct slsFRect {
   kmVec2 size;
 } slsFRect;
 
-
-
 typedef union slsVec2 {
   struct {
     float x;
@@ -57,7 +54,6 @@ typedef union slsVec2 {
   struct kmVec2 kvec;
 } slsVec2;
 
-
 typedef union slsVec3 {
   struct {
     float x;
@@ -68,13 +64,11 @@ typedef union slsVec3 {
     float u;
     float v;
     float s;
-
   };
   struct {
     float r;
     float g;
     float b;
-
   };
   slsVec2 xy;
   kmVec3 kvec;
@@ -110,7 +104,7 @@ typedef union slsVec4 {
 static inline slsVec2 sls_make_vec2(float x, float y)
 {
   slsVec2 v;
-  v.kvec = (kmVec2) {x, y};
+  v.kvec = (kmVec2){ x, y };
   return v;
 }
 
@@ -118,17 +112,16 @@ static inline slsVec3 sls_make_vec3(float x, float y, float z)
 {
 
   slsVec3 v;
-  v.kvec = (kmVec3) {x, y, z};
+  v.kvec = (kmVec3){ x, y, z };
   return v;
 }
 
 static inline slsVec4 sls_make_vec4(float x, float y, float z, float w)
 {
   slsVec4 v;
-  v.kvec = (kmVec4) {x, y, z, w};
+  v.kvec = (kmVec4){ x, y, z, w };
   return v;
 }
-
 
 static inline kmMat3 sls_mat3_id()
 {
@@ -164,15 +157,20 @@ static inline void sls_log_mat4(kmMat4 const *mat)
 /*---------------------------------------*
  * slsIPoint operations
  *---------------------------------------*/
-bool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+bool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b)
+    SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_add(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_add(slsIPoint const *a, slsIPoint const *b)
+    SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_sub(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_sub(slsIPoint const *a, slsIPoint const *b)
+    SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_mul(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_mul(slsIPoint const *a, slsIPoint const *b)
+    SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b) SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b)
+    SLS_NONNULL(1, 2) SLS_PURE;
 
 kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
 
@@ -215,13 +213,7 @@ static inline kmVec4 sls_array_to_vec4(float const *arr)
   return v;
 };
 
-
 kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview);
 kmMat4 *sls_mat4_invnormalmat(kmMat4 *out, kmMat4 const *modelview);
 
-
-
-
-
-#endif //DANGERENGINE_MATH_TYPES_H
-
+#endif // DANGERENGINE_MATH_TYPES_H

@@ -16,7 +16,6 @@ typedef struct DemoData {
   slsMesh *cube_mesh;
   slsMesh *rect_mesh;
 
-
   kmMat4 camera_view;
   kmMat4 projection;
 
@@ -80,7 +79,7 @@ int demo_main(int *argcr, char **argv)
 }
 
 //---------------------------------context
-//callbacks---------------------------------------
+// callbacks---------------------------------------
 
 void demo_ctx_setup(slsContext *self)
 {
@@ -96,7 +95,7 @@ void demo_ctx_setup(slsContext *self)
 
   glClearColor(0.1, 0.2, 0.4, 1.0);
 
-  //glEnable(GL_CULL_FACE);
+  // glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND_COLOR);
   glCullFace(GL_BACK);
 
@@ -109,23 +108,23 @@ error:
 static void demo_scene_setup(slsContext *self)
 {
 
-  slsShader *res = sls_shader_init(
-      &data.phong_shader,
-      sls_create_program("resources/shaders/demo.vert",
-                         "resources/shaders/demo.frag",
-                         "resources/shaders/uniforms.glsl"));
+  slsShader *res =
+      sls_shader_init(&data.phong_shader,
+                      sls_create_program("resources/shaders/demo.vert",
+                                         "resources/shaders/demo.frag",
+                                         "resources/shaders/uniforms.glsl"));
   res->owns_program = true;
   data.cube_mesh = sls_cube_mesh(false);
 
   slsVertex verts[] = {
-      {.position = {-1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = {-1.f, 1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = {1.f, 1.f, 0.f}, .normal = {0.f, 0.f, 1.f}},
-      {.position = {1.f, -1.f, 0.f}, .normal = {0.f, 0.f, 1.f}}};
-  uint32_t idxs[] = {2, 1, 0, 3, 2, 0};
+    {.position = { -1.f, -1.f, 0.f }, .normal = { 0.f, 0.f, 1.f } },
+    {.position = { -1.f, 1.f, 0.f }, .normal = { 0.f, 0.f, 1.f } },
+    {.position = { 1.f, 1.f, 0.f }, .normal = { 0.f, 0.f, 1.f } },
+    {.position = { 1.f, -1.f, 0.f }, .normal = { 0.f, 0.f, 1.f } }
+  };
+  uint32_t idxs[] = { 2, 1, 0, 3, 2, 0 };
   data.rect_mesh =
       sls_mesh_new(verts, SLS_ARRAY_COUNT(verts), idxs, SLS_ARRAY_COUNT(idxs));
-
 
   assert(data.rect_mesh);
   sls_mesh_bind(data.rect_mesh, &data.phong_shader);
@@ -140,8 +139,6 @@ static void demo_scene_setup(slsContext *self)
   // setup trackball
 
   sls_trackball_init_default(&data.trackball);
-
-
 }
 
 static void demo_mv_setup(slsContext *self)
@@ -162,9 +159,7 @@ void demo_ctx_teardown(slsContext *self)
   sls_context_prototype()->teardown(self);
 }
 
-void demo_ctx_update(slsContext *self, double dt)
-{
-}
+void demo_ctx_update(slsContext *self, double dt) {}
 
 void demo_ctx_display(slsContext *self, double dt)
 {
@@ -178,20 +173,18 @@ void demo_ctx_display(slsContext *self, double dt)
 
   sls_shader_bind_mat4(
       &data.phong_shader,
-      (uint) glGetUniformLocation(data.phong_shader.program, "model_view"), &mv,
+      (uint)glGetUniformLocation(data.phong_shader.program, "model_view"), &mv,
       false);
 
   sls_shader_bind_mat4(
       &data.phong_shader,
-      (uint) glGetUniformLocation(data.phong_shader.program, "inv_model_view"),
-      &inv_mv,
-      false);
+      (uint)glGetUniformLocation(data.phong_shader.program, "inv_model_view"),
+      &inv_mv, false);
 
   sls_shader_bind_mat4(
       &data.phong_shader,
-      (uint) glGetUniformLocation(data.phong_shader.program, "normal_mat"),
-      &normal,
-      false);
+      (uint)glGetUniformLocation(data.phong_shader.program, "normal_mat"),
+      &normal, false);
 
   if (data.rect_mesh) {
     //_sls_mesh_roughdraw(data.rect_mesh, data.phong_shader.program, dt);
@@ -201,7 +194,6 @@ void demo_ctx_display(slsContext *self, double dt)
   }
 }
 
-
 void demo_ctx_resize(slsContext *self, int x, int y)
 {
   glUseProgram(data.phong_shader.program);
@@ -209,10 +201,10 @@ void demo_ctx_resize(slsContext *self, int x, int y)
   sls_context_prototype()->resize(self, x, y);
 
   const float fov = 70.f;
-  float aspect = x / (float) y;
+  float aspect = x / (float)y;
   kmMat4PerspectiveProjection(&data.projection, fov, aspect, -1.f, 1.f);
 
-  //kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f / aspect,
+  // kmMat4OrthographicProjection(&data.projection, -5.f, 5.f, -5.f / aspect,
   //                             5.f / aspect, -100.f, 100.f);
 
   glUniformMatrix4fv(
@@ -232,8 +224,8 @@ static void handle_key_event(slsContext *self, SDL_KeyboardEvent const *kevent)
   }
 }
 
-static
-void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
+static void handle_mousemotion(slsContext *self,
+                               SDL_MouseMotionEvent const *event)
 {
   int state = event->state;
   SDL_Keymod keymod = SDL_GetModState();
@@ -244,7 +236,7 @@ void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
 
     slsTrackball *ball = &data.trackball;
     slsIPoint last_pos = sls_inputstate_last_mousestate(input, NULL);
-    slsIPoint current_pos = {event->x, event->y};
+    slsIPoint current_pos = { event->x, event->y };
     slsIPoint win_size = {};
     slsIPoint diff = sls_ipoint_sub(&current_pos, &last_pos);
     SDL_GetWindowSize(self->window, &win_size.x, &win_size.y);
@@ -253,7 +245,7 @@ void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
 
     if (keymod & (KMOD_LSHIFT | KMOD_LALT)) {
       // todo: translate radius by distance dragged
-      kmVec2 translation = {diff.x, diff.y};
+      kmVec2 translation = { diff.x, diff.y };
       kmVec2Scale(&translation, &translation, 0.05);
       if (keymod & KMOD_LSHIFT) {
         kmMat4Translation(&a, 0.0, translation.x, translation.y);
@@ -263,8 +255,7 @@ void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
       b = data.camera_view;
       kmMat4Multiply(&data.camera_view, &a, &b);
 
-      kmVec3 p = {0.f, 0.f, 0.f},
-          translated_pos;
+      kmVec3 p = { 0.f, 0.f, 0.f }, translated_pos;
 
       kmVec3MultiplyMat4(&translated_pos, &p, &data.camera_view);
 
@@ -274,7 +265,6 @@ void handle_mousemotion(slsContext *self, SDL_MouseMotionEvent const *event)
       b = data.camera_view;
       kmMat4Multiply(&data.camera_view, &ball->rotation_mat, &b);
     }
-
   }
 }
 
@@ -290,7 +280,6 @@ void demo_handle_event(slsContext *self, SDL_Event const *e)
     }
     case SDL_MOUSEMOTION: {
       handle_mousemotion(self, &e->motion);
-
     }
 
     default:

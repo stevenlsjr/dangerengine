@@ -3,13 +3,15 @@
  * @brief
  * @detail This Header describes 3 types for defining lights in a scene:
  * a simple "Light" struct for defining the components of a single light source,
- * a "Light batch" structure organized as with *struct of arrays* design for efficiently
- * light data to the GPU, and a "light view" for viewing modifying a single light source
+ * a "Light batch" structure organized as with *struct of arrays* design for
+ *efficiently
+ * light data to the GPU, and a "light view" for viewing modifying a single
+ *light source
  * within a batch.
  *
  * @license ${LICENSE}
  * Copyright (c) 11/11/15, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_SLSLIGHT_H
 #define DANGERENGINE_SLSLIGHT_H
@@ -20,7 +22,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
 typedef struct slsLight slsLight;
 
 struct slsLight {
@@ -30,7 +31,6 @@ struct slsLight {
   kmVec4 light_position;
   kmMat4 light_modelview;
 };
-
 
 typedef struct slsLightBatch slsLightBatch;
 
@@ -44,7 +44,6 @@ struct slsLightBatch {
   kmMat4 *light_modelviews;
 };
 
-
 typedef struct slsLightView slsLightView;
 
 struct slsLightView {
@@ -55,24 +54,20 @@ struct slsLightView {
   kmMat4 *light_modelview;
 };
 
-slsLightBatch *sls_lightbatch_init(slsLightBatch *self,
-                                   size_t max_lights,
-                                   slsLight const *lights,
-                                   size_t n_lights) SLS_NONNULL(1);
+slsLightBatch *sls_lightbatch_init(slsLightBatch *self, size_t max_lights,
+                                   slsLight const *lights, size_t n_lights)
+    SLS_NONNULL(1);
 
 slsLightBatch *sls_lightbatch_dtor(slsLightBatch *self) SLS_NONNULL(1);
 
-void sls_lightbatch_set_light(slsLightBatch *self,
-                              size_t idx, slsLight
-                              const *light,
-                              bool active) SLS_NONNULL(1, 3);
+void sls_lightbatch_set_light(slsLightBatch *self, size_t idx,
+                              slsLight const *light, bool active)
+    SLS_NONNULL(1, 3);
 
-slsLight *sls_lightbatch_get_light(slsLightBatch *self,
-                                   size_t idx,
+slsLight *sls_lightbatch_get_light(slsLightBatch *self, size_t idx,
                                    slsLight *out) SLS_NONNULL(1, 3);
 
-slsLightView *sls_lightbatch_get_lightview(slsLightBatch *self,
-                                           size_t idx,
+slsLightView *sls_lightbatch_get_lightview(slsLightBatch *self, size_t idx,
                                            slsLightView *out) SLS_NONNULL(1, 3);
 
-#endif //DANGERENGINE_SLSLIGHT_H
+#endif // DANGERENGINE_SLSLIGHT_H

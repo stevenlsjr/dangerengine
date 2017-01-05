@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 10/13/15, Steven
- * 
+ *
  **/
 
 #include "resourceutils.h"

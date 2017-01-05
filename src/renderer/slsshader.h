@@ -52,8 +52,6 @@ typedef struct slsShader slsShader;
 typedef struct slsUniformLocations slsUniformLocations;
 typedef struct slsAttrLocations slsAttrLocations;
 
-
-
 /**
  * @brief struct storing attribute locations for default shaders
  */
@@ -129,7 +127,7 @@ void sls_shader_bind_mat4v(slsShader *self, GLuint location, kmMat4 const *m,
 void sls_shader_bind_mat3v(slsShader *self, GLuint location, kmMat3 const *m,
                            size_t count, bool transpose) SLS_NONNULL(1, 3);
 
-#define sls_shader_bind(sself, location, gen_val, ...) \
+#define sls_shader_bind(sself, location, gen_val, ...)                         \
   _Generic(gen_val, \
 kmVec3: sls_shader_bind_vec3(sself, location, gen_val),\
 kmVec4: sls_shader_bind_vec4(sself, location, gen_val),\
@@ -142,4 +140,4 @@ kmMat4 const * : sls_shader_bind_mat4(sself, location, gen_val, __VA_ARGS__), \
 kmMat3 * : sls_shader_bind_mat3(sself, location, gen_val, __VA_ARGS__), \
 kmMat3  const* : sls_shader_bind_mat3(sself, location, gen_val, __VA_ARGS__))
 
-#endif  // DANGERENGINE_SLSSHADER_H
+#endif // DANGERENGINE_SLSSHADER_H

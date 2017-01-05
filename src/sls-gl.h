@@ -46,22 +46,20 @@ SLS_BEGIN_CDECLS
  * use gles directly if
  */
 #if defined(__EMSCRIPTEN__)
-#   define SLS_NOGLEW 1
-#   define SLS_GLES 1
-#   include <GLES2/gl2.h>
+#define SLS_NOGLEW 1
+#define SLS_GLES 1
+#include <GLES2/gl2.h>
 #else
-#   include <GL/glew.h>
+#include <GL/glew.h>
 #endif
 
-#ifdef _WIN32//  
-#	include <SDL.h>
-#	include <SDL_image.h>
+#ifdef _WIN32 //
+#include <SDL.h>
+#include <SDL_image.h>
 #else
-#	include <SDL2/SDL.h>
-#	include <SDL2/SDL_image.h>
-#endif // !_WIN32 
-
-
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#endif // !_WIN32
 
 SLS_END_CDECLS
 

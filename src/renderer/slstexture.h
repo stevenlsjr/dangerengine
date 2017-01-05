@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 10/2/16, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_SLSTEXTURE_H
 #define DANGERENGINE_SLSTEXTURE_H
@@ -19,7 +19,6 @@ struct slsTexture {
   GLuint texture;
 };
 
-
 GLuint sls_image_load(char const *path) SLS_NONNULL(1);
 
-#endif //DANGERENGINE_SLSTEXTURE_H
+#endif // DANGERENGINE_SLSTEXTURE_H

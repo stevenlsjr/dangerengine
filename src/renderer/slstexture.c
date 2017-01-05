@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 10/2/16, Steven
- * 
+ *
  **/
 #include "slstexture.h"
 #include <SDL2/SDL_image.h>
@@ -30,23 +30,15 @@ GLuint sls_image_load(char const *path)
       sls_check(0, "invalid image format bpp: %u", img->format->BitsPerPixel);
   }
 
-
-
   glGenTextures(1, &tex_id);
 
   // load image to texture
   glBindTexture(GL_TEXTURE_2D, tex_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, mode, img->w, img->h, 0,
-               mode,
-               GL_UNSIGNED_BYTE,
-               img->pixels);
+  glTexImage2D(GL_TEXTURE_2D, 0, mode, img->w, img->h, 0, mode,
+               GL_UNSIGNED_BYTE, img->pixels);
 
-  glTexParameteri(GL_TEXTURE_2D,
-                  GL_TEXTURE_MIN_FILTER,
-                  GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D,
-                  GL_TEXTURE_MAG_FILTER,
-                  GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   glBindTexture(GL_TEXTURE_2D, 0);
 

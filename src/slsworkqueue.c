@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 9/12/16, Steven
- * 
+ *
  **/
 #include "slsworkqueue.h"
 
@@ -15,7 +15,7 @@ static void queue_reset_nodes(slsTaskQueue *queue);
 
 slsWorkScheduler *sls_workscheduler_init(slsWorkScheduler *self)
 {
-  *self = (slsWorkScheduler) {};
+  *self = (slsWorkScheduler){};
   return self;
 }
 
@@ -61,10 +61,11 @@ void sls_task_enqueue(slsTaskQueue *queue, slsTask *task)
     queue->end = task;
   } else {
     queue_reset_nodes(queue);
-    if (!queue->head || !queue->end) { sls_log_fatal("could not construct queue"); }
+    if (!queue->head || !queue->end) {
+      sls_log_fatal("could not construct queue");
+    }
     sls_task_enqueue(queue, task);
   }
-
 }
 
 slsTask *sls_task_dequeue(slsTaskQueue *queue)
@@ -86,18 +87,21 @@ slsTask *sls_task_dequeue(slsTaskQueue *queue)
 
   } else {
     queue_reset_nodes(queue);
-    if (!queue->head || !queue->end) { sls_log_fatal("could not construct queue"); }
+    if (!queue->head || !queue->end) {
+      sls_log_fatal("could not construct queue");
+    }
     return sls_task_dequeue(queue);
   }
 }
 
 void queue_reset_nodes(slsTaskQueue *queue)
 {
-  if (!queue->head) { return; }
+  if (!queue->head) {
+    return;
+  }
   for (slsTask *itor = queue->head; itor; itor = itor->next) {
     if (!itor->next) {
       queue->end = itor;
     }
   }
-
 }

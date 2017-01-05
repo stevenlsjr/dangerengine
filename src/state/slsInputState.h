@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 1/4/17, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_SLSINPUTSTATE_H
 #define DANGERENGINE_SLSINPUTSTATE_H
@@ -21,6 +21,7 @@ void sls_inputstate_delete(slsInputState *state) SLS_NONNULL(1);
 
 void sls_inputstate_update(slsInputState *self, double dt) SLS_NONNULL(1);
 
-slsIPoint sls_inputstate_last_mousestate( slsInputState *self, int *mask) SLS_NONNULL(1);
+slsIPoint sls_inputstate_last_mousestate(slsInputState *self, int *mask)
+    SLS_NONNULL(1);
 
-#endif //DANGERENGINE_SLSINPUTSTATE_H
+#endif // DANGERENGINE_SLSINPUTSTATE_H

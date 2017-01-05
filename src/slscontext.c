@@ -88,7 +88,8 @@ static const slsContext sls_context_proto = {
 
 slsContext const *sls_context_prototype() { return &sls_context_proto; }
 
-slsContext *sls_context_new(char const *caption, size_t width, size_t height) {
+slsContext *sls_context_new(char const *caption, size_t width, size_t height)
+{
 
   slsContext *self = sls_objalloc(sls_context_prototype(), sizeof(slsContext));
 
@@ -100,7 +101,8 @@ slsContext *sls_context_new(char const *caption, size_t width, size_t height) {
  *----------------------------------------*/
 
 slsContext *sls_context_init(slsContext *self, char const *caption,
-                             size_t width, size_t height) {
+                             size_t width, size_t height)
+{
 
   *self = *sls_context_prototype();
   uint32_t window_flags;
@@ -167,7 +169,8 @@ error:
   return self;
 }
 
-slsContext *sls_context_dtor(slsContext *self) {
+slsContext *sls_context_dtor(slsContext *self)
+{
   if (self->window) {
     SDL_DestroyWindow(self->window);
   }
@@ -178,7 +181,8 @@ slsContext *sls_context_dtor(slsContext *self) {
   return self;
 }
 
-void sls_context_run(slsContext *self) {
+void sls_context_run(slsContext *self)
+{
   if (!self->priv) {
     return;
   }
@@ -206,12 +210,14 @@ void sls_context_run(slsContext *self) {
   sls_msg(self, teardown);
 }
 
-void sls_emscripten_loop(void *vctx) {
+void sls_emscripten_loop(void *vctx)
+{
   slsContext *ctx = vctx;
   sls_context_iter(ctx);
 }
 
-void sls_context_iter(slsContext *self) {
+void sls_context_iter(slsContext *self)
+{
 
   if (!self->priv) {
     return;
@@ -249,7 +255,8 @@ void sls_context_iter(slsContext *self) {
   }
 }
 
-void sls_context_resize(slsContext *self, int x, int y) {
+void sls_context_resize(slsContext *self, int x, int y)
+{
   glViewport(0, 0, (int)x, (int)y);
 
   if (self->state) {
@@ -260,7 +267,8 @@ void sls_context_update(slsContext *self, double dt) {}
 
 void sls_context_display(slsContext *self, double dt) {}
 
-void sls_context_setup(slsContext *self) {
+void sls_context_setup(slsContext *self)
+{
   if (!self->priv) {
     assert(0);
     return;
@@ -292,7 +300,8 @@ void sls_context_setup(slsContext *self) {
 
 void sls_context_setupstate(slsContext *self) {}
 
-void sls_context_pollevents(slsContext *self) {
+void sls_context_pollevents(slsContext *self)
+{
 
   SDL_Event e;
 
@@ -308,7 +317,8 @@ void sls_context_pollevents(slsContext *self) {
 }
 
 static inline void _sls_context_windowevent(slsContext *self,
-                                            SDL_WindowEvent const *we) {
+                                            SDL_WindowEvent const *we)
+{
   switch (we->event) {
     case SDL_WINDOWEVENT_RESIZED: {
       int w = we->data1 * 2, h = we->data2 * 2;
@@ -319,7 +329,8 @@ static inline void _sls_context_windowevent(slsContext *self,
   }
 }
 
-void sls_context_handle_event(slsContext *self, SDL_Event const *e) {
+void sls_context_handle_event(slsContext *self, SDL_Event const *e)
+{
 
   switch (e->type) {
     case SDL_QUIT:
@@ -336,14 +347,16 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e) {
   }
 }
 
-void sls_context_teardown(slsContext *self) {
+void sls_context_teardown(slsContext *self)
+{
   if (self->state) {
   }
 }
 
 #ifndef __EMSCRIPTEN__
 
-int sls_get_glversion() {
+int sls_get_glversion()
+{
   int major = 0, minor = 0, major_mul = 100, minor_mul = 10, full;
 
   glGetIntegerv(GL_MAJOR_VERSION, &major);
@@ -354,7 +367,8 @@ int sls_get_glversion() {
 }
 
 #else
-int sls_get_glversion() {
+int sls_get_glversion()
+{
   // emscripten uses webgl 1.0.0
   const int webgl_default_version = 100;
   return webgl_default_version;

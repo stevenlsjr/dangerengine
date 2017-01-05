@@ -4,11 +4,10 @@
 
 #include "slsMathUtils.h"
 
-
 size_t sls_nearest_squarelu(size_t x)
 {
   double exponent = log(x) / log(2.0);
-  return (size_t) pow(2, ceil(exponent));
+  return (size_t)pow(2, ceil(exponent));
 }
 
 bool sls_neard(double a, double b, double epsilon)
@@ -53,22 +52,15 @@ kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
   return out;
 }
 
-double sls_to_degrees(double radians)
-{
-  return radians * 180.0 / M_PI;
-}
+double sls_to_degrees(double radians) { return radians * 180.0 / M_PI; }
 
-double sls_to_radians(double degrees)
-{
-  return degrees * M_PI / 180.0;
-}
+double sls_to_radians(double degrees) { return degrees * M_PI / 180.0; }
 
 bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon)
 {
   assert(a && b);
 
-  return sls_nearf(a->x, b->x, epsilon) &&
-         sls_nearf(a->y, b->y, epsilon);
+  return sls_nearf(a->x, b->x, epsilon) && sls_nearf(a->y, b->y, epsilon);
 }
 
 kmVec2 sls_vec2p_add(kmVec2 const *rhs, kmVec2 const *lhs)

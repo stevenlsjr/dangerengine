@@ -8,11 +8,4 @@
 #include <assert.h>
 #include <string.h>
 
-
-
-
-int main(int argc, char *argv[])
-{
-  return demo_main(&argc, argv);
-}
-
+int main(int argc, char *argv[]) { return demo_main(&argc, argv); }

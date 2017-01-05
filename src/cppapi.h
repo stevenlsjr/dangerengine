@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 11/13/15, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_CPPAPI_H
 #define DANGERENGINE_CPPAPI_H
@@ -27,22 +27,19 @@ static inline double sls_near(double a, double b)
 template <typename T_NUM>
 static inline float SLS_MAX(T_NUM const &a, T_NUM const &b)
 {
-  return a > b?
-         a: b;
+  return a > b ? a : b;
 }
 
 template <typename T_NUM>
 static inline float SLS_MIN(T_NUM const &a, T_NUM const &b)
 {
-  return a < b?
-         a: b;
+  return a < b ? a : b;
 }
 
 #else
 
-#define sls_near(a, b, e) _Generic(a,   \
-    double: sls_neard(a, b, e),         \
-    float: sls_nearf(a, b, e))
+#define sls_near(a, b, e)                                                      \
+  _Generic(a, double : sls_neard(a, b, e), float : sls_nearf(a, b, e))
 
 /**
  * @brief Pseudo-generic min macro
@@ -51,17 +48,19 @@ static inline float SLS_MIN(T_NUM const &a, T_NUM const &b)
  * making it safe to use parameters returned from a function. Uses a GCC
  * extension
  */
-#define SLS_MIN_fallback(a, b) ({ \
-  typeof(a) __a = (a); \
-  typeof(b) __b = (b); \
-  __a < __b? __a: __b; \
-})
+#define SLS_MIN_fallback(a, b)                                                 \
+  ({                                                                           \
+    typeof(a) __a = (a);                                                       \
+    typeof(b) __b = (b);                                                       \
+    __a < __b ? __a : __b;                                                     \
+  })
 
-#define SLS_MIN(a, b) _Generic (a ,\
-  float: fminf(a, b), \
-  double: fmin(a, b), \
-  long double: fminl(a, b), \
-  default: SLS_MIN_fallback(a,b))
+#define SLS_MIN(a, b)                                                          \
+  _Generic(a, float                                                            \
+           : fminf(a, b), double                                               \
+           : fmin(a, b), long double                                           \
+           : fminl(a, b), default                                              \
+           : SLS_MIN_fallback(a, b))
 
 /**
  * @brief Pseudo-generic max macro
@@ -70,19 +69,20 @@ static inline float SLS_MIN(T_NUM const &a, T_NUM const &b)
  * making it safe to use parameters returned from a function. Uses a GCC
  * extension
  */
-#define SLS_MAX_fallback(a, b) ({ \
-  typeof(a) __a = (a); \
-  typeof(b) __b = (b); \
-  __a > __b? __a: __b; \
-})
+#define SLS_MAX_fallback(a, b)                                                 \
+  ({                                                                           \
+    typeof(a) __a = (a);                                                       \
+    typeof(b) __b = (b);                                                       \
+    __a > __b ? __a : __b;                                                     \
+  })
 
-#define SLS_MAX(a, b) _Generic( a,  \
-  float: fmaxf(a, b), \
-  double: fmax(a, b), \
-  long double: fmaxl(a, b), \
-  default: SLS_MAX_fallback(a,b))
+#define SLS_MAX(a, b)                                                          \
+  _Generic(a, float                                                            \
+           : fmaxf(a, b), double                                               \
+           : fmax(a, b), long double                                           \
+           : fmaxl(a, b), default                                              \
+           : SLS_MAX_fallback(a, b))
 
 #endif
 
-
-#endif //DANGERENGINE_CPPAPI_H
+#endif // DANGERENGINE_CPPAPI_H

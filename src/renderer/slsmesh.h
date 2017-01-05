@@ -8,25 +8,31 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * 1. Redistributions of source code must retain the above copyright notice, this
+ * 1. Redistributions of source code must retain the above copyright notice,
+*this
  *    list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+*AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+*FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+*DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted as representing official policies,
+ * The views and conclusions contained in the software and documentation are
+*those
+ * of the authors and should not be interpreted as representing official
+*policies,
  * either expressed or implied, of Steven Shea.
 **/
 
@@ -52,17 +58,12 @@ struct slsVertex {
   float color[4];
 };
 
-slsVertex sls_vertex_make(kmVec3 position,
-                          kmVec3 normal,
-                          kmVec2 uv,
+slsVertex sls_vertex_make(kmVec3 position, kmVec3 normal, kmVec2 uv,
                           kmVec4 color);
 
 struct slsMesh {
-  slsMesh *(*init)(slsMesh *self,
-                   slsVertex const *vertices,
-                   size_t vert_count,
-                   unsigned const *indices,
-                   size_t idx_count);
+  slsMesh *(*init)(slsMesh *self, slsVertex const *vertices, size_t vert_count,
+                   unsigned const *indices, size_t idx_count);
 
   slsMesh *(*dtor)(slsMesh *self);
 
@@ -78,7 +79,6 @@ struct slsMesh {
     size_t length;
   } indices;
 
-
   GLuint vbo, ibo;
   GLuint vao;
 
@@ -86,7 +86,8 @@ struct slsMesh {
 
   /**
   * @brief true if pre_draw has been called
-  * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up yet
+  * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up
+  * yet
   */
   bool is_drawing;
 
@@ -97,52 +98,43 @@ struct slsMesh {
 
 slsMesh const *sls_mesh_class();
 
-
-static inline
-slsMesh *sls_mesh_new(slsVertex const *vertices,
-                      size_t vert_count,
-                      unsigned const *indices,
-                      size_t idx_count)
+static inline slsMesh *sls_mesh_new(slsVertex const *vertices,
+                                    size_t vert_count, unsigned const *indices,
+                                    size_t idx_count)
 {
-  slsMesh *obj = (slsMesh*)sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
+  slsMesh *obj = (slsMesh *)sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
   return obj->init(obj, vertices, vert_count, indices, idx_count);
 }
 
-static inline
-void sls_mesh_delete(slsMesh *self)
+static inline void sls_mesh_delete(slsMesh *self)
 {
   if (self) {
     slsMesh *zombie = sls_msg(self, dtor);
-    if (zombie) {free(zombie);}
+    if (zombie) {
+      free(zombie);
+    }
+  } else {
+    assert(!"invalid plane_mesh instance!");
   }
-  else { assert(!"invalid plane_mesh instance!"); }
 }
-
 
 slsMesh *sls_mesh_create_shape(char const *name) SLS_ATTRIBUTE((deprecated));
 
 slsMesh *sls_mesh_square();
 
-
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
 
-slsVertex *sls_sphere_vertices(size_t n_vertices,
-                               kmVec4 const *color);
+slsVertex *sls_sphere_vertices(size_t n_vertices, kmVec4 const *color);
 
-slsMesh *sls_sphere_mesh(size_t n_vertices,
-                         kmVec4 const *color);
+slsMesh *sls_sphere_mesh(size_t n_vertices, kmVec4 const *color);
 
 slsMesh *sls_tile_mesh(size_t width, size_t height);
 
-
-slsMesh *sls_mesh_init(slsMesh *self,
-                       slsVertex const *vertices,
-                       size_t vert_count,
-                       unsigned const *indices,
+slsMesh *sls_mesh_init(slsMesh *self, slsVertex const *vertices,
+                       size_t vert_count, unsigned const *indices,
                        size_t idx_count);
 
-
-slsMesh * sls_mesh_dtor(slsMesh *self);
+slsMesh *sls_mesh_dtor(slsMesh *self);
 
 void sls_mesh_bind(slsMesh *self, slsShader *shader);
 
@@ -152,12 +144,10 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader);
 
-
 void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
 
 void sls_mesh_draw(slsMesh *self, double dt);
 
 void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
 
-#endif //DANGERENGINE_SLS_MESH_H
-
+#endif // DANGERENGINE_SLS_MESH_H

@@ -5,30 +5,36 @@
  *
  * Copyright (c) 2015, Steven Shea
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, this
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+*this
  *    list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the dist.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+*AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+*FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+*DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are those
- * of the authors and should not be interpreted as representing official policies,
- * either expressed or implied, of Steven Shea. 
+ *
+ * The views and conclusions contained in the software and documentation are
+*those
+ * of the authors and should not be interpreted as representing official
+*policies,
+ * either expressed or implied, of Steven Shea.
 **/
 
 #include "hashtable.h"
@@ -37,10 +43,8 @@
 #include <assert.h>
 #include <string.h>
 
-
-
-void const * sls_hashtable_insert_with_hash(slsHashTable *self, void const *key, void const *val, uint64_t hash);
-
+void const *sls_hashtable_insert_with_hash(slsHashTable *self, void const *key,
+                                           void const *val, uint64_t hash);
 
 /**
  * @brief hashes a null-terminated string
@@ -49,22 +53,23 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self, void const *key,
  *
  */
 
-
-slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashFn hash_fn,
-                                 slsCallbackTable const *key_cback, slsCallbackTable const *val_cback)
+slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size,
+                                 slsHashFn hash_fn,
+                                 slsCallbackTable const *key_cback,
+                                 slsCallbackTable const *val_cback)
 {
 
-  *self = (slsHashTable) {
-      .vals = NULL,
-      .keys = NULL,
-      .array_size = array_size,
-      .n_entries = 0,
-      .hash = hash_fn,
-      .key_callbacks = (key_cback) ? *key_cback : (slsCallbackTable) {},
-      .val_callbacks = (val_cback) ? *val_cback : (slsCallbackTable) {}};
+  *self = (slsHashTable){.vals = NULL,
+                         .keys = NULL,
+                         .array_size = array_size,
+                         .n_entries = 0,
+                         .hash = hash_fn,
+                         .key_callbacks =
+                             (key_cback) ? *key_cback : (slsCallbackTable){},
+                         .val_callbacks =
+                             (val_cback) ? *val_cback : (slsCallbackTable){} };
   self->vals = NULL;
   self->keys = NULL;
-
 
   self->hashes = calloc(array_size, sizeof(uint64_t));
   self->keys = calloc(array_size, sizeof(void *));
@@ -85,10 +90,9 @@ slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size, slsHashF
     self->hash = sls_hash_fn_default;
   }
 
-
   return self;
 
-  error:
+error:
 
   return sls_hashtable_dtor(self);
 }
@@ -100,7 +104,9 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
     if (free_fn) {
       for (int i = 0; i < self->array_size; ++i) {
         void *v = self->vals[i];
-        if (v) { free_fn(v); }
+        if (v) {
+          free_fn(v);
+        }
       }
     }
     free(self->vals);
@@ -112,7 +118,9 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
       for (int i = 0; i < self->array_size; ++i) {
 
         void *key = self->keys[i];
-        if (key) { free_fn(key); }
+        if (key) {
+          free_fn(key);
+        }
       }
     }
     free(self->keys);
@@ -122,10 +130,8 @@ slsHashTable *sls_hashtable_dtor(slsHashTable *self)
     free(self->hashes);
   }
 
-
   return self;
 }
-
 
 void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
 {
@@ -143,7 +149,6 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
   sls_checkmem(keys);
   sls_checkmem(vals);
 
-
   self->keys = calloc(n_items, sizeof(void **));
   self->vals = calloc(n_items, sizeof(void **));
   self->hashes = calloc(n_items, sizeof(uint64_t));
@@ -158,23 +163,20 @@ void sls_hashtable_reserve(slsHashTable *self, size_t n_items)
   }
   return;
 
-  error:
+error:
   return;
-
 }
 
-void const * sls_hashtable_insert(slsHashTable *self, void const *key, size_t key_size, void const *val)
+void const *sls_hashtable_insert(slsHashTable *self, void const *key,
+                                 size_t key_size, void const *val)
 {
   uint64_t hash = self->hash(key, key_size);
 
   return sls_hashtable_insert_with_hash(self, key, val, hash);
 }
 
-
-void const * sls_hashtable_insert_with_hash(slsHashTable *self,
-                                            void const *key,
-                                            void const *val,
-                                            uint64_t hash)
+void const *sls_hashtable_insert_with_hash(slsHashTable *self, void const *key,
+                                           void const *val, uint64_t hash)
 {
 
   if (self->n_entries == self->array_size) {
@@ -202,24 +204,21 @@ void const * sls_hashtable_insert_with_hash(slsHashTable *self,
     }
 
     if (!*k_itor) {
-      *k_itor = self->key_callbacks.copy_fn ?
-                self->key_callbacks.copy_fn(key) :
-                sls_copy_assign(key);
-      *v_itor = self->val_callbacks.copy_fn ?
-                self->val_callbacks.copy_fn(val) :
-                sls_copy_assign(val);
+      *k_itor = self->key_callbacks.copy_fn ? self->key_callbacks.copy_fn(key)
+                                            : sls_copy_assign(key);
+      *v_itor = self->val_callbacks.copy_fn ? self->val_callbacks.copy_fn(val)
+                                            : sls_copy_assign(val);
 
       val_res = *v_itor;
       inserted = true;
     } else {
-      val_res= NULL;
+      val_res = NULL;
     }
   }
 
   self->n_entries++;
 
   return val_res;
-
 }
 
 void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
@@ -251,7 +250,7 @@ void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
 
   return ptr;
 
-  error:
+error:
   return ptr;
 }
 
@@ -273,10 +272,9 @@ void *sls_hashtable_findval(slsHashTable *self, void const *val)
   }
   return ptr;
 
-  error:
+error:
   return ptr;
 }
-
 
 static int sls_hash_sentinel_value = 0;
 
@@ -285,10 +283,7 @@ bool sls_is_hash_sentinel(void const *val)
   return val == sls_hash_sentinel();
 }
 
-void const *sls_hash_sentinel()
-{
-  return &sls_hash_sentinel_value;
-}
+void const *sls_hash_sentinel() { return &sls_hash_sentinel_value; }
 
 uint64_t sls_hash_fn_naive(void const *val, size_t size)
 {
@@ -298,8 +293,7 @@ uint64_t sls_hash_fn_naive(void const *val, size_t size)
   size_t max_strlen = 1000; // only hash limited characters
   bool is_cstr = (size == SLS_STRING_LENGTH);
 
-  for (int i = 0;
-       i < size / sizeof(char) || (is_cstr && buffer[i] != '\0');
+  for (int i = 0; i < size / sizeof(char) || (is_cstr && buffer[i] != '\0');
        ++i) {
     checksum += buffer[i];
   }
@@ -316,7 +310,6 @@ uint64_t sls_hash_fn_default(void const *val, size_t size)
   } else {
 
     return sls_hash_sizeddata(val, size);
-
   }
 }
 
@@ -327,9 +320,7 @@ uint64_t sls_hash_sizeddata(void const *val, size_t size)
   // Jenkins Hash
   uint64_t hash = 0;
 
-  for (int i = 0;
-       i < size / sizeof(char);
-       ++i) {
+  for (int i = 0; i < size / sizeof(char); ++i) {
     hash += buffer[i];
     hash += (hash << 10);
     hash ^= (hash >> 6);
@@ -351,10 +342,8 @@ uint64_t sls_hash_cstr(char const *str)
   uint64_t hash = initial_hash;
 
   size_t max_len = 1000;
-  for (int i = 0;
-       str[i] != '\0' && i < max_len;
-       ++i) {
-    hash = ((hash*a) + str[i]) % UINT64_MAX;
+  for (int i = 0; str[i] != '\0' && i < max_len; ++i) {
+    hash = ((hash * a) + str[i]) % UINT64_MAX;
   }
 
   return hash;
@@ -367,16 +356,14 @@ void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size)
     if (self->val_callbacks.free_fn) {
       self->val_callbacks.free_fn(val);
     }
-
   }
-
 }
 
 slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor)
 {
   int first = -1;
   itor->table = table;
-  for (int i=0; i<table->array_size; ++i) {
+  for (int i = 0; i < table->array_size; ++i) {
     if (table->keys[i] && table->vals[i]) {
       first = i;
       itor->index = (size_t)i;
@@ -386,9 +373,7 @@ slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor)
     }
   }
 
-  return first > -1?
-         itor:
-         NULL;
+  return first > -1 ? itor : NULL;
 }
 
 slsHashItor *sls_hashitor_next(slsHashItor *itor)
@@ -397,7 +382,7 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
   bool found_next = false;
   slsHashTable *table = itor->table;
 
-  for (size_t i = itor->index + 1; i<table->array_size; ++i) {
+  for (size_t i = itor->index + 1; i < table->array_size; ++i) {
     if (table->keys[i] && table->vals[i]) {
       found_next = true;
 
@@ -409,15 +394,14 @@ slsHashItor *sls_hashitor_next(slsHashItor *itor)
     }
   }
 
-  return found_next?
-         itor:
-         NULL;
+  return found_next ? itor : NULL;
 
-  error:
-  return  NULL;
+error:
+  return NULL;
 }
 
-int sls_hashtable_cmp(slsHashTable *self, void const *lhs, void const *rhs, slsCmpFn cmp, size_t param_size)
+int sls_hashtable_cmp(slsHashTable *self, void const *lhs, void const *rhs,
+                      slsCmpFn cmp, size_t param_size)
 {
   int res = -1;
   // automatically fail comparison if one value is a sentinel

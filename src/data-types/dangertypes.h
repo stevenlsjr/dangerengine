@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 1/17/16, Steven
- * 
+ *
  **/
 #ifndef DANGERENGINE_DATA_TYPES_H
 #define DANGERENGINE_DATA_TYPES_H
@@ -14,4 +14,4 @@
 #include "linkedlist.h"
 #include "ptrarray.h"
 
-#endif //DANGERENGINE_DATA_TYPES_H
+#endif // DANGERENGINE_DATA_TYPES_H
