@@ -118,9 +118,7 @@ static inline void sls_mesh_delete(slsMesh *self)
   }
 }
 
-slsMesh *sls_mesh_create_shape(char const *name) SLS_ATTRIBUTE((deprecated));
-
-slsMesh *sls_mesh_square();
+slsMesh *sls_mesh_square(slsMesh *self_uninit);
 
 void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
 

@@ -78,9 +78,9 @@ struct slsUniformLocations {
 };
 
 struct slsShader {
-  slsShader *(*init)(slsShader *self, GLuint program)SLS_NONNULL(1);
+  slsShader *(*init)(slsShader *self, GLuint program)SLS_NONNULL(1) SLS_DEPRECIATED;
 
-  slsShader *(*dtor)(slsShader *self)SLS_NONNULL(1);
+  slsShader *(*dtor)(slsShader *self)SLS_NONNULL(1) SLS_DEPRECIATED;
 
   GLuint program;
   bool owns_program;

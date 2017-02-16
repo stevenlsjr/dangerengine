@@ -22,59 +22,6 @@ typedef struct slsContext_p slsContext_p;
  * @brief context object for glfw renderer
  */
 struct slsContext {
-  /**
-   * @brief initializer
-   *
-   * @param caption window's caption
-   * @param width window width
-   * @param height window height
-   *
-   * @return initialized `self` object
-   */
-  slsContext *(*init)(slsContext *self, char const *caption, size_t width,
-                      size_t height)SLS_NONNULL(1);
-
-  /**
-   * @brief destructor method
-   * @detail finalizes object and frees it from memory
-   */
-  slsContext *(*dtor)(slsContext *self)SLS_NONNULL(1);
-
-  /**
-   * @brief sets up opengl and rendering context
-   * @detail executed at the begining of main loop
-   * must be called to use openGL functions with this context
-   */
-  void (*setup)(slsContext *self) SLS_NONNULL(1);
-
-  /**
-   *  @brief tears down context
-   */
-  void (*teardown)(slsContext *self) SLS_NONNULL(1);
-
-  /**
-   * @brief sets up run loop
-   * @detail sets up context, executes main loop, and tears down context at end
-   */
-  void (*run)(slsContext *self) SLS_NONNULL(1);
-
-  void (*handle_event)(slsContext *self, SDL_Event const *e) SLS_NONNULL(1);
-
-  /**
-   * @brief callback method for window resize
-   */
-  void (*resize)(slsContext *self, int x, int y) SLS_NONNULL(1);
-
-  /**
-   * @brief update method
-   */
-  void (*update)(slsContext *self, double dt) SLS_NONNULL(1);
-
-  /**
-   * @brief performs all drawing operations
-   */
-  void (*display)(slsContext *self, double dt) SLS_NONNULL(1);
-
   SDL_Window *window;
   SDL_GLContext gl_context;
 
@@ -95,9 +42,11 @@ slsContext const *sls_context_prototype();
 
 slsContext *sls_context_new(char const *caption, size_t width, size_t height);
 
+slsContext *sls_context_dtor(slsContext *self);
+
 static inline void sls_context_delete(slsContext *ctx)
 {
-  ctx = ctx->dtor(ctx);
+  ctx = sls_context_dtor(ctx);
   if (ctx) {
     free(ctx);
   }

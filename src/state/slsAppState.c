@@ -14,6 +14,10 @@ slsAppState *sls_app_state_init(slsAppState *self)
   self->input = sls_inputstate_new();
   sls_checkmem(self->input);
 
+  sls_lightbatch_init(&self->lights, 8, NULL, 0);
+  slsMesh *mesh = sls_mesh_square(&self->mesh);
+  sls_checkmem(mesh);
+
   return self;
 
 error:

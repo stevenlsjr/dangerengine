@@ -65,7 +65,6 @@ extern "C" {
 
 #include "state/resourceutils.h"
 
-#include <sls-build-dir.h>
 
 #ifdef __cplusplus
 }

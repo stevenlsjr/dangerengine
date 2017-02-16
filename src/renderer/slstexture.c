@@ -5,6 +5,7 @@
  * Copyright (c) 10/2/16, Steven
  *
  **/
+#include <slsmacros.h>
 #include "slstexture.h"
 #include <SDL2/SDL_image.h>
 

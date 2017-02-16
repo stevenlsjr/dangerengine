@@ -1,3 +1,6 @@
+# -*- cmake;company -*-
+
+
 cmake_minimum_required(VERSION 3.1)
 project(dangerengine)
 
@@ -38,21 +41,15 @@ if (WIN32)
 
 endif (WIN32)
 
-file(REMOVE ${CMAKE_SOURCE_DIR}/src/sls-build-dir.c)
-configure_file(
-  src/sls-build-dir.c.in
-  src/sls-build-dir.c @ONLY)
-
 
 #--------------------------------------------
 #-------------source  lists-------------------
 #--------------------------------------------
 
 set(DANGER_SRC
-    src/dangerengine.h
-
     src/contexthandlers.c
     src/contexthandlers.h
+    src/dangerengine.h
     src/data-types/dangertypes.h
     src/math/math-types.c
     src/math/math-types.h
@@ -60,20 +57,22 @@ set(DANGER_SRC
     src/math/slsCamera.h
     src/math/slsMathUtils.c
     src/math/slsMathUtils.h
-    src/math/slsSimd.c src/math/slsSimd.h
-    src/math/slsTrackball.c src/math/slsTrackball.h
+    src/math/slsSimd.c
+    src/math/slsSimd.h
+    src/math/slsTrackball.c
+    src/math/slsTrackball.h
     src/renderer/geometries.c
     src/renderer/geometries.h
     src/renderer/shaderutils.c
     src/renderer/shaderutils.h
-    src/renderer/slsLight.c src/renderer/slsLight.h
+    src/renderer/slsLight.c
+    src/renderer/slsLight.h
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
     src/renderer/slsshader.c
     src/renderer/slsshader.h
-    src/renderer/slstexture.c src/renderer/slstexture.h
-    src/sls-build-dir.c
-    src/sls-build-dir.h
+    src/renderer/slstexture.c
+    src/renderer/slstexture.h
     src/sls-commonlibs.h
     src/sls-gl.h
     src/sls-imagelib.h
@@ -82,28 +81,29 @@ set(DANGER_SRC
     src/slsmacros.h
     src/slsutils.c
     src/slsutils.h
-    src/slsworkqueue.c src/slsworkqueue.h
-    src/state/slsAppState.c src/state/slsAppState.h
-    src/state/slsInputState.c src/state/slsInputState.h)
+    src/slsworkqueue.c
+    src/slsworkqueue.h
+    src/state/slsAppState.c
+    src/state/slsAppState.h
+    src/state/slsInputState.c
+    src/state/slsInputState.h
+    )
 
 
 #tests  compiled  in  c++
 set(DANGER_TEST_SRC
-    tests/math_tests.cc
-    tests/main.cc
-    tests/utiltests.cc
-    tests/data-types/hash-tests.cc
-    tests/data-types/ptrarray-tests.cc
     tests/data-types/array-tests.cc
+    tests/data-types/hash-tests.cc
     tests/data-types/list-tests.cc
-
+    tests/data-types/ptrarray-tests.cc
+    tests/main.cc
+    tests/math_tests.cc
+    tests/utiltests.cc
     tests/workqueue_tests.cc)
 
 
 set(DANGER_DEMO_SRC
-    demos/exec.c
-
-    demos/demo_2.c demos/demo_2.h)
+    demos/demo_2.c)
 
 #--------------------------------------------
 #-------------project  config-----------------
@@ -114,8 +114,10 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include
   ${CMAKE_SOURCE_DIR}/extern/kazmath
   ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_BINARY_DIR}/src
   ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
-  ${SDL2_INCLUDE_DIRS}/SDL2)
+  ${SDL2_INCLUDE_DIRS}/SDL2
+)
 
 
 #copy  resources  to  build
@@ -142,7 +144,6 @@ add_custom_target(sls_resources
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
-
 add_subdirectory(extern/Chipmunk2D)
 add_subdirectory(extern/kazmath)
 add_subdirectory(src/data-types)
@@ -153,11 +154,6 @@ set(KAZMATH_BUILD_TESTS OFF CACHE BOOLEAN "kazmath build tests")
 
 #chipmunk
 set(BUILD_DEMOS OFF FORCE)
-
-
-link_directories(${SDL2_LIBRARY_DIRS}
-                 ${SDL2IMG_LIBRARY_DIRS}
-                 ${GLIB_LIBRARY_DIRS})
 
 
 set(CMAKE_LINK_LIBRARY_FLAGS "${CMAKE_LINK_LIBRARY_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
@@ -173,7 +169,12 @@ set(DANGER_DEPS
     ${SDL2_LIBRARY}
     ${SDL2_TTF_LIBRARIES}
     kazmath
-)
+    )
+
+
+link_directories(${SDL2_LIBRARY_DIRS}
+                 ${SDL2IMG_LIBRARY_DIRS}
+                 ${GLIB_LIBRARY_DIRS})
 
 include_directories(
   ${APR_INCLUDE_DIRS}
@@ -222,6 +223,7 @@ add_dependencies(demo
 target_link_libraries(demo
                       dangerengine
                       ${DANGER_DEPS})
+
 
 #  add  a  separate  library  for  tests  compiled  in  C.  Used  for  supporting  build
 #  systems  which  don't  compile  C  and  C++  code  separately

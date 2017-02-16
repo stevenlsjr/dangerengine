@@ -44,8 +44,6 @@
 #include <sls-gl.h>
 
 static slsShader shader_proto = {
-  .dtor = sls_shader_dtor,
-  .init = sls_shader_init,
 };
 
 // TODO: bind hardcoded shader locations
