@@ -181,7 +181,8 @@ void sls_context_run(slsContext *self)
   sls_context_teardown(self);
 }
 
-slsContext *sls_context_dtor(slsContext *self) {
+slsContext *sls_context_dtor(slsContext *self)
+{
   if (self->window) {
     SDL_DestroyWindow(self->window);
   }
@@ -251,12 +252,12 @@ void sls_context_resize(slsContext *self, int x, int y)
   if (self->priv) {
     sls_renderer_resize(&self->priv->renderer, x, y);
   }
-
 }
 
 void sls_context_update(slsContext *self, double dt) {}
 
-void sls_context_display(slsContext *self, double dt) {
+void sls_context_display(slsContext *self, double dt)
+{
   sls_renderer_display(&self->priv->renderer);
 }
 

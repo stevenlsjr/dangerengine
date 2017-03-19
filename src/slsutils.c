@@ -77,10 +77,10 @@ int sls_chdir(char const *path)
   return res;
 }
 
-
 void sls_drain_glerrors()
 {
-  while (glGetError() != GL_NO_ERROR) {}
+  while (glGetError() != GL_NO_ERROR) {
+  }
 }
 
 uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
@@ -91,14 +91,14 @@ uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
     if (first == GL_NO_ERROR) {
       first = e;
     }
-    fprintf(stderr, "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n",
-            file, line,
+    fprintf(stderr, "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n", file, line,
             e, gluErrorString(e));
   }
 
 #ifdef SLS_DEBUG_VERBOSE
   if (first == GL_NO_ERROR) {
-    fprintf(stderr, "file %s: line: %lu\n\tgl Error: none found\n\n", file, line);
+    fprintf(stderr, "file %s: line: %lu\n\tgl Error: none found\n\n", file,
+            line);
   }
 #endif
   return first;

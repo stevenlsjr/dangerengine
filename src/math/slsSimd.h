@@ -13,8 +13,7 @@
 #include <smmintrin.h>
 #include <stddef.h>
 
-#define SLS_SHUFFLE_MASK(z, y, x, w) \
-    (z<<6) | (y<<4) | (x<<2) | w
+#define SLS_SHUFFLE_MASK(z, y, x, w) (z << 6) | (y << 4) | (x << 2) | w
 
 /**
  * @brief a struct of 4 _m128 values

@@ -40,7 +40,6 @@
 #include "shaderutils.h"
 #include "slsmesh.h"
 
-
 static const slsMesh sls_mesh_proto = {.vbo = 0,
                                        .ibo = 0,
                                        .vao = 0,
@@ -221,11 +220,9 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program)
   glEnableVertexAttribArray(SLS_ATTRIB_COLOR);
 }
 
-
-
 void sls_mesh_draw(slsMesh *self)
 {
-// setup vert position pointer
+  // setup vert position pointer
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
@@ -240,7 +237,7 @@ void sls_mesh_draw(slsMesh *self)
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader)
 {
-  glDeleteBuffers(2, (GLuint[]){self->ibo, self->vbo});
+  glDeleteBuffers(2, (GLuint[]){ self->ibo, self->vbo });
   glDeleteVertexArrays(1, &self->vao);
 
   glGenBuffers(1, &self->vbo);
@@ -263,7 +260,7 @@ slsVertex *sls_sphere_vertices(size_t n_vertices, kmVec4 const *color)
   for (int i = 0; i < n_vertices; ++i) {
     double theta = (M_PI * 2.0 * (double)i) / (double)n_vertices;
 
-    float pos[3] = {(float)cos(theta), (float)sin(theta), 1.0f};
+    float pos[3] = { (float)cos(theta), (float)sin(theta), 1.0f };
 
     slsVertex v = {.normal = {0.0, 0.0, 1.0}, .uv = {0.0, 0.0}};
     memcpy(v.position, pos, sizeof(float[3]));
@@ -290,7 +287,7 @@ slsMesh *sls_sphere_mesh(size_t n_vertices, kmVec4 const *color)
   for (int i = starting_pos; i < n_triangles; ++i) {
 
     assert(i + 2 < n_vertices);
-    uint32_t triangle[3] = {0, (uint32_t)i, (uint32_t)i + 1};
+    uint32_t triangle[3] = { 0, (uint32_t)i, (uint32_t)i + 1 };
 
     memcpy(elements + i, triangle, sizeof(uint32_t[3]));
   }
@@ -303,23 +300,24 @@ slsMesh *sls_sphere_mesh(size_t n_vertices, kmVec4 const *color)
   return m;
 }
 
-slsMesh *sls_mesh_square(slsMesh *self_uninit) {
-  slsVertex verts[] = {(slsVertex){.position = {-1.f, -1.f, 0.f},
-                                   .normal = {0.f, 0.f, 1.f},
-                                   .uv = {0.f, 0.f},
-                                   .color = {1.f, 1.f, 1.f, 1.f}},
-                       (slsVertex){.position = {1.f, -1.f, 0.f},
-                                   .normal = {0.f, 0.f, 1.f},
-                                   .uv = {1.f, 0.f},
-                                   .color = {1.f, 1.f, 1.f, 1.f}},
-                       (slsVertex){.position = {1.f, 1.f, 0.f},
-                                   .normal = {0.f, 0.f, 1.f},
-                                   .uv = {1.f, 1.f},
-                                   .color = {1.f, 1.f, 1.f, 1.f}},
-                       (slsVertex){.position = {-1.f, 1.f, 0.f},
-                                   .normal = {0.f, 0.f, 1.f},
-                                   .uv = {0.f, 1.f},
-                                   .color = {1.f, 1.f, 1.f, 1.f}}};
+slsMesh *sls_mesh_square(slsMesh *self_uninit)
+{
+  slsVertex verts[] = { (slsVertex){.position = { -1.f, -1.f, 0.f },
+                                    .normal = { 0.f, 0.f, 1.f },
+                                    .uv = { 0.f, 0.f },
+                                    .color = { 1.f, 1.f, 1.f, 1.f } },
+                        (slsVertex){.position = { 1.f, -1.f, 0.f },
+                                    .normal = { 0.f, 0.f, 1.f },
+                                    .uv = { 1.f, 0.f },
+                                    .color = { 1.f, 1.f, 1.f, 1.f } },
+                        (slsVertex){.position = { 1.f, 1.f, 0.f },
+                                    .normal = { 0.f, 0.f, 1.f },
+                                    .uv = { 1.f, 1.f },
+                                    .color = { 1.f, 1.f, 1.f, 1.f } },
+                        (slsVertex){.position = { -1.f, 1.f, 0.f },
+                                    .normal = { 0.f, 0.f, 1.f },
+                                    .uv = { 0.f, 1.f },
+                                    .color = { 1.f, 1.f, 1.f, 1.f } } };
 
   unsigned int idxs[] = {0, 1, 2, 3, 0, 2};
 

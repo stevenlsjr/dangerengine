@@ -43,13 +43,9 @@
 #include "slsshader.h"
 #include <sls-gl.h>
 
-
-
 static void make_attrib_locations(GLuint program);
 
-
 static void make_unif_locations(GLuint program);
-
 
 static slsShader shader_proto = {
 };
@@ -145,7 +141,7 @@ void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec,
 static bool check_attrib_glerr(GLuint index, char const *name, GLenum *err)
 {
   GLenum e = GL_NO_ERROR;
-  while((e = glGetError()) != GL_NO_ERROR) {
+  while ((e = glGetError()) != GL_NO_ERROR) {
     switch (e) {
       case GL_INVALID_VALUE:
         if (index > GL_MAX_VERTEX_ATTRIBS) {
@@ -156,7 +152,9 @@ static bool check_attrib_glerr(GLuint index, char const *name, GLenum *err)
       default:
         break;
     }
-    if (err) {*err = e;}
+    if (err) {
+      *err = e;
+    }
   }
 
   return true;
@@ -177,7 +175,4 @@ static void make_attrib_locations(GLuint program)
   check_attrib_glerr(SLS_ATTRIB_COLOR, "color", NULL);
 }
 
-static void make_unif_locations(GLuint program)
-{
-
-}
+static void make_unif_locations(GLuint program) {}

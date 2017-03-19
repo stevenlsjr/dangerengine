@@ -60,8 +60,7 @@ void sls_drain_glerrors();
 
 uint32_t sls_debug_glerrors_impl_(char const *file, size_t line);
 
-#define STR_CAT(a, b) a # b
-#define sls_debug_glerrors() \
-  sls_debug_glerrors_impl_(__FILE__, __LINE__)
+#define STR_CAT(a, b) a #b
+#define sls_debug_glerrors() sls_debug_glerrors_impl_(__FILE__, __LINE__)
 
 #endif // DANGERENGINE_SLSUTILS_H

@@ -54,7 +54,6 @@ typedef struct slsAttrLocations slsAttrLocations;
 typedef enum slsDefaultUnifLocations slsDefaultUnifLocations;
 typedef enum slsDefaultAttribLocations slsDefaultAttribLocations;
 
-
 enum slsDefaultUnifLocations {
   SLS_UNIF_MODEL_VIEW,
   SLS_UNIF_INV_MODEL_VIEW,
@@ -96,11 +95,7 @@ struct slsAttrLocations {
  * @details uniform header file at /resources/shaders/uniforms.glsl
  */
 struct slsUniformLocations {
-  GLuint model_view,
-      inv_model_view,
-      normal_mat,
-      time,
-      diffuse_tex,
+  GLuint model_view, inv_model_view, normal_mat, time, diffuse_tex,
       specular_tex, normal_tex;
 
   struct {
@@ -136,10 +131,10 @@ void sls_setup_attribs(slsShader *self);
 void sls_shader_use(slsShader *self_opt);
 
 void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec)
-SLS_NONNULL(1);
+    SLS_NONNULL(1);
 
 void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec)
-SLS_NONNULL(1);
+    SLS_NONNULL(1);
 
 void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec,
                            size_t count) SLS_NONNULL(1);

@@ -103,10 +103,7 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader);
 
-
 void sls_mesh_draw(slsMesh *self);
-
-
 
 static inline slsMesh *sls_mesh_new(slsVertex const *vertices,
                                     size_t vert_count, unsigned const *indices,
