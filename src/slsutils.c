@@ -41,12 +41,14 @@
 **/
 
 #include "slsutils.h"
-#include <string.h>
+#include "sls-gl.h"
 
 #ifdef WIN32
 #include <windows.h>
 #else
+
 #include <unistd.h>
+
 #endif
 
 void *sls_objalloc(void const *prototype, size_t size)
@@ -73,4 +75,31 @@ int sls_chdir(char const *path)
 #endif // WIN32
 
   return res;
+}
+
+
+void sls_drain_glerrors()
+{
+  while (glGetError() != GL_NO_ERROR) {}
+}
+
+uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
+{
+  GLenum e = GL_NO_ERROR;
+  GLenum first = GL_NO_ERROR;
+  while ((e = glGetError()) != GL_NO_ERROR) {
+    if (first == GL_NO_ERROR) {
+      first = e;
+    }
+    fprintf(stderr, "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n",
+            file, line,
+            e, gluErrorString(e));
+  }
+
+#ifdef SLS_DEBUG_VERBOSE
+  if (first == GL_NO_ERROR) {
+    fprintf(stderr, "file %s: line: %lu\n\tgl Error: none found\n\n", file, line);
+  }
+#endif
+  return first;
 }

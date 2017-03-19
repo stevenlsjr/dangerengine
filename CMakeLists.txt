@@ -53,8 +53,6 @@ set(DANGER_SRC
     src/data-types/dangertypes.h
     src/math/math-types.c
     src/math/math-types.h
-    src/math/slsCamera.c
-    src/math/slsCamera.h
     src/math/slsMathUtils.c
     src/math/slsMathUtils.h
     src/math/slsSimd.c
@@ -69,6 +67,8 @@ set(DANGER_SRC
     src/renderer/slsLight.h
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
+    src/renderer/slsrender.c
+    src/renderer/slsrender.h
     src/renderer/slsshader.c
     src/renderer/slsshader.h
     src/renderer/slstexture.c

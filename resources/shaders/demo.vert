@@ -1,6 +1,6 @@
 
 /**
- * @file default.vert
+ * @file demo.vert
  * @brief sample vert shader. Define SLS_MODERN_GL to use modern shaders.
  * @ License FreeBSD
  * NOTE: don't declare uniforms in shader source.
@@ -37,8 +37,6 @@ void main(void)
   frag_eye = -frag_pos;
 
   gl_Position = projection * vec4(frag_pos, 1.0);
-
-
 }
 
 

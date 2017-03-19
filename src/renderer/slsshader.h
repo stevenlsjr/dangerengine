@@ -51,6 +51,38 @@
 typedef struct slsShader slsShader;
 typedef struct slsUniformLocations slsUniformLocations;
 typedef struct slsAttrLocations slsAttrLocations;
+typedef enum slsDefaultUnifLocations slsDefaultUnifLocations;
+typedef enum slsDefaultAttribLocations slsDefaultAttribLocations;
+
+
+enum slsDefaultUnifLocations {
+  SLS_UNIF_MODEL_VIEW,
+  SLS_UNIF_INV_MODEL_VIEW,
+  SLS_UNIF_NORMAL_MAT,
+  SLS_UNIF_TIME,
+  SLS_UNIF_DIFFUSE_TEX,
+  SLS_UNIF_SPECULAR_TEX,
+  SLS_UNIF_NORMAL_TEX,
+  SLS_UNIF_SPECULAR_COLOR,
+  SLS_UNIF_DIFFUSE_COLOR,
+  SLS_UNIF_AMBIENT_COLOR,
+  SLS_UNIF_SHININESS,
+  SLS_UNIF_N_LIGHTS,
+  SLS_UNIF_AMBIENT_PRODUCTS,
+  SLS_UNIF_DIFFUSE_PRODUCTS,
+  SLS_UNIF_SPECULAR_PRODUCTS,
+  SLS_UNIF_LIGHT_POSITIONS,
+  SLS_UNIF_LIGHT_MODELVIEW,
+  SLS_UNIF_LOCATIONS_LAST
+};
+
+enum slsDefaultAttribLocations {
+  SLS_ATTRIB_POSITION,
+  SLS_ATTRIB_NORMAL,
+  SLS_ATTRIB_UV,
+  SLS_ATTRIB_COLOR,
+  SLS_ATTRIB_LOCATIONS_LAST
+};
 
 /**
  * @brief struct storing attribute locations for default shaders
@@ -64,7 +96,11 @@ struct slsAttrLocations {
  * @details uniform header file at /resources/shaders/uniforms.glsl
  */
 struct slsUniformLocations {
-  GLuint model_view, inv_model_view, normal_mat, time, diffuse_tex,
+  GLuint model_view,
+      inv_model_view,
+      normal_mat,
+      time,
+      diffuse_tex,
       specular_tex, normal_tex;
 
   struct {
@@ -78,17 +114,11 @@ struct slsUniformLocations {
 };
 
 struct slsShader {
-  slsShader *(*init)(slsShader *self, GLuint program)SLS_NONNULL(1) SLS_DEPRECIATED;
-
-  slsShader *(*dtor)(slsShader *self)SLS_NONNULL(1) SLS_DEPRECIATED;
 
   GLuint program;
-  bool owns_program;
-
-  void *data;
 
   slsUniformLocations uniforms;
-  slsAttrLocations attributes;
+  void *data;
 };
 
 //
@@ -101,13 +131,15 @@ slsShader *sls_shader_init(slsShader *self, GLuint program) SLS_NONNULL(1);
 
 slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
 
+void sls_setup_attribs(slsShader *self);
+
 void sls_shader_use(slsShader *self_opt);
 
 void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec)
-    SLS_NONNULL(1);
+SLS_NONNULL(1);
 
 void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec)
-    SLS_NONNULL(1);
+SLS_NONNULL(1);
 
 void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec,
                            size_t count) SLS_NONNULL(1);

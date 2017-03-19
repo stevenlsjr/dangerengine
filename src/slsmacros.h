@@ -67,7 +67,7 @@
 #ifndef _MSC_VER
 /**
  * @brief Tags a function as non-null
- * @param (param, ...) _indices of non-null parameters. For some reason,
+ * @param ...args: _indices of non-null parameters. For some reason,
  * gcc's nonnull extension uses 1-indexing, so that's that.
  */
 #define SLS_NONNULL(param, ...) __attribute__((nonnull(param, ##__VA_ARGS__)))
@@ -133,7 +133,7 @@
  */
 #define sls_debug(file, msg1, fmt, ...)                                        \
   do {                                                                         \
-    fprintf((file), "%s (%s %d):\n\t", (msg1), __func__, __LINE__);            \
+    fprintf((file), "%s (%s %d):\n\t", (msg1), __FILE__, __LINE__);            \
     fprintf((file), fmt, ##__VA_ARGS__);                                       \
     fprintf((file), "\n");                                                     \
   } while (0)

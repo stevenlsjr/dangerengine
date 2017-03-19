@@ -2,8 +2,6 @@
 ---
 BasedOnStyle: Mozilla
 BreakBeforeBraces: Linux
-SortIncludes: true
-ReflowComments: true
 ---
 Language: JavaScript
 BasedOnStyle: Mozilla

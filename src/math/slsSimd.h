@@ -13,6 +13,9 @@
 #include <smmintrin.h>
 #include <stddef.h>
 
+#define SLS_SHUFFLE_MASK(z, y, x, w) \
+    (z<<6) | (y<<4) | (x<<2) | w
+
 /**
  * @brief a struct of 4 _m128 values
  * representing the x, y, z, and w components of 4 vec4s

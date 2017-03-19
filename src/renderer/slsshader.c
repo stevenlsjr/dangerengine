@@ -43,11 +43,17 @@
 #include "slsshader.h"
 #include <sls-gl.h>
 
+
+
+static void make_attrib_locations(GLuint program);
+
+
+static void make_unif_locations(GLuint program);
+
+
 static slsShader shader_proto = {
 };
 
-// TODO: bind hardcoded shader locations
-static void shader_attrs(slsAttrLocations *attrs) {}
 static void shader_unifs(slsUniformLocations *unifs) {}
 
 slsShader const *sls_shader_proto() { return &shader_proto; }
@@ -57,12 +63,12 @@ slsShader *sls_shader_init(slsShader *self, GLuint program)
   *self = *sls_shader_proto();
 
   sls_check(glIsProgram(program), "GLuint %u is not a program", program);
-  shader_attrs(&self->attributes);
-  shader_unifs(&self->uniforms);
 
   self->program = program;
 
-  self->owns_program = false;
+  // bind hardcoded shader attributes and uniforms
+  make_unif_locations(program);
+  make_attrib_locations(program);
 
   return self;
 error:
@@ -75,9 +81,7 @@ error:
 
 slsShader *sls_shader_dtor(slsShader *self)
 {
-  if (self->owns_program) {
-    glDeleteProgram(self->program);
-  }
+  glDeleteProgram(self->program);
 
   return self;
 }
@@ -136,4 +140,44 @@ void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec,
 {
   sls_shader_use(self);
   glUniform4fv(location, (GLsizei)count, &vec->x);
+}
+
+static bool check_attrib_glerr(GLuint index, char const *name, GLenum *err)
+{
+  GLenum e = GL_NO_ERROR;
+  while((e = glGetError()) != GL_NO_ERROR) {
+    switch (e) {
+      case GL_INVALID_VALUE:
+        if (index > GL_MAX_VERTEX_ATTRIBS) {
+          sls_log_err("attib index %u for %s too high", index, name);
+        }
+        break;
+
+      default:
+        break;
+    }
+    if (err) {*err = e;}
+  }
+
+  return true;
+}
+
+static void make_attrib_locations(GLuint program)
+{
+  glBindAttribLocation(program, SLS_ATTRIB_POSITION, "position");
+  check_attrib_glerr(SLS_ATTRIB_POSITION, "position", NULL);
+
+  glBindAttribLocation(program, SLS_ATTRIB_NORMAL, "normal");
+  check_attrib_glerr(SLS_ATTRIB_NORMAL, "normal", NULL);
+
+  glBindAttribLocation(program, SLS_ATTRIB_UV, "uv");
+  check_attrib_glerr(SLS_ATTRIB_UV, "uv", NULL);
+
+  glBindAttribLocation(program, SLS_ATTRIB_COLOR, "color");
+  check_attrib_glerr(SLS_ATTRIB_COLOR, "color", NULL);
+}
+
+static void make_unif_locations(GLuint program)
+{
+
 }

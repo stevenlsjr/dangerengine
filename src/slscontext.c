@@ -38,6 +38,8 @@
 
 #include "contexthandlers.h"
 
+#include "renderer/slsrender.h"
+
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #endif // EMSCRIPTEN
@@ -48,6 +50,7 @@ struct slsContext_p {
   uint64_t last;
   uint64_t ticks_since_draw;
   slsIPoint last_size;
+  slsRendererGL renderer;
 };
 
 /*----------------------------------------*
@@ -103,7 +106,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
       SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
   self->window =
       SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                       (int) width, (int) height, window_flags);
+                       (int)width, (int)height, window_flags);
 
   sls_check(self->window, "window creation failed");
 
@@ -127,13 +130,14 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
     self->is_running = false;
   }
   sls_log_info("\nglew version %s\n"
-                   "gl version %s",
+               "gl version %s",
                glewGetString(GLEW_VERSION), glGetString(GL_VERSION));
 
   // allocate and initialize private members
 
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
+  sls_renderer_init(&self->priv->renderer, width, height);
 
   self->state = calloc(1, sizeof(slsAppState));
   sls_checkmem(self->state && sls_app_state_init(self->state));
@@ -144,7 +148,8 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
 error:
 
   sls_log_err("sdl error: %s", SDL_GetError());
-  return sls_context_dtor(self);;
+  return sls_context_dtor(self);
+  ;
 }
 
 void sls_context_run(slsContext *self)
@@ -176,8 +181,7 @@ void sls_context_run(slsContext *self)
   sls_context_teardown(self);
 }
 
-slsContext *sls_context_dtor(slsContext *self)
-{
+slsContext *sls_context_dtor(slsContext *self) {
   if (self->window) {
     SDL_DestroyWindow(self->window);
   }
@@ -185,6 +189,11 @@ slsContext *sls_context_dtor(slsContext *self)
     free(sls_app_state_deinit(self->state));
   }
   sls_workscheduler_dtor(&self->queue);
+  // free private members
+  if (self->priv) {
+    sls_renderer_dtor(&self->priv->renderer);
+    free(self->priv);
+  }
   return self;
 }
 
@@ -211,7 +220,7 @@ void sls_context_iter(slsContext *self)
   priv->last = now;
 
   if (priv->ticks_since_draw > self->interval) {
-    double dt = priv->ticks_since_draw / (double) SLS_TICKS_PER_SEC;
+    double dt = priv->ticks_since_draw / (double)SLS_TICKS_PER_SEC;
     // sls_log_info("dt=%f", dt);
 
     priv->ticks_since_draw = 0;
@@ -235,15 +244,21 @@ void sls_context_iter(slsContext *self)
 
 void sls_context_resize(slsContext *self, int x, int y)
 {
-  glViewport(0, 0, (int) x, (int) y);
+  glViewport(0, 0, (int)x, (int)y);
 
   if (self->state) {
   }
+  if (self->priv) {
+    sls_renderer_resize(&self->priv->renderer, x, y);
+  }
+
 }
 
 void sls_context_update(slsContext *self, double dt) {}
 
-void sls_context_display(slsContext *self, double dt) {}
+void sls_context_display(slsContext *self, double dt) {
+  sls_renderer_display(&self->priv->renderer);
+}
 
 void sls_context_setup(slsContext *self)
 {
@@ -301,8 +316,7 @@ static inline void _sls_context_windowevent(slsContext *self,
     case SDL_WINDOWEVENT_RESIZED: {
       int w = we->data1 * 2, h = we->data2 * 2;
       sls_context_resize(self, w, h);
-    }
-      break;
+    } break;
     default:
       break;
   }

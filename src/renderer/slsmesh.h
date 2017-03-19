@@ -62,13 +62,6 @@ slsVertex sls_vertex_make(kmVec3 position, kmVec3 normal, kmVec2 uv,
                           kmVec4 color);
 
 struct slsMesh {
-  slsMesh *(*init)(slsMesh *self, slsVertex const *vertices, size_t vert_count,
-                   unsigned const *indices, size_t idx_count);
-
-  slsMesh *(*dtor)(slsMesh *self);
-
-  void (*bind)(slsMesh *self, slsShader *shader_program);
-
   struct {
     slsVertex *data;
     size_t length;
@@ -83,44 +76,12 @@ struct slsMesh {
   GLuint vao;
 
   GLenum gl_draw_mode;
-
-  /**
-  * @brief true if pre_draw has been called
-  * @defails false if post_draw has unbound mesh or pre_draw hasn't been set up
-  * yet
-  */
-  bool is_drawing;
-
-  slsMesh_p *priv;
-
-  void *data;
 };
 
 slsMesh const *sls_mesh_class();
 
-static inline slsMesh *sls_mesh_new(slsVertex const *vertices,
-                                    size_t vert_count, unsigned const *indices,
-                                    size_t idx_count)
-{
-  slsMesh *obj = (slsMesh *)sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
-  return obj->init(obj, vertices, vert_count, indices, idx_count);
-}
-
-static inline void sls_mesh_delete(slsMesh *self)
-{
-  if (self) {
-    slsMesh *zombie = sls_msg(self, dtor);
-    if (zombie) {
-      free(zombie);
-    }
-  } else {
-    assert(!"invalid plane_mesh instance!");
-  }
-}
 
 slsMesh *sls_mesh_square(slsMesh *self_uninit);
-
-void _sls_mesh_roughdraw(slsMesh *self, GLuint program, double dt);
 
 slsVertex *sls_sphere_vertices(size_t n_vertices, kmVec4 const *color);
 
@@ -142,10 +103,29 @@ void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
 
 void sls_mesh_update_verts(slsMesh *self, slsShader *shader);
 
-void sls_mesh_predraw(slsMesh *self, GLuint program, double dt);
 
-void sls_mesh_draw(slsMesh *self, double dt);
+void sls_mesh_draw(slsMesh *self);
 
-void sls_mesh_postdraw(slsMesh *self, GLuint program, double dt);
+
+
+static inline slsMesh *sls_mesh_new(slsVertex const *vertices,
+                                    size_t vert_count, unsigned const *indices,
+                                    size_t idx_count)
+{
+  slsMesh *obj = (slsMesh *)sls_objalloc(sls_mesh_class(), sizeof(slsMesh));
+  return sls_mesh_init(obj, vertices, vert_count, indices, idx_count);
+}
+
+static inline void sls_mesh_delete(slsMesh *self)
+{
+  if (self) {
+    slsMesh *zombie = sls_mesh_dtor(self);
+    if (zombie) {
+      free(zombie);
+    }
+  } else {
+    assert(!"invalid plane_mesh instance!");
+  }
+}
 
 #endif // DANGERENGINE_SLS_MESH_H
