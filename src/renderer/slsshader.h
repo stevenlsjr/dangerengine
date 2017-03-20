@@ -76,10 +76,10 @@ enum slsDefaultUnifLocations {
 };
 
 enum slsDefaultAttribLocations {
-  SLS_ATTRIB_POSITION,
-  SLS_ATTRIB_NORMAL,
-  SLS_ATTRIB_UV,
-  SLS_ATTRIB_COLOR,
+  SLS_ATTRIB_POSITION = 0,
+  SLS_ATTRIB_NORMAL = 1,
+  SLS_ATTRIB_UV = 2,
+  SLS_ATTRIB_COLOR = 3,
   SLS_ATTRIB_LOCATIONS_LAST
 };
 

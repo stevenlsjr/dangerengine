@@ -140,7 +140,7 @@ slsContext *sls_context_init(slsContext *self, char const *caption,
   sls_renderer_init(&self->priv->renderer, width, height);
 
   self->state = calloc(1, sizeof(slsAppState));
-  sls_checkmem(self->state && sls_app_state_init(self->state));
+  sls_checkmem(self->state && sls_app_state_init(self->state, &self->priv->renderer));
 
   return self;
 

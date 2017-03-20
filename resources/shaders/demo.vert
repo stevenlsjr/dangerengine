@@ -1,14 +1,14 @@
 
 /**
  * @file demo.vert
- * @brief sample vert shader. Define SLS_MODERN_GL to use modern shaders.
+ * @brief sample vert active_shader. Define SLS_MODERN_GL to use modern shaders.
  * @ License FreeBSD
- * NOTE: don't declare uniforms in shader source.
+ * NOTE: don't declare uniforms in active_shader source.
  * string defining uniforms declared in renderer/shaderutils.c
  **/
 
 /*----------------------------*
- * gl4.1 shader
+ * gl4.1 active_shader
  *----------------------------*/
 
 layout (location=0) in vec3 position;
@@ -35,6 +35,7 @@ void main(void)
   frag_uv = uv;
   frag_pos = vec3(model_view * vec4(position, 1.0));
   frag_eye = -frag_pos;
+
 
   gl_Position = projection * vec4(frag_pos, 1.0);
 }

@@ -35,6 +35,7 @@ struct slsContext {
 
   slsAppState *state;
 
+
   void *data;
 };
 

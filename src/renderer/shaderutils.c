@@ -60,7 +60,7 @@ void _sls_print_log(GLuint object, char const *shader_file, char const *file,
   } else if (glIsProgram(object)) {
     glGetProgramiv(object, GL_INFO_LOG_LENGTH, &log_length);
   } else {
-    fprintf(stderr, "Not a shader or a program\n");
+    fprintf(stderr, "Not a active_shader or a program\n");
     return;
   }
 
@@ -148,7 +148,7 @@ GLuint sls_create_program(const char *vertexfile, const char *fragmentfile,
 
   vs = sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
   if (vs == 0) {
-    sls_log_err("vertex shader at path %s is invalid", vertexfile);
+    sls_log_err("vertex active_shader at path %s is invalid", vertexfile);
     sls_checkmem(vs != 0);
     return 0;
   }
@@ -156,7 +156,7 @@ GLuint sls_create_program(const char *vertexfile, const char *fragmentfile,
 
   fs = sls_create_shader(fragmentfile, uniform_definitions, GL_FRAGMENT_SHADER);
   if (fs == 0) {
-    sls_log_err("fragment shader at path %s is invalid", fragmentfile);
+    sls_log_err("fragment active_shader at path %s is invalid", fragmentfile);
     glDeleteShader(vs);
     sls_checkmem(fs != 0);
     return 0;

@@ -91,8 +91,24 @@ uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
     if (first == GL_NO_ERROR) {
       first = e;
     }
+    char const *err_str;
+    switch (e) {
+      case GL_INVALID_VALUE:
+        err_str = "GL_INVALID_VALUE";
+        break;
+
+      case GL_INVALID_OPERATION:
+        err_str = "GL_INVALID_OPERATION";
+        break;
+
+      case GL_INVALID_ENUM:
+        err_str = "GL_INVALID_ENUM";
+        break;
+      default:
+        err_str = (char const *) gluGetString(e);
+    }
     fprintf(stderr, "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n", file, line,
-            e, gluErrorString(e));
+            e, err_str);
   }
 
 #ifdef SLS_DEBUG_VERBOSE

@@ -62,7 +62,7 @@ slsShader *sls_shader_init(slsShader *self, GLuint program)
 
   self->program = program;
 
-  // bind hardcoded shader attributes and uniforms
+  // bind hardcoded active_shader attributes and uniforms
   make_unif_locations(program);
   make_attrib_locations(program);
 

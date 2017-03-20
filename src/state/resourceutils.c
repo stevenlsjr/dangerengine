@@ -44,26 +44,26 @@ slsShader *sls_load_shader(slsAppState *state,
                            bool path_is_absolute)
 {
 
-  slsShader *shader = NULL;
+  slsShader *active_shader = NULL;
   GLuint program = 0;
   sls_check(!apr_hash_get(state->shaders, name, APR_HASH_KEY_STRING),
-            "shader named %s already exists", name);
+            "active_shader named %s already exists", name);
 
 
-  shader = apr_pcalloc(state->pool, sizeof(slsShader));
-  sls_checkmem(shader);
+  active_shader = apr_pcalloc(state->pool, sizeof(slsShader));
+  sls_checkmem(active_shader);
 
   // TODO: add parameter for loading uniform decl path
   program = sls_create_program(vspath, fspath, "resources/shaders/uniforms.glsl");
 
-  shader = sls_shader_init(shader, state->pool, program);
-  sls_checkmem(shader);
+  active_shader = sls_shader_init(active_shader, state->pool, program);
+  sls_checkmem(active_shader);
 
-  return shader;
+  return active_shader;
 
 error:
-  if (shader) {
-    sls_shader_dtor(shader);
+  if (active_shader) {
+    sls_shader_dtor(active_shader);
   }
   return NULL;
 }

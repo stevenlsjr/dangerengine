@@ -63,16 +63,12 @@ set(DANGER_SRC
     src/renderer/geometries.h
     src/renderer/shaderutils.c
     src/renderer/shaderutils.h
-    src/renderer/slsLight.c
-    src/renderer/slsLight.h
     src/renderer/slsmesh.c
     src/renderer/slsmesh.h
     src/renderer/slsrender.c
     src/renderer/slsrender.h
     src/renderer/slsshader.c
     src/renderer/slsshader.h
-    src/renderer/slstexture.c
-    src/renderer/slstexture.h
     src/sls-commonlibs.h
     src/sls-gl.h
     src/sls-imagelib.h

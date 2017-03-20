@@ -95,15 +95,7 @@ slsMesh *sls_mesh_init(slsMesh *self, slsVertex const *vertices,
 
 slsMesh *sls_mesh_dtor(slsMesh *self);
 
-void sls_mesh_bind(slsMesh *self, slsShader *shader);
-
-void _sls_mesh_binddata(slsMesh *self, GLuint program);
-
-void _sls_mesh_bindattrs(slsMesh *self, GLuint program);
-
-void sls_mesh_update_verts(slsMesh *self, slsShader *shader);
-
-void sls_mesh_draw(slsMesh *self);
+void sls_mesh_setup_buffers(slsMesh *self, slsShader *shader);
 
 static inline slsMesh *sls_mesh_new(slsVertex const *vertices,
                                     size_t vert_count, unsigned const *indices,
@@ -124,5 +116,17 @@ static inline void sls_mesh_delete(slsMesh *self)
     assert(!"invalid plane_mesh instance!");
   }
 }
+
+/**
+ * binds buffer and vertex resources to OpenGL state
+ * @param self
+ */
+void sls_mesh_bindbuffers(slsMesh *self) SLS_NONNULL(1);
+
+/**
+ * unbinds buffer resources
+ */
+void sls_mesh_unbind();
+
 
 #endif // DANGERENGINE_SLS_MESH_H
