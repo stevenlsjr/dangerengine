@@ -12,12 +12,12 @@
 #ifndef DANGERENGINE_SLSMACROS_H
 #define DANGERENGINE_SLSMACROS_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <time.h>
 #include <assert.h>
 #include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -145,8 +145,8 @@
 #define sls_log_info(fmt, ...)                                                 \
   sls_debug(stderr, SLS_COLOR_GRN "LOG" SLS_COLOR_DEFAULT, fmt, ##__VA_ARGS__)
 #define sls_log_warn(fmt, ...)                                                 \
-  sls_debug(stderr, SLS_COLOR_YEL "WARNING" SLS_COLOR_DEFAULT, fmt,            \
-            ##__VA_ARGS__)
+  sls_debug(                                                                   \
+    stderr, SLS_COLOR_YEL "WARNING" SLS_COLOR_DEFAULT, fmt, ##__VA_ARGS__)
 #define sls_log_err(fmt, ...)                                                  \
   sls_debug(stderr, SLS_COLOR_RED "ERROR" SLS_COLOR_DEFAULT, fmt, ##__VA_ARGS__)
 
@@ -202,7 +202,7 @@
 #endif
 
 //---------------------------------data
-//utilities---------------------------------------
+// utilities---------------------------------------
 
 /**
  * @brief expands count of a fixed-length array type
@@ -212,7 +212,7 @@
 #define SLS_ARRAY_COUNT(arr) (sizeof((arr)) / sizeof(*(arr)))
 
 //---------------------------------degugging
-//helpers---------------------------------------
+// helpers---------------------------------------
 
 #ifndef _MSC_VER
 /**

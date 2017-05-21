@@ -5,10 +5,10 @@
  * Contributors: Sylvain Beucler
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "../sls-gl.h"
 #include "../slsutils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "shaderutils.h"
 
@@ -18,14 +18,14 @@ int sls_get_glversion();
  * Store all the file's contents in memory, useful to pass shaders
  * source code to OpenGL
  */
-char *sls_file_read(const char *filename)
+char* sls_file_read(const char* filename)
 {
-  FILE *file = fopen(filename, "rb");
+  FILE* file = fopen(filename, "rb");
   if (file == NULL)
     return NULL;
 
   int file_size = BUFSIZ;
-  char *file_str = (char *)malloc((size_t)file_size);
+  char* file_str = (char*)malloc((size_t)file_size);
   int nb_read_total = 0;
 
   while (!feof(file) && !ferror(file)) {
@@ -33,14 +33,14 @@ char *sls_file_read(const char *filename)
       if (file_size > 10 * 1024 * 1024)
         break;
       file_size = file_size * 2;
-      file_str = (char *)realloc(file_str, (size_t)file_size);
+      file_str = (char*)realloc(file_str, (size_t)file_size);
     }
-    char *p_res = file_str + nb_read_total;
+    char* p_res = file_str + nb_read_total;
     nb_read_total += fread(p_res, 1, BUFSIZ, file);
   }
 
   fclose(file);
-  file_str = (char *)realloc(file_str, nb_read_total + 1);
+  file_str = (char*)realloc(file_str, nb_read_total + 1);
   file_str[nb_read_total] = '\0';
   return file_str;
 }
@@ -48,8 +48,11 @@ char *sls_file_read(const char *filename)
 /**
  * Display compilation errors from the OpenGL shader compiler
  */
-void _sls_print_log(GLuint object, char const *shader_file, char const *file,
-                    char const *func, long line)
+void _sls_print_log(GLuint object,
+                    char const* shader_file,
+                    char const* file,
+                    char const* func,
+                    long line)
 {
   if (file && func) {
     fprintf(stderr, "Shader Error: %s, %s: %li:\n", file, func, line);
@@ -64,7 +67,7 @@ void _sls_print_log(GLuint object, char const *shader_file, char const *file,
     return;
   }
 
-  char *log = (char *)malloc((size_t)log_length);
+  char* log = (char*)malloc((size_t)log_length);
 
   if (glIsShader(object)) {
     glGetShaderInfoLog(object, log_length, NULL, log);
@@ -79,14 +82,15 @@ void _sls_print_log(GLuint object, char const *shader_file, char const *file,
 /**
  * Compile the shader from file 'filename', with error handling
  */
-GLuint sls_create_shader(const char *filename, char const *uniform_file_name,
+GLuint sls_create_shader(const char* filename,
+                         char const* uniform_file_name,
                          GLenum type)
 {
-  GLchar const *modern_preamble = "#version 330\n#define SLS_MODERN_OPENGL 1\n";
-  GLchar const *legacy_preamble = "#version 130\n";
-  GLchar const *gles_preamble = "#version 100\n";
+  GLchar const* modern_preamble = "#version 330\n#define SLS_MODERN_OPENGL 1\n";
+  GLchar const* legacy_preamble = "#version 130\n";
+  GLchar const* gles_preamble = "#version 100\n";
 
-  GLchar const *preamble;
+  GLchar const* preamble;
 
 #ifndef SLS_GLES
   int v = sls_get_glversion();
@@ -100,8 +104,8 @@ GLuint sls_create_shader(const char *filename, char const *uniform_file_name,
   preamble = gles_preamble;
 #endif
 
-  GLchar *source = sls_file_read(filename);
-  char *uniform_src = sls_file_read(uniform_file_name);
+  GLchar* source = sls_file_read(filename);
+  char* uniform_src = sls_file_read(uniform_file_name);
 
   if (!uniform_src) {
     sls_log_err("Error opening %s: ", uniform_file_name);
@@ -116,8 +120,8 @@ GLuint sls_create_shader(const char *filename, char const *uniform_file_name,
   }
   GLuint res = glCreateShader(type);
 
-  char const *sources[] = { preamble, uniform_src, source };
-  const size_t n_sources = sizeof(sources) / sizeof(char *);
+  char const* sources[] = { preamble, uniform_src, source };
+  const size_t n_sources = sizeof(sources) / sizeof(char*);
 
   glShaderSource(res, n_sources, sources, NULL);
 
@@ -139,8 +143,9 @@ GLuint sls_create_shader(const char *filename, char const *uniform_file_name,
   return res;
 }
 
-GLuint sls_create_program(const char *vertexfile, const char *fragmentfile,
-                          char const *uniform_definitions)
+GLuint sls_create_program(const char* vertexfile,
+                          const char* fragmentfile,
+                          char const* uniform_definitions)
 {
   GLuint program = glCreateProgram(), vs = 0, fs = 0;
 
@@ -187,25 +192,28 @@ error:
 
 #ifdef GL_GEOMETRY_SHADER
 
-GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile,
-                             const char *fragmentfile,
-                             char const *uniform_definitions, GLint input,
-                             GLint output, GLint vertices)
+GLuint sls_create_gs_program(const char* vertexfile,
+                             const char* geometryfile,
+                             const char* fragmentfile,
+                             char const* uniform_definitions,
+                             GLint input,
+                             GLint output,
+                             GLint vertices)
 {
   GLuint program = glCreateProgram();
   GLuint shader;
 
   if (vertexfile) {
     shader =
-        sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
+      sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
     if (!shader)
       return 0;
     glAttachShader(program, shader);
   }
 
   if (geometryfile) {
-    shader = sls_create_shader(geometryfile, uniform_definitions,
-                               GL_GEOMETRY_SHADER);
+    shader =
+      sls_create_shader(geometryfile, uniform_definitions, GL_GEOMETRY_SHADER);
     if (!shader)
       return 0;
     glAttachShader(program, shader);
@@ -216,8 +224,8 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile,
   }
 
   if (fragmentfile) {
-    shader = sls_create_shader(fragmentfile, uniform_definitions,
-                               GL_FRAGMENT_SHADER);
+    shader =
+      sls_create_shader(fragmentfile, uniform_definitions, GL_FRAGMENT_SHADER);
     if (shader == 0) {
       return 0;
     }
@@ -238,8 +246,11 @@ GLuint sls_create_gs_program(const char *vertexfile, const char *geometryfile,
 }
 
 #else
-GLuint create_gs_program(const char *vertexfile, const char *geometryfile,
-                         const char *fragmentfile, GLint input, GLint output,
+GLuint create_gs_program(const char* vertexfile,
+                         const char* geometryfile,
+                         const char* fragmentfile,
+                         GLint input,
+                         GLint output,
                          GLint _vertices)
 {
   fprintf(stderr, "Missing support for geometry shaders.\n");
@@ -247,7 +258,7 @@ GLuint create_gs_program(const char *vertexfile, const char *geometryfile,
 }
 #endif
 
-GLint sls_get_attrib(GLuint program, const char *name)
+GLint sls_get_attrib(GLuint program, const char* name)
 {
   GLint attribute = glGetAttribLocation(program, name);
   if (attribute == -1)
@@ -255,7 +266,7 @@ GLint sls_get_attrib(GLuint program, const char *name)
   return attribute;
 }
 
-GLint sls_get_uniform(GLuint program, const char *name)
+GLint sls_get_uniform(GLuint program, const char* name)
 {
   GLint uniform = glGetUniformLocation(program, name);
   if (uniform == -1)

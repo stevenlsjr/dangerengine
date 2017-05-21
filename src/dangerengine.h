@@ -61,7 +61,6 @@ extern "C" {
 
 #include "state/resourceutils.h"
 
-
 #ifdef __cplusplus
 }
 #endif

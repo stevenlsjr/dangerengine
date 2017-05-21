@@ -43,13 +43,16 @@
 
 static const size_t max_string_len = (size_t)500e6; // 500 megabytes
 
-void *sls_copy_assign(void const *ptr) { return (void *)ptr; }
+void* sls_copy_assign(void const* ptr)
+{
+  return (void*)ptr;
+}
 
-void *sls_copy_string(void const *str)
+void* sls_copy_string(void const* str)
 {
   sls_checkmem(str);
-  char const *typed_str = str;
-  char *cpy = NULL;
+  char const* typed_str = str;
+  char* cpy = NULL;
   size_t size = strnlen(typed_str, max_string_len);
   cpy = calloc(size + 1, sizeof(char));
   sls_checkmem(cpy);
@@ -65,7 +68,7 @@ error:
   return NULL;
 }
 
-int sls_cmp_string(void const *a, void const *b)
+int sls_cmp_string(void const* a, void const* b)
 {
   if (!a || !b) {
     sls_log_err("invalid null arguments! %p %p\n", a, b);
@@ -75,32 +78,32 @@ int sls_cmp_string(void const *a, void const *b)
   return strncmp(a, b, max_string_len);
 }
 
-int sls_cmp_intptr(void const *a, void const *b)
+int sls_cmp_intptr(void const* a, void const* b)
 {
   if (!a || !b) {
     sls_log_err("invalid null arguments! %p %p\n", a, b);
     return 0;
   }
-  int ai = *(int const *)a;
-  int bi = *(int const *)b;
+  int ai = *(int const*)a;
+  int bi = *(int const*)b;
 
   return bi - ai;
 }
 
-int sls_cmp_uintptr(void const *a, void const *b)
+int sls_cmp_uintptr(void const* a, void const* b)
 {
   if (!a || !b) {
     sls_log_err("invalid null arguments! %p %p\n", a, b);
     return 0;
   }
 
-  unsigned int ai = *(int unsigned const *)a;
-  unsigned int bi = *(int unsigned const *)b;
+  unsigned int ai = *(int unsigned const*)a;
+  unsigned int bi = *(int unsigned const*)b;
 
   return (int)bi - (int)ai;
 }
 
-int sls_cmp_voidptr(void const *a, void const *b)
+int sls_cmp_voidptr(void const* a, void const* b)
 {
-  return (int)((const char *)b - (const char *)a);
+  return (int)((const char*)b - (const char*)a);
 }

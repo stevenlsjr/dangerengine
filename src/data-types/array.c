@@ -44,19 +44,23 @@ struct slsArray_p {
   size_t length;
   size_t alloc_size;
   size_t element_size;
-  char *array;
+  char* array;
 };
 
 static const slsArray sls_array_proto = {.init = sls_array_init,
                                          .dtor = sls_array_dtor,
                                          .priv = NULL };
 
-slsArray const *sls_array_class() { return &sls_array_proto; }
+slsArray const* sls_array_class()
+{
+  return &sls_array_proto;
+}
 
-slsArray *sls_array_new(void const *array, size_t element_size,
+slsArray* sls_array_new(void const* array,
+                        size_t element_size,
                         size_t n_elements)
 {
-  slsArray *self = NULL;
+  slsArray* self = NULL;
   self = sls_objalloc(sls_array_class(), sizeof(slsArray));
   if (self) {
     self = sls_msg(self, init, array, element_size, n_elements);
@@ -65,7 +69,9 @@ slsArray *sls_array_new(void const *array, size_t element_size,
   return self;
 }
 
-slsArray *sls_array_init(slsArray *self, void const *data, size_t element_size,
+slsArray* sls_array_init(slsArray* self,
+                         void const* data,
+                         size_t element_size,
                          size_t n_elements)
 {
   if (!self || (element_size == 0)) {
@@ -102,7 +108,7 @@ error:
   }
 }
 
-size_t sls_array_length(slsArray const *self)
+size_t sls_array_length(slsArray const* self)
 {
   sls_check(self && self->priv, "null pointer");
   return self->priv->length;
@@ -111,7 +117,7 @@ error:
   return 0;
 }
 
-slsArray *sls_array_dtor(slsArray *self)
+slsArray* sls_array_dtor(slsArray* self)
 {
   if (!self) {
     return NULL;
@@ -126,7 +132,7 @@ slsArray *sls_array_dtor(slsArray *self)
   return self;
 }
 
-size_t sls_array_element_size(slsArray const *self)
+size_t sls_array_element_size(slsArray const* self)
 {
   sls_check(self && self->priv, "null pointer");
 
@@ -135,14 +141,14 @@ error:
   return 0;
 }
 
-void *sls_array_get(slsArray *self, size_t i)
+void* sls_array_get(slsArray* self, size_t i)
 {
   if (!self) {
     return NULL;
   }
   sls_check(i <= self->priv->length, "out of index error!");
 
-  char *ptr = self->priv->array + (i * self->priv->element_size);
+  char* ptr = self->priv->array + (i * self->priv->element_size);
 
   return ptr;
 
@@ -150,21 +156,21 @@ error:
   return NULL;
 }
 
-void const *sls_array_cget(slsArray const *self, size_t i)
+void const* sls_array_cget(slsArray const* self, size_t i)
 {
-  return sls_array_get((slsArray *)self, i);
+  return sls_array_get((slsArray*)self, i);
 }
 
-slsArray *sls_array_copy(slsArray const *self)
+slsArray* sls_array_copy(slsArray const* self)
 {
-  return sls_array_new(self->priv->array, self->priv->element_size,
-                       self->priv->length);
+  return sls_array_new(
+    self->priv->array, self->priv->element_size, self->priv->length);
 }
 
-void sls_array_set(slsArray *self, size_t i, void *value)
+void sls_array_set(slsArray* self, size_t i, void* value)
 {
 
-  void *ptr = (void *)sls_array_get(self, i);
+  void* ptr = (void*)sls_array_get(self, i);
   if (!ptr || !value) {
     return;
   }
@@ -172,12 +178,12 @@ void sls_array_set(slsArray *self, size_t i, void *value)
   memcpy(ptr, value, self->priv->element_size);
 }
 
-void sls_array_insert(slsArray *self, size_t i, void *value)
+void sls_array_insert(slsArray* self, size_t i, void* value)
 {
   if (!self || !self->priv) {
     return;
   }
-  slsArray_p *p = self->priv;
+  slsArray_p* p = self->priv;
   size_t len = p->length;
   size_t newlen = len + 1;
   size_t newsize = newlen * p->element_size;
@@ -192,10 +198,10 @@ void sls_array_insert(slsArray *self, size_t i, void *value)
   // now shift bytes determined by offset size
   size_t items_offset = len - i;
   if (items_offset > 0) {
-    char *src =
-        p->array +
-        i * p->element_size; // location which inserted value is offseting
-    char *offset = src + p->element_size;
+    char* src =
+      p->array +
+      i * p->element_size; // location which inserted value is offseting
+    char* offset = src + p->element_size;
     memmove(offset, src, p->element_size * items_offset);
   }
 
@@ -208,14 +214,17 @@ error:
   return;
 }
 
-void sls_array_append(slsArray *self, void *value)
+void sls_array_append(slsArray* self, void* value)
 {
   sls_array_insert(self, self->priv->length, value);
 }
 
-size_t sls_array_alloc_size(slsArray *self) { return self->priv->alloc_size; }
+size_t sls_array_alloc_size(slsArray* self)
+{
+  return self->priv->alloc_size;
+}
 
-void sls_array_reserve(slsArray *self, size_t count)
+void sls_array_reserve(slsArray* self, size_t count)
 {
   assert(self && self->priv);
 
@@ -223,7 +232,7 @@ void sls_array_reserve(slsArray *self, size_t count)
     // ensure count is a natural number
     count = 8;
   }
-  slsArray_p *p = self->priv;
+  slsArray_p* p = self->priv;
 
   if (p->alloc_size < count) {
     size_t new_size = count;
@@ -239,14 +248,14 @@ error:
   return;
 }
 
-slsArrayItor *sls_arrayitor_begin(slsArray *self, slsArrayItor *itor)
+slsArrayItor* sls_arrayitor_begin(slsArray* self, slsArrayItor* itor)
 {
   *itor =
-      (slsArrayItor){.array = self, .index = 0, .elt = sls_array_get(self, 0) };
+    (slsArrayItor){.array = self, .index = 0, .elt = sls_array_get(self, 0) };
   return itor;
 }
 
-slsArrayItor *sls_arrayitor_next(slsArrayItor *self)
+slsArrayItor* sls_arrayitor_next(slsArrayItor* self)
 {
   size_t next = self->index + 1;
   sls_checkmem(self->array && self->array->priv);
@@ -254,8 +263,8 @@ slsArrayItor *sls_arrayitor_next(slsArrayItor *self)
     return NULL;
   }
   self->index = next;
-  self->elt = self->array->priv->array +
-              (self->index * self->array->priv->element_size);
+  self->elt =
+    self->array->priv->array + (self->index * self->array->priv->element_size);
   return self;
 
 error:

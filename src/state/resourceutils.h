@@ -13,10 +13,12 @@
 typedef struct slsAppState slsAppState;
 typedef struct slsShader slsShader;
 
-slsShader *sls_load_shader(slsAppState *state, char const *name,
-                           char const *fspath, char const *vspath,
+slsShader* sls_load_shader(slsAppState* state,
+                           char const* name,
+                           char const* fspath,
+                           char const* vspath,
                            bool path_is_absolute);
 
-slsShader *sls_get_shader(slsAppState *state, char const *name);
+slsShader* sls_get_shader(slsAppState* state, char const* name);
 
 #endif // DANGERENGINE_RESOURCEUTILS_H

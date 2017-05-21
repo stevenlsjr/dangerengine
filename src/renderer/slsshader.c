@@ -47,14 +47,18 @@ static void make_attrib_locations(GLuint program);
 
 static void make_unif_locations(GLuint program);
 
-static slsShader shader_proto = {
-};
+static slsShader shader_proto = {};
 
-static void shader_unifs(slsUniformLocations *unifs) {}
+static void shader_unifs(slsUniformLocations* unifs)
+{
+}
 
-slsShader const *sls_shader_proto() { return &shader_proto; }
+slsShader const* sls_shader_proto()
+{
+  return &shader_proto;
+}
 
-slsShader *sls_shader_init(slsShader *self, GLuint program)
+slsShader* sls_shader_init(slsShader* self, GLuint program)
 {
   *self = *sls_shader_proto();
 
@@ -75,70 +79,84 @@ error:
   return NULL;
 }
 
-slsShader *sls_shader_dtor(slsShader *self)
+slsShader* sls_shader_dtor(slsShader* self)
 {
   glDeleteProgram(self->program);
 
   return self;
 }
 
-void sls_shader_use(slsShader *self)
+void sls_shader_use(slsShader* self)
 {
   GLuint prg = self ? self->program : 0;
   glUseProgram(prg);
 }
 
-void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec)
+void sls_shader_bind_vec3(slsShader* self, GLuint location, kmVec3 vec)
 {
   sls_shader_bind_vec3v(self, location, &vec, 1);
 }
 
-void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec)
+void sls_shader_bind_vec4(slsShader* self, GLuint location, kmVec4 vec)
 {
   sls_shader_bind_vec4v(self, location, &vec, 1);
 }
 
-void sls_shader_bind_mat4(slsShader *self, GLuint location, kmMat4 const *m,
+void sls_shader_bind_mat4(slsShader* self,
+                          GLuint location,
+                          kmMat4 const* m,
                           bool transpose)
 {
   sls_shader_bind_mat4v(self, location, m, 1, transpose);
 }
 
-void sls_shader_bind_mat3(slsShader *self, GLuint location, kmMat3 const *m,
+void sls_shader_bind_mat3(slsShader* self,
+                          GLuint location,
+                          kmMat3 const* m,
                           bool transpose)
 {
   sls_shader_bind_mat3v(self, location, m, 1, transpose);
 }
 
-void sls_shader_bind_mat4v(slsShader *self, GLuint location, kmMat4 const *m,
-                           size_t count, bool transpose)
+void sls_shader_bind_mat4v(slsShader* self,
+                           GLuint location,
+                           kmMat4 const* m,
+                           size_t count,
+                           bool transpose)
 {
   sls_shader_use(self);
   glUniformMatrix4fv(location, (GLsizei)count, (GLboolean)transpose, m->mat);
 }
 
-void sls_shader_bind_mat3v(slsShader *self, GLuint location, kmMat3 const *m,
-                           size_t count, bool transpose)
+void sls_shader_bind_mat3v(slsShader* self,
+                           GLuint location,
+                           kmMat3 const* m,
+                           size_t count,
+                           bool transpose)
 {
   sls_shader_use(self);
   glUniformMatrix3fv(location, (GLsizei)count, (GLboolean)transpose, m->mat);
 }
 
-void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec,
+void sls_shader_bind_vec3v(slsShader* self,
+                           GLuint location,
+                           kmVec3 const* vec,
                            size_t count)
 {
   sls_shader_use(self);
   glUniform3fv(location, (GLsizei)count, &vec->x);
 }
 
-void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec,
+void sls_shader_bind_vec4v(slsShader* self,
+                           GLuint location,
+                           kmVec4 const* vec,
                            size_t count)
 {
   sls_shader_use(self);
   glUniform4fv(location, (GLsizei)count, &vec->x);
 }
 
-static bool check_attrib_glerr(GLuint index, char const *name, GLenum *err)
+static bool check_attrib_glerr(GLuint index, char const* name, GLenum* err)
 {
   GLenum e = GL_NO_ERROR;
   while ((e = glGetError()) != GL_NO_ERROR) {
@@ -175,4 +193,6 @@ static void make_attrib_locations(GLuint program)
   check_attrib_glerr(SLS_ATTRIB_COLOR, "color", NULL);
 }
 
-static void make_unif_locations(GLuint program) {}
+static void make_unif_locations(GLuint program)
+{
+}

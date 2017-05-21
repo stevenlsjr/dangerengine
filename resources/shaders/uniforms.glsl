@@ -1,4 +1,4 @@
-#line 1 0
+#line 0 0
 /**
  * @file uniforms.glsl
  * @brief dives uniform values for all shaders

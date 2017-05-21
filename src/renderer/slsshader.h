@@ -96,7 +96,7 @@ struct slsAttrLocations {
  */
 struct slsUniformLocations {
   GLuint model_view, inv_model_view, normal_mat, time, diffuse_tex,
-      specular_tex, normal_tex;
+    specular_tex, normal_tex;
 
   struct {
     GLuint specular_color, diffuse_color, ambient_color, shininess;
@@ -104,7 +104,7 @@ struct slsUniformLocations {
 
   struct {
     GLuint n_lights, ambient_products, diffuse_products, specular_products,
-        light_positions, light_modelview;
+      light_positions, light_modelview;
   } lights;
 };
 
@@ -113,46 +113,60 @@ struct slsShader {
   GLuint program;
 
   slsUniformLocations uniforms;
-  void *data;
+  void* data;
 };
 
 //
 // Attribute/Uniform location tables
 //
 
-slsShader const *sls_shader_proto();
+slsShader const* sls_shader_proto();
 
-slsShader *sls_shader_init(slsShader *self, GLuint program) SLS_NONNULL(1);
+slsShader* sls_shader_init(slsShader* self, GLuint program) SLS_NONNULL(1);
 
-slsShader *sls_shader_dtor(slsShader *self) SLS_NONNULL(1);
+slsShader* sls_shader_dtor(slsShader* self) SLS_NONNULL(1);
 
-void sls_setup_attribs(slsShader *self);
+void sls_setup_attribs(slsShader* self);
 
-void sls_shader_use(slsShader *self_opt);
+void sls_shader_use(slsShader* self_opt);
 
-void sls_shader_bind_vec3(slsShader *self, GLuint location, kmVec3 vec)
-    SLS_NONNULL(1);
+void sls_shader_bind_vec3(slsShader* self, GLuint location, kmVec3 vec)
+  SLS_NONNULL(1);
 
-void sls_shader_bind_vec4(slsShader *self, GLuint location, kmVec4 vec)
-    SLS_NONNULL(1);
+void sls_shader_bind_vec4(slsShader* self, GLuint location, kmVec4 vec)
+  SLS_NONNULL(1);
 
-void sls_shader_bind_vec3v(slsShader *self, GLuint location, kmVec3 const *vec,
+void sls_shader_bind_vec3v(slsShader* self,
+                           GLuint location,
+                           kmVec3 const* vec,
                            size_t count) SLS_NONNULL(1);
 
-void sls_shader_bind_vec4v(slsShader *self, GLuint location, kmVec4 const *vec,
+void sls_shader_bind_vec4v(slsShader* self,
+                           GLuint location,
+                           kmVec4 const* vec,
                            size_t count) SLS_NONNULL(1);
 
-void sls_shader_bind_mat4(slsShader *self, GLuint location, kmMat4 const *m,
+void sls_shader_bind_mat4(slsShader* self,
+                          GLuint location,
+                          kmMat4 const* m,
                           bool transpose) SLS_NONNULL(1, 3);
 
-void sls_shader_bind_mat3(slsShader *self, GLuint location, kmMat3 const *m,
+void sls_shader_bind_mat3(slsShader* self,
+                          GLuint location,
+                          kmMat3 const* m,
                           bool transpose) SLS_NONNULL(1, 3);
 
-void sls_shader_bind_mat4v(slsShader *self, GLuint location, kmMat4 const *m,
-                           size_t count, bool transpose) SLS_NONNULL(1, 3);
+void sls_shader_bind_mat4v(slsShader* self,
+                           GLuint location,
+                           kmMat4 const* m,
+                           size_t count,
+                           bool transpose) SLS_NONNULL(1, 3);
 
-void sls_shader_bind_mat3v(slsShader *self, GLuint location, kmMat3 const *m,
-                           size_t count, bool transpose) SLS_NONNULL(1, 3);
+void sls_shader_bind_mat3v(slsShader* self,
+                           GLuint location,
+                           kmMat3 const* m,
+                           size_t count,
+                           bool transpose) SLS_NONNULL(1, 3);
 
 #define sls_shader_bind(sself, location, gen_val, ...)                         \
   _Generic(gen_val, \

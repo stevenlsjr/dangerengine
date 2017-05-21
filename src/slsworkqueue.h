@@ -21,11 +21,11 @@ typedef struct slsTask slsTask;
 typedef struct slsTaskQueue slsTaskQueue;
 
 struct slsTaskQueue {
-  slsTask *head;
-  slsTask *end;
+  slsTask* head;
+  slsTask* end;
 };
 
-typedef void *(*slsWorkFn)(slsTask *task, void *user_data);
+typedef void* (*slsWorkFn)(slsTask* task, void* user_data);
 
 struct slsWorkScheduler {
   pthread_t gl_thread;
@@ -36,18 +36,23 @@ struct slsWorkScheduler {
 
 struct slsTask {
   slsWorkFn fn;
-  void *pdata;
-  void *rdata;
+  void* pdata;
+  void* rdata;
 
-  slsTask *next;
+  slsTask* next;
 };
 
-slsWorkScheduler *sls_workscheduler_init(slsWorkScheduler *self) SLS_NONNULL(1);
-slsWorkScheduler *sls_workscheduler_dtor(slsWorkScheduler *self) SLS_NONNULL(1);
+slsWorkScheduler*
+sls_workscheduler_init(slsWorkScheduler* self) SLS_NONNULL(1);
+slsWorkScheduler*
+sls_workscheduler_dtor(slsWorkScheduler* self) SLS_NONNULL(1);
 
-slsTask *sls_make_task(slsWorkFn fn, void *data);
+slsTask*
+sls_make_task(slsWorkFn fn, void* data);
 
-void sls_task_enqueue(slsTaskQueue *queue, slsTask *task) SLS_NONNULL(1);
-slsTask *sls_task_dequeue(slsTaskQueue *queue) SLS_NONNULL(1);
+void
+sls_task_enqueue(slsTaskQueue* queue, slsTask* task) SLS_NONNULL(1);
+slsTask*
+sls_task_dequeue(slsTaskQueue* queue) SLS_NONNULL(1);
 
 #endif // DANGERENGINE_SLSWORKQUEUE_H

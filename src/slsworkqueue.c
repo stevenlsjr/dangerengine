@@ -11,20 +11,23 @@
  * @brief: finds the last node in list given by queue->head
  * @param queue: queue with a head node in place
  */
-static void queue_reset_nodes(slsTaskQueue *queue);
+static void
+queue_reset_nodes(slsTaskQueue* queue);
 
-slsWorkScheduler *sls_workscheduler_init(slsWorkScheduler *self)
+slsWorkScheduler*
+sls_workscheduler_init(slsWorkScheduler* self)
 {
   *self = (slsWorkScheduler){};
   return self;
 }
 
-slsWorkScheduler *sls_workscheduler_dtor(slsWorkScheduler *self)
+slsWorkScheduler*
+sls_workscheduler_dtor(slsWorkScheduler* self)
 {
-  slsTaskQueue *q = &self->waiting;
-  slsTask *iter = q->head;
+  slsTaskQueue* q = &self->waiting;
+  slsTask* iter = q->head;
   while (iter) {
-    slsTask *next = iter->next;
+    slsTask* next = iter->next;
     free(iter);
 
     iter = next;
@@ -32,9 +35,10 @@ slsWorkScheduler *sls_workscheduler_dtor(slsWorkScheduler *self)
   return self;
 }
 
-slsTask *sls_make_task(slsWorkFn fn, void *data)
+slsTask*
+sls_make_task(slsWorkFn fn, void* data)
 {
-  slsTask *self = malloc(sizeof(slsTask));
+  slsTask* self = malloc(sizeof(slsTask));
   sls_checkmem(self);
   self->fn = fn;
   self->pdata = data;
@@ -47,7 +51,8 @@ error:
   return NULL;
 }
 
-void sls_task_enqueue(slsTaskQueue *queue, slsTask *task)
+void
+sls_task_enqueue(slsTaskQueue* queue, slsTask* task)
 {
 
   if (!queue->head && !queue->end) {
@@ -56,7 +61,7 @@ void sls_task_enqueue(slsTaskQueue *queue, slsTask *task)
     return;
   } else if (queue->head && queue->end) {
     // enqueue into END of list
-    slsTask *old_end = queue->end;
+    slsTask* old_end = queue->end;
     old_end->next = task;
     queue->end = task;
   } else {
@@ -68,13 +73,14 @@ void sls_task_enqueue(slsTaskQueue *queue, slsTask *task)
   }
 }
 
-slsTask *sls_task_dequeue(slsTaskQueue *queue)
+slsTask*
+sls_task_dequeue(slsTaskQueue* queue)
 {
   if (!queue->head && !queue->end) {
     return NULL;
   } else if (queue->head && queue->end) {
 
-    slsTask *deq = queue->head;
+    slsTask* deq = queue->head;
     // dequeue from HEAD of list
     queue->head = deq->next;
     deq->next = NULL;
@@ -94,12 +100,13 @@ slsTask *sls_task_dequeue(slsTaskQueue *queue)
   }
 }
 
-void queue_reset_nodes(slsTaskQueue *queue)
+void
+queue_reset_nodes(slsTaskQueue* queue)
 {
   if (!queue->head) {
     return;
   }
-  for (slsTask *itor = queue->head; itor; itor = itor->next) {
+  for (slsTask* itor = queue->head; itor; itor = itor->next) {
     if (!itor->next) {
       queue->end = itor;
     }

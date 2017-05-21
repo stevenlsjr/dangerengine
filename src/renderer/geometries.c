@@ -7,25 +7,27 @@
  **/
 #include "geometries.h"
 
-slsMesh *parametric_sphere_mesh_complex(size_t n_steps, int normal_dir,
+slsMesh* parametric_sphere_mesh_complex(size_t n_steps,
+                                        int normal_dir,
                                         kmVec4 base_color);
 
-slsMesh *sls_interior_sphere_mesh(size_t n_steps)
+slsMesh* sls_interior_sphere_mesh(size_t n_steps)
 {
-  return parametric_sphere_mesh_complex(n_steps, -1,
-                                        (kmVec4){ 1.0, 1.0, 1.0, 1.0 });
+  return parametric_sphere_mesh_complex(
+    n_steps, -1, (kmVec4){ 1.0, 1.0, 1.0, 1.0 });
 }
 
-slsMesh *sls_parametric_sphere_mesh(size_t n_steps)
+slsMesh* sls_parametric_sphere_mesh(size_t n_steps)
 {
-  return parametric_sphere_mesh_complex(n_steps, 1,
-                                        (kmVec4){ 1.0, 1.0, 1.0, 1.0 });
+  return parametric_sphere_mesh_complex(
+    n_steps, 1, (kmVec4){ 1.0, 1.0, 1.0, 1.0 });
 }
 
-slsMesh *parametric_sphere_mesh_complex(size_t n_steps, int normal_dir,
+slsMesh* parametric_sphere_mesh_complex(size_t n_steps,
+                                        int normal_dir,
                                         kmVec4 base_color)
 {
-  slsMesh *mesh = NULL;
+  slsMesh* mesh = NULL;
 
   size_t _n_verts_alloced = n_steps * n_steps + 16 + 2 * n_steps;
 
@@ -34,8 +36,8 @@ slsMesh *parametric_sphere_mesh_complex(size_t n_steps, int normal_dir,
   size_t n_latitudes = n_steps;
   size_t n_longitudes = n_steps;
 
-  slsVertex *verts = calloc(_n_verts_alloced, sizeof(slsVertex));
-  uint32_t *idxs = calloc(_n_indices_alloced, sizeof(uint32_t));
+  slsVertex* verts = calloc(_n_verts_alloced, sizeof(slsVertex));
+  uint32_t* idxs = calloc(_n_indices_alloced, sizeof(uint32_t));
 
   float radius = 1.f;
 
@@ -79,7 +81,7 @@ slsMesh *parametric_sphere_mesh_complex(size_t n_steps, int normal_dir,
 
       memcpy(verts[n_vertices].position, &position, sizeof(float) * 3);
 
-      memcpy(verts[n_vertices].color, (float *)&base_color, sizeof(float) * 4);
+      memcpy(verts[n_vertices].color, (float*)&base_color, sizeof(float) * 4);
       memcpy(verts[n_vertices].normal, &normal, sizeof(float) * 3);
       memcpy(verts[n_vertices].uv, &uv, sizeof(float) * 2);
 
@@ -88,7 +90,7 @@ slsMesh *parametric_sphere_mesh_complex(size_t n_steps, int normal_dir,
     }
   }
 
-  uint32_t *index_itor = idxs;
+  uint32_t* index_itor = idxs;
 
   size_t n_indices = 0;
 
@@ -137,7 +139,7 @@ double sls_sphere_radius_at_height(double radius, double height)
   return sqrt((radius * radius) - height * height);
 }
 
-slsMesh *sls_cube_mesh(bool use_cubemap_texcoords)
+slsMesh* sls_cube_mesh(bool use_cubemap_texcoords)
 {
   slsVertex verts[] = { //
                         // front
@@ -258,7 +260,7 @@ slsMesh *sls_cube_mesh(bool use_cubemap_texcoords)
   };
 
   for (int j = 0; j < 6; ++j) {
-    uint32_t *iter = indices + j * 6;
+    uint32_t* iter = indices + j * 6;
     for (int i = 0; i < 6; ++i) {
       iter[i] += j * 4;
       printf("%u ", iter[i]);

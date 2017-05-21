@@ -39,10 +39,10 @@ typedef struct slsVec4Array {
  * @param identity. If n is less than 4, this will be inserted to the rest of
  *the values
  */
-sls4Vec4Simd *sls_simdvec_from_vec4s(sls4Vec4Simd *out, slsVec4Array const *in)
-    SLS_NONNULL(1, 2);
+sls4Vec4Simd* sls_simdvec_from_vec4s(sls4Vec4Simd* out, slsVec4Array const* in)
+  SLS_NONNULL(1, 2);
 
-static inline sls4Vec4Simd sls_simdvec_from_vec4s_val(slsVec4Array const *in)
+static inline sls4Vec4Simd sls_simdvec_from_vec4s_val(slsVec4Array const* in)
 {
   sls4Vec4Simd res;
   sls_simdvec_from_vec4s(&res, in);

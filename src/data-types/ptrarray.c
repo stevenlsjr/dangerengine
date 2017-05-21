@@ -45,27 +45,28 @@
 
 #define SLS_PTRARRAY_SIZE_INC 2
 
-slsPtrArray *sls_ptrarray_init(slsPtrArray *self, void **data,
-                               size_t n_elements, slsFreeFn free_fn)
+slsPtrArray* sls_ptrarray_init(slsPtrArray* self,
+                               void** data,
+                               size_t n_elements,
+                               slsFreeFn free_fn)
 {
   assert(self);
   if (!self) {
     return NULL;
   }
 
-  *self = (slsPtrArray){.data = NULL,
-                        .free_fn = free_fn,
-                        .n_elements = n_elements };
+  *self =
+    (slsPtrArray){.data = NULL, .free_fn = free_fn, .n_elements = n_elements };
 
   self->n_alloced = n_elements * 2;
 
   assert(self->n_alloced >= self->n_elements * 2);
 
-  self->data = calloc(self->n_alloced, sizeof(void *));
+  self->data = calloc(self->n_alloced, sizeof(void*));
   sls_checkmem(self->data);
 
   // copy data to array buffer
-  self->data = memcpy(self->data, data, n_elements * sizeof(void *));
+  self->data = memcpy(self->data, data, n_elements * sizeof(void*));
   sls_checkmem(self->data);
 
   return self;
@@ -79,7 +80,7 @@ error:
   return NULL;
 }
 
-slsPtrArray *sls_ptrarray_dtor(slsPtrArray *self)
+slsPtrArray* sls_ptrarray_dtor(slsPtrArray* self)
 {
   assert(self);
   if (!self) {
@@ -89,7 +90,7 @@ slsPtrArray *sls_ptrarray_dtor(slsPtrArray *self)
   if (self->data) {
     if (self->free_fn) {
       for (int i = 0; i < self->n_elements; ++i) {
-        void *ptr = self->data[i];
+        void* ptr = self->data[i];
         if (ptr) {
           self->free_fn(ptr);
         }
@@ -106,7 +107,7 @@ slsPtrArray *sls_ptrarray_dtor(slsPtrArray *self)
   return self;
 }
 
-void sls_ptrarray_reserve(slsPtrArray *self, size_t size)
+void sls_ptrarray_reserve(slsPtrArray* self, size_t size)
 {
   assert(self);
   if (!self) {
@@ -116,7 +117,7 @@ void sls_ptrarray_reserve(slsPtrArray *self, size_t size)
   size_t new_size = size;
 
   if (new_size > self->n_alloced) {
-    self->data = realloc(self->data, sizeof(void *) * new_size);
+    self->data = realloc(self->data, sizeof(void*) * new_size);
     sls_checkmem(self->data);
   }
 
@@ -127,7 +128,7 @@ error:
   return;
 }
 
-void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
+void sls_ptrarray_insert(slsPtrArray* self, size_t idx, void* ptr)
 {
   assert(self && ptr);
   if (!self || !ptr) {
@@ -136,7 +137,8 @@ void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
   sls_check(self->data, "self->data does is null");
 
   sls_check(idx <= self->n_elements,
-            "Index overflow: index %lu is greater than array sized %lu", idx,
+            "Index overflow: index %lu is greater than array sized %lu",
+            idx,
             self->n_elements);
 
   if (self->n_elements + 1 >= self->n_alloced) {
@@ -148,9 +150,9 @@ void sls_ptrarray_insert(slsPtrArray *self, size_t idx, void *ptr)
   if (offset > 0) {
     sls_check(self->data[0], "self->data has no values");
 
-    void **src = self->data + idx;
-    void **dest = src + 1;
-    void *res = memmove(dest, src, offset * sizeof(void *));
+    void** src = self->data + idx;
+    void** dest = src + 1;
+    void* res = memmove(dest, src, offset * sizeof(void*));
 
     sls_check(res == dest, "memmove failed! could not insert item into array");
   }
@@ -164,14 +166,17 @@ error:
   assert(0);
 }
 
-void *sls_ptrarray_remove(slsPtrArray *self, size_t idx) { return NULL; }
+void* sls_ptrarray_remove(slsPtrArray* self, size_t idx)
+{
+  return NULL;
+}
 
-void sls_ptrarray_append(slsPtrArray *self, void *ptr)
+void sls_ptrarray_append(slsPtrArray* self, void* ptr)
 {
   sls_ptrarray_insert(self, self->n_elements, ptr);
 }
 
-void sls_ptrarray_prepend(slsPtrArray *self, void *ptr)
+void sls_ptrarray_prepend(slsPtrArray* self, void* ptr)
 {
   sls_ptrarray_insert(self, 0, ptr);
 }

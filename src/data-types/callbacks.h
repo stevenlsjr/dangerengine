@@ -56,7 +56,7 @@ typedef struct slsCallbackTable slsCallbackTable;
  * @param data pointer to data for copying
  * @return copy of input data
  */
-typedef void *(*slsCopyFn)(void const *data);
+typedef void* (*slsCopyFn)(void const* data);
 
 /**
  * @brief function pointer type for freeing btree data
@@ -66,7 +66,7 @@ typedef void *(*slsCopyFn)(void const *data);
  * @param pointer to data [description]
  * @return [description]
  */
-typedef void (*slsFreeFn)(void *data);
+typedef void (*slsFreeFn)(void* data);
 
 /**
  * @brief function pointer type for comparing two orderable values
@@ -74,7 +74,7 @@ typedef void (*slsFreeFn)(void *data);
  * @return returns < 0 if lhs has a lower order,
  * > 0 if rhs has lower order, and 0 if they are equal
  */
-typedef int (*slsCmpFn)(void const *lhs, void const *rhs);
+typedef int (*slsCmpFn)(void const* lhs, void const* rhs);
 
 struct slsCallbackTable {
   slsFreeFn free_fn;
@@ -94,28 +94,28 @@ struct slsCallbackTable {
  * managing its memory within the structure. By default, storing
  * keys by assign removes const-safety.
  */
-void *sls_copy_assign(void const *ptr);
+void* sls_copy_assign(void const* ptr);
 
 /**
  * @brief copies a c-string passed as a void pointer
  */
-void *sls_copy_string(void const *str);
+void* sls_copy_string(void const* str);
 
 /**
  * @brief compares two c-strings passed as a void pointer
  */
-int sls_cmp_string(void const *a, void const *b);
+int sls_cmp_string(void const* a, void const* b);
 
 /**
  * @brief compares two pointers to integers passed as a void pointer
  */
-int sls_cmp_intptr(void const *a, void const *b);
+int sls_cmp_intptr(void const* a, void const* b);
 
 /**
  * @brief compares two pointers to unsigned integers passed as a void pointer
  */
-int sls_cmp_uintptr(void const *a, void const *b);
+int sls_cmp_uintptr(void const* a, void const* b);
 
-int sls_cmp_voidptr(void const *a, void const *b);
+int sls_cmp_voidptr(void const* a, void const* b);
 
 #endif // DANGERENGINE_CALLBACKS_H

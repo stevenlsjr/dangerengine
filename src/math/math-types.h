@@ -144,11 +144,11 @@ static inline kmQuaternion sls_quat_id()
   return q;
 }
 
-static inline void sls_log_mat4(kmMat4 const *mat)
+static inline void sls_log_mat4(kmMat4 const* mat)
 {
   sls_log_info("mat4x4 [");
   for (int j = 0; j < 4; j++) {
-    float const *row = mat->mat + j * 4;
+    float const* row = mat->mat + j * 4;
     fprintf(stderr, "\t%f %f %f %f\n", row[0], row[1], row[2], row[3]);
   }
   fprintf(stderr, "]");
@@ -157,24 +157,24 @@ static inline void sls_log_mat4(kmMat4 const *mat)
 /*---------------------------------------*
  * slsIPoint operations
  *---------------------------------------*/
-bool sls_ipoint_eq(slsIPoint const *a, slsIPoint const *b)
-    SLS_NONNULL(1, 2) SLS_PURE;
+bool sls_ipoint_eq(slsIPoint const* a, slsIPoint const* b)
+  SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_add(slsIPoint const *a, slsIPoint const *b)
-    SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_add(slsIPoint const* a, slsIPoint const* b)
+  SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_sub(slsIPoint const *a, slsIPoint const *b)
-    SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_sub(slsIPoint const* a, slsIPoint const* b)
+  SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_mul(slsIPoint const *a, slsIPoint const *b)
-    SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_mul(slsIPoint const* a, slsIPoint const* b)
+  SLS_NONNULL(1, 2) SLS_PURE;
 
-slsIPoint sls_ipoint_idiv(slsIPoint const *a, slsIPoint const *b)
-    SLS_NONNULL(1, 2) SLS_PURE;
+slsIPoint sls_ipoint_idiv(slsIPoint const* a, slsIPoint const* b)
+  SLS_NONNULL(1, 2) SLS_PURE;
 
-kmVec2 sls_ipoint_to_vec2(slsIPoint const *a) SLS_NONNULL(1) SLS_PURE;
+kmVec2 sls_ipoint_to_vec2(slsIPoint const* a) SLS_NONNULL(1) SLS_PURE;
 
-static inline kmVec2 sls_array_to_vec2(float const *arr)
+static inline kmVec2 sls_array_to_vec2(float const* arr)
 {
   kmVec2 v = {};
   const size_t size = 2;
@@ -187,7 +187,7 @@ static inline kmVec2 sls_array_to_vec2(float const *arr)
   return v;
 };
 
-static inline kmVec3 sls_array_to_vec3(float const *arr)
+static inline kmVec3 sls_array_to_vec3(float const* arr)
 {
   kmVec3 v = {};
   const size_t size = 3;
@@ -200,7 +200,7 @@ static inline kmVec3 sls_array_to_vec3(float const *arr)
   return v;
 };
 
-static inline kmVec4 sls_array_to_vec4(float const *arr)
+static inline kmVec4 sls_array_to_vec4(float const* arr)
 {
   kmVec4 v = {};
   const size_t size = 4;
@@ -213,7 +213,7 @@ static inline kmVec4 sls_array_to_vec4(float const *arr)
   return v;
 };
 
-kmMat4 *sls_mat4_normalmat(kmMat4 *out, kmMat4 const *modelview);
-kmMat4 *sls_mat4_invnormalmat(kmMat4 *out, kmMat4 const *modelview);
+kmMat4* sls_mat4_normalmat(kmMat4* out, kmMat4 const* modelview);
+kmMat4* sls_mat4_invnormalmat(kmMat4* out, kmMat4 const* modelview);
 
 #endif // DANGERENGINE_MATH_TYPES_H

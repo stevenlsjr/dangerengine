@@ -5,18 +5,18 @@
  * Copyright (c) 1/4/17, Steven
  *
  **/
-#include <math/math-types.h>
-#include <SDL2/SDL.h>
 #include "slsInputState.h"
+#include <SDL2/SDL.h>
+#include <math/math-types.h>
 
 struct slsInputState {
   slsIPoint last_mousepos;
   int last_mousemask;
 };
 
-slsInputState *sls_inputstate_new()
+slsInputState* sls_inputstate_new()
 {
-  slsInputState *self = calloc(1, sizeof(slsInputState));
+  slsInputState* self = calloc(1, sizeof(slsInputState));
   sls_checkmem(self);
   return self;
 error:
@@ -26,7 +26,7 @@ error:
   return NULL;
 }
 
-void sls_inputstate_delete(slsInputState *self)
+void sls_inputstate_delete(slsInputState* self)
 {
   sls_check(self, "slsInputState must be non-null");
 
@@ -36,14 +36,14 @@ error:
   return;
 }
 
-void sls_inputstate_update(slsInputState *self, double dt)
+void sls_inputstate_update(slsInputState* self, double dt)
 {
   // mouse update
   self->last_mousemask =
-      SDL_GetMouseState(&self->last_mousepos.x, &self->last_mousepos.y);
+    SDL_GetMouseState(&self->last_mousepos.x, &self->last_mousepos.y);
 }
 
-slsIPoint sls_inputstate_last_mousestate(slsInputState *self, int *mask)
+slsIPoint sls_inputstate_last_mousestate(slsInputState* self, int* mask)
 {
   slsIPoint result = self->last_mousepos;
   if (mask) {

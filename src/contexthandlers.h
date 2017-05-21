@@ -51,13 +51,16 @@
 /**
  * @brief initializes runtime libraries
  */
-bool sls_init(void);
+bool
+sls_init(void);
 
 /**
  * @brief terminates runtime libraries
  */
-void sls_terminate(void);
+void
+sls_terminate(void);
 
-bool sls_is_active(void);
+bool
+sls_is_active(void);
 
 #endif // DANGERENGINE_SLS_HANDLERS_H

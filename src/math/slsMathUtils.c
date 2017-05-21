@@ -43,7 +43,7 @@ bool sls_nearf(float a, float b, float epsilon)
   }
 }
 
-kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
+kmVec2* sls_vec2_from_angle(kmVec2* out, float rot)
 {
   if (out) {
     out->x = cosf(rot);
@@ -52,18 +52,24 @@ kmVec2 *sls_vec2_from_angle(kmVec2 *out, float rot)
   return out;
 }
 
-double sls_to_degrees(double radians) { return radians * 180.0 / M_PI; }
+double sls_to_degrees(double radians)
+{
+  return radians * 180.0 / M_PI;
+}
 
-double sls_to_radians(double degrees) { return degrees * M_PI / 180.0; }
+double sls_to_radians(double degrees)
+{
+  return degrees * M_PI / 180.0;
+}
 
-bool sls_vec2_near(kmVec2 const *a, kmVec2 const *b, float epsilon)
+bool sls_vec2_near(kmVec2 const* a, kmVec2 const* b, float epsilon)
 {
   assert(a && b);
 
   return sls_nearf(a->x, b->x, epsilon) && sls_nearf(a->y, b->y, epsilon);
 }
 
-kmVec2 sls_vec2p_add(kmVec2 const *rhs, kmVec2 const *lhs)
+kmVec2 sls_vec2p_add(kmVec2 const* rhs, kmVec2 const* lhs)
 {
   kmVec2 res;
 
@@ -72,7 +78,7 @@ kmVec2 sls_vec2p_add(kmVec2 const *rhs, kmVec2 const *lhs)
   return res;
 }
 
-kmVec2 sls_vec2p_sub(kmVec2 const *rhs, kmVec2 const *lhs)
+kmVec2 sls_vec2p_sub(kmVec2 const* rhs, kmVec2 const* lhs)
 {
   kmVec2 res;
   kmVec2Subtract(&res, rhs, lhs);
@@ -80,7 +86,7 @@ kmVec2 sls_vec2p_sub(kmVec2 const *rhs, kmVec2 const *lhs)
   return res;
 }
 
-kmVec2 sls_vec2p_mul(kmVec2 const *rhs, kmVec2 const *lhs)
+kmVec2 sls_vec2p_mul(kmVec2 const* rhs, kmVec2 const* lhs)
 {
   kmVec2 res;
   kmVec2Mul(&res, rhs, lhs);
@@ -88,7 +94,7 @@ kmVec2 sls_vec2p_mul(kmVec2 const *rhs, kmVec2 const *lhs)
   return res;
 }
 
-kmVec2 sls_vec2p_div(kmVec2 const *rhs, kmVec2 const *lhs)
+kmVec2 sls_vec2p_div(kmVec2 const* rhs, kmVec2 const* lhs)
 {
   kmVec2 res;
   kmVec2Div(&res, rhs, lhs);
@@ -96,14 +102,14 @@ kmVec2 sls_vec2p_div(kmVec2 const *rhs, kmVec2 const *lhs)
   return res;
 }
 
-kmVec3 sls_vec3p_add(kmVec3 const *rhs, kmVec3 const *lhs)
+kmVec3 sls_vec3p_add(kmVec3 const* rhs, kmVec3 const* lhs)
 {
   kmVec3 res;
   kmVec3Add(&res, rhs, lhs);
   return res;
 }
 
-kmVec3 sls_vec3p_sub(kmVec3 const *rhs, kmVec3 const *lhs)
+kmVec3 sls_vec3p_sub(kmVec3 const* rhs, kmVec3 const* lhs)
 {
   kmVec3 res;
   kmVec3Subtract(&res, rhs, lhs);
@@ -111,7 +117,7 @@ kmVec3 sls_vec3p_sub(kmVec3 const *rhs, kmVec3 const *lhs)
   return res;
 }
 
-kmVec3 sls_vec3p_mul(kmVec3 const *rhs, kmVec3 const *lhs)
+kmVec3 sls_vec3p_mul(kmVec3 const* rhs, kmVec3 const* lhs)
 {
   kmVec3 res;
   kmVec3Mul(&res, rhs, lhs);
@@ -119,7 +125,7 @@ kmVec3 sls_vec3p_mul(kmVec3 const *rhs, kmVec3 const *lhs)
   return res;
 }
 
-kmVec3 sls_vec3p_div(kmVec3 const *rhs, kmVec3 const *lhs)
+kmVec3 sls_vec3p_div(kmVec3 const* rhs, kmVec3 const* lhs)
 {
   kmVec3 res;
   kmVec3Div(&res, rhs, lhs);
@@ -127,7 +133,7 @@ kmVec3 sls_vec3p_div(kmVec3 const *rhs, kmVec3 const *lhs)
   return res;
 }
 
-kmVec4 sls_vec4p_add(kmVec4 const *rhs, kmVec4 const *lhs)
+kmVec4 sls_vec4p_add(kmVec4 const* rhs, kmVec4 const* lhs)
 {
   kmVec4 res;
   kmVec4Add(&res, rhs, lhs);
@@ -135,7 +141,7 @@ kmVec4 sls_vec4p_add(kmVec4 const *rhs, kmVec4 const *lhs)
   return res;
 }
 
-kmVec4 sls_vec4p_sub(kmVec4 const *rhs, kmVec4 const *lhs)
+kmVec4 sls_vec4p_sub(kmVec4 const* rhs, kmVec4 const* lhs)
 {
   kmVec4 res;
   kmVec4Subtract(&res, rhs, lhs);
@@ -143,7 +149,7 @@ kmVec4 sls_vec4p_sub(kmVec4 const *rhs, kmVec4 const *lhs)
   return res;
 }
 
-kmVec4 sls_vec4p_mul(kmVec4 const *rhs, kmVec4 const *lhs)
+kmVec4 sls_vec4p_mul(kmVec4 const* rhs, kmVec4 const* lhs)
 {
   kmVec4 res;
   kmVec4Mul(&res, rhs, lhs);
@@ -151,7 +157,7 @@ kmVec4 sls_vec4p_mul(kmVec4 const *rhs, kmVec4 const *lhs)
   return res;
 }
 
-kmVec4 sls_vec4p_div(kmVec4 const *rhs, kmVec4 const *lhs)
+kmVec4 sls_vec4p_div(kmVec4 const* rhs, kmVec4 const* lhs)
 {
   kmVec4 res;
   kmVec4Div(&res, rhs, lhs);

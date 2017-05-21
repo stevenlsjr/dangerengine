@@ -11,6 +11,7 @@
 #define DANGERENGINE_SLSUTILS_H
 
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -46,7 +47,8 @@ typedef enum slsBool {
  *
  * @return [description]
  */
-void *sls_objalloc(void const *prototype, size_t size);
+void*
+sls_objalloc(void const* prototype, size_t size);
 
 /**
  * @brief cross-platform chdir function.
@@ -54,11 +56,14 @@ void *sls_objalloc(void const *prototype, size_t size);
  * and returns value as specified by given function
  */
 
-int sls_chdir(char const *path) SLS_NONNULL(1);
+int
+sls_chdir(char const* path) SLS_NONNULL(1);
 
-void sls_drain_glerrors();
+void
+sls_drain_glerrors();
 
-uint32_t sls_debug_glerrors_impl_(char const *file, size_t line);
+uint32_t
+sls_debug_glerrors_impl_(char const* file, size_t line);
 
 #define STR_CAT(a, b) a #b
 #define sls_debug_glerrors() sls_debug_glerrors_impl_(__FILE__, __LINE__)

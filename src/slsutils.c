@@ -51,9 +51,10 @@
 
 #endif
 
-void *sls_objalloc(void const *prototype, size_t size)
+void*
+sls_objalloc(void const* prototype, size_t size)
 {
-  void *obj = NULL;
+  void* obj = NULL;
   obj = calloc(size, 1);
   sls_checkmem(obj);
   memcpy(obj, prototype, size);
@@ -63,7 +64,8 @@ error:
   return NULL;
 }
 
-int sls_chdir(char const *path)
+int
+sls_chdir(char const* path)
 {
 
   int res = 0;
@@ -77,13 +79,15 @@ int sls_chdir(char const *path)
   return res;
 }
 
-void sls_drain_glerrors()
+void
+sls_drain_glerrors()
 {
   while (glGetError() != GL_NO_ERROR) {
   }
 }
 
-uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
+uint32_t
+sls_debug_glerrors_impl_(char const* file, size_t line)
 {
   GLenum e = GL_NO_ERROR;
   GLenum first = GL_NO_ERROR;
@@ -91,7 +95,7 @@ uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
     if (first == GL_NO_ERROR) {
       first = e;
     }
-    char const *err_str;
+    char const* err_str;
     switch (e) {
       case GL_INVALID_VALUE:
         err_str = "GL_INVALID_VALUE";
@@ -105,16 +109,20 @@ uint32_t sls_debug_glerrors_impl_(char const *file, size_t line)
         err_str = "GL_INVALID_ENUM";
         break;
       default:
-        err_str = (char const *) gluGetString(e);
+        err_str = (char const*)"error not found!";
     }
-    fprintf(stderr, "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n", file, line,
-            e, err_str);
+    fprintf(stderr,
+            "file %s: line: %lu\n\tgl Error: 0x%x, %s\n\n",
+            file,
+            line,
+            e,
+            err_str);
   }
 
 #ifdef SLS_DEBUG_VERBOSE
   if (first == GL_NO_ERROR) {
-    fprintf(stderr, "file %s: line: %lu\n\tgl Error: none found\n\n", file,
-            line);
+    fprintf(
+      stderr, "file %s: line: %lu\n\tgl Error: none found\n\n", file, line);
   }
 #endif
   return first;

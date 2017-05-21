@@ -1,6 +1,8 @@
 # -*- yaml -*-
 ---
 BasedOnStyle: Mozilla
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
 BreakBeforeBraces: Linux
 ---
 Language: JavaScript

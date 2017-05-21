@@ -46,7 +46,6 @@
 #include "../slsutils.h"
 #include "array.h"
 #include "callbacks.h"
-#include "callbacks.h"
 #include "ptrarray.h"
 #include <stdlib.h>
 #
@@ -58,10 +57,10 @@ enum slsHashDataSize {
   SLS_STRING_LENGTH = 0,
   SLS_INT_LENGTH = sizeof(int),
   SLS_LONG_LENGTH = sizeof(long),
-  SLS_PTR_LENGTH = sizeof(void *)
+  SLS_PTR_LENGTH = sizeof(void*)
 };
 
-typedef uint64_t (*slsHashFn)(void const *key, size_t size);
+typedef uint64_t (*slsHashFn)(void const* key, size_t size);
 
 /**
  * @brief Entry for a hash table key.
@@ -71,10 +70,10 @@ typedef uint64_t (*slsHashFn)(void const *key, size_t size);
  */
 
 struct slsHashTable {
-  uint64_t *hashes;
-  void **keys;
-  size_t *key_sizes;
-  void **vals;
+  uint64_t* hashes;
+  void** keys;
+  size_t* key_sizes;
+  void** vals;
 
   /**
    * @brief the size of the hash table array;
@@ -91,51 +90,56 @@ struct slsHashTable {
 typedef struct slsHashItor slsHashItor;
 
 struct slsHashItor {
-  void **key;
-  void **val;
+  void** key;
+  void** val;
   size_t index;
-  slsHashTable *table;
+  slsHashTable* table;
 };
 
-slsHashTable *sls_hashtable_init(slsHashTable *self, size_t array_size,
+slsHashTable* sls_hashtable_init(slsHashTable* self,
+                                 size_t array_size,
                                  slsHashFn hash_fn,
-                                 slsCallbackTable const *key_cback,
-                                 slsCallbackTable const *val_cback)
-    SLS_NONNULL(1);
+                                 slsCallbackTable const* key_cback,
+                                 slsCallbackTable const* val_cback)
+  SLS_NONNULL(1);
 
-slsHashTable *sls_hashtable_dtor(slsHashTable *self) SLS_NONNULL(1);
+slsHashTable* sls_hashtable_dtor(slsHashTable* self) SLS_NONNULL(1);
 
-void sls_hashtable_reserve(slsHashTable *self, size_t n_items) SLS_NONNULL(1);
+void sls_hashtable_reserve(slsHashTable* self, size_t n_items) SLS_NONNULL(1);
 
-void const *sls_hashtable_insert(slsHashTable *self, void const *key,
-                                 size_t key_size, void const *val)
-    SLS_NONNULL(1, 2, 4);
-void sls_hashtable_remove(slsHashTable *self, void *key, size_t key_size)
-    SLS_NONNULL(1);
+void const* sls_hashtable_insert(slsHashTable* self,
+                                 void const* key,
+                                 size_t key_size,
+                                 void const* val) SLS_NONNULL(1, 2, 4);
+void sls_hashtable_remove(slsHashTable* self, void* key, size_t key_size)
+  SLS_NONNULL(1);
 
-void *sls_hashtable_find(slsHashTable *self, void const *key, size_t key_size)
-    SLS_NONNULL(1, 2);
+void* sls_hashtable_find(slsHashTable* self, void const* key, size_t key_size)
+  SLS_NONNULL(1, 2);
 
-void *sls_hashtable_findval(slsHashTable *self, void const *val)
-    SLS_NONNULL(1, 2);
+void* sls_hashtable_findval(slsHashTable* self, void const* val)
+  SLS_NONNULL(1, 2);
 
-bool sls_is_hash_sentinel(void const *val);
-void const *sls_hash_sentinel();
+bool sls_is_hash_sentinel(void const* val);
+void const* sls_hash_sentinel();
 
 //---------------------------------custom
-//callbacks---------------------------------------
+// callbacks---------------------------------------
 
-int sls_hashtable_cmp(slsHashTable *self, void const *lhs, void const *rhs,
-                      slsCmpFn cmp, size_t param_size);
+int sls_hashtable_cmp(slsHashTable* self,
+                      void const* lhs,
+                      void const* rhs,
+                      slsCmpFn cmp,
+                      size_t param_size);
 
-uint64_t sls_hash_fn_default(void const *val, size_t size);
+uint64_t sls_hash_fn_default(void const* val, size_t size);
 
-uint64_t sls_hash_cstr(char const *str);
+uint64_t sls_hash_cstr(char const* str);
 
-uint64_t sls_hash_sizeddata(void const *val, size_t size);
+uint64_t sls_hash_sizeddata(void const* val, size_t size);
 
-slsHashItor *sls_hashitor_first(slsHashTable *table, slsHashItor *itor)
-    SLS_NONNULL(1, 2);
-slsHashItor *sls_hashitor_next(slsHashItor *itor) SLS_NONNULL(1);
+slsHashItor* sls_hashitor_first(slsHashTable* table, slsHashItor* itor)
+  SLS_NONNULL(1, 2);
+slsHashItor* sls_hashitor_next(slsHashItor* itor) SLS_NONNULL(1);
 
 #endif // DANGERENGINE_HASHTABLE_H

@@ -41,20 +41,23 @@
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static bool sls_active_flag = false;
 
-static inline bool sls_init_sdl(uint32_t sdl_flags)
+static inline bool
+sls_init_sdl(uint32_t sdl_flags)
 {
   int sdl = SDL_Init(sdl_flags);
   sls_log_info("sdl created: %i", sdl);
   return sdl == 0;
 }
 
-static inline bool sls_init_img(int32_t img_flags)
+static inline bool
+sls_init_img(int32_t img_flags)
 {
   int32_t img = IMG_Init(img_flags);
   return (img & img_flags) == img_flags;
 }
 
-bool sls_init(void)
+bool
+sls_init(void)
 {
   sls_check(!sls_active_flag, "runtime is already active!");
 
@@ -76,7 +79,8 @@ error : {
 }
 }
 
-void sls_terminate(void)
+void
+sls_terminate(void)
 {
   if (!sls_active_flag) {
     return;
@@ -90,4 +94,8 @@ void sls_terminate(void)
   sls_active_flag = false;
 }
 
-bool sls_is_active(void) { return sls_active_flag; }
+bool
+sls_is_active(void)
+{
+  return sls_active_flag;
+}

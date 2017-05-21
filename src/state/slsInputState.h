@@ -16,12 +16,12 @@
  */
 typedef struct slsInputState slsInputState;
 
-slsInputState *sls_inputstate_new();
-void sls_inputstate_delete(slsInputState *state) SLS_NONNULL(1);
+slsInputState* sls_inputstate_new();
+void sls_inputstate_delete(slsInputState* state) SLS_NONNULL(1);
 
-void sls_inputstate_update(slsInputState *self, double dt) SLS_NONNULL(1);
+void sls_inputstate_update(slsInputState* self, double dt) SLS_NONNULL(1);
 
-slsIPoint sls_inputstate_last_mousestate(slsInputState *self, int *mask)
-    SLS_NONNULL(1);
+slsIPoint sls_inputstate_last_mousestate(slsInputState* self, int* mask)
+  SLS_NONNULL(1);
 
 #endif // DANGERENGINE_SLSINPUTSTATE_H

@@ -40,12 +40,12 @@
  * either expressed or implied, of Steven Shea.
 **/
 
-#include "../slsutils.h"
 #include "linkedlist.h"
+#include "../slsutils.h"
 #include <assert.h>
 
-slsLinkedList *sls_linked_list_init(slsLinkedList *self,
-                                    slsCallbackTable const *callbacks)
+slsLinkedList* sls_linked_list_init(slsLinkedList* self,
+                                    slsCallbackTable const* callbacks)
 {
   if (!self) {
     return NULL;
@@ -56,9 +56,9 @@ slsLinkedList *sls_linked_list_init(slsLinkedList *self,
   return self;
 }
 
-slsLinkedList *sls_linked_list_new(slsCallbackTable const *callbacks)
+slsLinkedList* sls_linked_list_new(slsCallbackTable const* callbacks)
 {
-  slsLinkedList *list = NULL;
+  slsLinkedList* list = NULL;
   list = calloc(sizeof(slsLinkedList), 1);
   sls_checkmem(list);
 
@@ -71,17 +71,17 @@ error:
   return NULL;
 }
 
-slsLinkedList *sls_linked_list_dtor(slsLinkedList *self)
+slsLinkedList* sls_linked_list_dtor(slsLinkedList* self)
 {
   if (!self) {
     return NULL;
   }
 
   if (self->head) {
-    slsListNode *head = self->head;
-    slsListNode *last = NULL;
+    slsListNode* head = self->head;
+    slsListNode* last = NULL;
     while (!head->next) {
-      slsListNode *next = sls_list_node_remove_ahead(head);
+      slsListNode* next = sls_list_node_remove_ahead(head);
       if (last == next) {
         sls_log_err("linked list %p failed to remove its nodes\n"
                     "expect memory error",
@@ -97,10 +97,12 @@ slsLinkedList *sls_linked_list_dtor(slsLinkedList *self)
   return self;
 }
 
-slsListNode *sls_list_node_new(void *data, slsListNode *prev, slsListNode *next,
-                               slsCallbackTable *callbacks)
+slsListNode* sls_list_node_new(void* data,
+                               slsListNode* prev,
+                               slsListNode* next,
+                               slsCallbackTable* callbacks)
 {
-  slsListNode *node = NULL;
+  slsListNode* node = NULL;
   node = calloc(sizeof(slsListNode), 1);
   sls_checkmem(node);
 
@@ -117,7 +119,7 @@ error:
   return NULL;
 }
 
-void sls_list_node_dtor(slsListNode *self)
+void sls_list_node_dtor(slsListNode* self)
 {
   if (!self) {
     return;
@@ -125,8 +127,10 @@ void sls_list_node_dtor(slsListNode *self)
 
   if (self->prev || self->next) {
     sls_log_warn(
-        "destroyed list node %p is still linked to other nodes (%p %p)", self,
-        self->prev, self->next);
+      "destroyed list node %p is still linked to other nodes (%p %p)",
+      self,
+      self->prev,
+      self->next);
     if (self->prev) {
       self->prev->next = NULL;
     }
@@ -142,12 +146,12 @@ void sls_list_node_dtor(slsListNode *self)
   free(self);
 }
 
-void sls_list_node_insert_ahead(slsListNode *self, slsListNode *new_node)
+void sls_list_node_insert_ahead(slsListNode* self, slsListNode* new_node)
 {
   if (!self || !new_node) {
     return;
   }
-  slsListNode *next = self->next;
+  slsListNode* next = self->next;
   new_node->next = next;
   self->next = new_node;
   new_node->prev = self;
@@ -157,12 +161,12 @@ void sls_list_node_insert_ahead(slsListNode *self, slsListNode *new_node)
   }
 }
 
-slsListNode *sls_list_node_remove_ahead(slsListNode *self)
+slsListNode* sls_list_node_remove_ahead(slsListNode* self)
 {
   assert(self);
-  slsListNode *removed = self->next;
+  slsListNode* removed = self->next;
   if (removed) {
-    slsListNode *new_next = removed->next;
+    slsListNode* new_next = removed->next;
     removed->prev = NULL;
     removed->next = NULL;
     self->next = new_next;
