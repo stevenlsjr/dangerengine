@@ -37,6 +37,7 @@
 **/
 
 #include "contexthandlers.h"
+#include "sls-commonlibs.h"
 
 static pthread_mutex_t sls_active_flag_mutex = PTHREAD_MUTEX_INITIALIZER;
 static bool sls_active_flag = false;

@@ -1,0 +1,18 @@
+/**
+ * @file ${FILE}
+ * @brief
+ * @license ${LICENSE}
+ * Copyright (c) 2015-present, Steven Shea
+ *
+ **/
+#ifndef SLS_CMAKE_CONFIG_H
+#define SLS_CMAKE_CONFIG_H
+
+/**
+ * if defined, search for resources
+ * in compile-time source folder
+ * otherwise, use in relation to executable
+ **/
+#cmakedefine SLS_IN_SOURCE_RESOURCES
+
+#endif

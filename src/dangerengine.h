@@ -39,9 +39,7 @@
 #ifndef DANGERENGINE_DANGERENGINE_H
 #define DANGERENGINE_DANGERENGINE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <data-types/slsutils.h>
 
 #include "contexthandlers.h"
 #include "data-types/dangertypes.h"
@@ -56,13 +54,6 @@ extern "C" {
 #include "sls-gl.h"
 #include "sls-imagelib.h"
 #include "slscontext.h"
-#include "slsutils.h"
-#include "slsworkqueue.h"
 
-#include "state/resourceutils.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // DANGERENGINE_DANGERENGINE_H

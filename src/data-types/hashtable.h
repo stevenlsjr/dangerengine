@@ -43,7 +43,7 @@
 #ifndef DANGERENGINE_HASHTABLE_H
 #define DANGERENGINE_HASHTABLE_H
 
-#include "../slsutils.h"
+#include "slsutils.h"
 #include "array.h"
 #include "callbacks.h"
 #include "ptrarray.h"

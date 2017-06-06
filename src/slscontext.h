@@ -9,11 +9,9 @@
 #ifndef DANGERENGINE_SLSCONTEXT_H
 #define DANGERENGINE_SLSCONTEXT_H
 
-#include "sls-gl.h"
-#include "slsutils.h"
-#include "slsworkqueue.h"
+#include <sls-commonlibs.h>
+#include "data-types/slsutils.h"
 #include "state/slsAppState.h"
-#include <SDL2/SDL.h>
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
@@ -25,7 +23,6 @@ struct slsContext {
   SDL_Window* window;
   SDL_GLContext gl_context;
 
-  slsWorkScheduler queue;
 
   long frame_n;
 
@@ -34,6 +31,7 @@ struct slsContext {
   slsContext_p* priv;
 
   slsAppState* state;
+
 
   void* data;
 };

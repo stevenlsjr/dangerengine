@@ -36,7 +36,7 @@
 **/
 
 #include "array.h"
-#include "../slsutils.h"
+#include "slsutils.h"
 #include <stdlib.h>
 #include <string.h>
 

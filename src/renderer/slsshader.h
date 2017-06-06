@@ -46,13 +46,11 @@
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 #include <sls-gl.h>
-#include <slsutils.h>
+#include <data-types/slsutils.h>
 
 typedef struct slsShader slsShader;
 typedef struct slsUniformLocations slsUniformLocations;
 typedef struct slsAttrLocations slsAttrLocations;
-typedef enum slsDefaultUnifLocations slsDefaultUnifLocations;
-typedef enum slsDefaultAttribLocations slsDefaultAttribLocations;
 
 enum slsDefaultUnifLocations {
   SLS_UNIF_MODEL_VIEW,
@@ -82,6 +80,10 @@ enum slsDefaultAttribLocations {
   SLS_ATTRIB_COLOR = 3,
   SLS_ATTRIB_LOCATIONS_LAST
 };
+
+typedef enum slsDefaultUnifLocations slsDefaultUnifLocations;
+typedef enum slsDefaultAttribLocations slsDefaultAttribLocations;
+
 
 /**
  * @brief struct storing attribute locations for default shaders

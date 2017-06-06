@@ -4,7 +4,7 @@
 
 #include <time.h>
 #include <gtest/gtest.h>
-#include "../src/dangerengine.h"
+#include <dangerengine.h>
 #include <sysexits.h>
 #include <kazmath/kazmath.h>
 #include <iostream>
@@ -158,93 +158,6 @@ static inline kmMat4 *sls_mat4simd_mul(kmMat4 *out, kmMat4 const *lhs,
   return out;
 }
 
-class SimdTests : public Test {
-protected:
-  chrono::high_resolution_clock hpc;
-  default_random_engine rng;
-  uniform_real_distribution<float> dist;
-
-  slsVec4Array va;
-  slsVec4Array vb;
-
-  vector<kmVec4> vecs_a;
-  vector<kmVec4> vecs_b;
-
-  virtual void SetUp() override
-  {
-    dist = uniform_real_distribution<float>(0.0, 20.0);
-
-    for (auto i = 0; i < 4; ++i) {
-      va.arr[i] = {dist(rng), dist(rng), dist(rng), 1.0};
-      vb.arr[i] = {dist(rng), dist(rng), dist(rng), 0.0};
-    }
-
-    for (auto i = 0; i < 100; ++i) {
-
-      vecs_a.push_back(kmVec4{ dist(rng), dist(rng), dist(rng), dist(rng) });
-      vecs_b.push_back(kmVec4{ dist(rng), dist(rng), dist(rng), dist(rng) });
-    }
-  }
-
-  virtual void TearDown() override {}
-};
-
-TEST_F(SimdTests, Mat4Mul)
-{
-  kmMat4 a = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f,
-               0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-
-  kmMat4 b = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f,
-               0.0f, 0.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-
-  kmMat4 expect = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 4.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-
-  kmMat4 out, out2;
-
-  EXPECT_EQ(expect, *kmMat4Multiply(&out, &a, &b));
-
-  EXPECT_TRUE(bool(sls_mat4simd_mul(&out2, &a, &b)));
-
-  EXPECT_EQ(out, out2);
-}
-
-TEST_F(SimdTests, BatchedMul)
-{
-  ASSERT_EQ(vecs_a.size(), vecs_b.size());
-  const auto size = vecs_a.size();
-  vector<kmVec4> res_scalar(size);
-  vector<kmVec4> res_simd(size);
-
-  auto start = hpc.now();
-  for (size_t i = 0; i < size; ++i) {
-    res_scalar[i].x = kmVec4Dot(&vecs_a[i], &vecs_b[i]);
-  }
-
-  auto scalar_time = hpc.now() - start;
-  start = hpc.now();
-  for (size_t i = 0; i < size; ++i) {
-    __m128 a = _mm_loadu_ps(&vecs_a[i].x);
-    __m128 b = _mm_loadu_ps(&vecs_b[i].x);
-#if 0
-    __m128 dest = _mm_mul_ps(a, b);
-    dest = _mm_hadd_ps(dest, dest);
-    dest = _mm_hadd_ps(dest, dest);
-#else
-    __m128 dest = _mm_dp_ps(a, b, 0x55);
-#endif
-    _mm_store_ss(&res_simd[i].x, dest);
-  }
-  auto simd_time = hpc.now() - start;
-
-  for (auto i = 0; i < size; ++i) {
-    EXPECT_FLOAT_EQ(res_scalar[i].x, res_simd[i].x);
-  }
-
-  cout << "simd time: " << duration_cast<nanoseconds>(simd_time).count()
-       << "\nscalar time: " << duration_cast<nanoseconds>(scalar_time).count()
-       << "\n";
-}
 
 static constexpr int N_ITER = 10;
 

@@ -39,7 +39,7 @@
 
 #include <stdlib.h>
 
-#include "../slsutils.h"
+#include "slsutils.h"
 
 static const size_t max_string_len = (size_t)500e6; // 500 megabytes
 

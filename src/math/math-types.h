@@ -8,10 +8,12 @@
 #ifndef DANGERENGINE_MATH_TYPES_H
 #define DANGERENGINE_MATH_TYPES_H
 
-#include "../slsutils.h"
+#include <sls-commonlibs.h>
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 #include <string.h>
+
+SLS_BEGIN_CDECLS
 
 /**
  * @brief simple structure for a integer point
@@ -216,4 +218,6 @@ static inline kmVec4 sls_array_to_vec4(float const* arr)
 kmMat4* sls_mat4_normalmat(kmMat4* out, kmMat4 const* modelview);
 kmMat4* sls_mat4_invnormalmat(kmMat4* out, kmMat4 const* modelview);
 
+
+SLS_END_CDECLS
 #endif // DANGERENGINE_MATH_TYPES_H

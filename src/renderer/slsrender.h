@@ -29,8 +29,8 @@ struct slsRendererGL {
   int width, height;
 
   // currently rendering one mesh at a time
-  slsShader* active_shader;
-  slsMesh* active_mesh;
+  slsShader *active_shader;
+  slsMesh *active_mesh;
 };
 
 /**
@@ -50,31 +50,29 @@ typedef enum slsProjectionType {
  * @param height
  * @return
  */
-slsRendererGL* sls_renderer_init(slsRendererGL* self, int width, int height)
-  SLS_NONNULL(1);
+slsRendererGL *sls_renderer_init(slsRendererGL *self, int width, int height)
+SLS_NONNULL(1);
 
 /**
  * Destroys renderer
  * @param self
  * @return
  */
-slsRendererGL* sls_renderer_dtor(slsRendererGL* self);
-
-SLS_NONNULL(1)
+slsRendererGL *sls_renderer_dtor(slsRendererGL *self) SLS_NONNULL(1);
 
 /**
  * draws rendered scene via OpenGL
  * @param self
  */
-void sls_renderer_display(slsRendererGL* self) SLS_NONNULL(1);
+void sls_renderer_display(slsRendererGL *self) SLS_NONNULL(1);
 
-void sls_renderer_resize(slsRendererGL* self, int width, int height)
-  SLS_NONNULL(1);
+void sls_renderer_resize(slsRendererGL *self, int width, int height)
+SLS_NONNULL(1);
 
-void sls_renderer_draw_mesh(slsRendererGL* self,
-                            slsMesh* mesh,
-                            slsShader* shader,
-                            kmMat4* model_view);
+void sls_renderer_draw_mesh(slsRendererGL *self,
+                            slsMesh *mesh,
+                            slsShader *shader,
+                            kmMat4 *model_view);
 
 SLS_END_CDECLS
 

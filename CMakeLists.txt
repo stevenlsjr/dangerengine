@@ -61,8 +61,6 @@ set(DANGER_SRC
     src/math/slsSimd.h
     src/math/slsTrackball.c
     src/math/slsTrackball.h
-    src/renderer/geometries.c
-    src/renderer/geometries.h
     src/renderer/shaderutils.c
     src/renderer/shaderutils.h
     src/renderer/slsmesh.c
@@ -77,10 +75,6 @@ set(DANGER_SRC
     src/slscontext.c
     src/slscontext.h
     src/slsmacros.h
-    src/slsutils.c
-    src/slsutils.h
-    src/slsworkqueue.c
-    src/slsworkqueue.h
     src/state/slsAppState.c
     src/state/slsAppState.h
     src/state/slsInputState.c
@@ -97,7 +91,7 @@ set(DANGER_TEST_SRC
     tests/main.cc
     tests/math_tests.cc
     tests/utiltests.cc
-    tests/workqueue_tests.cc)
+    )
 
 
 set(DANGER_DEMO_SRC
@@ -143,10 +137,11 @@ set(KAZMATH_BUILD_TESTS OFF CACHE BOOLEAN "kazmath build tests")
 #chipmunk
 set(BUILD_DEMOS OFF FORCE)
 
+# cmake config file
+configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/src/config.h)
 
 set(CMAKE_LINK_LIBRARY_FLAGS "${CMAKE_LINK_LIBRARY_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
 set(CMAKE_LINK_EXE_FLAGS "${CMAKE_LINK_EXE_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
-
 set(DANGER_DEPS
     ${DANGERTYPES_LIB}
     ${DANGER_PTHREAD_LIB}
@@ -174,6 +169,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/extern/lib
     ${CMAKE_SOURCE_DIR}/extern/kazmath
     ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/data-types
     ${CMAKE_BINARY_DIR}/src
     ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
     ${SDL2_INCLUDE_DIRS}/SDL2
@@ -233,10 +229,7 @@ target_link_libraries(demo
 add_subdirectory(extern/googletest/googlemock)
 
 add_executable(tests ${DANGER_TEST_SRC})
-add_dependencies(tests
-    gtest
-    gtest_main
-    dangerengine)
+add_dependencies(tests dangerengine)
 target_link_libraries(tests
     dangerengine
     ${DANGER_DEPS}

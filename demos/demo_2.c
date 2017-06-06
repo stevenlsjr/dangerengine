@@ -6,7 +6,6 @@
  *
  **/
 #include <dangerengine.h>
-#include "renderer/geometries.h"
 
 int main(int argc, char **argv)
 {

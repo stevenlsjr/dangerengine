@@ -48,8 +48,10 @@
 #include <stddef.h>
 
 #include "callbacks.h"
-#include <slsutils.h>
+#include <data-types/slsutils.h>
 #include <stdlib.h>
+
+SLS_BEGIN_CDECLS
 
 typedef struct slsArray slsArray;
 typedef struct slsArray_p slsArray_p;
@@ -151,5 +153,8 @@ slsArray* sls_array_dtor(slsArray* self);
 #define SLS_ARRAY_FOREACH(array, itor)                                         \
   for ((itor) = sls_arrayitor_begin((array), (itor)); (itor);                  \
        (itor) = sls_arrayitor_next((itor)))
+
+
+SLS_END_CDECLS
 
 #endif // DANGERENGINE_ARRAY_H

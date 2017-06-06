@@ -106,8 +106,6 @@ sls_context_init(slsContext* self,
     sls_check(res, "initialization failed!");
   }
 
-  // initialize work queue
-  sls_workscheduler_init(&self->queue);
   // create sdl window
 
   window_flags =
@@ -123,16 +121,33 @@ sls_context_init(slsContext* self,
 
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-  int gl_major = 4, gl_minor = 1;
-  int gl_fb_major = 2, gl_fb_minor = 1;
+  struct gl_version {int major; int minor;};
 
+  struct gl_version versions[] = {
+      {4, 5},
+      {4, 4},
+      {4, 1},
+      {3, 3},
+      {3, 1}
+  };
+
+  self->gl_context = NULL;
   int context_profile = SDL_GL_CONTEXT_PROFILE_CORE;
-
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, context_profile);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_major);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_major);
 
-  self->gl_context = SDL_GL_CreateContext(self->window);
+  //SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+  SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG );
+  for (int i=0; !self->gl_context && i< sizeof(versions)/sizeof(*versions); ++i) {
+
+    struct gl_version v = versions[i];
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, v.major);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, v.major);
+    self->gl_context = SDL_GL_CreateContext(self->window);
+  }
+
+
 
   glewExperimental = GL_TRUE;
   glew = glewInit();
@@ -203,7 +218,6 @@ sls_context_dtor(slsContext* self)
   if (self->state) {
     free(sls_app_state_deinit(self->state));
   }
-  sls_workscheduler_dtor(&self->queue);
   // free private members
   if (self->priv) {
     sls_renderer_dtor(&self->priv->renderer);
@@ -302,9 +316,7 @@ sls_context_setup(slsContext* self)
   glEnable(GL_BLEND);
   glEnable(GL_POINT_SIZE);
 
-#ifndef SLS_APPLE_GL
   glEnable(GL_POINT_SPRITE);
-#endif
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

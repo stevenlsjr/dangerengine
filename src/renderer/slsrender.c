@@ -4,7 +4,6 @@ static void scene_setup(slsRendererGL* self);
 
 slsRendererGL* sls_renderer_init(slsRendererGL* self, int width, int height)
 {
-  const size_t n_render_items = 0x100;
   scene_setup(self);
   sls_renderer_resize(self, width, height);
 
@@ -15,9 +14,6 @@ static void scene_setup(slsRendererGL* self)
 {
   kmMat4Translation(&self->root_modelview, 0.f, 0.f, -5.f);
 
-  return;
-error:
-  exit(EXIT_FAILURE);
 }
 
 slsRendererGL* sls_renderer_dtor(slsRendererGL* self)
@@ -65,7 +61,6 @@ void sls_renderer_draw_mesh(slsRendererGL* self,
     size_t elements = mesh->indices.length;
     sls_drain_glerrors();
     // glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
-    sls_debug_glerrors();
   }
   sls_mesh_unbind();
 

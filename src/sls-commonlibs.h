@@ -8,19 +8,19 @@
 #ifndef DANGERENGINE_SLS_COMMONLIBS_H
 #define DANGERENGINE_SLS_COMMONLIBS_H
 
-#include "slsutils.h"
+#include "data-types/slsutils.h"
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <vendor.h>
 
 #include <assert.h>
 #include <errno.h>
 #include <inttypes.h>
 
 #include <kazmath/kazmath.h>
+
+#include <pthread.h>
 
 #include <signal.h>
 #include <stdbool.h>

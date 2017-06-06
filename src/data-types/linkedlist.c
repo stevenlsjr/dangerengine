@@ -41,7 +41,7 @@
 **/
 
 #include "linkedlist.h"
-#include "../slsutils.h"
+#include "slsutils.h"
 #include <assert.h>
 
 slsLinkedList* sls_linked_list_init(slsLinkedList* self,
