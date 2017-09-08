@@ -51,7 +51,4 @@ slsAppState* sls_app_state_deinit(slsAppState* self)
 void sls_app_state_update(slsAppState* self, double dt)
 {
   sls_inputstate_update(self->input, dt);
-  slsRendererGL* r = self->renderer;
-  r->active_mesh = &self->mesh;
-  r->active_shader = &self->mesh_shader;
 }

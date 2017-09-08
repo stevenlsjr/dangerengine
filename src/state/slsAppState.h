@@ -13,10 +13,15 @@
 #include <renderer/slsrender.h>
 
 typedef struct slsAppState slsAppState;
-
+/**
+ * @details
+ * State for a simple 2d tank game. includes gpu resources as
+ * well as game states. In future, this can be migrated to a swappable
+ * game module.
+ */
 struct slsAppState {
-  slsInputState* input;
-  slsRendererGL* renderer;
+  slsInputState *input;
+  slsRendererGL *renderer;
 
   // TODO: Scene description object
 
@@ -24,9 +29,10 @@ struct slsAppState {
   slsMesh mesh;
 };
 
-slsAppState* sls_app_state_init(slsAppState* self, slsRendererGL* renderer);
-slsAppState* sls_app_state_deinit(slsAppState* self);
+slsAppState *sls_app_state_init(slsAppState *self, slsRendererGL *renderer);
 
-void sls_app_state_update(slsAppState* self, double dt);
+slsAppState *sls_app_state_deinit(slsAppState *self);
+
+void sls_app_state_update(slsAppState *self, double dt);
 
 #endif // DANGERENGINE_SLSAPPSTATE_H

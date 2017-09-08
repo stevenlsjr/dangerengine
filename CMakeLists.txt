@@ -84,14 +84,9 @@ set(DANGER_SRC
 
 #tests  compiled  in  c++
 set(DANGER_TEST_SRC
-    tests/data-types/array-tests.cc
-    tests/data-types/hash-tests.cc
-    tests/data-types/list-tests.cc
-    tests/data-types/ptrarray-tests.cc
     tests/main.cc
-    tests/math_tests.cc
-    tests/utiltests.cc
-    )
+    tests/data-types/data-tests.h
+    tests/testing.h)
 
 
 set(DANGER_DEMO_SRC
@@ -126,16 +121,19 @@ add_custom_target(sls_resources
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
+
+#kazmath
+option(KAZMATH_BUILD_JNI_WRAPPER OFF)
+option(KAZMATH_BUILD_TESTS OFF )
+
+#chipmunk
+option(BUILD_TESTS OFF)
+option(BUILD_DEMOS OFF)
+
 add_subdirectory(extern/Chipmunk2D)
 add_subdirectory(extern/kazmath)
 add_subdirectory(src/data-types)
 
-#kazmath
-set(KAZMATH_BUILD_JNI_WRAPPER OFF CACHE BOOLEAN "kazmath build tests")
-set(KAZMATH_BUILD_TESTS OFF CACHE BOOLEAN "kazmath build tests")
-
-#chipmunk
-set(BUILD_DEMOS OFF FORCE)
 
 # cmake config file
 configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/src/config.h)
@@ -164,20 +162,14 @@ link_directories(${SDL2_LIBRARY_DIRS}
     ${GLIB_LIBRARY_DIRS})
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/extern/googletest/googlemock/include
-    ${CMAKE_SOURCE_DIR}/extern/googletest/googletest/include
     ${CMAKE_SOURCE_DIR}/extern/lib
     ${CMAKE_SOURCE_DIR}/extern/kazmath
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/data-types
-    ${CMAKE_BINARY_DIR}/src
-    ${SDL2_IMAGE_INCLUDE_DIRS}/SDL2
-    ${SDL2_INCLUDE_DIRS}/SDL2
-    ${APR_INCLUDE_DIRS}
-    ${APR_UTIL_INCLUDE_DIRS}
     ${GLEW_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
     ${SDL2_INCLUDE_DIR}
+    ${GLIB_INCLUDE_DIRS}
 )
 
 
@@ -226,15 +218,11 @@ target_link_libraries(demo
 
 
 # don't use googletest when emscripten is the platform
-add_subdirectory(extern/googletest/googlemock)
 
 add_executable(tests ${DANGER_TEST_SRC})
-add_dependencies(tests dangerengine)
 target_link_libraries(tests
     dangerengine
-    ${DANGER_DEPS}
-    gtest
-    gtest_main)
+    ${DANGER_DEPS})
 
 
 if (DOXYGEN_FOUND)

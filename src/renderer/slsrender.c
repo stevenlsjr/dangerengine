@@ -1,3 +1,4 @@
+#include <state/slsAppState.h>
 #include "slsrender.h"
 
 static void scene_setup(slsRendererGL* self);
@@ -21,12 +22,8 @@ slsRendererGL* sls_renderer_dtor(slsRendererGL* self)
   return self;
 }
 
-void sls_renderer_display(slsRendererGL* self)
+void sls_renderer_display(slsRendererGL *self, slsAppState *state)
 {
-  if (self->active_mesh && self->active_shader) {
-    sls_renderer_draw_mesh(
-      self, self->active_mesh, self->active_shader, &self->root_modelview);
-  }
 }
 
 void sls_renderer_resize(slsRendererGL* self, int width, int height)
@@ -59,8 +56,7 @@ void sls_renderer_draw_mesh(slsRendererGL* self,
   sls_mesh_bindbuffers(mesh);
   {
     size_t elements = mesh->indices.length;
-    sls_drain_glerrors();
-    // glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
+    //glDrawElements(GL_TRIANGLES, (int) elements, GL_UNSIGNED_INT, NULL);
   }
   sls_mesh_unbind();
 

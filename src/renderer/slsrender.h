@@ -12,11 +12,13 @@
 #include "slsmesh.h"
 #include <kazmath/kazmath.h>
 #include <slsmacros.h>
+#include <state/slsAppState.h>
 
 SLS_BEGIN_CDECLS
 
 typedef struct slsRendererGL slsRendererGL;
 typedef struct slsRenderList slsRenderList;
+typedef struct slsAppState slsAppState;
 
 /**
  * @brief opengl renderer instance
@@ -28,9 +30,7 @@ struct slsRendererGL {
 
   int width, height;
 
-  // currently rendering one mesh at a time
-  slsShader *active_shader;
-  slsMesh *active_mesh;
+
 };
 
 /**
@@ -64,7 +64,7 @@ slsRendererGL *sls_renderer_dtor(slsRendererGL *self) SLS_NONNULL(1);
  * draws rendered scene via OpenGL
  * @param self
  */
-void sls_renderer_display(slsRendererGL *self) SLS_NONNULL(1);
+void sls_renderer_display(slsRendererGL *self, slsAppState *state) SLS_NONNULL(1, 2);
 
 void sls_renderer_resize(slsRendererGL *self, int width, int height)
 SLS_NONNULL(1);

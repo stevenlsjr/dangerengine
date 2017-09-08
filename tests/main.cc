@@ -2,23 +2,21 @@
 // Created by Steven on 4/27/15.
 //
 
-#include <gtest/gtest.h>
-
-using namespace std;
+#include <glib-2.0/glib.h>
+#include <dangerengine.h>
+#include "data-types/data-tests.h"
 
 
 int main(int argc, char **argv)
 {
-  ::testing::InitGoogleTest(&argc, argv);
+  g_test_init(&argc, &argv, NULL);
 
-#ifdef WIN32
-  // prevents visual studio from exiting early
-  auto res = RUN_ALL_TESTS();
-  getchar();
-  return res;
+  g_test_add_func("/sanity/sanity-test", []() {
+    g_assert_true(false);
+  });
 
-#else
-  return RUN_ALL_TESTS();
-#endif
-
+  void data_tests_main();
+  data_tests_main();
+  g_test_set_nonfatal_assertions();
+  return g_test_run();
 }

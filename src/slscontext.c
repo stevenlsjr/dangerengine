@@ -293,7 +293,7 @@ sls_context_update(slsContext* self, double dt)
 void
 sls_context_display(slsContext* self, double dt)
 {
-  sls_renderer_display(&self->priv->renderer);
+  sls_renderer_display(&self->priv->renderer, self->state);
 }
 
 void
