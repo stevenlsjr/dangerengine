@@ -4,7 +4,8 @@
 
 #include <glib-2.0/glib.h>
 #include <dangerengine.h>
-#include "data-types/data-tests.h"
+
+extern "C" void data_tests_main();
 
 
 int main(int argc, char **argv)
@@ -12,10 +13,9 @@ int main(int argc, char **argv)
   g_test_init(&argc, &argv, NULL);
 
   g_test_add_func("/sanity/sanity-test", []() {
-    g_assert_true(false);
+    g_assert_true(true);
   });
 
-  void data_tests_main();
   data_tests_main();
   g_test_set_nonfatal_assertions();
   return g_test_run();

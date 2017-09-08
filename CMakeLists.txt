@@ -85,7 +85,7 @@ set(DANGER_SRC
 #tests  compiled  in  c++
 set(DANGER_TEST_SRC
     tests/main.cc
-    tests/data-types/data-tests.h
+    tests/data-types/data-tests.c
     tests/testing.h)
 
 

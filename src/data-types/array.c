@@ -156,6 +156,17 @@ error:
   return NULL;
 }
 
+
+void *sls_array_get_or_fail(slsArray *self, size_t i)
+{
+  void *res = sls_array_get(self, i);
+  if (!res){
+    raise(SIGABRT);
+  }
+  return res;
+}
+
+
 void const* sls_array_cget(slsArray const* self, size_t i)
 {
   return sls_array_get((slsArray*)self, i);
@@ -180,39 +191,51 @@ void sls_array_set(slsArray* self, size_t i, void* value)
 
 void sls_array_insert(slsArray* self, size_t i, void* value)
 {
+  sls_array_insert_array(self, i, value, 1);
+}
+
+void sls_array_insert_array(slsArray *self, size_t i, const void *values, size_t data_n_elements)
+{
   if (!self || !self->priv) {
     return;
   }
   slsArray_p* p = self->priv;
-  size_t len = p->length;
-  size_t newlen = len + 1;
-  size_t newsize = newlen * p->element_size;
+  const size_t len = p->length;
+  const size_t newlen = len + data_n_elements;
+  const size_t newsize = newlen * p->element_size;
+  const size_t insert_size = data_n_elements * p->element_size;
   sls_check(i <= len, "index %lu cannot be appended above %lu", i, len);
 
   // resize array if necessary
+  size_t new_alloc_size = newsize;
   if (newsize >= p->alloc_size) {
-    newsize = p->alloc_size > 2 ? p->alloc_size * 2 : 8;
-    sls_array_reserve(self, newsize);
+    new_alloc_size = p->alloc_size > 2 ? p->alloc_size * 2 : 8;
+    sls_array_reserve(self, new_alloc_size);
   }
 
   // now shift bytes determined by offset size
   size_t items_offset = len - i;
-  if (items_offset > 0) {
-    char* src =
+
+  // location to insert new array
+  // if necessary, move existing items
+  char* insert_start_point =
       p->array +
-      i * p->element_size; // location which inserted value is offseting
-    char* offset = src + p->element_size;
-    memmove(offset, src, p->element_size * items_offset);
+      i * p->element_size; // location which inserted values is offseting
+  if (items_offset > 0) {
+
+    char* offset = insert_start_point + p->element_size;
+    memmove(offset, insert_start_point, p->element_size * items_offset);
   }
 
-  // set value and increment length
-  sls_array_set(self, i, value);
-  ++p->length;
+  // set values and increment length
+  memcpy(insert_start_point, values, insert_size);
+  p->length+= data_n_elements;
 
   return;
-error:
+  error:
   return;
 }
+
 
 void sls_array_append(slsArray* self, void* value)
 {

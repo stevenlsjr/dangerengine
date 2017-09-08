@@ -95,6 +95,14 @@ size_t sls_array_length(slsArray const* self);
 size_t sls_array_element_size(slsArray const* self);
 
 void* sls_array_get(slsArray* self, size_t i);
+/**
+ * same as sls_array_get, but triggers a fail signal
+ * to kill the program if index is out of bounds
+ * @param self
+ * @param i
+ * @return
+ */
+void* sls_array_get_or_fail(slsArray* self, size_t i);
 
 /**
  * @brief Const-correct variation of sls_array_get
@@ -125,7 +133,14 @@ void sls_array_reserve(slsArray* self, size_t count);
  */
 void sls_array_insert(slsArray* self, size_t i, void* value);
 
-void sls_array_insert_array(slsArray* self, size_t i, const void* data);
+/**
+ * inserts data from native array to slsArray
+ * @param self
+ * @param i
+ * @param values
+ * @param data_n_elements Number of elements in data array
+ */
+void sls_array_insert_array(slsArray *self, size_t i, const void *values, size_t data_n_elements);
 
 void sls_array_append(slsArray* self, void* value);
 
@@ -146,9 +161,9 @@ slsArray* sls_array_dtor(slsArray* self);
 /**
  * @brief convenience method for retrieving index values.
  * @detail WARNING: dereferences pointer given by slsArray::get
- * will dereference a NULL value.
+ * will dereference a NULL value if index is out of bounds
  */
-#define SLS_ARRAY_IDX(array, T, idx) (*((T*)(sls_array_get((array), (idx)))))
+#define SLS_ARRAY_IDX(array, T, idx) (*((T*)(sls_array_get_or_fail((array), (idx)))))
 
 #define SLS_ARRAY_FOREACH(array, itor)                                         \
   for ((itor) = sls_arrayitor_begin((array), (itor)); (itor);                  \
