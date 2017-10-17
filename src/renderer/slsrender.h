@@ -24,6 +24,9 @@ typedef struct slsAppState slsAppState;
  * @brief opengl renderer instance
  */
 struct slsRendererGL {
+
+  slsShader mesh_shader;
+  slsMesh mesh;
   // dummy scene description
   kmMat4 root_modelview;
   kmMat4 projection;

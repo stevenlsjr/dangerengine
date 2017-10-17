@@ -13,19 +13,22 @@ slsAppState* sls_app_state_init(slsAppState* self, slsRendererGL* renderer)
 {
   *self = (slsAppState){};
   self->input = sls_inputstate_new();
-  sls_checkmem(self->input);
 
-  slsMesh* mesh = sls_mesh_square(&self->mesh);
+  sls_checkmem(self->input);
+  self->renderer = renderer;
+
+
+
+  slsMesh* mesh = sls_mesh_square(&self->renderer->mesh);
   sls_checkmem(mesh);
 
   GLuint program = sls_create_program("./resources/shaders/debug.vert",
                                       "./resources/shaders/debug.frag",
                                       "./resources/shaders/uniforms.glsl");
-  sls_check(sls_shader_init(&self->mesh_shader, program),
+  sls_check(sls_shader_init(&self->renderer->mesh_shader, program),
             "active_shader failed");
 
-  sls_mesh_setup_buffers(&self->mesh, &self->mesh_shader);
-  self->renderer = renderer;
+  sls_mesh_setup_buffers(&self->renderer->mesh, &self->renderer->mesh_shader);
 
   return self;
 
@@ -39,8 +42,8 @@ error:
 
 slsAppState* sls_app_state_deinit(slsAppState* self)
 {
-  sls_shader_dtor(&self->mesh_shader);
-  sls_mesh_dtor(&self->mesh);
+  sls_shader_dtor(&self->renderer->mesh_shader);
+  sls_mesh_dtor(&self->renderer->mesh);
   if (self->input) {
     sls_inputstate_delete(self->input);
   }

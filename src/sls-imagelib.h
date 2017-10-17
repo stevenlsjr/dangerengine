@@ -37,11 +37,6 @@
 #ifndef DANGERENGINE_SLS_IMAGELIB_H
 #define DANGERENGINE_SLS_IMAGELIB_H
 
-// emscripten does not support devIL
-#ifndef __EMSCRIPTEN__
-#include <SDL2/SDL_image.h>
-#else
 #include <stb_image.h>
-#endif
 
 #endif // DANGERENGINE_SLS_IMAGELIB_H
