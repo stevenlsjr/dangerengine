@@ -8,7 +8,7 @@
 #ifndef DANGERENGINE_SLS_COMMONLIBS_H
 #define DANGERENGINE_SLS_COMMONLIBS_H
 
-#include "data-types/slsutils.h"
+#include "slsutils.h"
 
 #include "sls-gl.h"
 #include "sls-imagelib.h"

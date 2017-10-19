@@ -10,7 +10,7 @@
 #define DANGERENGINE_SLSCONTEXT_H
 
 #include <sls-commonlibs.h>
-#include "data-types/slsutils.h"
+#include "slsutils.h"
 #include "state/slsAppState.h"
 
 typedef struct slsContext slsContext;

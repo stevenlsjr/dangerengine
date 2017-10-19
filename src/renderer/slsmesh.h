@@ -41,7 +41,7 @@
 
 #include "../data-types/array.h"
 #include "../sls-gl.h"
-#include "data-types/slsutils.h"
+#include "slsutils.h"
 #include "slsshader.h"
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>

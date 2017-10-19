@@ -2,10 +2,13 @@
 // Created by Steven on 4/27/15.
 //
 
-#include <glib-2.0/glib.h>
+#include <glib.h>
 #include <dangerengine.h>
 
-extern "C" void data_tests_main();
+extern "C" {
+void data_tests_main();
+void error_tests_main();
+}
 
 
 int main(int argc, char **argv)
@@ -17,6 +20,7 @@ int main(int argc, char **argv)
   });
 
   data_tests_main();
+  error_tests_main();
   g_test_set_nonfatal_assertions();
   return g_test_run();
 }

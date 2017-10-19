@@ -37,7 +37,7 @@
 **/
 
 #include "slsmesh.h"
-#include "data-types/slsutils.h"
+#include "slsutils.h"
 #include "shaderutils.h"
 
 static const slsMesh sls_mesh_proto = {.vbo = 0,

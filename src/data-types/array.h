@@ -48,7 +48,7 @@
 #include <stddef.h>
 
 #include "callbacks.h"
-#include <data-types/slsutils.h>
+#include <slsutils.h>
 #include <stdlib.h>
 
 SLS_BEGIN_CDECLS

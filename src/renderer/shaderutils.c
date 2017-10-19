@@ -6,7 +6,7 @@
  */
 
 #include "../sls-gl.h"
-#include "data-types/slsutils.h"
+#include "slsutils.h"
 #include <stdio.h>
 #include <stdlib.h>
 

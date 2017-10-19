@@ -12,8 +12,6 @@ set(DANGERTYPES_SRC
     hashtable.c hashtable.h
     linkedlist.c linkedlist.h
     ptrarray.c ptrarray.h
-    slsutils.c
-    slsutils.h
     )
 
 

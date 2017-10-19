@@ -39,16 +39,14 @@
 #ifndef DANGERENGINE_SLS_GL_H
 #define DANGERENGINE_SLS_GL_H
 
-#include <GL/glew.h>
 
 #ifdef _WIN32 //
 #include <SDL.h>
 #include <SDL_image.h>
 #else
 
-  #include <GL/glew.h>
-  #include <SDL2/SDL.h>
-  #include <SDL2/SDL_image.h>
+#include <SDL.h>
+#include <glad/glad.h>
 
 #endif // !_WIN32
 

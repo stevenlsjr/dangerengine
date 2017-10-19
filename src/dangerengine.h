@@ -39,7 +39,7 @@
 #ifndef DANGERENGINE_DANGERENGINE_H
 #define DANGERENGINE_DANGERENGINE_H
 
-#include <data-types/slsutils.h>
+#include <slsutils.h>
 
 #include "contexthandlers.h"
 #include "data-types/dangertypes.h"

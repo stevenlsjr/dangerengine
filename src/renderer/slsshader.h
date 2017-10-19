@@ -46,7 +46,7 @@
 #include <kazmath/kazmath.h>
 #include <kazmath/vec4.h>
 #include <sls-gl.h>
-#include <data-types/slsutils.h>
+#include <slsutils.h>
 
 typedef struct slsShader slsShader;
 typedef struct slsUniformLocations slsUniformLocations;

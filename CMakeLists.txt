@@ -14,16 +14,20 @@ set(CMAKE_MODULE_PATH
 
 set(CMAKE_PREFER_PTHREADS ON FORCE)
 
+
+include(ExternalProject)
 find_package(OpenGL)
 find_package(Threads REQUIRED)
 find_package(GLEW)
 find_package(Doxygen)
 
+
 find_package(PkgConfig REQUIRED)
 
-find_package(SDL2)
-find_package(SDL2_image)
-pkg_search_module(GLIB glib-2.0 REQUIRED)
+pkg_check_modules(GLIB glib-2.0 REQUIRED)
+pkg_check_modules(SDL2 sdl2 REQUIRED)
+
+
 
 
 #force  pthreads  on  win32
@@ -45,6 +49,8 @@ endif (${WIN32})
 #--------------------------------------------
 #-------------source  lists-------------------
 #--------------------------------------------
+
+
 
 add_subdirectory(extern/lib)
 set(DANGER_SRC
@@ -71,6 +77,8 @@ set(DANGER_SRC
     src/renderer/slsshader.h
     src/sls-commonlibs.h
     src/sls-gl.h
+    src/slsutils.h
+    src/slsutils.c
     src/sls-imagelib.h
     src/slscontext.c
     src/slscontext.h
@@ -79,14 +87,14 @@ set(DANGER_SRC
     src/state/slsAppState.h
     src/state/slsInputState.c
     src/state/slsInputState.h
-    )
+    src/slserror.c src/slserror.h)
 
 
 #tests  compiled  in  c++
 set(DANGER_TEST_SRC
     tests/main.cc
     tests/data-types/data-tests.c
-    tests/testing.h)
+    tests/testing.h tests/error-tests.c)
 
 
 set(DANGER_DEMO_SRC
@@ -124,14 +132,14 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
 #kazmath
 option(KAZMATH_BUILD_JNI_WRAPPER OFF)
+option(KAZMATH_BUILD_LUA_WRAPPER OFF)
 option(KAZMATH_BUILD_TESTS OFF )
 
-#chipmunk
-option(BUILD_TESTS OFF)
-option(BUILD_DEMOS OFF)
 
-add_subdirectory(extern/Chipmunk2D)
 add_subdirectory(extern/kazmath)
+
+
+
 add_subdirectory(src/data-types)
 
 
@@ -145,10 +153,8 @@ set(DANGER_DEPS
     ${DANGER_PTHREAD_LIB}
     ${GLEW_LIBRARY}
     ${GLIB_LIBRARIES}
-    ${OPENGL_gl_LIBRARY}
-    ${SDL2_IMAGE_LIBRARIES}
-    ${SDL2_LIBRARY}
-    ${SDL2_TTF_LIBRARIES}
+    ${OPENGL_LIBRARIES}
+    ${SDL2_LIBRARIES}
     kazmath
     )
 
@@ -164,14 +170,20 @@ link_directories(${SDL2_LIBRARY_DIRS}
 include_directories(
     ${CMAKE_SOURCE_DIR}/extern/lib
     ${CMAKE_SOURCE_DIR}/extern/kazmath
+    ${CMAKE_SOURCE_DIR}/extern/glad_debug/include
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/data-types
-    ${GLEW_INCLUDE_DIR}
     ${OPENGL_INCLUDE_DIR}
-    ${SDL2_INCLUDE_DIR}
+    ${SDL2_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS}
 )
 
+
+get_property(INCLUDE_DIRECTORIES
+             DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+             PROPERTY INCLUDE_DIRECTORIES)
+
+message("include dirs: ${INCLUDE_DIRECTORIES}")
 
 #---------------------------------------
 #  build  dangerengine
@@ -180,8 +192,6 @@ include_directories(
 set(BUILD_SHARED_LIBS ON)
 add_library(dangerengine STATIC ${DANGER_SRC})
 
-add_dependencies(dangerengine
-    kazmath)
 
 target_link_libraries(dangerengine
     ${DANGER_DEPS})

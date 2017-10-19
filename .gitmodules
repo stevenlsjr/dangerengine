@@ -1,6 +1,3 @@
-[submodule "extern/Chipmunk2D"]
-	path = extern/Chipmunk2D
-	url = https://github.com/slembcke/Chipmunk2D
 [submodule "extern/extern/stb"]
 	path = extern/stb
 	url = https://github.com/nothings/stb

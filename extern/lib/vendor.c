@@ -4,7 +4,7 @@
 #pragma ide diagnostic ignored "OCUnusedMacroInspection"
 //
 
-#define NK_IMPLEMENTATION
-#define NK_SDL_GL3_IMPLEMENTATION
-#include <vendor.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #pragma clang diagnostic pop

@@ -6,7 +6,7 @@
  *
  **/
 #include "slsInputState.h"
-#include <SDL2/SDL.h>
+#include <sls-gl.h>
 #include <math/math-types.h>
 
 struct slsInputState {

@@ -80,9 +80,13 @@ slsContext*
 sls_context_new(char const* caption, size_t width, size_t height)
 {
 
-  slsContext* self = sls_objalloc(sls_context_prototype(), sizeof(slsContext));
+  slsContext* self = malloc(sizeof(slsContext));
+  sls_checkmem(self);
 
   return sls_context_init(self, caption, width, height);
+  error:
+  sls_log_err("fatal: memory error for slsContext");
+  exit(EXIT_FAILURE);
 }
 
 /*----------------------------------------*
@@ -148,17 +152,12 @@ sls_context_init(slsContext* self,
   }
 
 
-
-  glewExperimental = GL_TRUE;
-  glew = glewInit();
-  if (glew != GLEW_OK) {
-    sls_log_err("glew error: %s", glewGetErrorString(glew));
-    self->is_running = false;
+  if(!gladLoadGLLoader(SDL_GL_GetProcAddress)){
+    sls_log_err("failed to load glad proc loader");
+    exit(EXIT_FAILURE);
   }
-  sls_log_info("\nglew version %s\n"
-               "gl version %s",
-               glewGetString(GLEW_VERSION),
-               glGetString(GL_VERSION));
+
+
 
   // allocate and initialize private members
 
@@ -316,7 +315,7 @@ sls_context_setup(slsContext* self)
   glEnable(GL_BLEND);
   glEnable(GL_POINT_SIZE);
 
-  glEnable(GL_POINT_SPRITE);
+  glEnable(GL_POINT_SPRITE_ARB);
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

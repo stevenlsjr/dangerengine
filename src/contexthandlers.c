@@ -50,12 +50,6 @@ sls_init_sdl(uint32_t sdl_flags)
   return sdl == 0;
 }
 
-static inline bool
-sls_init_img(int32_t img_flags)
-{
-  int32_t img = IMG_Init(img_flags);
-  return (img & img_flags) == img_flags;
-}
 
 bool
 sls_init(void)
@@ -63,10 +57,8 @@ sls_init(void)
   sls_check(!sls_active_flag, "runtime is already active!");
 
   uint32_t sdl_flags = SDL_INIT_EVERYTHING;
-  int32_t img_flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
 
   sls_check(sls_init_sdl(sdl_flags), "sdl creation failed %s", SDL_GetError());
-  sls_check(sls_init_img(img_flags), "img creation failed %s", IMG_GetError());
 
   sls_active_flag = true;
 
@@ -90,7 +82,6 @@ sls_terminate(void)
   if (SDL_WasInit(0)) {
     SDL_Quit();
   }
-  IMG_Quit();
 
   sls_active_flag = false;
 }
