@@ -22,11 +22,7 @@ typedef struct slsAppState slsAppState;
 struct slsAppState {
   slsInputState *input;
   slsRendererGL *renderer;
-
-  // TODO: Scene description object
-
-  slsShader mesh_shader;
-  slsMesh mesh;
+  
 };
 
 slsAppState *sls_app_state_init(slsAppState *self, slsRendererGL *renderer);

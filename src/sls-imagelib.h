@@ -36,8 +36,6 @@
  * either expressed or implied, of ${ORGANIZATION_NAME}. **/
 #ifndef DANGERENGINE_SLS_IMAGELIB_H
 #define DANGERENGINE_SLS_IMAGELIB_H
-
-
 #include <stb_image.h>
 
 #endif // DANGERENGINE_SLS_IMAGELIB_H

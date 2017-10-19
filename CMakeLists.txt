@@ -94,7 +94,8 @@ set(DANGER_SRC
 set(DANGER_TEST_SRC
     tests/main.cc
     tests/data-types/data-tests.c
-    tests/testing.h tests/error-tests.c)
+    tests/testing.h tests/error-tests.c
+    tests/testing.h tests/math-tests.c)
 
 
 set(DANGER_DEMO_SRC
@@ -171,6 +172,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/extern/lib
     ${CMAKE_SOURCE_DIR}/extern/kazmath
     ${CMAKE_SOURCE_DIR}/extern/glad_debug/include
+    ${CMAKE_SOURCE_DIR}/extern/stb
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/data-types
     ${OPENGL_INCLUDE_DIR}

@@ -236,6 +236,26 @@ void sls_array_insert_array(slsArray *self, size_t i, const void *values, size_t
   return;
 }
 
+void sls_array_remove(slsArray *self, size_t index)
+{
+  slsArray_p *p = self->priv;
+  sls_check(index < p->length, "index %lu out of bounds for array length %lu", index, p->length);
+  if(index == p->length-1){
+    --p->length; // just decrement the length counter
+  } else {
+    char *movdest = p->array + (index *p->element_size);
+    char *movsrc = movdest + p->element_size;
+    size_t bytes_moved = (p->length - 1 - index) * p->element_size;
+
+    memmove(movdest, movsrc, bytes_moved);
+    --p->length;
+  }
+  return;
+  error:
+  return;
+}
+
+
 
 void sls_array_append(slsArray* self, void* value)
 {
@@ -293,3 +313,4 @@ slsArrayItor* sls_arrayitor_next(slsArrayItor* self)
 error:
   return NULL;
 }
+

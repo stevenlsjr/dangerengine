@@ -158,6 +158,8 @@ slsArray* sls_array_init(slsArray* self,
 
 slsArray* sls_array_dtor(slsArray* self);
 
+void sls_array_remove(slsArray *self, size_t index);
+
 /**
  * @brief convenience method for retrieving index values.
  * @detail WARNING: dereferences pointer given by slsArray::get
