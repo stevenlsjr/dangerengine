@@ -160,7 +160,7 @@ set(DANGER_DEPS
     )
 
 if (${UNIX})
-  set(DANGER_DEPS ${DANGER_DEPS} m)
+  set(DANGER_DEPS ${DANGER_DEPS} m dl)
 endif ()
 
 
