@@ -4,9 +4,13 @@
 cmake_minimum_required(VERSION 3.1)
 project(dangerengine)
 
+option(DANGERENGINE_BUILD_TESTS ON
+    "build unit tests for dangerengine")
+
 set(CMAKE_MODULE_PATH
     "${CMAKE_SOURCE_DIR}/CMake/" CACHE STRING "cmake  module  path")
 
+set(DANGERENGINE_EXE "demo")
 
 #--------------------------------------------
 #--			package dependencides
@@ -17,15 +21,37 @@ set(CMAKE_PREFER_PTHREADS ON FORCE)
 
 include(ExternalProject)
 find_package(OpenGL)
-find_package(Threads REQUIRED)
-find_package(GLEW)
+
 find_package(Doxygen)
 
+if(${EMSCRIPTEN})
+  # we don't need pkg-config, but unit tests
+  # are disabled
+  set(DANGERENGINE_BUILD_TESTS OFF)
 
-find_package(PkgConfig REQUIRED)
+  # enable non-webworker port of port of pthreads for simplicity
+  set(CMAKE_C_FLAGS
+    "-s USE_SDL=2 -s USE_PTHREADS=2" ${CMAKE_C_FLAGS})
+  set(CMAKE_EXE_LINKER_FLAGS 
+    "-s USE_SDL=2 -s USE_PTHREADS=2")
+  set(CMAKE_SHARED_LINKER_FLAGS 
+    "-s USE_SDL=2 -s USE_PTHREADS=2")
 
-pkg_check_modules(GLIB glib-2.0 REQUIRED)
-pkg_check_modules(SDL2 sdl2 REQUIRED)
+  set(CMAKE_C_FLAGS_DEBUG
+    # enable source maps
+    "-O0 -g4")
+
+  # set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+else()
+  find_package(PkgConfig REQUIRED)
+
+  pkg_check_modules(GLIB glib-2.0 REQUIRED)
+  pkg_check_modules(SDL2 sdl2 REQUIRED)
+  find_package(Threads)
+  find_package(GLEW)
+endif()
+
 
 
 
@@ -63,8 +89,8 @@ set(DANGER_SRC
     src/math/math-types.h
     src/math/slsMathUtils.c
     src/math/slsMathUtils.h
-    src/math/slsSimd.c
-    src/math/slsSimd.h
+    # src/math/slsSimd.c
+    # src/math/slsSimd.h
     src/math/slsTrackball.c
     src/math/slsTrackball.h
     src/renderer/shaderutils.c
@@ -132,11 +158,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
 
 #kazmath
-option(KAZMATH_BUILD_JNI_WRAPPER OFF)
-option(KAZMATH_BUILD_LUA_WRAPPER OFF)
-option(KAZMATH_BUILD_TESTS OFF )
-
-
+set(KAZMATH_BUILD_JNI_WRAPPER OFF)
+set(KAZMATH_BUILD_LUA_WRAPPER OFF)
+set(KAZMATH_BUILD_TESTS OFF )
 add_subdirectory(extern/kazmath)
 
 
@@ -152,12 +176,18 @@ set(CMAKE_LINK_EXE_FLAGS "${CMAKE_LINK_EXE_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAG
 set(DANGER_DEPS
     ${DANGERTYPES_LIB}
     ${DANGER_PTHREAD_LIB}
-    ${GLEW_LIBRARY}
-    ${GLIB_LIBRARIES}
     ${OPENGL_LIBRARIES}
-    ${SDL2_LIBRARIES}
+    
     kazmath
     )
+
+if(NOT ${EMSCRIPTEN})
+  set (DANGER_DEPS ${DANGER_DEPS} 
+  
+    ${GLEW_LIBRARY}
+    ${GLIB_LIBRARIES}
+    ${SDL2_LIBRARIES})
+endif()
 
 if (${UNIX})
   set(DANGER_DEPS ${DANGER_DEPS} m dl)
@@ -212,15 +242,15 @@ add_custom_command(
     "--  copying  resources/  to  ${CMAKE_BINARY_DIR}"
     COMMENT "")
 
-add_executable(demo
+add_executable(${DANGERENGINE_EXE}
     ${DANGER_DEMO_SRC})
 
 
-add_dependencies(demo
+add_dependencies(${DANGERENGINE_EXE}
     dangerengine
     sls_resources)
 
-target_link_libraries(demo
+target_link_libraries(${DANGERENGINE_EXE}
     dangerengine
     ${DANGER_DEPS})
 
@@ -230,11 +260,13 @@ target_link_libraries(demo
 
 
 # don't use googletest when emscripten is the platform
+if(${DANGERENGINE_BUILD_TESTS})
+  add_executable(tests ${DANGER_TEST_SRC})
+  target_link_libraries(tests
+      dangerengine
+      ${DANGER_DEPS})
 
-add_executable(tests ${DANGER_TEST_SRC})
-target_link_libraries(tests
-    dangerengine
-    ${DANGER_DEPS})
+endif()
 
 
 if (DOXYGEN_FOUND)

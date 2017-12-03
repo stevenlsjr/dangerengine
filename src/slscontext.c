@@ -51,6 +51,14 @@ static void pre_gl_call(char const *name, void *glfunc, int len_args, ...)
 {
 }
 
+static void post_gl_call(char const *name, void *glfunc, int len_args, ...){
+  GLenum err = GL_NO_ERROR;
+  err = glad_glGetError();
+  if(err != GL_NO_ERROR){
+    sls_log_err("gl error 0x%x(%i): %s", err, err, name);
+  }
+
+}
 static void debug_message_cb(GLenum source, GLenum type, GLuint id,
                              GLenum severity, GLsizei length, const GLchar *message, const void *user_param)
 {
@@ -190,7 +198,14 @@ sls_context_init(slsContext *self,
   }
 
 #ifdef GLAD_DEBUG
-  glDebugMessageCallback(debug_message_cb, NULL);
+  int major, minor;
+  SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &major);
+  SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minor);
+  if(GLAD_GL_ARB_debug_output){
+    glDebugMessageCallback(debug_message_cb, NULL);
+  }
+  glad_set_pre_callback(pre_gl_call);
+  glad_set_post_callback(post_gl_call);
 #endif
 
 

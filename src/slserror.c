@@ -12,6 +12,10 @@ struct slsErrorPrivate {
   bool is_error;
 };
 
+#undef static_assert
+#define static_assert(...)
+
+
 static_assert(sizeof(slsErrorPrivate) < SLS_ERROR_PIMPL_MAXSIZE,
   "slsErrorPrivate struct must be smaller than buffer allocated for it: ");
 

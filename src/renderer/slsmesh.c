@@ -102,7 +102,12 @@ slsMesh* sls_mesh_init(slsMesh* self,
   glGenBuffers(1, &self->vbo);
   glGenBuffers(1, &self->ibo);
 
+
+  sls_check(glIsBuffer(self->vbo), "could not create vbo");
+  sls_check(glIsBuffer(self->ibo), "could not create ibo");
+
   glGenVertexArrays(1, &self->vao);
+  sls_check(glIsVertexArray(self->vao), "could not create vao");
 
   return self;
 error:
