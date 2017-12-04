@@ -4,7 +4,8 @@
 cmake_minimum_required(VERSION 3.1)
 project(dangerengine)
 
-option(DANGERENGINE_BUILD_TESTS ON
+set(DANGERENGINE_BUILD_TESTS ON
+    CACHE BOOL
     "build unit tests for dangerengine")
 
 set(CMAKE_MODULE_PATH
@@ -27,15 +28,17 @@ find_package(Doxygen)
 if(${EMSCRIPTEN})
   # we don't need pkg-config, but unit tests
   # are disabled
+  set(DANGERBIRD_EMSCRIPTEN ON)
   set(DANGERENGINE_BUILD_TESTS OFF)
 
   # enable non-webworker port of port of pthreads for simplicity
+#   set(EM_USE_PTHREADS "")
   set(CMAKE_C_FLAGS
-    "-s USE_SDL=2 -s USE_PTHREADS=2" ${CMAKE_C_FLAGS})
+    "-s USE_SDL=2 ${EM_USE_PTHREADS}" ${CMAKE_C_FLAGS})
   set(CMAKE_EXE_LINKER_FLAGS 
-    "-s USE_SDL=2 -s USE_PTHREADS=2")
+    "-s USE_SDL=2 ${EM_USE_PTHREADS}")
   set(CMAKE_SHARED_LINKER_FLAGS 
-    "-s USE_SDL=2 -s USE_PTHREADS=2")
+    "-s USE_SDL=2 ${EM_USE_PTHREADS}")
 
   set(CMAKE_C_FLAGS_DEBUG
     # enable source maps
@@ -44,12 +47,12 @@ if(${EMSCRIPTEN})
   # set(CMAKE_EXECUTABLE_SUFFIX ".html")
 
 else()
+  set (DANGERBIRD_EMSCRIPTEN OFF)
   find_package(PkgConfig REQUIRED)
 
   pkg_check_modules(GLIB glib-2.0 REQUIRED)
   pkg_check_modules(SDL2 sdl2 REQUIRED)
   find_package(Threads)
-  find_package(GLEW)
 endif()
 
 
@@ -157,12 +160,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
 
-#kazmath
-set(KAZMATH_BUILD_JNI_WRAPPER OFF)
-set(KAZMATH_BUILD_LUA_WRAPPER OFF)
-set(KAZMATH_BUILD_TESTS OFF )
 add_subdirectory(extern/kazmath)
 
+#kazmath
+set(KAZMATH_BUILD_JNI_WRAPPER OFF CACHE BOOL "" FORCE)
+set(KAZMATH_BUILD_LUA_WRAPPER OFF  CACHE BOOL "" FORCE)
+set(KAZMATH_BUILD_TESTS OFF  CACHE BOOL "" FORCE)
 
 
 add_subdirectory(src/data-types)
@@ -181,10 +184,12 @@ set(DANGER_DEPS
     kazmath
     )
 
-if(NOT ${EMSCRIPTEN})
+message(${DANGERBIRD_EMSCRIPTEN})
+
+if(NOT ${DANGERBIRD_EMSCRIPTEN})
+    message("setting dependencies")
   set (DANGER_DEPS ${DANGER_DEPS} 
   
-    ${GLEW_LIBRARY}
     ${GLIB_LIBRARIES}
     ${SDL2_LIBRARIES})
 endif()
@@ -260,6 +265,8 @@ target_link_libraries(${DANGERENGINE_EXE}
 
 
 # don't use googletest when emscripten is the platform
+message("build tests ${DANGERENGINE_BUILD_TESTS}")
+
 if(${DANGERENGINE_BUILD_TESTS})
   add_executable(tests ${DANGER_TEST_SRC})
   target_link_libraries(tests
