@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Emscripten build</title>
+  <meta charset="UTF-8">
+  <title>Emscripten build</title>
 </head>
-<body>
-<h1>hello!</h1>
+<style>
+  canvas#em-canvas {
+    size: 640 400;
+  }
 
-<canvas id="em-canvas" width="640" height="480"></canvas>
-<script src="em_build.pre.js"></script>
-<script src="demo.js"></script>
-
+  #em-console {
+    background-color: black;
+    font-family: sans-serif;
     
+  }
+</style>
+
+<body>
+
+  <canvas id="em-canvas"></canvas>
+
+  <div id="em-console"></div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.10.1/js/jquery.terminal.min.js"></script>
+  <script src="em_build.pre.js"></script>
+  <script src="demo.js"></script>
+
+
 </body>
+
 </html>

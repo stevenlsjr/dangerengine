@@ -2,11 +2,25 @@
  * @fileOverview javascript code inserted before emscripten compiler output.
  * Includes
  */
+
+
 var Module = {
-  noInitialRun: true,
+  noInitialRun: false,
   arguments: [],
   preInit() {},
-  onRuntimeInitialized(){}
+  // print(...args){},
+  // printErr(...args){},
+  onRuntimeInitialized(){},
+  canvas(){
+    const canvas = document.querySelector('#em-canvas');
+    canvas.addEventListener('webglcontextlost', (e)=>{
+      alert('WebGL context lost, you will need to reload the page');
+      e.preventDefault();
+
+    });
+
+    return canvas;
+  }
 };
 /**
  * half-baked polyfill for Shared*Array types,
