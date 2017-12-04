@@ -9,9 +9,9 @@
 
 #ifndef __EMSCRIPTEN__
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-  slsContext *ctx = sls_context_new("hello world!", 640, 640);
+  slsContext* ctx = sls_context_new("hello world!", 640, 640);
 
   if (ctx) {
     sls_context_run(ctx);
@@ -20,37 +20,37 @@ int main(int argc, char **argv)
   return 0;
 }
 
-
 #else
 
 #include <SDL2/SDL.h>
+#include <emscripten.h>
 #include <stdlib.h>
-
-#include <pthread.h>
-
-static void *thread_fn(void *_)
-{
-  printf("hello!!! from thread\n");
-  return NULL;
-}
+#include <stdbool.h>
 
 /**
  * Emscripten entry point
  **/
 
-int main(int argc, char **argv){
-  int res =  SDL_Init(SDL_INIT_VIDEO);
-  #define N_THREADS 10
-  pthread_t threads[N_THREADS];
-  for(int i=0; i<N_THREADS; ++i){
-    pthread_create(threads + i, NULL, thread_fn, NULL);
-  }
+static int n = 0;
 
-  atexit(SDL_Quit);
-  printf("hello world!!! %i\n", res);
+static void em_loop_fn(void)
+{
+  char buff[100];
+  fgets(buff, 100, stdin);
+  buff[99] = '\0';
+
+  printf("hello %i %s!!!\n", n, buff);
+  
+  if(n++>= 100){
+    emscripten_cancel_main_loop();
+  }
+}
+
+int main(int argc, char** argv)
+{
+  int res = SDL_Init(SDL_INIT_VIDEO);
+  emscripten_set_main_loop(em_loop_fn, 50, false);
 
   return 0;
 }
 #endif // !__EMSCRIPTEN__
-
-
