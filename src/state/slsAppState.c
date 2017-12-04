@@ -19,8 +19,8 @@ slsAppState* sls_app_state_init(slsAppState* self, slsRendererGL* renderer)
 
 
 
-  slsMesh* mesh = sls_mesh_square(&self->renderer->mesh);
-  sls_checkmem(mesh);
+//  slsMesh* mesh = sls_mesh_square(&self->renderer->mesh);
+//  sls_checkmem(mesh);
 
   GLuint program = sls_create_program("./resources/shaders/debug.vert",
                                       "./resources/shaders/debug.frag",
@@ -28,7 +28,7 @@ slsAppState* sls_app_state_init(slsAppState* self, slsRendererGL* renderer)
   sls_check(sls_shader_init(&self->renderer->mesh_shader, program),
             "active_shader failed");
 
-  sls_mesh_setup_buffers(&self->renderer->mesh, &self->renderer->mesh_shader);
+  //sls_mesh_setup_buffers(&self->renderer->mesh, &self->renderer->mesh_shader);
 
   return self;
 

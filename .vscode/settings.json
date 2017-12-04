@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.tag": "htmltag",
+    "*.vue": "vue",
+    "SConstruct": "python",
+    "*.fs": "fsharp",
+    "*.metal": "cpp",
+    "pthread.h": "c"
+  }
+}
