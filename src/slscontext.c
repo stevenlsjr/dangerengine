@@ -9,20 +9,20 @@
  * modification, are permitted provided that the following conditions are met:
  *
  * 1. Redistributions of source code must retain the above copyright notice,
-*this
+ *this
  *    list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-*AND
+ *AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-*FOR
+ *FOR
  * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-*DAMAGES
+ *DAMAGES
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -30,15 +30,15 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * The views and conclusions contained in the software and documentation are
-*those
+ *those
  * of the authors and should not be interpreted as representing official
-*policies,
+ *policies,
  * either expressed or implied, of Steven Shea.
-**/
+ **/
 
 #include "contexthandlers.h"
-
 #include "renderer/slsrender.h"
+#include "math/math-types.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -47,24 +47,31 @@
 #define SLS_TICKS_PER_SEC 1000
 #ifdef GLAD_DEBUG
 
-static void pre_gl_call(char const *name, void *glfunc, int len_args, ...)
+static void pre_gl_call(char const* name, void* glfunc, int len_args, ...)
 {
 }
 
-static void post_gl_call(char const *name, void *glfunc, int len_args, ...){
+static void post_gl_call(char const* name, void* glfunc, int len_args, ...)
+{
   GLenum err = GL_NO_ERROR;
   err = glad_glGetError();
-  if(err != GL_NO_ERROR){
+  if (err != GL_NO_ERROR) {
     sls_log_err("gl error 0x%x(%i): %s", err, err, name);
   }
-
 }
-static void debug_message_cb(GLenum source, GLenum type, GLuint id,
-                             GLenum severity, GLsizei length, const GLchar *message, const void *user_param)
+static void debug_message_cb(GLenum source,
+                             GLenum type,
+                             GLuint id,
+                             GLenum severity,
+                             GLsizei length,
+                             const GLchar* message,
+                             const void* user_param)
 {
-  char const *severity_strs[] = {"GL_DEBUG_SEVERITY_HIGH", "GL_DEBUG_SEVERITY_MEDIUM", "GL_DEBUG_SEVERITY_LOW"};
+  char const* severity_strs[] = { "GL_DEBUG_SEVERITY_HIGH",
+                                  "GL_DEBUG_SEVERITY_MEDIUM",
+                                  "GL_DEBUG_SEVERITY_LOW" };
   size_t severity_select;
-  switch (severity){
+  switch (severity) {
     case GL_DEBUG_SEVERITY_HIGH:
       severity_select = 0;
       break;
@@ -73,14 +80,16 @@ static void debug_message_cb(GLenum source, GLenum type, GLuint id,
       break;
     default:
       severity_select = 2;
-
   }
 
-  sls_log_info("%s, source 0x%x , type 0x%x: %s", severity_strs[severity_select], source, type, message);
+  sls_log_info("%s, source 0x%x , type 0x%x: %s",
+               severity_strs[severity_select],
+               source,
+               type,
+               message);
 }
 
 #endif
-
 
 struct slsContext_p {
   uint64_t last;
@@ -94,33 +103,30 @@ struct slsContext_p {
  *----------------------------------------*/
 static const slsContext sls_context_proto = {
 
-    .is_running = false,
-    .interval = 1000 / 60,
-    .priv = NULL,
-    .window = NULL,
-    .state = NULL,
-    .data = NULL,
+  .is_running = false,
+  .interval = 1000 / 60,
+  .priv = NULL,
+  .window = NULL,
+  .data = NULL,
 };
 
 /*----------------------------------------*
  * slsContext class functions
  *----------------------------------------*/
 
-slsContext const *
-sls_context_prototype()
+slsContext const* sls_context_prototype()
 {
   return &sls_context_proto;
 }
 
-slsContext *
-sls_context_new(char const *caption, size_t width, size_t height)
+slsContext* sls_context_new(char const* caption, size_t width, size_t height)
 {
 
-  slsContext *self = malloc(sizeof(slsContext));
+  slsContext* self = malloc(sizeof(slsContext));
   sls_checkmem(self);
 
   return sls_context_init(self, caption, width, height);
-  error:
+error:
   sls_log_err("fatal: memory error for slsContext");
   exit(EXIT_FAILURE);
 }
@@ -129,11 +135,10 @@ sls_context_new(char const *caption, size_t width, size_t height)
  * slsContext instance methods
  *----------------------------------------*/
 
-slsContext *
-sls_context_init(slsContext *self,
-                 char const *caption,
-                 size_t width,
-                 size_t height)
+slsContext* sls_context_init(slsContext* self,
+                             char const* caption,
+                             size_t width,
+                             size_t height)
 {
 
   *self = *sls_context_prototype();
@@ -149,12 +154,12 @@ sls_context_init(slsContext *self,
   // create sdl window
 
   window_flags =
-      SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
+    SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL;
   self->window = SDL_CreateWindow(caption,
                                   SDL_WINDOWPOS_CENTERED,
                                   SDL_WINDOWPOS_CENTERED,
-                                  (int) width,
-                                  (int) height,
+                                  (int)width,
+                                  (int)height,
                                   window_flags);
 
   sls_check(self->window, "window creation failed");
@@ -167,30 +172,28 @@ sls_context_init(slsContext *self,
   };
 
   struct gl_version versions[] = {
-      {4, 5},
-      {4, 4},
-      {4, 1},
-      {3, 3},
-      {3, 1}
+    { 4, 5 }, { 4, 4 }, { 4, 1 }, { 3, 3 }, { 3, 1 }
   };
 
   self->gl_context = NULL;
   int context_profile = SDL_GL_CONTEXT_PROFILE_CORE;
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, context_profile);
 
-  //SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+  // SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG | SDL_GL_CONTEXT_DEBUG_FLAG);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS,
+                      SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG |
+                        SDL_GL_CONTEXT_DEBUG_FLAG);
 
-  for (int i = 0; !self->gl_context && i < sizeof(versions) / sizeof(*versions); ++i) {
+  for (int i = 0; !self->gl_context && i < sizeof(versions) / sizeof(*versions);
+       ++i) {
 
     struct gl_version v = versions[i];
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, v.major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, v.major);
     self->gl_context = SDL_GL_CreateContext(self->window);
   }
-
 
   if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) {
     sls_log_err("failed to load glad proc loader");
@@ -201,13 +204,12 @@ sls_context_init(slsContext *self,
   int major, minor;
   SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &major);
   SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minor);
-  if(GLAD_GL_ARB_debug_output){
+  if (GLAD_GL_ARB_debug_output) {
     glDebugMessageCallback(debug_message_cb, NULL);
   }
   glad_set_pre_callback(pre_gl_call);
   glad_set_post_callback(post_gl_call);
 #endif
-
 
   // allocate and initialize private members
 
@@ -215,20 +217,14 @@ sls_context_init(slsContext *self,
   sls_checkmem(self->priv);
   sls_renderer_init(&self->priv->renderer, width, height);
 
-  self->state = calloc(1, sizeof(slsAppState));
-  sls_checkmem(self->state &&
-               sls_app_state_init(self->state, &self->priv->renderer));
-
   return self;
 
-/// exception
-  error:
-
+error:
   sls_log_err("sdl error: %s", SDL_GetError());
-  return sls_context_dtor(self);;
+  return sls_context_dtor(self);
 }
 
-void sls_context_run(slsContext *self)
+void sls_context_run(slsContext* self)
 {
   if (!self->priv) {
     return;
@@ -257,14 +253,10 @@ void sls_context_run(slsContext *self)
   sls_context_teardown(self);
 }
 
-slsContext *
-sls_context_dtor(slsContext *self)
+slsContext* sls_context_dtor(slsContext* self)
 {
   if (self->window) {
     SDL_DestroyWindow(self->window);
-  }
-  if (self->state) {
-    free(sls_app_state_deinit(self->state));
   }
   // free private members
   if (self->priv) {
@@ -274,15 +266,13 @@ sls_context_dtor(slsContext *self)
   return self;
 }
 
-void
-sls_emscripten_loop(void *vctx)
+void sls_emscripten_loop(void* vctx)
 {
-  slsContext *ctx = vctx;
+  slsContext* ctx = vctx;
   sls_context_iter(ctx);
 }
 
-void
-sls_context_iter(slsContext *self)
+void sls_context_iter(slsContext* self)
 {
 
   if (!self->priv) {
@@ -290,7 +280,7 @@ sls_context_iter(slsContext *self)
   }
 
   uint64_t now = SDL_GetTicks();
-  slsContext_p *priv = self->priv;
+  slsContext_p* priv = self->priv;
   uint64_t interval = now - priv->last;
 
   // double true_dt = interval/ (double) SLS_TICKS_PER_SEC;
@@ -299,13 +289,12 @@ sls_context_iter(slsContext *self)
   priv->last = now;
 
   if (priv->ticks_since_draw > self->interval) {
-    double dt = priv->ticks_since_draw / (double) SLS_TICKS_PER_SEC;
+    double dt = priv->ticks_since_draw / (double)SLS_TICKS_PER_SEC;
     // sls_log_info("dt=%f", dt);
 
     priv->ticks_since_draw = 0;
 
     // update base app state before calling update callback
-    sls_app_state_update(self->state, dt);
     sls_context_update(self, dt);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -321,38 +310,30 @@ sls_context_iter(slsContext *self)
   }
 }
 
-void
-sls_context_resize(slsContext *self, int x, int y)
+void sls_context_resize(slsContext* self, int x, int y)
 {
-  glViewport(0, 0, (int) x, (int) y);
+  glViewport(0, 0, (int)x, (int)y);
 
-  if (self->state) {
-  }
   if (self->priv) {
     sls_renderer_resize(&self->priv->renderer, x, y);
   }
 }
 
-void
-sls_context_update(slsContext *self, double dt)
+void sls_context_update(slsContext* self, double dt)
 {
 }
 
-void
-sls_context_display(slsContext *self, double dt)
+void sls_context_display(slsContext* self, double dt)
 {
-  sls_renderer_display(&self->priv->renderer, self->state);
 }
 
-void
-sls_context_setup(slsContext *self)
+void sls_context_setup(slsContext* self)
 {
   if (!self->priv) {
-    assert(0);
-    return;
+    exit(EXIT_FAILURE);
   }
 
-  slsContext_p *priv = self->priv;
+  slsContext_p* priv = self->priv;
 
   sls_context_setupstate(self);
 
@@ -374,13 +355,11 @@ sls_context_setup(slsContext *self)
   sls_context_resize(self, x * 2, y * 2);
 }
 
-void
-sls_context_setupstate(slsContext *self)
+void sls_context_setupstate(slsContext* self)
 {
 }
 
-void
-sls_context_pollevents(slsContext *self)
+void sls_context_pollevents(slsContext* self)
 {
 
   SDL_Event e;
@@ -396,22 +375,20 @@ sls_context_pollevents(slsContext *self)
   }
 }
 
-static inline void
-_sls_context_windowevent(slsContext *self, SDL_WindowEvent const *we)
+static inline void _sls_context_windowevent(slsContext* self,
+                                            SDL_WindowEvent const* we)
 {
   switch (we->event) {
     case SDL_WINDOWEVENT_RESIZED: {
       int w = we->data1 * 2, h = we->data2 * 2;
       sls_context_resize(self, w, h);
-    }
-      break;
+    } break;
     default:
       break;
   }
 }
 
-void
-sls_context_handle_event(slsContext *self, SDL_Event const *e)
+void sls_context_handle_event(slsContext* self, SDL_Event const* e)
 {
   switch (e->type) {
     case SDL_QUIT:
@@ -424,21 +401,15 @@ sls_context_handle_event(slsContext *self, SDL_Event const *e)
       break;
   }
   // pass event to
-  if (self->state) {
-  }
 }
 
-void
-sls_context_teardown(slsContext *self)
+void sls_context_teardown(slsContext* self)
 {
-  if (self->state) {
-  }
 }
 
 #ifndef __EMSCRIPTEN__
 
-int
-sls_get_glversion()
+int sls_get_glversion()
 {
   int major = 0, minor = 0, major_mul = 100, minor_mul = 10, full;
 
@@ -450,8 +421,7 @@ sls_get_glversion()
 }
 
 #else
-int
-sls_get_glversion()
+int sls_get_glversion()
 {
   // emscripten uses webgl 1.0.0
   const int webgl_default_version = 100;

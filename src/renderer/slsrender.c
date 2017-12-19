@@ -1,4 +1,3 @@
-#include <state/slsAppState.h>
 #include "slsrender.h"
 
 static void scene_setup(slsRendererGL* self);

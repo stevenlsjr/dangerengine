@@ -5,6 +5,13 @@
     "SConstruct": "python",
     "*.fs": "fsharp",
     "*.metal": "cpp",
-    "pthread.h": "c"
+    "pthread.h": "c",
+    "dangerengine.h": "c",
+    "contexthandlers.h": "c",
+    "sls-imagelib.h": "c",
+    "sls-gl.h": "c",
+    "sdl.h": "c",
+    "locale": "cpp",
+    "string": "cpp"
   }
 }

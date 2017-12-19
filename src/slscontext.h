@@ -11,7 +11,6 @@
 
 #include <sls-commonlibs.h>
 #include "slsutils.h"
-#include "state/slsAppState.h"
 
 typedef struct slsContext slsContext;
 typedef struct slsContext_p slsContext_p;
@@ -31,7 +30,6 @@ struct slsContext {
   slsContext_p* priv;
 
 
-  slsAppState* state;
 
 
   void* data;

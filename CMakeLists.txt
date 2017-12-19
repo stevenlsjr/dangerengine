@@ -112,8 +112,6 @@ set(DANGER_SRC
     src/slscontext.c
     src/slscontext.h
     src/slsmacros.h
-    src/state/slsAppState.c
-    src/state/slsAppState.h
     src/state/slsInputState.c
     src/state/slsInputState.h
     src/slserror.c src/slserror.h)

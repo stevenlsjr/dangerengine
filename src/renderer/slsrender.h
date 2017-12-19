@@ -12,7 +12,6 @@
 #include "slsmesh.h"
 #include <kazmath/kazmath.h>
 #include <slsmacros.h>
-#include <state/slsAppState.h>
 
 SLS_BEGIN_CDECLS
 
