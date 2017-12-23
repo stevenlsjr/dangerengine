@@ -23,7 +23,7 @@ struct slsContext_p {
 
   slsShader shader;
 
-  slsSprite *sprite;
+  slsSprite sprite;
 };
 
 static void pre_gl_call(char const *name, void *glfunc, int len_args, ...)
@@ -35,7 +35,22 @@ static void post_gl_call(char const *name, void *glfunc, int len_args, ...)
   GLenum err = GL_NO_ERROR;
   err = glad_glGetError();
   if (err != GL_NO_ERROR) {
-    sls_log_err("gl error 0x%x(%i): %s", err, err, name);
+    char symbol[255];
+    switch (err){
+      case GL_INVALID_VALUE:
+        strcpy(symbol, "GL_INVALID_VALUE");
+        break;
+      case GL_INVALID_OPERATION:
+        strcpy(symbol, "GL_INVALID_OPERATION");
+        break;
+      case GL_INVALID_ENUM:
+        strcpy(symbol, "GL_INVALID_ENUM");
+        break;
+      default:
+        strcpy(symbol, "???");
+
+    }
+    sls_log_err("gl error 0x%x(%s): %s", err, symbol, name);
   }
 }
 
@@ -61,6 +76,9 @@ static void debug_message_cb(GLenum source,
     default:
       severity_select = 2;
   }
+
+  char symbol[255] = "";
+
 
   sls_log_info("%s, source 0x%x , type 0x%x: %s",
                severity_strs[severity_select],
@@ -193,7 +211,7 @@ slsContext *sls_context_init(slsContext *self,
 
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
-  sls_renderer_init(&self->priv->renderer, width, height);
+  sls_renderer_init(&self->priv->renderer, (int)width, (int)height);
 
   return self;
 
@@ -223,7 +241,6 @@ void sls_context_run(slsContext *self)
 
   sls_context_resize(self, w * 2, h * 2);
 
-  sls_context_display(self, 0.0);
   while (self->is_running) {
     sls_context_iter(self);
   }
@@ -244,6 +261,11 @@ slsContext *sls_context_dtor(slsContext *self)
   return self;
 }
 
+#ifdef __EMSCRIPTEN__
+static void em_main_loop_iter(void *context_self){
+  sls_context_iter((slsContext*)context_self);
+}
+#endif // __EMSCRIPTEN__
 
 void sls_context_iter(slsContext *self)
 {
@@ -270,14 +292,8 @@ void sls_context_iter(slsContext *self)
     // update base app state before calling update callback
     sls_context_update(self, dt);
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     sls_context_display(self, dt);
-
-
-    SDL_GL_SwapWindow(self->window);
-
-    // reset input state after update interval
 
     sls_context_pollevents(self);
     self->frame_n++;
@@ -299,6 +315,15 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
+  glClearColor(0.0, 1.0, 0.0, 1.0);
+  slsRendererGL *r = &self->priv->renderer;
+  glUseProgram(self->priv->shader.program);
+  sls_renderer_clear(r);
+  sls_sprite_draw(&self->priv->sprite, r);
+
+  sls_renderer_swap(r, self);
+
+
 }
 
 void sls_context_setup(slsContext *self)
@@ -313,29 +338,23 @@ void sls_context_setup(slsContext *self)
 
   sls_log_info("openGL version %s", glGetString(GL_VERSION));
 
-  // setup opengl pipeline
-
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_BLEND);
-  glEnable(GL_POINT_SIZE);
-
-  glEnable(GL_POINT_SPRITE_ARB);
-
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   int x, y;
   SDL_GetWindowSize(self->window, &x, &y);
 
   sls_context_resize(self, x * 2, y * 2);
 
-  char const *vs = ""
-      "void main(){"
-      "}";
-  char const *fs = ""
-      "void main(){"
-      "}";
-  char const *uniforms = "";
-  sls_shader_from_sources(&self->priv->shader, SLS_DEFAULT_VS, SLS_DEFAULT_FS, SLS_DEFAULT_UNIFORMS);
+  sls_checkmem(
+      sls_shader_from_sources(&self->priv->shader,
+                              SLS_DEFAULT_VS, SLS_DEFAULT_FS,
+                              SLS_DEFAULT_UNIFORMS));
+
+  // setup sprite
+  sls_checkmem(sls_sprite_init(&self->priv->sprite, SLS_DEFAULT_TRANSFORM));
+
+  return;
+error:
+  sls_log_err("failure!");
 }
 
 void sls_context_setupstate(slsContext *self)
@@ -348,7 +367,7 @@ void sls_context_pollevents(slsContext *self)
   SDL_Event e;
 
   if (!self->window) {
-    assert(!"window doesn't exist");
+    abort();
   }
 
   if (self->is_running) {
@@ -389,6 +408,8 @@ void sls_context_handle_event(slsContext *self, SDL_Event const *e)
 
 void sls_context_teardown(slsContext *self)
 {
+  sls_sprite_dtor(&self->priv->sprite);
+  sls_shader_dtor(&self->priv->shader);
 }
 
 

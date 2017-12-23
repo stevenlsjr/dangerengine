@@ -20,10 +20,17 @@ typedef struct slsMesh slsMesh;
 typedef struct slsMesh_p slsMesh_p;
 
 typedef struct slsVertex slsVertex;
+typedef struct slsVertex2D slsVertex2D;
 
 struct slsVertex {
   float position[3];
   float normal[3];
+  float uv[2];
+  float color[4];
+};
+
+struct slsVertex2D {
+  float position[3];
   float uv[2];
   float color[4];
 };

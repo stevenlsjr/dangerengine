@@ -12,6 +12,7 @@
 #include "slsmesh.h"
 #include <kazmath/kazmath.h>
 #include <slsmacros.h>
+#include <slscontext.h>
 
 SLS_BEGIN_CDECLS
 
@@ -31,8 +32,6 @@ struct slsRendererGL {
   kmMat4 projection;
 
   int width, height;
-
-
 };
 
 /**
@@ -62,19 +61,15 @@ SLS_NONNULL(1);
  */
 slsRendererGL *sls_renderer_dtor(slsRendererGL *self) SLS_NONNULL(1);
 
-/**
- * draws rendered scene via OpenGL
- * @param self
- */
-void sls_renderer_display(slsRendererGL *self, slsAppState *state) SLS_NONNULL(1, 2);
+static void sls_renderer_clear(slsRendererGL *self){
+  glClear(GL_COLOR_BUFFER_BIT);
+}
+static void sls_renderer_swap(slsRendererGL *self, slsContext *ctx){
+  SDL_GL_SwapWindow(ctx->window);
+}
 
 void sls_renderer_resize(slsRendererGL *self, int width, int height)
 SLS_NONNULL(1);
-
-void sls_renderer_draw_mesh(slsRendererGL *self,
-                            slsMesh *mesh,
-                            slsShader *shader,
-                            kmMat4 *model_view);
 
 SLS_END_CDECLS
 

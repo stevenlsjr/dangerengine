@@ -12,13 +12,13 @@
 #include "shaderutils.h"
 #include <sls-gl.h>
 
-
-
-
 slsShader *
 sls_shader_from_sources(slsShader *self, char const *vs_source, char const *fs_source,
                         char const *uniforms)
 {
+  if (!uniforms) {
+    uniforms = SLS_DEFAULT_UNIFORMS;
+  }
   GLuint program = sls_create_program(vs_source, fs_source, uniforms);
   self = sls_shader_init(self, program);
   return self;
