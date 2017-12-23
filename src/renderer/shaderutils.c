@@ -82,8 +82,8 @@ void _sls_print_log(GLuint object,
 /**
  * Compile the shader from file 'filename', with error handling
  */
-GLuint sls_create_shader(const char* filename,
-                         char const* uniform_file_name,
+GLuint sls_create_shader(const char *source,
+                         char const *uniforms,
                          GLenum type)
 {
   GLchar const* modern_preamble = "#version 330\n#define SLS_MODERN_OPENGL 1\n";
@@ -104,37 +104,21 @@ GLuint sls_create_shader(const char* filename,
   preamble = gles_preamble;
 #endif
 
-  GLchar* source = sls_file_read(filename);
-  char* uniform_src = sls_file_read(uniform_file_name);
 
-  if (!uniform_src) {
-    sls_log_err("Error opening %s: ", uniform_file_name);
-    perror("");
-    return 0;
-  }
-
-  if (!source) {
-    sls_log_err("Error opening %s: ", filename);
-    perror("");
-    return 0;
-  }
   GLuint res = glCreateShader(type);
 
-  char const* sources[] = { preamble, uniform_src, source };
+  char const* sources[] = { preamble, uniforms, source };
   const size_t n_sources = sizeof(sources) / sizeof(char*);
 
   glShaderSource(res, n_sources, sources, NULL);
 
-  free(source);
-  free(uniform_src);
 
   glCompileShader(res);
   GLint compile_ok = GL_FALSE;
   glGetShaderiv(res, GL_COMPILE_STATUS, &compile_ok);
 
   if (compile_ok == GL_FALSE) {
-    fprintf(stderr, "%s:", filename);
-    sls_print_log(res, filename);
+    sls_print_log(res, "...");
     glDeleteShader(res);
 
     return 0;
@@ -143,25 +127,24 @@ GLuint sls_create_shader(const char* filename,
   return res;
 }
 
-GLuint sls_create_program(const char* vertexfile,
-                          const char* fragmentfile,
+GLuint sls_create_program(const char* vertex_source,
+                          const char* frag_source,
                           char const* uniform_definitions)
 {
   GLuint program = glCreateProgram(), vs = 0, fs = 0;
 
-  sls_checkmem(vertexfile && fragmentfile && uniform_definitions);
 
-  vs = sls_create_shader(vertexfile, uniform_definitions, GL_VERTEX_SHADER);
+  vs = sls_create_shader(vertex_source, uniform_definitions, GL_VERTEX_SHADER);
   if (vs == 0) {
-    sls_log_err("vertex active_shader at path %s is invalid", vertexfile);
+    sls_log_err("vertex active_shader at path %s is invalid", vertex_source);
     sls_checkmem(vs != 0);
     return 0;
   }
   glAttachShader(program, vs);
 
-  fs = sls_create_shader(fragmentfile, uniform_definitions, GL_FRAGMENT_SHADER);
+  fs = sls_create_shader(frag_source, uniform_definitions, GL_FRAGMENT_SHADER);
   if (fs == 0) {
-    sls_log_err("fragment active_shader at path %s is invalid", fragmentfile);
+    sls_log_err("fragment active_shader at path %s is invalid", frag_source);
     glDeleteShader(vs);
     sls_checkmem(fs != 0);
     return 0;
@@ -257,19 +240,3 @@ GLuint create_gs_program(const char* vertexfile,
   return 0;
 }
 #endif
-
-GLint sls_get_attrib(GLuint program, const char* name)
-{
-  GLint attribute = glGetAttribLocation(program, name);
-  if (attribute == -1)
-    fprintf(stderr, "Could not bind attribute %s\n", name);
-  return attribute;
-}
-
-GLint sls_get_uniform(GLuint program, const char* name)
-{
-  GLint uniform = glGetUniformLocation(program, name);
-  if (uniform == -1)
-    fprintf(stderr, "Could not bind uniform %s\n", name);
-  return uniform;
-}

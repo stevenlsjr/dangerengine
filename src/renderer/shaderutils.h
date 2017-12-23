@@ -34,12 +34,12 @@ void _sls_print_log(GLuint object,
                    __LINE__);                                                  \
   } while (0)
 
-GLuint sls_create_shader(const char* filename,
-                         char const* uniform_file_name,
+GLuint sls_create_shader(const char *source,
+                         char const *uniforms,
                          GLenum type) SLS_NONNULL(1, 2);
 
-GLuint sls_create_program(const char* vertexfile,
-                          const char* fragmentfile,
+GLuint sls_create_program(const char* vertex_source,
+                          const char* frag_source,
                           char const* uniform_definitions) SLS_NONNULL(1, 2, 3);
 
 GLuint sls_create_gs_program(const char* vertexfile,

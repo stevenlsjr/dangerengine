@@ -29,9 +29,6 @@ struct slsContext {
   uint64_t interval;
   slsContext_p* priv;
 
-
-
-
   void* data;
 };
 
