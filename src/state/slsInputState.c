@@ -12,29 +12,8 @@
 struct slsInputState {
   slsIPoint last_mousepos;
   int last_mousemask;
+
 };
-
-slsInputState* sls_inputstate_new()
-{
-  slsInputState* self = calloc(1, sizeof(slsInputState));
-  sls_checkmem(self);
-  return self;
-error:
-  if (self) {
-    sls_inputstate_delete(self);
-  }
-  return NULL;
-}
-
-void sls_inputstate_delete(slsInputState* self)
-{
-  sls_check(self, "slsInputState must be non-null");
-
-  free(self);
-  return;
-error:
-  return;
-}
 
 void sls_inputstate_update(slsInputState* self, double dt)
 {

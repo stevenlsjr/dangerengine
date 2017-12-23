@@ -12,6 +12,8 @@
     "sls-gl.h": "c",
     "sdl.h": "c",
     "locale": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "math-types.h": "c",
+    "slssprite.h": "c"
   }
 }

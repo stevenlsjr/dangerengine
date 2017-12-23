@@ -104,6 +104,9 @@ set(DANGER_SRC
     src/renderer/slsrender.h
     src/renderer/slsshader.c
     src/renderer/slsshader.h
+    src/renderer/slssprite.h
+    src/renderer/slssprite.c
+
     src/sls-commonlibs.h
     src/sls-gl.h
     src/slsutils.h
@@ -114,7 +117,7 @@ set(DANGER_SRC
     src/slsmacros.h
     src/state/slsInputState.c
     src/state/slsInputState.h
-    src/slserror.c src/slserror.h)
+    src/slserror.c src/slserror.h src/renderer/constants.cc)
 
 
 #tests  compiled  in  c++
