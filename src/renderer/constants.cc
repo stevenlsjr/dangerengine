@@ -21,7 +21,7 @@ void main(void)
   frag_color = color;
 
   frag_uv = uv;
-  gl_Position = vec4(modelview_projection * position, 1.0);
+  gl_Position = vec4(position, 1.0);
 }
 )SHADER";
 
@@ -44,7 +44,7 @@ in vec2 frag_uv;
 void main(void)
 {
 
-  out_color = texture(diffuse_tex, frag_uv) * frag_color;
+  out_color = vec4(1.0, 0.0, 1.0, 1.0);
 }
 
 )SHADER";
