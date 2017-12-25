@@ -30,24 +30,24 @@ static void pre_gl_call(char const *name, void *glfunc, int len_args, ...)
 {
 }
 
+
 static void post_gl_call(char const *name, void *glfunc, int len_args, ...)
 {
-  GLenum err = GL_NO_ERROR;
-  err = glad_glGetError();
-  if (err != GL_NO_ERROR) {
+  GLenum err;
+  while ((err = glad_glGetError()) != GL_NO_ERROR) {
     char symbol[255];
-    switch (err){
+    switch (err) {
       case GL_INVALID_VALUE:
-        strcpy(symbol, "GL_INVALID_VALUE");
+        strlcpy(symbol, "GL_INVALID_VALUE", 255);
         break;
       case GL_INVALID_OPERATION:
-        strcpy(symbol, "GL_INVALID_OPERATION");
+        strlcpy(symbol, "GL_INVALID_OPERATION", 255);
         break;
       case GL_INVALID_ENUM:
-        strcpy(symbol, "GL_INVALID_ENUM");
+        strlcpy(symbol, "GL_INVALID_ENUM", 255);
         break;
       default:
-        strcpy(symbol, "???");
+        snprintf(symbol, 255, "GLenum(0x%x)", err);
 
     }
     sls_log_err("gl error 0x%x(%s): %s", err, symbol, name);
@@ -211,7 +211,7 @@ slsContext *sls_context_init(slsContext *self,
 
   self->priv = calloc(1, sizeof(slsContext_p));
   sls_checkmem(self->priv);
-  sls_renderer_init(&self->priv->renderer, (int)width, (int)height);
+  sls_renderer_init(&self->priv->renderer, (int) width, (int) height);
 
   return self;
 
@@ -315,6 +315,12 @@ void sls_context_update(slsContext *self, double dt)
 
 void sls_context_display(slsContext *self, double dt)
 {
+  slsShader *s = &self->priv->shader;
+  kmMat4 mvp;
+  kmMat4OrthographicProjection(&mvp, -1.f, 1.f, -1.f, 1.f, -1.f, 1000.f);
+  GLint loc = glGetUniformLocation(s->program, "modelview_projection");
+  glUniformMatrix4fv(loc, 1, false, mvp.mat);
+
   glClearColor(0.0, 1.0, 0.0, 1.0);
   slsRendererGL *r = &self->priv->renderer;
   glUseProgram(self->priv->shader.program);

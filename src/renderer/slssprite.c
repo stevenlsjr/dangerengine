@@ -66,6 +66,6 @@ void sls_sprite_draw(slsSprite *self, slsRendererGL *renderer)
 {
   glBindVertexArray(self->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->vbo);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_POINTS, 6, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }

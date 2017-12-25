@@ -21,7 +21,9 @@ void main(void)
   frag_color = color;
 
   frag_uv = uv;
-  gl_Position = vec4(position, 1.0);
+  gl_PointSize = 5.0;
+
+  gl_Position =  modelview_projection * vec4(position, 1.0);
 }
 )SHADER";
 
@@ -43,8 +45,7 @@ in vec2 frag_uv;
 
 void main(void)
 {
-
-  out_color = vec4(1.0, 0.0, 1.0, 1.0);
+  out_color = vec4(1.0, 1.0, 1.0, 1.0);
 }
 
 )SHADER";
@@ -56,7 +57,7 @@ char const *SLS_DEFAULT_UNIFORMS = R"SHADER(
  * @license FreeBSD
  **/
 
-uniform mat3 modelview_projection;
+uniform mat4 modelview_projection;
 
 uniform sampler2D diffuse_tex;
 
