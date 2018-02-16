@@ -4,6 +4,15 @@
 cmake_minimum_required(VERSION 3.1)
 project(dangerengine)
 
+# Platform Info macros
+
+if (CMAKE_SYSTEM_NAME EQUAL Linux)
+  set(LINUX)
+elseif (CMAKE_SYSTEM_NAME EQUAL FreeBSD)
+  set(FREEBSD)
+endif ()
+
+
 set(DANGERENGINE_BUILD_TESTS ON
     CACHE BOOL
     "build unit tests for dangerengine")
@@ -25,38 +34,29 @@ find_package(OpenGL)
 
 find_package(Doxygen)
 
-if(${EMSCRIPTEN})
+if (EMSCRIPTEN)
   # we don't need pkg-config, but unit tests
   # are disabled
   set(DANGERBIRD_EMSCRIPTEN ON)
-  set(DANGERENGINE_BUILD_TESTS OFF)
 
-  # enable non-webworker port of port of pthreads for simplicity
-#   set(EM_USE_PTHREADS "")
   set(CMAKE_C_FLAGS
-    "-s USE_SDL=2 ${EM_USE_PTHREADS}" ${CMAKE_C_FLAGS})
-  set(CMAKE_EXE_LINKER_FLAGS 
-    "-s USE_SDL=2 ${EM_USE_PTHREADS}")
-  set(CMAKE_SHARED_LINKER_FLAGS 
-    "-s USE_SDL=2 ${EM_USE_PTHREADS}")
+      "-s USE_SDL=2 ${EM_USE_PTHREADS}" ${CMAKE_C_FLAGS})
+  set(CMAKE_EXE_LINKER_FLAGS
+      "-s USE_SDL=2 --pre-js '${CMAKE_SOURCE_DIR}/src/emscripten/module.pre.js'")
+  set(CMAKE_SHARED_LINKER_FLAGS
+      "-s USE_SDL=2")
 
   set(CMAKE_C_FLAGS_DEBUG
-    # enable source maps
-    "-O0 -g4")
+      # enable source maps
+      "-O0 -g4")
 
-  # set(CMAKE_EXECUTABLE_SUFFIX ".html")
+  set(CMAKE_EXECUTABLE_SUFFIX ".js")
 
-else()
-  set (DANGERBIRD_EMSCRIPTEN OFF)
+else ()
   find_package(PkgConfig REQUIRED)
 
-  pkg_check_modules(GLIB glib-2.0 REQUIRED)
-  pkg_check_modules(SDL2 sdl2 REQUIRED)
   find_package(Threads)
-endif()
-
-
-
+endif ()
 
 
 #force  pthreads  on  win32
@@ -80,7 +80,6 @@ endif (${WIN32})
 #--------------------------------------------
 
 
-
 add_subdirectory(extern/lib)
 set(DANGER_SRC
     ${VENDOR_SRC}
@@ -92,8 +91,6 @@ set(DANGER_SRC
     src/math/math-types.h
     src/math/slsMathUtils.c
     src/math/slsMathUtils.h
-    # src/math/slsSimd.c
-    # src/math/slsSimd.h
     src/math/slsTrackball.c
     src/math/slsTrackball.h
     src/renderer/shaderutils.c
@@ -117,15 +114,17 @@ set(DANGER_SRC
     src/slsmacros.h
     src/state/slsInputState.c
     src/state/slsInputState.h
-    src/slserror.c src/slserror.h src/renderer/constants.cc)
+    src/slserror.c src/slserror.h src/renderer/constants.cc src/math/math-operations.h)
 
 
 #tests  compiled  in  c++
 set(DANGER_TEST_SRC
-    tests/main.cc
+    extern/Unity/src/unity.c
+    extern/Unity/src/unity.h
+    extern/Unity/src/unity_internals.h
+    tests/main-tests.c
     tests/data-types/data-tests.c
-    tests/testing.h tests/error-tests.c
-    tests/testing.h tests/math-tests.c)
+    tests/math-tests.c)
 
 
 set(DANGER_DEMO_SRC
@@ -138,35 +137,34 @@ set(DANGER_DEMO_SRC
 
 #copy  resources  to  build
 file(COPY ${CMAKE_SOURCE_DIR}/resources/
-    DESTINATION ${CMAKE_BINARY_DIR}/resources)
+     DESTINATION ${CMAKE_BINARY_DIR}/resources)
 
 
 file(GLOB DANGER_RES ${CMAKE_SOURCE_DIR}
-    resources/*
-    resources/**/*
-    CMakeLists.txt
-    em.js.*
-    *.cmake)
+     resources/*
+     resources/**/*
+     CMakeLists.txt
+     em.js.*
+     *.cmake)
 
 add_custom_target(sls_resources
-    COMMAND
-    ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/ &&
-    ${CMAKE_COMMAND} -E cmake_echo_color --green
-    "--  copying  resources/  to  ${CMAKE_BINARY_DIR}"
-    COMMENT "application  resources"
-    SOURCES ${DANGER_RES})
+                  COMMAND
+                  ${CMAKE_COMMAND} -E copy_directory
+                  ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/ &&
+                  ${CMAKE_COMMAND} -E cmake_echo_color --green
+                  "--  copying  resources/  to  ${CMAKE_BINARY_DIR}"
+                  COMMENT "application  resources"
+                  SOURCES ${DANGER_RES})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=gnu++1y")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -std=gnu11")
 
 
-add_subdirectory(extern/kazmath)
-
 #kazmath
 set(KAZMATH_BUILD_JNI_WRAPPER OFF CACHE BOOL "" FORCE)
-set(KAZMATH_BUILD_LUA_WRAPPER OFF  CACHE BOOL "" FORCE)
-set(KAZMATH_BUILD_TESTS OFF  CACHE BOOL "" FORCE)
+set(KAZMATH_BUILD_LUA_WRAPPER OFF CACHE BOOL "" FORCE)
+set(KAZMATH_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(extern/kazmath)
 
 
 add_subdirectory(src/data-types)
@@ -175,45 +173,43 @@ add_subdirectory(src/data-types)
 # cmake config file
 configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/src/config.h)
 
-set(CMAKE_LINK_LIBRARY_FLAGS "${CMAKE_LINK_LIBRARY_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
-set(CMAKE_LINK_EXE_FLAGS "${CMAKE_LINK_EXE_FLAGS}  ${SDL2_LDFLAGS} ${GLIB_LDFLAGS}")
+set(CMAKE_LINK_LIBRARY_FLAGS "${CMAKE_LINK_LIBRARY_FLAGS}  ${SDL2_LDFLAGS} ")
+set(CMAKE_LINK_EXE_FLAGS "${CMAKE_LINK_EXE_FLAGS}  ${SDL2_LDFLAGS}")
 set(DANGER_DEPS
     ${DANGERTYPES_LIB}
     ${DANGER_PTHREAD_LIB}
     ${OPENGL_LIBRARIES}
-    
-    kazmath
-    )
 
-message(${DANGERBIRD_EMSCRIPTEN})
+    kazmath)
 
-if(NOT ${DANGERBIRD_EMSCRIPTEN})
-    message("setting dependencies")
-  set (DANGER_DEPS ${DANGER_DEPS} 
-  
-    ${GLIB_LIBRARIES}
-    ${SDL2_LIBRARIES})
-endif()
 
-if (${UNIX})
+if (NOT EMSCRIPTEN)
+  message("setting dependencies")
+  set(DANGER_DEPS ${DANGER_DEPS}
+
+      ${SDL2_LIBRARIES})
+endif ()
+
+if (LINUX)
   set(DANGER_DEPS ${DANGER_DEPS} m dl)
 endif ()
 
 
 link_directories(${SDL2_LIBRARY_DIRS}
-    ${SDL2IMG_LIBRARY_DIRS}
-    ${GLIB_LIBRARY_DIRS})
+                 ${SDL2IMG_LIBRARY_DIRS}
+                 ${GLIB_LIBRARY_DIRS})
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/extern/lib
-    ${CMAKE_SOURCE_DIR}/extern/kazmath
-    ${CMAKE_SOURCE_DIR}/extern/glad_debug/include
-    ${CMAKE_SOURCE_DIR}/extern/stb
-    ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/src/data-types
-    ${OPENGL_INCLUDE_DIR}
-    ${SDL2_INCLUDE_DIRS}
-    ${GLIB_INCLUDE_DIRS}
+  ${CMAKE_SOURCE_DIR}/extern/lib
+  ${CMAKE_SOURCE_DIR}/extern/kazmath
+  ${CMAKE_SOURCE_DIR}/extern/glad_debug/include
+  ${CMAKE_SOURCE_DIR}/extern/stb
+  ${CMAKE_SOURCE_DIR}/extern/Unity/src
+  ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/src/data-types
+  ${OPENGL_INCLUDE_DIR}
+  ${SDL2_INCLUDE_DIRS}
+  ${GLIB_INCLUDE_DIRS}
 )
 
 
@@ -232,7 +228,7 @@ add_library(dangerengine STATIC ${DANGER_SRC})
 
 
 target_link_libraries(dangerengine
-    ${DANGER_DEPS})
+                      ${DANGER_DEPS})
 
 get_target_property(DANGERENGINE_OUTPUT dangerengine LIBRARY_OUTPUT_NAME)
 
@@ -240,25 +236,25 @@ get_target_property(DANGERENGINE_OUTPUT dangerengine LIBRARY_OUTPUT_NAME)
 #  copy  resources  on  build
 
 add_custom_command(
-    TARGET sls_resources PRE_BUILD
-    COMMAND
-    ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/ &&
-    ${CMAKE_COMMAND} -E cmake_echo_color --green
-    "--  copying  resources/  to  ${CMAKE_BINARY_DIR}"
-    COMMENT "")
+  TARGET sls_resources PRE_BUILD
+  COMMAND
+  ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR} &&
+  ${CMAKE_COMMAND} -E cmake_echo_color --green
+  "--  copying  resources/  to  ${CMAKE_BINARY_DIR}"
+  COMMENT "")
 
 add_executable(${DANGERENGINE_EXE}
-    ${DANGER_DEMO_SRC})
+               ${DANGER_DEMO_SRC})
 
 
 add_dependencies(${DANGERENGINE_EXE}
-    dangerengine
-    sls_resources)
+                 dangerengine
+                 sls_resources)
 
 target_link_libraries(${DANGERENGINE_EXE}
-    dangerengine
-    ${DANGER_DEPS})
+                      dangerengine
+                      ${DANGER_DEPS})
 
 
 #  add  a  separate  library  for  tests  compiled  in  C.  Used  for  supporting  build
@@ -268,13 +264,15 @@ target_link_libraries(${DANGERENGINE_EXE}
 # don't use googletest when emscripten is the platform
 message("build tests ${DANGERENGINE_BUILD_TESTS}")
 
-if(${DANGERENGINE_BUILD_TESTS})
+if (DANGERENGINE_BUILD_TESTS)
   add_executable(tests ${DANGER_TEST_SRC})
   target_link_libraries(tests
-      dangerengine
-      ${DANGER_DEPS})
+                        dangerengine
+                        ${DANGER_DEPS})
+  add_dependencies(tests
+                   sls_resources)
 
-endif()
+endif ()
 
 
 if (DOXYGEN_FOUND)
@@ -288,16 +286,16 @@ if (DOXYGEN_FOUND)
 
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doxyfile.in
-      ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+                 ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 
   add_custom_target(doc
-      ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT "Generating  API  documentation  with  Doxygen" VERBATIM)
+                    ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                    COMMENT "Generating  API  documentation  with  Doxygen" VERBATIM)
   add_custom_target(view-html-docs
-      open ./html/index.html
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      COMMENT "opening  html  docs")
+                    open ./html/index.html
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                    COMMENT "opening  html  docs")
 
   add_dependencies(view-html-docs doc)
 

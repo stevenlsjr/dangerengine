@@ -15,7 +15,7 @@
                 "${workspaceRoot}/extern/lib",
                 "/usr/local/include/SDL2"
             ],
-            "defines": [],
+            "defines": ["__EMSCRIPTEN__"],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [

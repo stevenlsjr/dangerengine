@@ -2,34 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Emscripten build</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<style>
-  canvas#em-canvas {
-    size: 640 400;
-  }
-
-  #em-console {
-    background-color: black;
-    font-family: sans-serif;
-    
-  }
-</style>
 
 <body>
+    <h1>Emscripten demo!!</h1>
 
-  <canvas id="em-canvas"></canvas>
+    <div id="em-root">
 
-  <div id="em-console"></div>
+        <div id="em-console">
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/1.10.1/js/jquery.terminal.min.js"></script>
-  <script src="em_build.pre.js"></script>
-  <script src="demo.js"></script>
+        </div>
+    </div>
 
+    <form action="#" id="em-input">
+        <input id="em-text" type="text">
+        <input id="em-submit" type="submit" value="submit">
+    </form>
 
+    <script>
+        
+    </script>
+    <script src="/build/demo.js"></script>
 </body>
 
 </html>

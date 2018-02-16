@@ -45,6 +45,7 @@
 #include "data-types/dangertypes.h"
 
 #include "math/math-types.h"
+#include "math/math-operations.h"
 #include "math/slsMathUtils.h"
 
 #include "renderer/shaderutils.h"

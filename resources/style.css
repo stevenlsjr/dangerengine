@@ -1,0 +1,19 @@
+
+#em-console {
+  background-color: black;
+  
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
+  max-height: 15em;
+  overflow: scroll;
+  padding: 1em;
+}
+
+#em-console * {
+  color: greenyellow;
+  padding-top: 0.5em;
+}
+
+
+#em-console .console-err {
+  color: lightcoral;
+}

@@ -172,6 +172,7 @@ slsContext *sls_context_init(slsContext *self,
   };
 
   self->gl_context = NULL;
+#ifndef __EMSCRIPTEN__
   int context_profile = SDL_GL_CONTEXT_PROFILE_CORE;
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, context_profile);
 
@@ -195,6 +196,8 @@ slsContext *sls_context_init(slsContext *self,
     sls_log_err("failed to load glad proc loader");
     exit(EXIT_FAILURE);
   }
+
+#endif // !__EMSCRIPTEN__
 
 #ifdef GLAD_DEBUG
   int major, minor;
